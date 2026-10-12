@@ -9,6 +9,9 @@ const Synthesizer = preload("synthesizer.gd")
 @export_range(1.0, 80.0) var view_cone_degrees: float = 35.0
 @export_range(1.0, 120.0) var vertical_fov: float = 35.0
 @export_range(0.2, 50.0) var focus_distance: float = 6.0
+## Diagnostic: keep camera spacing fixed while changing convergence distance.
+## Zero preserves the default baseline derived from focus_distance.
+var camera_span_reference_distance: float = 0.0
 @export var near_clip: float = 0.1
 @export var far_clip: float = 40.0
 ## Optional strictly increasing indices including both end views. Set before ready.
@@ -58,7 +61,8 @@ var quilt_texture: Texture2D:
 
 func eye_at(index: int) -> float:
     var t: float = float(index) / float(total_views - 1) if total_views > 1 else 0.5
-    return (2.0 * t - 1.0) * focus_distance * tan(deg_to_rad(view_cone_degrees) * 0.5)
+    var span_distance: float = camera_span_reference_distance if camera_span_reference_distance > 0.0 else focus_distance
+    return (2.0 * t - 1.0) * span_distance * tan(deg_to_rad(view_cone_degrees) * 0.5)
 
 func _ready() -> void:
     if inverse_depth_reprojection:

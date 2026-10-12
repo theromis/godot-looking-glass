@@ -1,0 +1,31 @@
+{
+  "date": "2026-10-12",
+  "engine": "Godot 4.8 c61fc0118 native Metal",
+  "sdk": "2.6.3",
+  "environment": {
+    "GODOT_MTL_SYNC_MODE": "none"
+  },
+  "real_views": 66,
+  "quilt_size": [
+    4092,
+    4092
+  ],
+  "lit": true,
+  "virtual_camera_cone_degrees": 30,
+  "previous_focus_distance": 6,
+  "focus_distance": 5.2,
+  "camera_span_reference_distance": 6,
+  "camera_rig_world_z": 6,
+  "convergence_plane_world_z": 0.8,
+  "device_calibration_unchanged": true,
+  "api_success": true,
+  "exit_code": 0,
+  "user_observation": "User confirmed foreground sharper and rear geometry worse after shifting focus from 6.0 to 5.2",
+  "purpose": "Shift convergence toward foreground while keeping native camera positions fixed",
+  "limitations": [
+    "No depth-of-field blur added",
+    "No synthesis or measured optical quality",
+    "Changed projection/convergence, not lens or device calibration"
+  ],
+  "assessment": "Qualitative clarity distribution shifts with convergence distance at fixed camera spacing"
+}

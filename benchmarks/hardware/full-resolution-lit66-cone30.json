@@ -25,5 +25,6 @@
     "Reduced apparent depth is expected",
     "No measured performance or optical error"
   ],
-  "assessment": "Reduced parallax qualitatively improves this lit all-real scene; residual ghosting not quantified"
+  "assessment": "Reduced parallax qualitatively improves this lit all-real scene; residual ghosting not quantified",
+  "user_followup": "Rear object and rear portion of the middle object look good; foreground object and front portion of the middle object blur"
 }

@@ -223,3 +223,7 @@ The earlier hardware clips used only 64×114 pixels per view. At the actual 4092
 ### Lit display test and parallax control
 
 The physical diagnostic supports `--lit` for per-pixel shading, ambient fill, a directional light and soft-shadow parameters with a receiving floor. At full 4092² resolution the user reported better shading but foreground/background doubling in the all-real scene. Reducing only the virtual camera cone to 30° noticeably reduced that doubling; device calibration remains unchanged. This is a scene-specific parallax adjustment, not an established calibration fix. Use `--large --real-views=66 --lit --view-cone=30` for reproduction. [Hardware observations](benchmarks/hardware/README.md#litshadowed-depth-control).
+
+### Fixed-baseline convergence assessment
+
+For the lit 66-real, 4092², 30° scene, moving convergence from 6.0 to 5.2 at fixed camera spacing made the foreground sharper and the rear worse, according to the user. This distinguishes the current foreground/rear clarity issue from sparse-view synthesis. No universally sharp focus setting or calibration fix is established. The diagnostic accepts `--focus=5.2`; [method and observation](benchmarks/hardware/README.md#foreground-convergence-control).

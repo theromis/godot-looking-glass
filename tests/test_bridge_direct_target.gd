@@ -114,6 +114,15 @@ func run() -> void:
         fail("Invalid virtual camera cone")
         return
     rig.view_cone_degrees=virtual_cone
+    var focus: float=6.0
+    for argument in OS.get_cmdline_user_args():
+        if argument.begins_with("--focus="):
+            focus=float(argument.trim_prefix("--focus="))
+    if not is_finite(focus) or focus<=rig.near_clip or focus>=rig.far_clip:
+        fail("Invalid focus distance")
+        return
+    rig.focus_distance=focus
+    rig.camera_span_reference_distance=6.0 # Isolate convergence from camera spacing.
     rig.position.z=6
     scene.add_child(rig)
     # Frozen output. Finish subsequent Godot frames so synthesis recorded by
@@ -141,7 +150,7 @@ func run() -> void:
     if rig.synthesizer.dispatch_count<1 or rig.completed_revision!=rig.requested_revision:
         fail("Static quilt did not finish latest explicit request")
         return
-    print("Showing direct imported SDK quilt: real_views=",rig.real_views," total_views=",rig.total_views," tile=",tile," lit=",lit," virtual_cone=",virtual_cone,"; no intermediate quilt blit")
+    print("Showing direct imported SDK quilt: real_views=",rig.real_views," total_views=",rig.total_views," tile=",tile," lit=",lit," virtual_cone=",virtual_cone," focus=",focus," camera_span_reference=6; no intermediate quilt blit")
     var report: Dictionary=diagnostic.submit_direct_target(0.0 if fixture else 20.0)
     if not report.get("ok",false):
         fail(str(report.get("error","Direct submission failed")))

@@ -191,3 +191,13 @@ GODOT_MTL_SYNC_MODE=none "$GODOT" --path . --rendering-driver metal --script tes
 ```
 
 The official [depth-of-field guidance](https://docs.lookingglassfactory.com/developer-tools/index/depth-of-field-and-other-post-processing-effects) discusses the limited depth range of these displays and focusing postprocessing on the focal plane. This makes content depth/focus worth investigating; it does not identify the cause of this particular double-image report. No depth-of-field blur was added, and color/tonemapping accuracy remains unvalidated. See [30° diagnostic](../../benchmarks/hardware/full-resolution-lit66-cone30.json).
+
+### Convergence-distance control
+
+`--focus=5.2` changes the off-axis convergence distance without changing the camera rig position or camera spacing in the direct-target diagnostic. `camera_span_reference_distance=6.0` explicitly retains the prior eye-offset baseline; without that override the rig normally derives its camera spacing from `focus_distance`. The default rig behavior remains unchanged when the override is zero.
+
+```sh
+GODOT_MTL_SYNC_MODE=none "$GODOT" --path . --rendering-driver metal --script tests/test_bridge_direct_target.gd -- --large --real-views=66 --lit --view-cone=30 --focus=5.2
+```
+
+The rig remains at world z=6; this places convergence at z=0.8 instead of z=0. The test changes projection offsets, not a camera depth-of-field effect, viewer position, display calibration, shader filtering or material lighting. It investigates the user's report of good rear geometry but blurred foreground in the 30° all-real lit baseline. See [record](../../benchmarks/hardware/lit66-focus52.json).
