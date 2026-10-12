@@ -1,6 +1,7 @@
 // Explicit bounded experiment. Current GL-context completion is not a public
 // SDK consumer-completion contract; do not reuse this as production streaming.
 #include <bridge.h>
+#include "shared_frame.hpp"
 #import <Metal/Metal.h>
 #import <OpenGL/OpenGL.h>
 #import <OpenGL/gl3.h>
@@ -20,10 +21,14 @@ int main(int argc,char **argv) { @autoreleasepool {
     const unsigned width=large?4092:704,height=large?4092:684;
     const size_t pitch=(width*4+255)&~size_t(255);
     bool pipe_input=argc>=5 && std::string(argv[4])=="--live-stdin";
-    bool live_input=pipe_input || (argc>=5 && std::string(argv[4]).rfind("--live-directory=",0)==0);
+    bool shared_input=argc>=5 && std::string(argv[4]).rfind("--live-shm=",0)==0;
+    SharedFrame mailbox;
+    if(shared_input && !mailbox.open(std::string(argv[4]).substr(11),width,height,true)) return 2;
+    if(shared_input) std::cout<<"SHM ready"<<std::endl;
+    bool live_input=shared_input || pipe_input || (argc>=5 && std::string(argv[4]).rfind("--live-directory=",0)==0);
     std::vector<unsigned char> pipe_bytes;
     if(pipe_input) fcntl(STDIN_FILENO,F_SETFL,fcntl(STDIN_FILENO,F_GETFL)|O_NONBLOCK);
-    std::string live_path=live_input && !pipe_input?std::string(argv[4]).substr(17)+"/latest.bin":"";
+    std::string live_path=live_input && !pipe_input && !shared_input?std::string(argv[4]).substr(17)+"/latest.bin":"";
     bool frame_input=argc>=5 && !live_input;
     unsigned last_sequence=0;
     std::vector<std::vector<unsigned char>> frames;
@@ -74,7 +79,9 @@ int main(int argc,char **argv) { @autoreleasepool {
             std::vector<unsigned char> incoming;
             unsigned sequence=0;
             if(live_input) {
-                if(pipe_input) {
+                if(shared_input) {
+                    if(!mailbox.latest(last_sequence,incoming,sequence)) ok=false;
+                } else if(pipe_input) {
                     const size_t packet_size=16+width*height*4;
                     unsigned char chunk[65536];
                     for(unsigned batch=0;batch<64;++batch) {

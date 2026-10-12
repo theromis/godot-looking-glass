@@ -278,3 +278,7 @@ The latest bounded small-quilt run transferred all 24 newly rendered Godot frame
 ### Full-resolution live pipe control
 
 All eight new 4092×4092 Godot quilts reached the isolated Metal worker, with exact pixel checks and clean teardown; the user confirmed visible image/updates. This does not validate smooth 4K animation: average producer readback was 11.615 ms and blocking pipe write was 1494.582 ms per frame in the single bounded diagnostic run. CPU transport/backpressure is the next optimization target; shared-memory and GPU-sharing paths remain unfinished. See [measurement scope](docs/live-pipe-transport.md#full-resolution-control).
+
+### Shared-memory 4K transport checkpoint
+
+The isolated worker can use a semaphore-protected one-frame CPU mailbox. The 4K run published eight new Godot quilts and presented five latest-frame updates with exact pixel checks and clean teardown. Average publication elapsed time was 20.786 ms versus 1494.582 ms for the preceding pipe run; readback remained 12.057 ms. These are single-run stage timings, not total FPS or display latency. Cross-process coherence/payload/cleanup tests passed. Physical observation remains pending in the run record. See [protocol, limitations and RotatingCube comparison](docs/live-shared-memory.md).

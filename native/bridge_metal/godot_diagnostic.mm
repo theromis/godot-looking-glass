@@ -1,5 +1,6 @@
 // Optional frozen-quilt diagnostic. Real SDK output is an explicit bounded call.
 #include "adapter.hpp"
+#include "shared_frame.hpp"
 #include <fcntl.h>
 #include <unistd.h>
 #include <sys/stat.h>
@@ -23,6 +24,9 @@ class LookingGlassMetalDiagnostic : public RefCounted {
     RID direct_import;
 protected:
     static void _bind_methods() {
+        ClassDB::bind_method(D_METHOD("open_shared_frame","name","width","height"), &LookingGlassMetalDiagnostic::open_shared_frame);
+        ClassDB::bind_method(D_METHOD("write_shared_frame","sequence","pixels"), &LookingGlassMetalDiagnostic::write_shared_frame);
+        ClassDB::bind_method(D_METHOD("close_shared_frame"), &LookingGlassMetalDiagnostic::close_shared_frame);
         ClassDB::bind_method(D_METHOD("open_frame_pipe", "path"), &LookingGlassMetalDiagnostic::open_frame_pipe);
         ClassDB::bind_method(D_METHOD("write_frame_pipe", "sequence", "pixels", "width", "height"), &LookingGlassMetalDiagnostic::write_frame_pipe);
         ClassDB::bind_method(D_METHOD("close_frame_pipe"), &LookingGlassMetalDiagnostic::close_frame_pipe);
@@ -43,6 +47,14 @@ protected:
         ClassDB::bind_method(D_METHOD("wait_for_native_producer"), &LookingGlassMetalDiagnostic::wait_for_native_producer);
     }
 public:
+    SharedFrame shared_frame;
+    bool open_shared_frame(String name,int64_t width,int64_t height) {
+        return [NSThread isMainThread] && shared_frame.open(name.utf8().get_data(),width,height,false);
+    }
+    bool write_shared_frame(int64_t sequence,PackedByteArray pixels) {
+        return [NSThread isMainThread] && sequence>0 && sequence<=UINT32_MAX && shared_frame.publish(sequence,pixels.ptr(),pixels.size());
+    }
+    void close_shared_frame() { shared_frame.close(); }
     int frame_pipe=-1;
     ~LookingGlassMetalDiagnostic() { close_frame_pipe(); }
     bool open_frame_pipe(String path) {

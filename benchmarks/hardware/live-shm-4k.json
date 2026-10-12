@@ -1,0 +1,34 @@
+{
+  "execution_passed": true,
+  "producer_exit": 0,
+  "worker_exit": 0,
+  "transport": "POSIX shared memory with named semaphore; CPU readback/copies/upload",
+  "quilt_size": [
+    4092,
+    4092
+  ],
+  "producer_frames_requested": 8,
+  "worker_duration_seconds": 20,
+  "user_observation": "Pending",
+  "consumer_completion_contract_verified": false,
+  "production_ready": false,
+  "received_sequences": [
+    1,
+    3,
+    5,
+    6,
+    8
+  ],
+  "mean_get_image_elapsed_ms": 12.05725,
+  "mean_shared_write_elapsed_ms": 20.786375,
+  "date": "2026-10-12",
+  "produced_frames": 8,
+  "presented_updates": 5,
+  "exact_pixel_checks_passed": true,
+  "release_passed": true,
+  "shutdown_passed": true,
+  "cpu_cross_process_coherence_test_passed": true,
+  "cpu_test_snapshots": 9,
+  "comparison": "live-pipe-4k.json",
+  "measurement_scope": "Single run; get_image elapsed and publication elapsed incl. CPU image data, semaphore wait and memcpy; no full display latency/FPS measurement"
+}

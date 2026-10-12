@@ -7,15 +7,17 @@ func run() -> void:
     var dimensions: Vector2i=Vector2i(4092,4092) if large else Vector2i(704,684)
     var frame_count: int=8 if large else 24
     var directory: String="res://benchmarks/hardware/live-transport"
+    var shared_name: String=""
     var pipe_path: String=""
     for argument in OS.get_cmdline_user_args():
+        if argument.begins_with("--shm-name="): shared_name=argument.trim_prefix("--shm-name=")
         if argument.begins_with("--pipe-path="): pipe_path=argument.trim_prefix("--pipe-path=")
     DirAccess.make_dir_recursive_absolute(directory)
     var pipe_writer: RefCounted
-    if not pipe_path.is_empty():
+    if not pipe_path.is_empty() or not shared_name.is_empty():
         GDExtensionManager.load_extension("res://native/bridge_metal/build/looking_glass_diagnostic.gdextension")
         pipe_writer=ClassDB.instantiate("LookingGlassMetalDiagnostic")
-        if pipe_writer==null or not pipe_writer.open_frame_pipe(pipe_path):
+        if pipe_writer==null or not (pipe_writer.open_shared_frame(shared_name,dimensions.x,dimensions.y) if not shared_name.is_empty() else pipe_writer.open_frame_pipe(pipe_path)):
             printerr("FAIL live producer pipe open")
             quit(1)
             return
@@ -66,7 +68,8 @@ func run() -> void:
             return
         if pipe_writer!=null:
             var pipe_started: int=Time.get_ticks_usec()
-            if not pipe_writer.write_frame_pipe(frame+1,image.get_data(),dimensions.x,dimensions.y):
+            var written: bool=pipe_writer.write_shared_frame(frame+1,image.get_data()) if not shared_name.is_empty() else pipe_writer.write_frame_pipe(frame+1,image.get_data(),dimensions.x,dimensions.y)
+            if not written:
                 printerr("FAIL live producer pipe write")
                 quit(1)
                 return
@@ -87,7 +90,9 @@ func run() -> void:
                 return
         print("PRODUCER sequence=",frame+1)
         await create_timer(0.4).timeout
-    if pipe_writer!=null: pipe_writer.close_frame_pipe()
+    if pipe_writer!=null:
+        pipe_writer.close_frame_pipe()
+        pipe_writer.close_shared_frame()
     scene.queue_free()
     for i in range(4): await process_frame
     print("PASS live Godot producer frames=",frame_count," mean_readback_ms=",float(readback_us)/(1000.0*frame_count)," mean_pipe_write_ms=",float(pipe_us)/(1000.0*frame_count))
