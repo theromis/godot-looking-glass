@@ -3,4 +3,4 @@ WARNING: Falling back to dummy PhysicsServer2D; 2D physics functionality will be
 Godot Engine v4.8.dev.custom_build.c61fc0118 (2026-10-11 16:37:54 UTC) - https://godotengine.org
 Metal 4.0 - Forward+ - Using Device #0: Apple - Apple M4 (Apple9)
 
-FAIL native Godot copy: Empty/wrong-sized quilt cannot establish equivalence: size=(64, 64) center=(0.0, 0.0, 0.0, 1.0)
+PASS Godot 4.8 native Metal quilt -> SDK-fixture IOSurface: exact RGBA16Float pixels, frozen post-frame producer fence, no physical output claim

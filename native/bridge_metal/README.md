@@ -39,7 +39,7 @@ Logs and provenance: [native-bridge results](../../benchmarks/native-bridge/READ
 
 The original Godot 4.8-dev runtime is Vulkan/MoltenVK-only; a separate native Metal build of the same engine generation has now been tested below. Its texture handle is not a native Metal handle. The inspected SDK header exposes Metal APIs but no direct Vulkan image submission. A MoltenVK texture accessor alone would not establish when Godot's producer commands have been submitted/completed or when Bridge has finished consuming the texture.
 
-Next: provide a tested native Metal Godot runtime/GDExtension and render-thread handle access with a real producer completion contract, or design a separately validated Vulkan/Metal interop path. Then verify calibrated hardware, SDK formats, color transfer, session/window threading, consumer completion and bounded output slots before adding streaming to the addon.
+The fixture diagnostic below now provides tested Godot Metal handle access for a frozen post-frame source. Production integration still needs a real calibrated SDK window, SDK formats/color transfer, session/window threading, consumer completion and bounded output slots. Vulkan/Metal interop is a separate unvalidated path.
 
 Source evidence: external `bridge.h:108–118` (version query), `:373–380` (Metal APIs); Godot `drivers/metal/rendering_device_driver_metal.cpp:2545–2568` (device/queue/texture handles), base `232e6b14abf6e590b41d60f11704e42de22bff72`. No proprietary implementation source was copied.
 

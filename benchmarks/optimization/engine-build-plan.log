@@ -1,23 +1,23 @@
 scons: Reading SConscript files ...
-gcc: warning: confstr() failed with code 5: couldn't get path of DARWIN_USER_TEMP_DIR; using /tmp instead
+gcc: warning: confstr() failed with code 5: couldn't get path of DARWIN_USER_TEMP_DIR; using ../../../../tmp instead
 2026-10-11 09:09:56.324 xcodebuild[42773:1356404]  DVTFilePathFSEvents: Failed to start fs event stream.
 2026-10-11 09:09:56.530 xcodebuild[42773:1356403] [MT] DVTDeveloperPaths: Failed to get length of DARWIN_USER_CACHE_DIR from confstr(3), error = Error Domain=NSPOSIXErrorDomain Code=5 "Input/output error". Using NSCachesDirectory instead.
-gcc: warning: confstr() failed with code 5: couldn't get path of DARWIN_USER_TEMP_DIR; using /tmp instead
-xcrun: warning: confstr() failed with code 5: couldn't get path of DARWIN_USER_TEMP_DIR; using /tmp instead
-g++: warning: confstr() failed with code 5: couldn't get path of DARWIN_USER_TEMP_DIR; using /tmp instead
-xcrun: warning: confstr() failed with code 5: couldn't get path of DARWIN_USER_TEMP_DIR; using /tmp instead
-gcc: warning: confstr() failed with code 5: couldn't get path of DARWIN_USER_TEMP_DIR; using /tmp instead
-xcrun: warning: confstr() failed with code 5: couldn't get path of DARWIN_USER_TEMP_DIR; using /tmp instead
-g++: warning: confstr() failed with code 5: couldn't get path of DARWIN_USER_TEMP_DIR; using /tmp instead
-xcrun: warning: confstr() failed with code 5: couldn't get path of DARWIN_USER_TEMP_DIR; using /tmp instead
-gcc: warning: confstr() failed with code 5: couldn't get path of DARWIN_USER_TEMP_DIR; using /tmp instead
-xcrun: warning: confstr() failed with code 5: couldn't get path of DARWIN_USER_TEMP_DIR; using /tmp instead
-g++: warning: confstr() failed with code 5: couldn't get path of DARWIN_USER_TEMP_DIR; using /tmp instead
-xcrun: warning: confstr() failed with code 5: couldn't get path of DARWIN_USER_TEMP_DIR; using /tmp instead
-gcc: warning: confstr() failed with code 5: couldn't get path of DARWIN_USER_TEMP_DIR; using /tmp instead
-xcrun: warning: confstr() failed with code 5: couldn't get path of DARWIN_USER_TEMP_DIR; using /tmp instead
-g++: warning: confstr() failed with code 5: couldn't get path of DARWIN_USER_TEMP_DIR; using /tmp instead
-xcrun: warning: confstr() failed with code 5: couldn't get path of DARWIN_USER_TEMP_DIR; using /tmp instead
+gcc: warning: confstr() failed with code 5: couldn't get path of DARWIN_USER_TEMP_DIR; using ../../../../tmp instead
+xcrun: warning: confstr() failed with code 5: couldn't get path of DARWIN_USER_TEMP_DIR; using ../../../../tmp instead
+g++: warning: confstr() failed with code 5: couldn't get path of DARWIN_USER_TEMP_DIR; using ../../../../tmp instead
+xcrun: warning: confstr() failed with code 5: couldn't get path of DARWIN_USER_TEMP_DIR; using ../../../../tmp instead
+gcc: warning: confstr() failed with code 5: couldn't get path of DARWIN_USER_TEMP_DIR; using ../../../../tmp instead
+xcrun: warning: confstr() failed with code 5: couldn't get path of DARWIN_USER_TEMP_DIR; using ../../../../tmp instead
+g++: warning: confstr() failed with code 5: couldn't get path of DARWIN_USER_TEMP_DIR; using ../../../../tmp instead
+xcrun: warning: confstr() failed with code 5: couldn't get path of DARWIN_USER_TEMP_DIR; using ../../../../tmp instead
+gcc: warning: confstr() failed with code 5: couldn't get path of DARWIN_USER_TEMP_DIR; using ../../../../tmp instead
+xcrun: warning: confstr() failed with code 5: couldn't get path of DARWIN_USER_TEMP_DIR; using ../../../../tmp instead
+g++: warning: confstr() failed with code 5: couldn't get path of DARWIN_USER_TEMP_DIR; using ../../../../tmp instead
+xcrun: warning: confstr() failed with code 5: couldn't get path of DARWIN_USER_TEMP_DIR; using ../../../../tmp instead
+gcc: warning: confstr() failed with code 5: couldn't get path of DARWIN_USER_TEMP_DIR; using ../../../../tmp instead
+xcrun: warning: confstr() failed with code 5: couldn't get path of DARWIN_USER_TEMP_DIR; using ../../../../tmp instead
+g++: warning: confstr() failed with code 5: couldn't get path of DARWIN_USER_TEMP_DIR; using ../../../../tmp instead
+xcrun: warning: confstr() failed with code 5: couldn't get path of DARWIN_USER_TEMP_DIR; using ../../../../tmp instead
 Building for macOS 13.0+.
 WARNING: The ANGLE rendering driver requires dependencies to be installed.
 You can install them by running `python3 misc/scripts/install_angle.py`.
