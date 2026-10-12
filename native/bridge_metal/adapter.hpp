@@ -17,6 +17,7 @@ public:
         unsigned long columns, unsigned long rows, float aspect, float zoom = 1.0f);
     bool close();
     bool show_immutable(unsigned long columns, unsigned long rows, float aspect, double seconds);
+    bool pump_latest_immutable(unsigned long columns, unsigned long rows, float aspect);
     bool append_immutable(id<MTLTexture> source, id<MTLCommandBuffer> producer,
         unsigned long columns, unsigned long rows, float aspect);
     bool prepare_direct_rgba8(unsigned long width, unsigned long height);

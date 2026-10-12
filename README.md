@@ -254,3 +254,7 @@ A full-resolution 66-real grid on the convergence plane was user-confirmed stabl
 ### Accepted static lit hardware example
 
 The user accepted the compact lit scene with 48 real views (8×6, 4096×4092), source aspect 9:16, angular sampling, convergence 5.6, reference cone 40° and subject depth factor 0.35: volume was better and double images acceptable. This is a scene-specific qualitative compromise, not elimination of ghosting or a default preset for all content. No motion/transparency/performance claim is made. The [complete configuration](benchmarks/hardware/accepted-lit48-profile.json) and [reproduction](benchmarks/hardware/README.md#accepted-scene-specific-40-degree-depth-compressed-setup) preserve the accepted example.
+
+### Bounded live Bridge diagnostic
+
+The native Metal diagnostic can produce new poses during presentation. It retains distinct immutable SDK textures and stops after eight updates; it does not enable indefinite streaming or reuse output slots. The missing verified consumer-completion contract remains the blocker for a bounded-memory continuous path. See [ownership, limits and commands](docs/bridge-live-output.md).

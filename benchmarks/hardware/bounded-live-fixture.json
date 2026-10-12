@@ -1,0 +1,12 @@
+{
+  "date": "2026-10-12",
+  "adapter_test_passed": true,
+  "godot_test_passed": true,
+  "immutable_frames": 8,
+  "fixture_grid": [
+    2,
+    2
+  ],
+  "consumer_output_reuse": false,
+  "continuous_streaming": false
+}

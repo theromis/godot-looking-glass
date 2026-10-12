@@ -83,6 +83,7 @@ int main(int argc,char **argv) { @autoreleasepool {
     {
         MetalAdapter sequence;
         CHECK(sequence.load(argv[1])); CHECK(sequence.open(device,7));
+        CHECK(!sequence.pump_latest_immutable(2,2,1));
         for (int frame=0;frame<16;++frame) {
             auto pass=[MTLRenderPassDescriptor renderPassDescriptor];
             pass.colorAttachments[0].texture=rgba;
@@ -92,13 +93,15 @@ int main(int argc,char **argv) { @autoreleasepool {
             auto command=[queue commandBuffer];
             auto render=[command renderCommandEncoderWithDescriptor:pass]; [render endEncoding]; [command commit];
             CHECK(sequence.append_immutable(rgba,command,2,2,1));
+            CHECK(sequence.pump_latest_immutable(2,2,1));
             unsigned char copied[128]; CHECK(read(copied,sizeof(copied)));
             for (int i=0;i<128;++i) CHECK(copied[i]==(i%4==0?frame*17:(i%4==1?0:255)));
         }
         CHECK(!sequence.append_immutable(rgba,producer,2,2,1));
         setenv("LG_FIXTURE_FAIL","release",1); CHECK(!sequence.close());
         unsetenv("LG_FIXTURE_FAIL"); CHECK(sequence.close()); CHECK(sequence.close());
-        CHECK(count(2)==16 && count(3)==16 && count(4)==17 && count(5)==1);
+        CHECK(!sequence.pump_latest_immutable(2,2,1));
+        CHECK(count(2)==16 && count(3)==32 && count(4)==17 && count(5)==1);
     }
     unsetenv("LG_FIXTURE_ACCEPT_QUILT");
     reset();

@@ -117,6 +117,15 @@ bool MetalAdapter::submit_direct(id<MTLCommandBuffer> producer, unsigned long co
     if (!draw_(window_,(__bridge void *)output_,columns,rows,aspect,1)) return fail("Direct target draw failed");
     return true;
 }
+bool MetalAdapter::pump_latest_immutable(unsigned long columns, unsigned long rows, float aspect) {
+    if (![NSThread isMainThread] || !initialized_ || !output_ || !submitted_ || !columns || !rows || output_.width%columns || output_.height%rows || !std::isfinite(aspect) || aspect<=0) return fail("Pump requires main thread and submitted immutable quilt with valid geometry");
+    auto show=reinterpret_cast<decltype(&show_window)>(dlsym(library_,"show_window"));
+    auto pump=reinterpret_cast<void(*)()>(dlsym(library_,"SDL_PumpEvents"));
+    if (!show || !show(window_,true)) return fail("Cannot show Bridge window");
+    if (pump) pump();
+    if (!draw_(window_,(__bridge void *)output_,columns,rows,aspect,1)) return fail("Immutable pump draw failed");
+    return true; // No overwrite, texture reuse or consumer-fence assertion.
+}
 bool MetalAdapter::show_immutable(unsigned long columns, unsigned long rows, float aspect, double seconds) {
     if (![NSThread isMainThread] || !output_ || !submitted_ || !std::isfinite(seconds) || seconds<=0 || seconds>30) return fail("Immutable display requires main thread, submitted quilt and bounded duration");
     auto show=reinterpret_cast<decltype(&show_window)>(dlsym(library_,"show_window"));

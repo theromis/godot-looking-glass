@@ -24,6 +24,7 @@ protected:
         ClassDB::bind_method(D_METHOD("begin_sequence", "runtime", "display_index", "columns", "rows", "aspect"), &LookingGlassMetalDiagnostic::begin_sequence);
         ClassDB::bind_method(D_METHOD("capture_sequence_frame", "quilt"), &LookingGlassMetalDiagnostic::capture_sequence_frame);
         ClassDB::bind_method(D_METHOD("play_sequence", "seconds"), &LookingGlassMetalDiagnostic::play_sequence);
+        ClassDB::bind_method(D_METHOD("pump_latest_frame"), &LookingGlassMetalDiagnostic::pump_latest_frame);
         ClassDB::bind_method(D_METHOD("close_sequence"), &LookingGlassMetalDiagnostic::close_sequence);
         ClassDB::bind_method(D_METHOD("prepare_direct_target", "width", "height"), &LookingGlassMetalDiagnostic::prepare_direct_target);
         ClassDB::bind_method(D_METHOD("import_direct_target"), &LookingGlassMetalDiagnostic::import_direct_target);
@@ -124,6 +125,13 @@ public:
         auto fence=[queue commandBuffer]; [fence commit];
         bool ok=sequence->append_immutable(source,fence,sequence_columns,sequence_rows,sequence_aspect);
         result["ok"]=ok; if (!ok) result["error"]=String(sequence->error().c_str());
+        return result;
+    }
+    Dictionary pump_latest_frame() {
+        Dictionary result;
+        bool ok=sequence && sequence->pump_latest_immutable(sequence_columns,sequence_rows,sequence_aspect);
+        result["ok"]=ok;
+        if (!ok) result["error"]=sequence?String(sequence->error().c_str()):String("No sequence");
         return result;
     }
     Dictionary play_sequence(double seconds) {

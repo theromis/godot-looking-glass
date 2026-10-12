@@ -60,3 +60,4 @@ extern "C" bool fixture_copy_output(void *output,unsigned long bytes) {
     if (bytes!=last_pixels.size()) return false;
     std::memcpy(output,last_pixels.data(),bytes); return true;
 }
+extern "C" bool show_window(WINDOW_HANDLE window, bool) { return window==17; }

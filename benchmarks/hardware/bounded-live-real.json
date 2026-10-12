@@ -1,0 +1,26 @@
+{
+  "date": "2026-10-12",
+  "engine": "Godot 4.8 c61fc0118 native Metal",
+  "sdk": "2.6.3",
+  "execution_passed": true,
+  "exit_code": 0,
+  "immutable_frames": 8,
+  "quilt_size": [
+    704,
+    684
+  ],
+  "grid": [
+    11,
+    6
+  ],
+  "real_views": 66,
+  "consumer_output_reuse": false,
+  "continuous_streaming": false,
+  "user_observation": "Pending",
+  "limitations": [
+    "Small-resolution diagnostic",
+    "Updates approximately once per second, no FPS benchmark",
+    "Missing verified consumer-completion contract blocks output reuse",
+    "No physical quality or smoothness claim"
+  ]
+}

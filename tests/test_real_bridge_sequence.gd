@@ -6,6 +6,9 @@ func fail(message: String) -> void:
     print("FAIL real Bridge sequence: ",message)
     quit(1)
 func run() -> void:
+    var live: bool="--live" in OS.get_cmdline_user_args()
+    var fixture: bool="--fixture" in OS.get_cmdline_user_args()
+    if fixture: OS.set_environment("LG_FIXTURE_ACCEPT_QUILT","1")
     RenderingServer.set_render_loop_enabled(false)
     var scene := Node3D.new()
     root.add_child(scene)
@@ -44,17 +47,17 @@ func run() -> void:
         glass.material_override=tint
         scene.add_child(glass)
     var rig := Rig.new()
-    rig.total_views=66
-    var budget: int=66
+    rig.total_views=4 if fixture else 66
+    var budget: int=rig.total_views
     for argument in OS.get_cmdline_user_args():
         if argument.begins_with("--real-views="):
             budget=int(argument.trim_prefix("--real-views="))
-    if budget<2 or budget>66:
+    if budget<2 or budget>rig.total_views:
         fail("Invalid real-view budget")
         return
     rig.real_views=budget # Default remains the all-real optical baseline.
-    rig.columns=11
-    rig.tile_size=Vector2i(64,114)
+    rig.columns=2 if fixture else 11
+    rig.tile_size=Vector2i(32,32) if fixture else Vector2i(64,114)
     rig.synthesis=true
     rig.quilt_rgba8=true
     rig.update_on_demand=true
@@ -87,8 +90,8 @@ func run() -> void:
     if rig.synthesizer.dispatch_count<1 or rig.completed_revision!=rig.requested_revision:
         fail("Static quilt did not finish latest explicit request")
         return
-    var runtime: String=OS.get_environment("BRIDGE_LIBRARY")
-    var display: String=OS.get_environment("BRIDGE_DISPLAY_INDEX")
+    var runtime: String="res://native/bridge_metal/build/fixture.dylib" if fixture else OS.get_environment("BRIDGE_LIBRARY")
+    var display: String="7" if fixture else OS.get_environment("BRIDGE_DISPLAY_INDEX")
     if runtime.is_empty() or display.is_empty() or not display.is_valid_int():
         fail("Set external BRIDGE_LIBRARY and explicit BRIDGE_DISPLAY_INDEX")
         return
@@ -97,7 +100,7 @@ func run() -> void:
         fail("Diagnostic extension not loaded")
         return
     var diagnostic=ClassDB.instantiate("LookingGlassMetalDiagnostic")
-    var report: Dictionary=diagnostic.begin_sequence(runtime,display.to_int(),11,6,0.5625)
+    var report: Dictionary=diagnostic.begin_sequence(runtime,display.to_int(),rig.columns,2 if fixture else 6,1.0 if fixture else 0.5625)
     if not report.get("ok",false):
         fail(str(report.get("error","Cannot open sequence")))
         return
@@ -129,13 +132,25 @@ func run() -> void:
             diagnostic.close_sequence()
             fail(str(report.get("error","Capture failed")))
             return
-    print("Showing 8 immutable Godot poses for 20 seconds; real_views=",budget," transparency=",translucent,"; orange box moves and rotates; no CPU quilt readback")
-    report=diagnostic.play_sequence(20.0)
+        if live:
+            # Produce each pose during presentation, then leave its SDK copy
+            # immutable. Retain all copies; no consumer completion fence exists.
+            for tick in range(20):
+                report=diagnostic.pump_latest_frame()
+                if not report.get("ok",false):
+                    diagnostic.close_sequence()
+                    fail(str(report.get("error","Live pump failed")))
+                    return
+                await create_timer(0.05).timeout
+            print("LIVE immutable frame ",frame+1,"/8 presented; source revision=",rig.completed_revision)
+    print("Completed bounded live poses" if live else "Showing 8 immutable Godot poses for 20 seconds","; real_views=",budget," transparency=",translucent,"; orange box moves and rotates; no CPU quilt readback")
+    if not live: report=diagnostic.play_sequence(20.0)
     var closed: Dictionary=diagnostic.close_sequence()
     if not report.get("ok",false) or not closed.get("ok",false):
         fail(str(report.get("error",closed.get("error","Playback failed"))))
         return
     scene.queue_free()
     for i in range(4): await process_frame
-    print("PASS real Bridge sequence API: eight immutable GPU-only quilt copies, bounded playback and release; no continuous-streaming claim")
+    if fixture: OS.unset_environment("LG_FIXTURE_ACCEPT_QUILT")
+    print("PASS real Bridge sequence API: eight immutable GPU-only quilt copies, bounded playback and release; live=",live," fixture=",fixture,"; no continuous-streaming claim")
     quit()
