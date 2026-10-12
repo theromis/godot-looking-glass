@@ -19,7 +19,7 @@
   "uncapped": true,
   "diagnostic_readback": false,
   "gpu_only_frame_transport": true,
-  "user_observation": "Pending",
+  "user_observation": "User confirmed that the current animated 24-real-camera to 66-view display test looks normal.",
   "consumer_completion_contract_verified": false,
   "production_ready": false,
   "rss_samples": [
