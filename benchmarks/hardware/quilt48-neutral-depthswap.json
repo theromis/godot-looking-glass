@@ -25,11 +25,12 @@
     "fixture": true,
     "hardware": true
   },
-  "user_observation": "Pending",
+  "user_observation": "Strongest double image moved to the right rear sphere after swapping only sphere Z centers",
   "display_duration_seconds_requested": 20,
   "limitations": [
     "Qualitative comparison, not an optical measurement",
     "Position swap changes projection and occlusion relationships",
     "All 48 views real; no synthesis"
-  ]
+  ],
+  "assessment": "Supports depth/convergence dependence of strongest ghosting over fixed lateral location or material color in this scene. Does not establish the physical cause or quantify optical crosstalk"
 }
