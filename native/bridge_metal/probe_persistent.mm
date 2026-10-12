@@ -7,9 +7,23 @@
 #include <dlfcn.h>
 #include <iostream>
 #include <vector>
+#include <fstream>
+#include <cstring>
 #define LOAD(name) auto name##_fn=reinterpret_cast<decltype(&name)>(dlsym(library,#name)); if(!name##_fn) return 2
 int main(int argc,char **argv) { @autoreleasepool {
-    if(argc!=4 || std::string(argv[3])!="--experimental-reuse") return 2;
+    if((argc!=4 && argc!=5) || std::string(argv[3])!="--experimental-reuse") return 2;
+    bool frame_input=argc==5;
+    std::vector<std::vector<unsigned char>> frames;
+    if(frame_input) {
+        for(int i=0;i<2;++i) {
+            std::string path=std::string(argv[4])+"/frame-"+std::to_string(i)+".rgba";
+            std::ifstream file(path,std::ios::binary|std::ios::ate);
+            if(!file || file.tellg()!=704*684*4) return 2;
+            file.seekg(0);
+            frames.emplace_back(704*684*4);
+            if(!file.read(reinterpret_cast<char *>(frames.back().data()),frames.back().size())) return 2;
+        }
+    }
     void *library=dlopen(argv[1],RTLD_NOW|RTLD_LOCAL); if(!library) return 2;
     LOAD(initialize_bridge); LOAD(uninitialize_bridge); LOAD(instance_window_metal);
     LOAD(create_metal_texture_with_iosurface); LOAD(release_metal_texture);
@@ -30,6 +44,11 @@ int main(int argc,char **argv) { @autoreleasepool {
     auto shader=[device newLibraryWithSource:code options:nil error:&error];
     auto pipeline=shader?[device newComputePipelineStateWithFunction:[shader newFunctionWithName:@"fill"] error:&error]:nil;
     ok=ok && pipeline && texture.device==device;
+    id<MTLBuffer> uploads[2]={nil,nil};
+    if(frame_input) for(int i=0;i<2;++i) {
+        uploads[i]=[device newBufferWithBytes:frames[i].data() length:frames[i].size() options:MTLResourceStorageModeShared];
+        ok=ok && uploads[i];
+    }
     auto pump=reinterpret_cast<void(*)()>(dlsym(library,"SDL_PumpEvents"));
     CGLContextObj observed=nullptr;
     unsigned updates=0,finishes=0;
@@ -50,17 +69,25 @@ int main(int argc,char **argv) { @autoreleasepool {
             }
             const float blue[]={0.2f,0.4f,0.6f,1};
             const float red[]={230.0f/255,26.0f/255,26.0f/255,1};
-            auto command=[queue commandBuffer]; auto compute=[command computeCommandEncoder];
+            auto command=[queue commandBuffer];
+            if(frame_input) {
+                auto blit=[command blitCommandEncoder];
+                [blit copyFromBuffer:uploads[frame%2] sourceOffset:0 sourceBytesPerRow:704*4 sourceBytesPerImage:704*684*4 sourceSize:MTLSizeMake(704,684,1) toTexture:texture destinationSlice:0 destinationLevel:0 destinationOrigin:MTLOriginMake(0,0,0)];
+                [blit endEncoding];
+            } else {
+            auto compute=[command computeCommandEncoder];
             [compute setComputePipelineState:pipeline]; [compute setTexture:texture atIndex:0];
             [compute setBytes:(frame%2?red:blue) length:sizeof(blue) atIndex:0];
             [compute dispatchThreads:MTLSizeMake(704,684,1) threadsPerThreadgroup:MTLSizeMake(8,8,1)];
-            [compute endEncoding]; [command commit]; [command waitUntilCompleted];
+            [compute endEncoding];
+            }
+            [command commit]; [command waitUntilCompleted];
             ok=command.status==MTLCommandBufferStatusCompleted;
             // Explicit diagnostic readback proves both written patterns.
             std::vector<unsigned char> pixels(704*684*4);
             [texture getBytes:pixels.data() bytesPerRow:704*4 fromRegion:MTLRegionMake2D(0,0,704,684) mipmapLevel:0];
             const unsigned char b[]={51,102,153,255},r[]={230,26,26,255};
-            for(size_t i=0;i<pixels.size();++i) if(pixels[i]!=(frame%2?r[i%4]:b[i%4])) exact=false;
+            for(size_t i=0;i<pixels.size();++i) if(pixels[i]!=(frame_input?frames[frame%2][i]:(frame%2?r[i%4]:b[i%4]))) exact=false;
             ok=ok && exact;
             if(ok) ok=draw_interop_quilt_texture_metal_fn(window,native,11,6,0.5625,1);
             CGLContextObj current=CGLGetCurrentContext();
@@ -77,6 +104,7 @@ int main(int argc,char **argv) { @autoreleasepool {
     bool stopped=uninitialize_bridge_fn();
     std::cout<<"persistent_updates="<<updates<<" exact_gpu_pixels="<<exact<<" observed_context_stable="<<stable_context<<" observed_gl_finishes="<<finishes<<" sdk_calls_ok="<<ok<<" release="<<released<<" shutdown="<<stopped<<std::endl;
     std::cout<<"consumer_completion_contract_verified=false experimental_reuse=true"<<std::endl;
+    std::cout<<"godot_frame_input="<<frame_input<<" prerecorded="<<frame_input<<std::endl;
     if(stopped) dlclose(library);
     return ok && exact && released && stopped && updates>1?0:1;
 } }

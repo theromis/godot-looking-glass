@@ -1,0 +1,18 @@
+{
+  "date": "2026-10-12",
+  "exit_code": 0,
+  "execution_passed": true,
+  "user_observation": "Pending",
+  "scope": "Separate Metal worker alternates two prerecorded Godot quilts in one persistent SDK texture",
+  "quilt_size": [
+    704,
+    684
+  ],
+  "duration_seconds_requested": 20,
+  "frame_rate_requested_hz": 2,
+  "cpu_staging": true,
+  "diagnostic_cpu_readback": true,
+  "live_godot_transport": false,
+  "consumer_completion_contract_verified": false,
+  "production_ready": false
+}

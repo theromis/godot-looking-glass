@@ -1,0 +1,15 @@
+{
+  "frames": [
+    {
+      "source": "benchmarks/hardware/sequence-inspect/frame-0.png",
+      "raw_rgba8_sha256": "d0c02e0935223da6f7a33501566cad6461b86b083c13456bff4513a62768e351",
+      "bytes": 1926144
+    },
+    {
+      "source": "benchmarks/hardware/sequence-inspect/frame-1.png",
+      "raw_rgba8_sha256": "d9a470207b48d610be4dd0a81023f2bef71db836afa976ef62f6bc38762f340f",
+      "bytes": 1926144
+    }
+  ],
+  "transport": "Prerecorded files decoded on CPU and uploaded to Metal buffers once; not live GPU sharing"
+}

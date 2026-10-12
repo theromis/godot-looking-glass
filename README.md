@@ -262,3 +262,7 @@ The native Metal diagnostic can produce new poses during presentation. It retain
 ### Persistent Metal worker checkpoint
 
 A separate bounded worker updated one SDK-created Metal texture 40 times; exact diagnostic pixel checks and teardown passed, and the user confirmed changing blue/red colors on Looking Glass. This demonstrates visible persistent-input updating, unlike the distinct-texture switching controls. Observed-context GL completion is experimental, and Godot cross-process transport and indefinite safe streaming remain unfinished. See [protocol and results](docs/persistent-metal-worker.md).
+
+### Godot frames in the persistent Metal worker
+
+Two prerecorded Godot quilts now visibly alternate through the separate persistent-input Metal worker. Initial and repeat runs passed 40 exact GPU updates and teardown; the user confirmed cube color changes in the repeat. This validates actual Godot frame delivery to that output path. The test uses CPU-prepared files and initial buffer uploads; live transport, 4K animation and a verified all-consumer synchronization contract remain unfinished. See [protocol, source comparison and results](docs/persistent-metal-worker.md#prerecorded-godot-frame-transport-control).
