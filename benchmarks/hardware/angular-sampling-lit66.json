@@ -1,0 +1,31 @@
+{
+  "date": "2026-10-12",
+  "engine": "Godot 4.8 c61fc0118 native Metal",
+  "sdk": "2.6.3",
+  "environment": {
+    "GODOT_MTL_SYNC_MODE": "none"
+  },
+  "real_views": 66,
+  "quilt_size": [
+    4092,
+    4092
+  ],
+  "lit": true,
+  "virtual_camera_cone_degrees": 20,
+  "focus_distance": 5.6,
+  "camera_span_reference_distance": 6,
+  "angular_view_sampling": true,
+  "device_calibration_unchanged": true,
+  "duration_seconds": 20,
+  "api_success": true,
+  "exit_code": 0,
+  "user_observation": "User reported cube looks good; other objects still have slight double images",
+  "geometry_tests": "PASS focal registration and correct near/far disparity with angular sampling",
+  "purpose": "Compare official-style uniform angle sampling against uniform eye offsets",
+  "limitations": [
+    "Projection aspect unchanged",
+    "No measured optical error or performance",
+    "No synthetic views involved"
+  ],
+  "assessment": "Angular sampling does not eliminate residual double images; relative improvement not quantified"
+}

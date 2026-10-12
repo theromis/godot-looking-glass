@@ -6,7 +6,12 @@ const Synthesizer = preload("synthesizer.gd")
 @export_range(1, 96) var real_views: int = 12
 @export_range(1, 12) var columns: int = 4
 @export var tile_size: Vector2i = Vector2i(192, 256)
+## Optional camera render size, distinct from quilt tile size. Zero uses tile_size.
+## Changing this also changes the projection aspect; set before ready.
+@export var source_view_size: Vector2i = Vector2i.ZERO
 @export_range(1.0, 80.0) var view_cone_degrees: float = 35.0
+## Optional reference-style uniform angular sampling; default remains linear eyes.
+@export var angular_view_sampling: bool = false
 @export_range(1.0, 120.0) var vertical_fov: float = 35.0
 @export_range(0.2, 50.0) var focus_distance: float = 6.0
 ## Diagnostic: keep camera spacing fixed while changing convergence distance.
@@ -62,7 +67,12 @@ var quilt_texture: Texture2D:
 func eye_at(index: int) -> float:
     var t: float = float(index) / float(total_views - 1) if total_views > 1 else 0.5
     var span_distance: float = camera_span_reference_distance if camera_span_reference_distance > 0.0 else focus_distance
+    if angular_view_sampling:
+        return span_distance * tan((2.0 * t - 1.0) * deg_to_rad(view_cone_degrees) * 0.5)
     return (2.0 * t - 1.0) * span_distance * tan(deg_to_rad(view_cone_degrees) * 0.5)
+
+func get_source_view_size() -> Vector2i:
+    return source_view_size if source_view_size != Vector2i.ZERO else tile_size
 
 func _ready() -> void:
     if inverse_depth_reprojection:
@@ -72,6 +82,7 @@ func _ready() -> void:
     real_views = clampi(real_views, 2 if total_views > 1 else 1, total_views)
     columns = clampi(columns, 1, total_views)
     assert(tile_size.x > 0 and tile_size.y > 0 and far_clip > near_clip)
+    assert(get_source_view_size().x > 0 and get_source_view_size().y > 0)
     if not synthesis:
         real_views = total_views
     elif RenderingServer.get_rendering_device() == null:
@@ -88,7 +99,7 @@ func _ready() -> void:
     for i in range(real_views):
         var index: int = anchor_indices[i]
         var viewport := SubViewport.new()
-        viewport.size = tile_size
+        viewport.size = get_source_view_size()
         if shared_positional_shadows:
             viewport.mesh_lod_threshold = 0.0
         viewport.world_3d = get_world_3d()
@@ -128,6 +139,7 @@ func _ready() -> void:
     for i in range(0 if synthesis else total_views):
         var tile := TextureRect.new()
         tile.texture = views[_nearest_anchor(i)].get_texture()
+        tile.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
         tile.position = Vector2((i % columns) * tile_size.x, (ceili(float(total_views) / columns) - 1 - i / columns) * tile_size.y)
         tile.size = Vector2(tile_size)
         tile.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST

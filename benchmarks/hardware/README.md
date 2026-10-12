@@ -110,3 +110,9 @@ At 20°, the camera span reference remains 6.0, convergence is 5.6, lighting and
 ## Convergence-grid and depth-direction validation
 
 On 2026-10-12 the 4092², 66-real diagnostic displayed a grid on the convergence plane and red/blue markers on opposite sides of it. The user confirmed a stable sharp grid and correct marker depth. API geometry checks also passed, including the fixed-baseline 66-view case. This helps exclude gross focus-registration and simple reversed-depth errors, but does not validate exact calibration or eliminate residual ghosting. See [physical record](projection-grid.json) and [official-source audit](../../docs/projection-and-quilt-audit.md).
+
+## Angular-spacing and device-aspect candidates
+
+Two separate lit all-real controls ran at 4092², reference cone 20° and convergence 5.6. With official-style angular spacing, the user reported a good cube but slight doubling elsewhere. With original linear spacing and a 9:16 source projection (378×672 rendered into 372×682 tiles), the user reported it seemed better. No complete removal of double images or precise relative gain was confirmed. The aspect control also changes source pixel dimensions/resampling, so it does not isolate aspect alone. Both SDK sessions passed. Geometry tests and a combined-option synthesized fixture test passed. No default has been changed and no performance claim is made.
+
+See [angular observation](angular-sampling-lit66.json), [aspect observation](display-aspect-lit66.json), and [options/method](../../native/bridge_metal/README.md#official-style-camera-controls).

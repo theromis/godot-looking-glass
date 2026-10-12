@@ -201,3 +201,20 @@ GODOT_MTL_SYNC_MODE=none "$GODOT" --path . --rendering-driver metal --script tes
 ```
 
 The rig remains at world z=6; this places convergence at z=0.8 instead of z=0. The test changes projection offsets, not a camera depth-of-field effect, viewer position, display calibration, shader filtering or material lighting. It investigates the user's report of good rear geometry but blurred foreground in the 30° all-real lit baseline. See [record](../../benchmarks/hardware/lit66-focus52.json).
+
+## Official-style camera controls
+
+The optional rig `angular_view_sampling` samples the tangent of uniformly spaced angles, following the official Core example's conceptual camera placement; its default remains false. The native diagnostic selects it with `--angular-sampling`. At 4092², 66 real cameras, cone parameter 20° and convergence 5.6, the user reported a good cube but slight double images on other objects. This did not establish complete improvement or justify changing the default.
+
+`source_view_size` optionally separates camera rendering size/aspect from quilt tile size. Source depth reprojection uses the source aspect; output coordinates still use the destination tile dimensions. Zero retains existing behavior. In the diagnostic, `--display-aspect` renders the connected portrait device's 9:16 view at 378×672 and samples it into each 372×682 output tile. The quilt remains 4092². This avoids pretending that Camera3D has an independent public aspect override: source dimensions and resampling also change slightly. It is not a pure fixed-resolution projection experiment. The option currently targets this connected device aspect, not automatic product detection.
+
+The aspect-only hardware test retained linear eye offsets (angular sampling disabled), along with the earlier lighting/convergence/cone. The user reported it seemed better. Residual double-image magnitude was not quantified or confirmed absent. API geometry checks passed for angular and custom-source-aspect cases, and the two-anchor/four-view fixture test with both options checked actual capture dimensions and exact, nonempty RGBA8 output. The combined options have not been physically compared with either alone. No performance benchmark was run.
+
+```sh
+# Angular spacing only.
+GODOT_MTL_SYNC_MODE=none "$GODOT" --path . --rendering-driver metal --script tests/test_bridge_direct_target.gd -- --large --real-views=66 --lit --view-cone=20 --focus=5.6 --angular-sampling
+# Device aspect only, with original linear camera spacing.
+GODOT_MTL_SYNC_MODE=none "$GODOT" --path . --rendering-driver metal --script tests/test_bridge_direct_target.gd -- --large --real-views=66 --lit --view-cone=20 --focus=5.6 --display-aspect
+```
+
+The source/aspect fixture used 36×64 camera views and 32² output tiles; its optical aspect is not a hardware calibration test. See [angular result](../../benchmarks/hardware/angular-sampling-lit66.json), [aspect result](../../benchmarks/hardware/display-aspect-lit66.json), and [original reference audit](../../docs/projection-and-quilt-audit.md).

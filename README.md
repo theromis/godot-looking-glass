@@ -231,3 +231,7 @@ For the lit 66-real, 4092², 30° scene, moving convergence from 6.0 to 5.2 at f
 ### Projection and ordering checkpoint
 
 A full-resolution 66-real grid on the convergence plane was user-confirmed stable/sharp, with correct foreground/background markers. Godot API projection checks passed, including the fixed-baseline 66-view case. The official reference audit found matching off-axis convergence principles and conceptual tile order, with remaining differences in interior angular sampling and tile-versus-display aspect. These are candidate investigations, not proven causes. See [source paths, lines and limitations](docs/projection-and-quilt-audit.md).
+
+### Optional angular and device-aspect controls
+
+`angular_view_sampling` and `source_view_size` allow independent reference-style camera spacing and camera aspect experiments. Neither changes the default when unset. The angular-only physical test retained slight doubling on some objects; the device-aspect-only test was reported somewhat better. Source-aspect correction renders 378×672 views into the same 372×682 quilt tiles, so resampling also changes. Geometry and synthesized fixture checks passed, but full optical correction and a combined-option hardware benefit remain unconfirmed. See [method and observations](native/bridge_metal/README.md#official-style-camera-controls).

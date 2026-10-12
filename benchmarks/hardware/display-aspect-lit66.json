@@ -1,0 +1,41 @@
+{
+  "date": "2026-10-12",
+  "engine": "Godot 4.8 c61fc0118 native Metal",
+  "sdk": "2.6.3",
+  "environment": {
+    "GODOT_MTL_SYNC_MODE": "none"
+  },
+  "real_views": 66,
+  "quilt_size": [
+    4092,
+    4092
+  ],
+  "output_tile_size": [
+    372,
+    682
+  ],
+  "source_view_size": [
+    378,
+    672
+  ],
+  "projection_aspect": 0.5625,
+  "angular_view_sampling": false,
+  "lit": true,
+  "virtual_camera_cone_degrees": 20,
+  "focus_distance": 5.6,
+  "camera_span_reference_distance": 6,
+  "device_calibration_unchanged": true,
+  "duration_seconds": 20,
+  "api_success": true,
+  "exit_code": 0,
+  "user_observation": "User reported latest display-aspect image seems better",
+  "purpose": "Use device view aspect in camera projection without adopting angular sampling simultaneously",
+  "geometry_tests": "PASS focal registration and near/far disparity with overridden source aspect",
+  "limitations": [
+    "Source resolution and resampling also differ slightly; not a pure fixed-resolution aspect experiment",
+    "No measured optical error or performance",
+    "No synthesized views involved"
+  ],
+  "assessment": "Qualitative slight improvement; complete removal of double images not confirmed",
+  "fixture_regression": "Two-anchor/four-view synthesis with both options: configured source dimensions, nonempty quilt and exact fixture RGBA8 bytes PASS"
+}

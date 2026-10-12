@@ -5,7 +5,8 @@ func _initialize() -> void:
 func run() -> void:
     var world := Node3D.new()
     root.add_child(world)
-    for count in [1, 2, 12, 47, 48, 66]:
+    var angular_tested: bool=false
+    for count in [1, 2, 12, 47, 48, 66, 66]:
         var rig = Rig.new()
         rig.total_views = count
         rig.real_views = count
@@ -13,6 +14,9 @@ func run() -> void:
             rig.focus_distance = 5.6
             rig.camera_span_reference_distance = 6.0
             rig.view_cone_degrees = 20.0
+            rig.angular_view_sampling = not angular_tested
+            if angular_tested: rig.source_view_size=Vector2i(378,672)
+            angular_tested=true
         rig.tile_size = Vector2i(160, 200)
         world.add_child(rig)
         if not check(rig.views.size() == count):
@@ -29,7 +33,7 @@ func run() -> void:
             if not check(abs(projection.y.y - 1.0 / tan(deg_to_rad(rig.vertical_fov) * 0.5)) < 0.001, "Vertical FOV must match non-square tiles"):
                 return
             var pixel: Vector2 = camera.unproject_position(focus)
-            if not check(pixel.distance_to(Vector2(rig.tile_size) * 0.5) < 0.01, "Focus plane must stay registered"):
+            if not check(pixel.distance_to(Vector2(camera.get_viewport().size) * 0.5) < 0.01, "Focus plane must stay registered"):
                 return
         if count > 1:
             var left: Camera3D = rig.cameras[0]
@@ -45,7 +49,7 @@ func run() -> void:
         rig._process(0.0)
         var moved_focus: Vector3 = rig.to_global(focus)
         for camera in rig.cameras:
-            if not check(camera.unproject_position(moved_focus).distance_to(Vector2(rig.tile_size) * 0.5) < 0.01, "Moving rig must update cached camera transforms"):
+            if not check(camera.unproject_position(moved_focus).distance_to(Vector2(camera.get_viewport().size) * 0.5) < 0.01, "Moving rig must update cached camera transforms"):
                 return
         rig.free()
     var custom = Rig.new()
@@ -60,7 +64,7 @@ func run() -> void:
         if not check(not custom.custom_anchors_valid(), "Reject invalid anchors"):
             return
     custom.free()
-    print("PASS projection: 1/2/12/47/48/66 views; fixed-baseline focus registration, opposite near/far disparity, quilt sizes")
+    print("PASS projection: 1/2/12/47/48/66 views; angular/aspect fixed-baseline focus registration, opposite near/far disparity, quilt sizes")
     quit()
 
 func check(condition: bool, message: String = "Test condition failed") -> bool:

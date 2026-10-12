@@ -102,6 +102,9 @@ func run() -> void:
     rig.real_views=budget # Default remains the all-real optical baseline.
     rig.columns=cols
     rig.tile_size=tile
+    if "--display-aspect" in OS.get_cmdline_user_args():
+        # Connected portrait display aspect 9:16. Keep output quilt dimensions.
+        rig.source_view_size=Vector2i(36,64) if fixture else Vector2i(378,672)
     rig.synthesis=true
     rig.quilt_rgba8=true
     rig.update_on_demand=true
@@ -114,6 +117,7 @@ func run() -> void:
         fail("Invalid virtual camera cone")
         return
     rig.view_cone_degrees=virtual_cone
+    rig.angular_view_sampling="--angular-sampling" in OS.get_cmdline_user_args()
     var focus: float=6.0
     for argument in OS.get_cmdline_user_args():
         if argument.begins_with("--focus="):
@@ -152,7 +156,11 @@ func run() -> void:
     if rig.synthesizer.dispatch_count<1 or rig.completed_revision!=rig.requested_revision:
         fail("Static quilt did not finish latest explicit request")
         return
-    print("Showing direct imported SDK quilt: real_views=",rig.real_views," total_views=",rig.total_views," tile=",tile," lit=",lit," virtual_cone=",virtual_cone," focus=",focus," camera_span_reference=6; no intermediate quilt blit")
+    for capture in rig.captures:
+        if capture.dimensions!=rig.get_source_view_size():
+            fail("Source capture dimensions differ from configured camera size")
+            return
+    print("Showing direct imported SDK quilt: real_views=",rig.real_views," total_views=",rig.total_views," tile=",tile," lit=",lit," virtual_cone=",virtual_cone," focus=",focus," angular_sampling=",rig.angular_view_sampling," camera_span_reference=6; no intermediate quilt blit")
     var report: Dictionary=diagnostic.submit_direct_target(0.0 if fixture else 20.0)
     if not report.get("ok",false):
         fail(str(report.get("error","Direct submission failed")))

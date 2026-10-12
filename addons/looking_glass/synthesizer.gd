@@ -55,7 +55,8 @@ func configure(rig: Node3D) -> void:
     columns = rig.columns
     size = rig.tile_size
     focus = rig.focus_distance
-    slope = 2.0 * tan(deg_to_rad(rig.vertical_fov) * 0.5) * float(size.x) / size.y
+    var source_size: Vector2i = rig.get_source_view_size()
+    slope = 2.0 * tan(deg_to_rad(rig.vertical_fov) * 0.5) * float(source_size.x) / source_size.y
     output = rig.gpu_quilt
     for i in range(count):
         eyes.append(rig.eye_at(i))
