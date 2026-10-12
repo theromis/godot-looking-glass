@@ -97,6 +97,9 @@ int main(int argc,char **argv) { @autoreleasepool {
     auto clock_now=[] { return std::chrono::steady_clock::now(); };
     auto elapsed_ms=[&](auto begin) { return std::chrono::duration<double,std::milli>(clock_now()-begin).count(); };
     while(ok && -[started timeIntervalSinceNow]<duration) {
+        // Drain temporary Cocoa/Metal objects while persistent textures remain
+        // strongly owned outside the iteration. This includes continue paths.
+        @autoreleasepool {
         int frame=int(-[started timeIntervalSinceNow]*2.0);
         if(uncapped || frame!=previous) {
             std::vector<unsigned char> incoming;
@@ -217,6 +220,7 @@ int main(int argc,char **argv) { @autoreleasepool {
         if(pump) pump();
         if(ok && updates) ok=draw_interop_quilt_texture_metal_fn(window,native,11,6,0.5625,1);
         [[NSRunLoop currentRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:(uncapped?0.001:0.02)]];
+        } // Per-iteration autorelease pool.
     }
     std::cout<<"worker_mean_finish_ms="<<(finishes?finish_ms/finishes:0)<<" worker_mean_copy_wait_ms="<<(updates?copy_ms/updates:0)<<" worker_mean_new_frame_draw_ms="<<(updates?draw_ms/updates:0)<<std::endl;
     std::cout<<"worker_update_span_seconds="<<(last_update-first_update)<<" worker_update_rate_hz="<<((updates>1 && last_update>first_update)?(updates-1)/(last_update-first_update):0)<<std::endl;

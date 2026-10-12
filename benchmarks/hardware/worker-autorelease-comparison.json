@@ -1,0 +1,10 @@
+{
+  "date": "2026-10-12",
+  "before_record": "live-surface-4k-gpu-duration-120-uncapped-adaptive-capture-compose-real-24-sustained-complex-shared-shadows-full-casters-warmed-shared-1.json",
+  "after_record": "live-surface-4k-gpu-duration-120-uncapped-adaptive-capture-compose-real-24-autorelease-complex-shared-shadows-full-casters-warmed-shared-1.json",
+  "before_worker_rss_delta_kib": 8768,
+  "after_worker_rss_delta_kib": 448,
+  "before_sdk_submission_hz": 49.4285,
+  "after_sdk_submission_hz": 47.9773,
+  "scope": "One sequential 120-second trial per version, CPU process RSS after 10s, not GPU accounting or proof of indefinite leak-free operation."
+}
