@@ -32,12 +32,13 @@
     "fixture": true,
     "hardware": true
   },
-  "user_observation": "Pending",
+  "user_observation": "Double image disappeared on the right sphere with its center on convergence",
   "display_duration_seconds_requested": 20,
   "limitations": [
     "Sphere center is on convergence; finite surfaces are not all on the plane",
     "Projected size and occlusion change with center movement",
     "Qualitative comparison, no optical measurement",
     "All 48 views real; no synthesis"
-  ]
+  ],
+  "assessment": "User-confirmed disappearance for this sphere in this static scene at reference cone 54 degrees. Together with depth-swap and half-distance controls, strongly supports convergence-relative depth dependence; does not identify the physical cause or establish scene-wide ghosting elimination"
 }
