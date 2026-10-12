@@ -1,0 +1,39 @@
+{
+  "date": "2026-10-12",
+  "engine": "Godot 4.8 c61fc0118 native Metal",
+  "sdk": "2.6.3",
+  "environment": {
+    "GODOT_MTL_SYNC_MODE": "none"
+  },
+  "poses": 8,
+  "duration_seconds_each": 20,
+  "requested_pose_cadence_hz": 5,
+  "quilt_size": [
+    704,
+    684
+  ],
+  "scene": "Moving orange box, RGB spheres and cyan alpha-blended panel",
+  "runs": [
+    {
+      "real_views": 24,
+      "total_views": 66,
+      "api_success": true,
+      "exit_code": 0,
+      "user_observation": "Pending",
+      "log": "sequence24-transparency-repeat.log"
+    },
+    {
+      "real_views": 66,
+      "total_views": 66,
+      "api_success": true,
+      "exit_code": 0,
+      "user_observation": "Pending",
+      "log": "sequence66-transparency-repeat.log"
+    }
+  ],
+  "limitations": [
+    "Finite prerecorded clips, not continuous streaming",
+    "No multilayer transparent depth reconstruction",
+    "Visual assessment pending"
+  ]
+}
