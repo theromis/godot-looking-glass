@@ -145,6 +145,18 @@ func run() -> void:
     rig.focus_distance=focus
     rig.camera_span_reference_distance=6.0 # Isolate convergence from camera spacing.
     rig.position.z=6
+    var depth_scale: float=1.0
+    for argument in OS.get_cmdline_user_args():
+        if argument.begins_with("--depth-scale="):
+            depth_scale=float(argument.trim_prefix("--depth-scale="))
+    if not is_finite(depth_scale) or depth_scale<=0.0 or depth_scale>1.0:
+        fail("Depth compression must be in (0,1]")
+        return
+    var convergence_z: float=6.0-focus
+    if depth_scale!=1.0:
+        for subject in subjects:
+            subject.position.z=convergence_z+(subject.position.z-convergence_z)*depth_scale
+            subject.scale.z*=depth_scale
     if "--projection-grid" in OS.get_cmdline_user_args():
         populate_projection_grid(scene,6.0-focus)
     scene.add_child(rig)
@@ -183,7 +195,7 @@ func run() -> void:
         if capture.dimensions!=rig.get_source_view_size():
             fail("Source capture dimensions differ from configured camera size")
             return
-    print("Showing direct imported SDK quilt: real_views=",rig.real_views," total_views=",rig.total_views," tile=",tile," lit=",lit," virtual_cone=",virtual_cone," focus=",focus," angular_sampling=",rig.angular_view_sampling," camera_span_reference=6; no intermediate quilt blit")
+    print("Showing direct imported SDK quilt: real_views=",rig.real_views," total_views=",rig.total_views," tile=",tile," lit=",lit," virtual_cone=",virtual_cone," focus=",focus," angular_sampling=",rig.angular_view_sampling," depth_scale=",depth_scale," camera_span_reference=6; no intermediate quilt blit")
     var capture_only: bool="--capture-only" in OS.get_cmdline_user_args()
     var capture_directory: String=""
     for argument in OS.get_cmdline_user_args():

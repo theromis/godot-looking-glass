@@ -130,3 +130,7 @@ An opt-in no-presentation flat capture found no obvious duplicated geometry in c
 ## Fully in-frame compact objects
 
 The 48-real 8×6 lit scene was repeated with smaller X/Y subject scales and narrower X spacing, leaving their Z centers/extents and camera settings unchanged. Every subject AABB was verified inside every source camera with minimum 14.5038 pixels of margin. The user reported better overall appearance but residual double images, most visible on the rear sphere; smaller object size may reduce salience elsewhere. Thus source-view clipping is not sufficient to explain the artifact. Shape normals/layout also changed, so the improvement is not assigned uniquely to clipping removal. The small fixture passed exact-pixel and bounds checks. See [configuration and observation](quilt48-compact-lit.json).
+
+## Compressed subject depth
+
+The compact 48-real lit 8×6 scene was repeated with subject Z centers/extents compressed to 35% around convergence at world Z=0.4. Camera settings, source aspect and output resolution were retained. Subjects passed every-camera AABB checks with 56.076 pixels of minimum margin; SDK submission/teardown passed. A smaller four-view fixture passed bounds/source-size and exact nonempty RGBA8 checks. Physical double-image assessment is pending. The floor remains unchanged, and subject shape normals/shadows change with compression. This is not an isolated optical-crosstalk measurement or a default preset. See [result](quilt48-depth035-lit.json).
