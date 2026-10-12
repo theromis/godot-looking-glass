@@ -69,4 +69,4 @@ On 2026-10-12, Godot compute wrote directly into an imported real Bridge RGBA8 I
 
 ## 24-anchor physical check
 
-On 2026-10-12 the frozen 24-real-camera scene reconstructed into 66 views was submitted directly to the real Bridge RGBA8 allocation and shown for 20 seconds. API execution and teardown passed. Physical quality observation is pending; no balanced preset is enabled automatically. See [record](godot-24-anchor-display.json) and [sanitized log](godot-24-anchor-display.log). The same new budget argument passed a smaller synthesized fixture test with exact, nonempty RGBA8 output.
+On 2026-10-12 the frozen 24-real-camera scene reconstructed into 66 views was submitted directly to the real Bridge RGBA8 allocation and shown for 20 seconds. API execution and teardown passed. The user reported that the image looked approximately normal. This is qualitative confirmation for the tested static scene; no balanced preset is enabled automatically. See [record](godot-24-anchor-display.json) and [sanitized log](godot-24-anchor-display.log). The same new budget argument passed a smaller synthesized fixture test with exact, nonempty RGBA8 output.

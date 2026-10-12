@@ -17,11 +17,11 @@
   "duration_seconds": 20,
   "api_success": true,
   "exit_code": 0,
-  "user_observation": "Pending",
+  "user_observation": "User reported: looks approximately normal",
   "limitations": [
     "Frozen scene only",
     "Low-resolution quilt compared with offline quality capture",
-    "Physical visual quality requires user observation"
+    "Qualitative user confirmation for this static scene only; no instrumented optical measurement"
   ],
   "fixture_regression": "2-anchor / 4-view direct fixture output matches exact RGBA8 pixels, nonempty image and clean teardown PASS"
 }
