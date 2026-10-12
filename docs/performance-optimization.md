@@ -335,3 +335,7 @@ Optional `update_on_demand` renders source views and assembles the compute quilt
 ## Metal correctness before timing
 
 Native Metal default barriers fail three image-equivalence regressions on the current Apple M4 / 4.8-dev setup. Native hazard tracking (`GODOT_MTL_SYNC_MODE=none`) passes all 16 checks; both default-barrier diagnostic runs reproduce source/viewport mismatches. This is a correctness workaround, not a measured optimization. The switch also changes heap/allocation policy, so future mode comparisons must record it and independently verify camera images. Do not compare frame times from an incorrect multi-camera baseline as equivalent work. See [evidence and limitations](../benchmarks/native-bridge/metal-sync-results.json).
+
+## Native Metal direct SDK output checkpoint
+
+The frozen-quilt experimental path imports a Bridge RGBA8 IOSurface through public RenderingDevice API and writes the quilt directly into it. A three-run output-boundary microbenchmark at 4092² measured direct constant-fill GPU time of 0.64–0.73 ms versus 1.96–2.20 ms for private output plus blit. The same shader, alternating mode order and completed command-buffer timing were used; all final target bytes were verified after timing. This is a synthetic output-boundary result. Actual depth synthesis, scene FPS, optical processing, presentation latency and live texture reuse remain unmeasured. See [complete protocol and limitations](../benchmarks/hardware/direct-target-microbenchmark.md).

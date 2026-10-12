@@ -1,0 +1,139 @@
+{
+  "date": "2026-10-12",
+  "hardware": "Apple M4",
+  "sdk": "2.6.3",
+  "benchmark": "Synthetic constant-color compute output boundary, native Metal; not Godot scene FPS",
+  "gpu_timing": "MTLCommandBuffer GPUStartTime/GPUEndTime after completion",
+  "runs": [
+    {
+      "width": 704,
+      "height": 684,
+      "samples_per_mode": 50,
+      "warmup_pairs": 10,
+      "direct_gpu_ms": {
+        "median": 0.0421667,
+        "p10": 0.02325,
+        "p90": 0.0458333
+      },
+      "compute_plus_blit_gpu_ms": {
+        "median": 0.076875,
+        "p10": 0.0546667,
+        "p90": 0.10325
+      },
+      "exact_final_bytes": true,
+      "sdk_draw_submitted": false,
+      "shutdown": true,
+      "repeat": 1
+    },
+    {
+      "width": 4092,
+      "height": 4092,
+      "samples_per_mode": 50,
+      "warmup_pairs": 10,
+      "direct_gpu_ms": {
+        "median": 0.641458,
+        "p10": 0.577958,
+        "p90": 1.36529
+      },
+      "compute_plus_blit_gpu_ms": {
+        "median": 1.96321,
+        "p10": 1.90217,
+        "p90": 3.21975
+      },
+      "exact_final_bytes": true,
+      "sdk_draw_submitted": false,
+      "shutdown": true,
+      "repeat": 1
+    },
+    {
+      "width": 704,
+      "height": 684,
+      "samples_per_mode": 50,
+      "warmup_pairs": 10,
+      "direct_gpu_ms": {
+        "median": 0.0234583,
+        "p10": 0.0183333,
+        "p90": 0.02775
+      },
+      "compute_plus_blit_gpu_ms": {
+        "median": 0.0582083,
+        "p10": 0.0467917,
+        "p90": 0.08225
+      },
+      "exact_final_bytes": true,
+      "sdk_draw_submitted": false,
+      "shutdown": true,
+      "repeat": 2
+    },
+    {
+      "width": 4092,
+      "height": 4092,
+      "samples_per_mode": 50,
+      "warmup_pairs": 10,
+      "direct_gpu_ms": {
+        "median": 0.729458,
+        "p10": 0.588,
+        "p90": 1.6045
+      },
+      "compute_plus_blit_gpu_ms": {
+        "median": 2.1605,
+        "p10": 1.90463,
+        "p90": 3.3785
+      },
+      "exact_final_bytes": true,
+      "sdk_draw_submitted": false,
+      "shutdown": true,
+      "repeat": 2
+    },
+    {
+      "width": 704,
+      "height": 684,
+      "samples_per_mode": 50,
+      "warmup_pairs": 10,
+      "direct_gpu_ms": {
+        "median": 0.0425833,
+        "p10": 0.0421667,
+        "p90": 0.045625
+      },
+      "compute_plus_blit_gpu_ms": {
+        "median": 0.096375,
+        "p10": 0.0945417,
+        "p90": 0.114625
+      },
+      "exact_final_bytes": true,
+      "sdk_draw_submitted": false,
+      "shutdown": true,
+      "repeat": 3
+    },
+    {
+      "width": 4092,
+      "height": 4092,
+      "samples_per_mode": 50,
+      "warmup_pairs": 10,
+      "direct_gpu_ms": {
+        "median": 0.725583,
+        "p10": 0.620583,
+        "p90": 1.40175
+      },
+      "compute_plus_blit_gpu_ms": {
+        "median": 2.20158,
+        "p10": 1.93479,
+        "p90": 2.96096
+      },
+      "exact_final_bytes": true,
+      "sdk_draw_submitted": false,
+      "shutdown": true,
+      "repeat": 3
+    }
+  ],
+  "limitations": [
+    "No Godot rendering or real quilt synthesis",
+    "No Bridge optical draw/consumer during measurement",
+    "Producer CPU waits between samples",
+    "No measured interactive FPS or latency",
+    "Shader is a constant-color fill; other workloads may behave differently",
+    "Timing distributions may include GPU contention and command overhead"
+  ],
+  "source_sha256": "135065343462a29b97d6339312f0657ffb8c41453490d1c8a282e4b2a3f933ee",
+  "removed_intermediate_payload_bytes_at_4092_square": 66977856
+}

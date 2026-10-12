@@ -195,3 +195,7 @@ The configurable view ceiling is now 96. A 66-view, 11-column quilt with two rea
 ### Direct Bridge target experiment
 
 The native Metal extension can allocate an SDK RGBA8 IOSurface, import it through public `RenderingDevice.texture_create_from_extension()` and let the rig compose directly into it via `external_quilt_target`. A frozen 66-real-camera run passed the real SDK API boundary; an own-fixture run checked exact, nonempty RGBA8 pixels. The output blit is removed, but no frame-time speedup or continuous streaming support is claimed. See [instructions](native/bridge_metal/README.md#direct-imported-sdk-target-frozen-frame-experiment) and [results](benchmarks/hardware/godot-direct-target.json).
+
+### Direct-target microbenchmark
+
+On Apple M4, a synthetic 4092² RGBA8 constant-fill test measured 0.64–0.73 ms for direct SDK IOSurface compute writes versus 1.96–2.20 ms for private compute output plus blit, across three runs. No Bridge consumer draw or Godot scene rendering was timed. This supports retaining the optional direct target path but is not an end-to-end FPS claim. See [method, distributions and reproduction](benchmarks/hardware/direct-target-microbenchmark.md).
