@@ -2,8 +2,8 @@ extends Node3D
 ## Independent cameras with a shared World3D. Rebuild by replacing the rig.
 const Capture = preload("capture.gd")
 const Synthesizer = preload("synthesizer.gd")
-@export_range(1, 48) var total_views: int = 12
-@export_range(1, 48) var real_views: int = 12
+@export_range(1, 96) var total_views: int = 12
+@export_range(1, 96) var real_views: int = 12
 @export_range(1, 12) var columns: int = 4
 @export var tile_size: Vector2i = Vector2i(192, 256)
 @export_range(1.0, 80.0) var view_cone_degrees: float = 35.0
@@ -22,6 +22,9 @@ var _render_requested_revision: int = 0
 var _render_completed_revision: int = 0
 var _render_required_capture_counts: Array[int] = []
 @export var synthesis: bool = false
+## Compute output only. Clamps existing gamma-encoded output to normalized RGBA8.
+## Set before ready; this does not apply HDR tonemapping or another gamma curve.
+@export var quilt_rgba8: bool = false
 @export var shared_positional_shadows: bool = false
 @export var measure_render_time: bool = false
 @export var profile_synthesis: bool = false
@@ -58,7 +61,7 @@ func _ready() -> void:
     if inverse_depth_reprojection:
         borrow_source_color = true
         borrow_source_depth = true
-    total_views = clampi(total_views, 1, 48)
+    total_views = clampi(total_views, 1, 96)
     real_views = clampi(real_views, 2 if total_views > 1 else 1, total_views)
     columns = clampi(columns, 1, total_views)
     assert(tile_size.x > 0 and tile_size.y > 0 and far_clip > near_clip)

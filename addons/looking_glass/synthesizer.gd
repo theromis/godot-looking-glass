@@ -35,8 +35,10 @@ var cpu_sample_cursor: int = 0
 var iterations: int = 8
 var disocclusion_rescue: bool = false
 var inverse_depth: bool = false
+var rgba8: bool = false
 
 func configure(rig: Node3D) -> void:
+    rgba8 = rig.quilt_rgba8
     profiling_enabled = rig.profile_synthesis
     profiling_sample_limit = clampi(rig.profiling_sample_limit, 1, 4096)
     workgroup = [Vector2i(8, 8), Vector2i(16, 8), Vector2i(16, 16)][clampi(rig.synthesis_workgroup, 0, 2)]
@@ -79,7 +81,17 @@ func _initialize() -> void:
         path += "_iterations%d" % iterations
     if workgroup != Vector2i(8, 8):
         path += "_%dx%d" % [workgroup.x, workgroup.y]
-    shader = rd.shader_create_from_spirv(load(path + ".glsl").get_spirv())
+    if rgba8:
+        # Reuse the selected synthesis algorithm; only its storage format changes.
+        var source := RDShaderSource.new()
+        source.source_compute = FileAccess.get_file_as_string(path + ".glsl").replace("#[compute]\n", "").replace("layout(rgba16f,set=0,binding=4)", "layout(rgba8,set=0,binding=4)")
+        var spirv := rd.shader_compile_spirv_from_source(source)
+        if not spirv.compile_error_compute.is_empty():
+            push_error(spirv.compile_error_compute)
+            return
+        shader = rd.shader_create_from_spirv(spirv)
+    else:
+        shader = rd.shader_create_from_spirv(load(path + ".glsl").get_spirv())
     pipeline = rd.compute_pipeline_create(shader)
     var state := RDSamplerState.new()
     state.repeat_u = RenderingDevice.SAMPLER_REPEAT_MODE_CLAMP_TO_EDGE
@@ -88,7 +100,7 @@ func _initialize() -> void:
     var f := RDTextureFormat.new()
     f.width = size.x * columns
     f.height = size.y * ceili(float(count) / columns)
-    f.format = RenderingDevice.DATA_FORMAT_R16G16B16A16_SFLOAT
+    f.format = RenderingDevice.DATA_FORMAT_R8G8B8A8_UNORM if rgba8 else RenderingDevice.DATA_FORMAT_R16G16B16A16_SFLOAT
     f.usage_bits = RenderingDevice.TEXTURE_USAGE_STORAGE_BIT | RenderingDevice.TEXTURE_USAGE_SAMPLING_BIT | RenderingDevice.TEXTURE_USAGE_CAN_COPY_FROM_BIT | RenderingDevice.TEXTURE_USAGE_CAN_COPY_TO_BIT
     quilt = rd.texture_create(f, RDTextureView.new())
     rd.texture_clear(quilt, Color.BLACK, 0, 1, 0, 1)

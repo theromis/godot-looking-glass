@@ -19,14 +19,14 @@ Checked items are implemented or completed experiments, with their limits record
 
 ### In progress: prototypes and research
 
-- [ ] **Native Bridge output:** an optional GDExtension copies a frozen Godot 4.8 Metal quilt into a real IOSurface SDK fixture; a separate real-SDK RGBA8 color probe displayed on hardware. Godot scene output, 66-view support and animated streaming remain unfinished. See [native boundary](native/bridge_metal/README.md).
+- [ ] **Native Bridge output:** an optional GDExtension copies a frozen Godot 4.8 Metal quilt into a real IOSurface SDK fixture; a separate real-SDK RGBA8 color probe displayed on hardware. Godot scene output and animated streaming remain unfinished; 66-view GPU composition is tested with two real cameras. See [native boundary](native/bridge_metal/README.md).
 - [ ] **Synthesis quality:** the inverse-warp MVP and bounded rescue exist; robust visibility, disocclusion handling and motion/transparency quality remain unfinished.
 - [ ] **Adaptive view selection:** fixed budgets and offline placement are evaluated; depth-only selectors worsened quality, so a reliable runtime controller is still missing.
 - [ ] **Shared-shadow production readiness:** the optional patch is tested; atlas overflow, coverage/subdivision changes, changing worlds/masks and broader upstream validation remain pending.
 
 ### Required next steps
 
-- [ ] Connect Godot quilts to the validated RGBA8 SDK output path with GPU format conversion, 66-view support, explicit ownership and queue synchronization.
+- [ ] Connect Godot quilts to the validated RGBA8 SDK output path with direct RGBA8 composition, explicit ownership and queue synchronization.
 - [ ] Validate a connected Looking Glass: calibration/device matching, view order, optical output, latency, disconnect/reconnect and shutdown.
 - [ ] Test animated geometry, camera cuts, thin occluders, transparent objects and particles against all-real references.
 - [ ] Resolve production color/tonemapping and temporal-jitter behavior; current compute preview is not final Godot postprocessed output.
@@ -45,7 +45,7 @@ Detailed implementation history and readiness criteria: [implementation roadmap]
 
 Standalone research addon and demo for Godot 4: off-axis cameras, GPU quilt preview, experimental GPU depth synthesis, and Bridge detection. Unity/Looking Glass code and SDK binaries are not included in the project.
 
-Executed on Godot 4.5.1, Apple M4, Vulkan Forward+ through MoltenVK. The project runs from the repository root (`.`); engine sources in the optional sibling checkout `../godot` (4.8-dev) were inspected, and an optional experimental shared positional shadow patch was added (see `engine-patches/README.md`). The connected 1440×2560 display is detected, and real Bridge RGBA8 solid-color output is user-confirmed. End-to-end Godot scene submission, 66-view preset support and streaming are unfinished. See [hardware results](benchmarks/hardware/README.md).
+Executed on Godot 4.5.1, Apple M4, Vulkan Forward+ through MoltenVK. The project runs from the repository root (`.`); engine sources in the optional sibling checkout `../godot` (4.8-dev) were inspected, and an optional experimental shared positional shadow patch was added (see `engine-patches/README.md`). The connected 1440×2560 display is detected, and real Bridge RGBA8 solid-color output is user-confirmed. End-to-end Godot scene submission and streaming are unfinished; 66-view RGBA8 composition is tested on Godot 4.8 Metal and Vulkan. See [hardware results](benchmarks/hardware/README.md).
 
 ## Development disclosure
 
@@ -179,3 +179,9 @@ GPU reduction of the optional depth diagnostic now returns 768 bytes instead of 
 ## Static quilt updates on demand
 
 Optional `update_on_demand` renders source views and assembles the compute quilt only when `request_update()` is called. Rig motion requests updates automatically; the application explicitly reports object, light, material and environment changes. On current Godot 4.8-dev / Apple M4, three pairs of the static 24→48 scene with 1024² tiles reduced process/presentation interval from 47.408±0.296 to 16.535±0.121 ms. After warmup, the cached quilt matches the continuous reference bit-for-bit. Idle performs no repeated source captures or compute dispatches; the window keeps presenting the cached texture. This saves static-scene work rather than accelerating new animated views. The first large-scene frame differed in 76 RGBA components by at most 1/255, so the benchmark explicitly refreshes the quilt before measured idle. The startup difference has no established cause; no automatic warmup is implemented. Mode is off by default and does not modify the engine fork. See [API, limitations and measurements](benchmarks/on-demand/README.md).
+
+### Direct RGBA8 compute quilts
+
+Set `rig.synthesis = true` and `rig.quilt_rgba8 = true` before adding the rig to the scene. The selected synthesis shader writes normalized RGBA8 directly, without a separate conversion dispatch. The default remains RGBA16Float. This mode clamps the existing gamma-encoded shader result to [0, 1]; it adds neither a second gamma curve nor HDR tonemapping. Source color captures remain float textures. Shader compilation occurs once per rig initialization; exported projects using this mode must include the raw addon shader `.glsl` files for runtime compilation.
+
+The configurable view ceiling is now 96. A 66-view, 11-column quilt with two real cameras and 16² tiles passed format, nonempty output, on-demand freezing and clamped-float comparison checks on Godot 4.8 Vulkan/MoltenVK and native Metal with `GODOT_MTL_SYNC_MODE=none`. This is not a 66-real-camera benchmark, a full-resolution device preset test or real Bridge scene output. See [test evidence](benchmarks/hardware/godot-rgba8.json). Run `tests/test_quilt_rgba8.gd` through the latest engine with `--path . --script tests/test_quilt_rgba8.gd`.

@@ -1,0 +1,49 @@
+{
+  "date": "2026-10-11",
+  "hardware": "Apple M4",
+  "views": 66,
+  "real_views": 2,
+  "grid": [
+    11,
+    6
+  ],
+  "tile_size": [
+    16,
+    16
+  ],
+  "quilt_size": [
+    176,
+    96
+  ],
+  "rgba8_max_error_vs_clamped_float": 0.00178342312574,
+  "threshold": 0.00392156862745098,
+  "checks": [
+    "RGBA8 image format and byte count",
+    "nonempty image",
+    "frozen on-demand capture and synthesis counters",
+    "every output channel compared against RGBA16Float reference"
+  ],
+  "runs": [
+    {
+      "engine": "4.8.dev.custom_build.c61fc0118",
+      "driver": "Metal",
+      "environment": {
+        "GODOT_MTL_SYNC_MODE": "none"
+      },
+      "exit_code": 0,
+      "pass": true
+    },
+    {
+      "engine": "4.8.dev.custom_build.232e6b14a",
+      "driver": "Vulkan/MoltenVK",
+      "exit_code": 0,
+      "pass": true
+    }
+  ],
+  "limitations": [
+    "No Bridge submission or physical scene validation",
+    "No timing or full-resolution benchmark",
+    "Default synthesis algorithm with borrowed raw depth tested; other algorithm variants not exercised",
+    "Runtime shader source must be included in exported projects"
+  ]
+}
