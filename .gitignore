@@ -16,3 +16,4 @@
 /native/bridge_metal/build/
 
 /benchmarks/native-bridge/*.bin
+benchmarks/native-bridge/equivalence*-local/

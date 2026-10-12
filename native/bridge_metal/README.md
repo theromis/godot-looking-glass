@@ -74,3 +74,20 @@ Next remains a real calibrated SDK window, validated output format/transfer/orie
 On Apple M4 with installed Bridge 2.6.3, initialization/query/shutdown succeeded, display count was zero, and Metal offscreen creation returned false with handle zero. The SDK exposed no detailed error here. This blocks this tested no-device route, without proving every offscreen route impossible. The generic calibration-file offscreen entry point is documented with OpenGL; it is not evidence that the Metal API accepts a calibration file.
 
 Header references in the external SDK sample tree: `BridgeRuntime/bridge.h:156` (generic calibration-file API), `:379` (Metal offscreen device-index API), `:380` (output texture), and `:544` (display query). No explicit consumer fence/completion function was found in that header. Draw-return must remain distinct from GPU completion: production streaming requires a documented consumer ownership/completion contract or another independently validated synchronization mechanism. No ring-buffer reuse or performance improvement is claimed. See [observed results](../../benchmarks/native-bridge/offscreen-results.json) and the [official native API reference](https://lfdocs.lookingglassfactory.com/software/looking-glass-bridge-sdk/native-function-reference).
+
+
+## Native Metal synchronization diagnosis
+
+The default-barrier Metal path still fails three addon regressions. These failures were repeated after the hazard-tracking runs, so GPU warmup alone did not make them pass. The nine-rig diagnostic isolates differences in source color and final viewport images, not only compute output: the first left source matches an opposite/right source despite equal left-camera transforms and projections. Two default-barrier diagnostics matched only 32/80 cross-rig snapshot comparisons; native hazard tracking matched all 80/80. Adding a diagnostic guard viewport also removed the previously observed cross-rig quilt mismatch, but this is not a production workaround.
+
+On the latest local 4.8-dev native Metal build / Apple M4, this existing engine switch passed **all 16 regression checks**, the full 15-case buffer compatibility matrix, and the static native fixture copy:
+
+```sh
+GODOT_MTL_SYNC_MODE=none "$GODOT" --path . --rendering-driver metal
+GODOT_MTL_SYNC_MODE=none python3 tests/run_checks.py --godot "$GODOT" \
+  --driver metal --output-dir benchmarks/native-bridge/regression-metal-hazard
+```
+
+Set `GODOT` to your latest native Metal engine executable. This switch means native hazard tracking, not disabled synchronization (`rendering_device_driver_metal.cpp:2873`). It is opt-in at process launch; no addon rendering defaults or engine sources were changed. The switch also changes resource allocation/heap policy, so an exact driver cause is not established. No performance comparison was made. A smaller standalone camera test failed once, then passed later controls and six further default-barrier runs; its failure is intermittent. Six hazard-tracking repeats passed. General support on other engines/GPUs, producer streaming and real Bridge output remain unvalidated.
+
+See [outcomes](../../benchmarks/native-bridge/metal-sync-results.json) and [unpublished upstream issue draft](../../docs/native-metal-issue-draft.md).

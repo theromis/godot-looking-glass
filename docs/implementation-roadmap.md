@@ -130,3 +130,8 @@ A new 4.8-dev native Metal runtime and optional test-fixture-only GDExtension no
 ## Real Bridge offscreen route checked
 
 Real SDK 2.6.3 initialization, zero-device query and shutdown passed. Metal offscreen creation with the first-device sentinel failed with handle zero. This tested route cannot yet provide hardware-free real SDK texture transfer. No detailed SDK error or consumer completion contract was obtained. Next production milestones require a calibrated device and verified consumer lifetime semantics; one-shot fixture copying remains the executed boundary. See [native diagnostic](../native/bridge_metal/README.md#real-sdk-offscreen-diagnostic).
+
+
+## Native Metal correctness gate: optional hazard tracking
+
+The latest native Metal 4.8-dev addon suite passes 16/16 with `GODOT_MTL_SYNC_MODE=none`; the static Godot-to-fixture copy also passes. Repeating default barriers still fails the three prior image-equivalence checks. Diagnostics isolate source/final-viewport mismatches and an opposite-camera image substitution; the exact driver cause remains open. The smaller standalone reproduction is intermittent. No production rendering code was changed and no performance gain is claimed. Default-barrier engine correctness, other GPUs/versions, real Bridge output and safe consumer-side texture reuse remain open. See [findings and launch instructions](../native/bridge_metal/README.md#native-metal-synchronization-diagnosis) and [unpublished engine issue draft](native-metal-issue-draft.md).

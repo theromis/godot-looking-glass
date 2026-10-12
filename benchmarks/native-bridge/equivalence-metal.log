@@ -1,0 +1,33 @@
+WARNING: Falling back to dummy PhysicsServer2D; 2D physics functionality will be disabled. If this is intended, set the physics/2d/physics_engine project setting to Dummy.
+     at: initialize_server (servers/physics_2d/physics_server_2d_manager.cpp:66)
+Godot Engine v4.8.dev.custom_build.c61fc0118 (2026-10-11 16:37:54 UTC) - https://godotengine.org
+Metal 4.0 - Forward+ - Using Device #0: Apple - Apple M4 (Apple9)
+
+CAMERA 0 [X: (1.0, 0.0, 0.0), Y: (0.0, 1.0, 0.0), Z: (0.0, 0.0, 1.0), O: (-1.891793, 0.0, 6.0)] projection=[X: (3.269182, 0.0, 0.0, 0.0), Y: (0.0, 3.171595, 0.0, 0.0), Z: (1.030769, 0.0, -1.005013, -1.0), W: (0.0, 0.0, -0.200501, 0.0)]
+CAMERA 1 [X: (1.0, 0.0, 0.0), Y: (0.0, 1.0, 0.0), Z: (0.0, 0.0, 1.0), O: (-1.891793, 0.0, 6.0)] projection=[X: (3.269182, 0.0, 0.0, 0.0), Y: (0.0, 3.171595, 0.0, 0.0), Z: (1.030769, 0.0, -1.005013, -1.0), W: (0.0, 0.0, -0.200501, 0.0)]
+CAMERA 2 [X: (1.0, 0.0, 0.0), Y: (0.0, 1.0, 0.0), Z: (0.0, 0.0, 1.0), O: (-1.891793, 0.0, 6.0)] projection=[X: (3.269182, 0.0, 0.0, 0.0), Y: (0.0, 3.171595, 0.0, 0.0), Z: (1.030769, 0.0, -1.005013, -1.0), W: (0.0, 0.0, -0.200501, 0.0)]
+CAMERA 3 [X: (1.0, 0.0, 0.0), Y: (0.0, 1.0, 0.0), Z: (0.0, 0.0, 1.0), O: (-1.891793, 0.0, 6.0)] projection=[X: (3.269182, 0.0, 0.0, 0.0), Y: (0.0, 3.171595, 0.0, 0.0), Z: (1.030769, 0.0, -1.005013, -1.0), W: (0.0, 0.0, -0.200501, 0.0)]
+CAMERA 4 [X: (1.0, 0.0, 0.0), Y: (0.0, 1.0, 0.0), Z: (0.0, 0.0, 1.0), O: (-1.891793, 0.0, 6.0)] projection=[X: (3.269182, 0.0, 0.0, 0.0), Y: (0.0, 3.171595, 0.0, 0.0), Z: (1.030769, 0.0, -1.005013, -1.0), W: (0.0, 0.0, -0.200501, 0.0)]
+CAMERA 5 [X: (1.0, 0.0, 0.0), Y: (0.0, 1.0, 0.0), Z: (0.0, 0.0, 1.0), O: (-1.891793, 0.0, 6.0)] projection=[X: (3.269182, 0.0, 0.0, 0.0), Y: (0.0, 3.171595, 0.0, 0.0), Z: (1.030769, 0.0, -1.005013, -1.0), W: (0.0, 0.0, -0.200501, 0.0)]
+CAMERA 6 [X: (1.0, 0.0, 0.0), Y: (0.0, 1.0, 0.0), Z: (0.0, 0.0, 1.0), O: (-1.891793, 0.0, 6.0)] projection=[X: (3.269182, 0.0, 0.0, 0.0), Y: (0.0, 3.171595, 0.0, 0.0), Z: (1.030769, 0.0, -1.005013, -1.0), W: (0.0, 0.0, -0.200501, 0.0)]
+CAMERA 7 [X: (1.0, 0.0, 0.0), Y: (0.0, 1.0, 0.0), Z: (0.0, 0.0, 1.0), O: (-1.891793, 0.0, 6.0)] projection=[X: (3.269182, 0.0, 0.0, 0.0), Y: (0.0, 3.171595, 0.0, 0.0), Z: (1.030769, 0.0, -1.005013, -1.0), W: (0.0, 0.0, -0.200501, 0.0)]
+CAMERA 8 [X: (1.0, 0.0, 0.0), Y: (0.0, 1.0, 0.0), Z: (0.0, 0.0, 1.0), O: (-1.891793, 0.0, 6.0)] projection=[X: (3.269182, 0.0, 0.0, 0.0), Y: (0.0, 3.171595, 0.0, 0.0), Z: (1.030769, 0.0, -1.005013, -1.0), W: (0.0, 0.0, -0.200501, 0.0)]
+SNAPSHOT settled rig=0 size=(260, 134) dispatches=121
+SNAPSHOT settled rig=1 size=(260, 134) dispatches=121
+SNAPSHOT settled rig=2 size=(260, 134) dispatches=121
+SNAPSHOT settled rig=3 size=(260, 134) dispatches=121
+SNAPSHOT settled rig=4 size=(260, 134) dispatches=121
+SNAPSHOT settled rig=5 size=(260, 134) dispatches=121
+SNAPSHOT settled rig=6 size=(260, 134) dispatches=121
+SNAPSHOT settled rig=7 size=(260, 134) dispatches=121
+SNAPSHOT settled rig=8 size=(260, 134) dispatches=121
+SNAPSHOT frozen rig=0 size=(260, 134) dispatches=133
+SNAPSHOT frozen rig=1 size=(260, 134) dispatches=133
+SNAPSHOT frozen rig=2 size=(260, 134) dispatches=133
+SNAPSHOT frozen rig=3 size=(260, 134) dispatches=133
+SNAPSHOT frozen rig=4 size=(260, 134) dispatches=133
+SNAPSHOT frozen rig=5 size=(260, 134) dispatches=133
+SNAPSHOT frozen rig=6 size=(260, 134) dispatches=133
+SNAPSHOT frozen rig=7 size=(260, 134) dispatches=133
+SNAPSHOT frozen rig=8 size=(260, 134) dispatches=133
+PASS diagnostic snapshots; equivalence is assessed separately

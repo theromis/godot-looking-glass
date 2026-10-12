@@ -1,0 +1,34 @@
+{
+  "date": "2026-10-11",
+  "engine": "Godot 4.8-dev c61fc0118",
+  "engine_sha256": "00b5a1fa801ba45fca3cebb291decdbe3a2a269a9b8f43e19f2d76cb072b9adf",
+  "hardware": "Apple M4",
+  "driver": "native Metal",
+  "workaround_environment": {
+    "GODOT_MTL_SYNC_MODE": "none"
+  },
+  "regression_checks_passed": 16,
+  "regression_checks_total": 16,
+  "previous_default_barriers_checks_passed": 13,
+  "default_barriers_control_repeat": {
+    "on_demand": "failed",
+    "capture_lifetime": "failed",
+    "buffer_compat": "failed"
+  },
+  "source_diagnostic": {
+    "default_barriers_exact_comparisons": 32,
+    "default_barriers_repeat_exact_comparisons": 32,
+    "hazard_tracking_exact_comparisons": 80,
+    "total_comparisons": 80,
+    "first_left_source_equals_opposite_source_with_barriers": true
+  },
+  "minimal_repro": "Intermittent: initial off-axis-only run failed, subsequent six barrier runs and six hazard-tracking runs passed. Do not claim deterministic reproduction.",
+  "native_fixture_copy_with_hazard_tracking": "passed exact RGBA16Float comparison",
+  "performance": "Not measured; synchronization mode also changes allocation/resource policy. No speedup claim.",
+  "scope": "No engine or addon production rendering code changed; no Bridge hardware output or consumer completion validated.",
+  "isolated_empty_project_control": {
+    "barriers": "passed in clean repeat",
+    "hazard_tracking": "passed in clean repeat",
+    "script_cache": "Empty list=[] cache supplied for template runtime; no addon or imported shaders"
+  }
+}

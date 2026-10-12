@@ -1,0 +1,1472 @@
+{
+  "scope": "Nine rigs; two source cameras; three capture modes and three workgroups; 120 warmup draws; 12 frozen draws",
+  "first_left_matches_other_right": false,
+  "rows": [
+    {
+      "exact": true,
+      "components": 17420,
+      "changed": 0,
+      "max_absolute": 0.0,
+      "mean_absolute": 0.0,
+      "stage": "settled",
+      "part": "0-color",
+      "baseline": 0,
+      "compared": 1,
+      "units": "linear half-float color"
+    },
+    {
+      "exact": true,
+      "components": 17420,
+      "changed": 0,
+      "max_absolute": 0.0,
+      "mean_absolute": 0.0,
+      "stage": "settled",
+      "part": "0-color",
+      "baseline": 0,
+      "compared": 2,
+      "units": "linear half-float color"
+    },
+    {
+      "exact": true,
+      "components": 17420,
+      "changed": 0,
+      "max_absolute": 0.0,
+      "mean_absolute": 0.0,
+      "stage": "settled",
+      "part": "0-color",
+      "baseline": 0,
+      "compared": 3,
+      "units": "linear half-float color"
+    },
+    {
+      "exact": true,
+      "components": 17420,
+      "changed": 0,
+      "max_absolute": 0.0,
+      "mean_absolute": 0.0,
+      "stage": "settled",
+      "part": "0-color",
+      "baseline": 0,
+      "compared": 4,
+      "units": "linear half-float color"
+    },
+    {
+      "exact": true,
+      "components": 17420,
+      "changed": 0,
+      "max_absolute": 0.0,
+      "mean_absolute": 0.0,
+      "stage": "settled",
+      "part": "0-color",
+      "baseline": 0,
+      "compared": 5,
+      "units": "linear half-float color"
+    },
+    {
+      "exact": true,
+      "components": 17420,
+      "changed": 0,
+      "max_absolute": 0.0,
+      "mean_absolute": 0.0,
+      "stage": "settled",
+      "part": "0-color",
+      "baseline": 0,
+      "compared": 6,
+      "units": "linear half-float color"
+    },
+    {
+      "exact": true,
+      "components": 17420,
+      "changed": 0,
+      "max_absolute": 0.0,
+      "mean_absolute": 0.0,
+      "stage": "settled",
+      "part": "0-color",
+      "baseline": 0,
+      "compared": 7,
+      "units": "linear half-float color"
+    },
+    {
+      "exact": true,
+      "components": 17420,
+      "changed": 0,
+      "max_absolute": 0.0,
+      "mean_absolute": 0.0,
+      "stage": "settled",
+      "part": "0-color",
+      "baseline": 0,
+      "compared": 8,
+      "units": "linear half-float color"
+    },
+    {
+      "exact": true,
+      "components": 17420,
+      "changed": 0,
+      "max_absolute": 0.0,
+      "mean_absolute": 0.0,
+      "stage": "settled",
+      "part": "1-color",
+      "baseline": 0,
+      "compared": 1,
+      "units": "linear half-float color"
+    },
+    {
+      "exact": true,
+      "components": 17420,
+      "changed": 0,
+      "max_absolute": 0.0,
+      "mean_absolute": 0.0,
+      "stage": "settled",
+      "part": "1-color",
+      "baseline": 0,
+      "compared": 2,
+      "units": "linear half-float color"
+    },
+    {
+      "exact": true,
+      "components": 17420,
+      "changed": 0,
+      "max_absolute": 0.0,
+      "mean_absolute": 0.0,
+      "stage": "settled",
+      "part": "1-color",
+      "baseline": 0,
+      "compared": 3,
+      "units": "linear half-float color"
+    },
+    {
+      "exact": true,
+      "components": 17420,
+      "changed": 0,
+      "max_absolute": 0.0,
+      "mean_absolute": 0.0,
+      "stage": "settled",
+      "part": "1-color",
+      "baseline": 0,
+      "compared": 4,
+      "units": "linear half-float color"
+    },
+    {
+      "exact": true,
+      "components": 17420,
+      "changed": 0,
+      "max_absolute": 0.0,
+      "mean_absolute": 0.0,
+      "stage": "settled",
+      "part": "1-color",
+      "baseline": 0,
+      "compared": 5,
+      "units": "linear half-float color"
+    },
+    {
+      "exact": true,
+      "components": 17420,
+      "changed": 0,
+      "max_absolute": 0.0,
+      "mean_absolute": 0.0,
+      "stage": "settled",
+      "part": "1-color",
+      "baseline": 0,
+      "compared": 6,
+      "units": "linear half-float color"
+    },
+    {
+      "exact": true,
+      "components": 17420,
+      "changed": 0,
+      "max_absolute": 0.0,
+      "mean_absolute": 0.0,
+      "stage": "settled",
+      "part": "1-color",
+      "baseline": 0,
+      "compared": 7,
+      "units": "linear half-float color"
+    },
+    {
+      "exact": true,
+      "components": 17420,
+      "changed": 0,
+      "max_absolute": 0.0,
+      "mean_absolute": 0.0,
+      "stage": "settled",
+      "part": "1-color",
+      "baseline": 0,
+      "compared": 8,
+      "units": "linear half-float color"
+    },
+    {
+      "exact": true,
+      "components": 13065,
+      "changed": 0,
+      "max_absolute": 0,
+      "mean_absolute": 0.0,
+      "stage": "settled",
+      "part": "0-viewport",
+      "baseline": 0,
+      "compared": 1,
+      "units": "viewport byte values"
+    },
+    {
+      "exact": true,
+      "components": 13065,
+      "changed": 0,
+      "max_absolute": 0,
+      "mean_absolute": 0.0,
+      "stage": "settled",
+      "part": "0-viewport",
+      "baseline": 0,
+      "compared": 2,
+      "units": "viewport byte values"
+    },
+    {
+      "exact": true,
+      "components": 13065,
+      "changed": 0,
+      "max_absolute": 0,
+      "mean_absolute": 0.0,
+      "stage": "settled",
+      "part": "0-viewport",
+      "baseline": 0,
+      "compared": 3,
+      "units": "viewport byte values"
+    },
+    {
+      "exact": true,
+      "components": 13065,
+      "changed": 0,
+      "max_absolute": 0,
+      "mean_absolute": 0.0,
+      "stage": "settled",
+      "part": "0-viewport",
+      "baseline": 0,
+      "compared": 4,
+      "units": "viewport byte values"
+    },
+    {
+      "exact": true,
+      "components": 13065,
+      "changed": 0,
+      "max_absolute": 0,
+      "mean_absolute": 0.0,
+      "stage": "settled",
+      "part": "0-viewport",
+      "baseline": 0,
+      "compared": 5,
+      "units": "viewport byte values"
+    },
+    {
+      "exact": true,
+      "components": 13065,
+      "changed": 0,
+      "max_absolute": 0,
+      "mean_absolute": 0.0,
+      "stage": "settled",
+      "part": "0-viewport",
+      "baseline": 0,
+      "compared": 6,
+      "units": "viewport byte values"
+    },
+    {
+      "exact": true,
+      "components": 13065,
+      "changed": 0,
+      "max_absolute": 0,
+      "mean_absolute": 0.0,
+      "stage": "settled",
+      "part": "0-viewport",
+      "baseline": 0,
+      "compared": 7,
+      "units": "viewport byte values"
+    },
+    {
+      "exact": true,
+      "components": 13065,
+      "changed": 0,
+      "max_absolute": 0,
+      "mean_absolute": 0.0,
+      "stage": "settled",
+      "part": "0-viewport",
+      "baseline": 0,
+      "compared": 8,
+      "units": "viewport byte values"
+    },
+    {
+      "exact": true,
+      "components": 13065,
+      "changed": 0,
+      "max_absolute": 0,
+      "mean_absolute": 0.0,
+      "stage": "settled",
+      "part": "1-viewport",
+      "baseline": 0,
+      "compared": 1,
+      "units": "viewport byte values"
+    },
+    {
+      "exact": true,
+      "components": 13065,
+      "changed": 0,
+      "max_absolute": 0,
+      "mean_absolute": 0.0,
+      "stage": "settled",
+      "part": "1-viewport",
+      "baseline": 0,
+      "compared": 2,
+      "units": "viewport byte values"
+    },
+    {
+      "exact": true,
+      "components": 13065,
+      "changed": 0,
+      "max_absolute": 0,
+      "mean_absolute": 0.0,
+      "stage": "settled",
+      "part": "1-viewport",
+      "baseline": 0,
+      "compared": 3,
+      "units": "viewport byte values"
+    },
+    {
+      "exact": true,
+      "components": 13065,
+      "changed": 0,
+      "max_absolute": 0,
+      "mean_absolute": 0.0,
+      "stage": "settled",
+      "part": "1-viewport",
+      "baseline": 0,
+      "compared": 4,
+      "units": "viewport byte values"
+    },
+    {
+      "exact": true,
+      "components": 13065,
+      "changed": 0,
+      "max_absolute": 0,
+      "mean_absolute": 0.0,
+      "stage": "settled",
+      "part": "1-viewport",
+      "baseline": 0,
+      "compared": 5,
+      "units": "viewport byte values"
+    },
+    {
+      "exact": true,
+      "components": 13065,
+      "changed": 0,
+      "max_absolute": 0,
+      "mean_absolute": 0.0,
+      "stage": "settled",
+      "part": "1-viewport",
+      "baseline": 0,
+      "compared": 6,
+      "units": "viewport byte values"
+    },
+    {
+      "exact": true,
+      "components": 13065,
+      "changed": 0,
+      "max_absolute": 0,
+      "mean_absolute": 0.0,
+      "stage": "settled",
+      "part": "1-viewport",
+      "baseline": 0,
+      "compared": 7,
+      "units": "viewport byte values"
+    },
+    {
+      "exact": true,
+      "components": 13065,
+      "changed": 0,
+      "max_absolute": 0,
+      "mean_absolute": 0.0,
+      "stage": "settled",
+      "part": "1-viewport",
+      "baseline": 0,
+      "compared": 8,
+      "units": "viewport byte values"
+    },
+    {
+      "exact": true,
+      "components": 139360,
+      "changed": 0,
+      "max_absolute": 0.0,
+      "mean_absolute": 0.0,
+      "stage": "settled",
+      "part": "quilt",
+      "baseline": 0,
+      "compared": 1,
+      "units": "preview half-float"
+    },
+    {
+      "exact": true,
+      "components": 139360,
+      "changed": 0,
+      "max_absolute": 0.0,
+      "mean_absolute": 0.0,
+      "stage": "settled",
+      "part": "quilt",
+      "baseline": 0,
+      "compared": 2,
+      "units": "preview half-float"
+    },
+    {
+      "exact": true,
+      "components": 139360,
+      "changed": 0,
+      "max_absolute": 0.0,
+      "mean_absolute": 0.0,
+      "stage": "settled",
+      "part": "quilt",
+      "baseline": 0,
+      "compared": 3,
+      "units": "preview half-float"
+    },
+    {
+      "exact": true,
+      "components": 139360,
+      "changed": 0,
+      "max_absolute": 0.0,
+      "mean_absolute": 0.0,
+      "stage": "settled",
+      "part": "quilt",
+      "baseline": 0,
+      "compared": 4,
+      "units": "preview half-float"
+    },
+    {
+      "exact": true,
+      "components": 139360,
+      "changed": 0,
+      "max_absolute": 0.0,
+      "mean_absolute": 0.0,
+      "stage": "settled",
+      "part": "quilt",
+      "baseline": 0,
+      "compared": 5,
+      "units": "preview half-float"
+    },
+    {
+      "exact": true,
+      "components": 139360,
+      "changed": 0,
+      "max_absolute": 0.0,
+      "mean_absolute": 0.0,
+      "stage": "settled",
+      "part": "quilt",
+      "baseline": 0,
+      "compared": 6,
+      "units": "preview half-float"
+    },
+    {
+      "exact": true,
+      "components": 139360,
+      "changed": 0,
+      "max_absolute": 0.0,
+      "mean_absolute": 0.0,
+      "stage": "settled",
+      "part": "quilt",
+      "baseline": 0,
+      "compared": 7,
+      "units": "preview half-float"
+    },
+    {
+      "exact": true,
+      "components": 139360,
+      "changed": 0,
+      "max_absolute": 0.0,
+      "mean_absolute": 0.0,
+      "stage": "settled",
+      "part": "quilt",
+      "baseline": 0,
+      "compared": 8,
+      "units": "preview half-float"
+    },
+    {
+      "exact": true,
+      "components": 17420,
+      "changed": 0,
+      "max_absolute": 0.0,
+      "mean_absolute": 0.0,
+      "stage": "frozen",
+      "part": "0-color",
+      "baseline": 0,
+      "compared": 1,
+      "units": "linear half-float color"
+    },
+    {
+      "exact": true,
+      "components": 17420,
+      "changed": 0,
+      "max_absolute": 0.0,
+      "mean_absolute": 0.0,
+      "stage": "frozen",
+      "part": "0-color",
+      "baseline": 0,
+      "compared": 2,
+      "units": "linear half-float color"
+    },
+    {
+      "exact": true,
+      "components": 17420,
+      "changed": 0,
+      "max_absolute": 0.0,
+      "mean_absolute": 0.0,
+      "stage": "frozen",
+      "part": "0-color",
+      "baseline": 0,
+      "compared": 3,
+      "units": "linear half-float color"
+    },
+    {
+      "exact": true,
+      "components": 17420,
+      "changed": 0,
+      "max_absolute": 0.0,
+      "mean_absolute": 0.0,
+      "stage": "frozen",
+      "part": "0-color",
+      "baseline": 0,
+      "compared": 4,
+      "units": "linear half-float color"
+    },
+    {
+      "exact": true,
+      "components": 17420,
+      "changed": 0,
+      "max_absolute": 0.0,
+      "mean_absolute": 0.0,
+      "stage": "frozen",
+      "part": "0-color",
+      "baseline": 0,
+      "compared": 5,
+      "units": "linear half-float color"
+    },
+    {
+      "exact": true,
+      "components": 17420,
+      "changed": 0,
+      "max_absolute": 0.0,
+      "mean_absolute": 0.0,
+      "stage": "frozen",
+      "part": "0-color",
+      "baseline": 0,
+      "compared": 6,
+      "units": "linear half-float color"
+    },
+    {
+      "exact": true,
+      "components": 17420,
+      "changed": 0,
+      "max_absolute": 0.0,
+      "mean_absolute": 0.0,
+      "stage": "frozen",
+      "part": "0-color",
+      "baseline": 0,
+      "compared": 7,
+      "units": "linear half-float color"
+    },
+    {
+      "exact": true,
+      "components": 17420,
+      "changed": 0,
+      "max_absolute": 0.0,
+      "mean_absolute": 0.0,
+      "stage": "frozen",
+      "part": "0-color",
+      "baseline": 0,
+      "compared": 8,
+      "units": "linear half-float color"
+    },
+    {
+      "exact": true,
+      "components": 17420,
+      "changed": 0,
+      "max_absolute": 0.0,
+      "mean_absolute": 0.0,
+      "stage": "frozen",
+      "part": "1-color",
+      "baseline": 0,
+      "compared": 1,
+      "units": "linear half-float color"
+    },
+    {
+      "exact": true,
+      "components": 17420,
+      "changed": 0,
+      "max_absolute": 0.0,
+      "mean_absolute": 0.0,
+      "stage": "frozen",
+      "part": "1-color",
+      "baseline": 0,
+      "compared": 2,
+      "units": "linear half-float color"
+    },
+    {
+      "exact": true,
+      "components": 17420,
+      "changed": 0,
+      "max_absolute": 0.0,
+      "mean_absolute": 0.0,
+      "stage": "frozen",
+      "part": "1-color",
+      "baseline": 0,
+      "compared": 3,
+      "units": "linear half-float color"
+    },
+    {
+      "exact": true,
+      "components": 17420,
+      "changed": 0,
+      "max_absolute": 0.0,
+      "mean_absolute": 0.0,
+      "stage": "frozen",
+      "part": "1-color",
+      "baseline": 0,
+      "compared": 4,
+      "units": "linear half-float color"
+    },
+    {
+      "exact": true,
+      "components": 17420,
+      "changed": 0,
+      "max_absolute": 0.0,
+      "mean_absolute": 0.0,
+      "stage": "frozen",
+      "part": "1-color",
+      "baseline": 0,
+      "compared": 5,
+      "units": "linear half-float color"
+    },
+    {
+      "exact": true,
+      "components": 17420,
+      "changed": 0,
+      "max_absolute": 0.0,
+      "mean_absolute": 0.0,
+      "stage": "frozen",
+      "part": "1-color",
+      "baseline": 0,
+      "compared": 6,
+      "units": "linear half-float color"
+    },
+    {
+      "exact": true,
+      "components": 17420,
+      "changed": 0,
+      "max_absolute": 0.0,
+      "mean_absolute": 0.0,
+      "stage": "frozen",
+      "part": "1-color",
+      "baseline": 0,
+      "compared": 7,
+      "units": "linear half-float color"
+    },
+    {
+      "exact": true,
+      "components": 17420,
+      "changed": 0,
+      "max_absolute": 0.0,
+      "mean_absolute": 0.0,
+      "stage": "frozen",
+      "part": "1-color",
+      "baseline": 0,
+      "compared": 8,
+      "units": "linear half-float color"
+    },
+    {
+      "exact": true,
+      "components": 13065,
+      "changed": 0,
+      "max_absolute": 0,
+      "mean_absolute": 0.0,
+      "stage": "frozen",
+      "part": "0-viewport",
+      "baseline": 0,
+      "compared": 1,
+      "units": "viewport byte values"
+    },
+    {
+      "exact": true,
+      "components": 13065,
+      "changed": 0,
+      "max_absolute": 0,
+      "mean_absolute": 0.0,
+      "stage": "frozen",
+      "part": "0-viewport",
+      "baseline": 0,
+      "compared": 2,
+      "units": "viewport byte values"
+    },
+    {
+      "exact": true,
+      "components": 13065,
+      "changed": 0,
+      "max_absolute": 0,
+      "mean_absolute": 0.0,
+      "stage": "frozen",
+      "part": "0-viewport",
+      "baseline": 0,
+      "compared": 3,
+      "units": "viewport byte values"
+    },
+    {
+      "exact": true,
+      "components": 13065,
+      "changed": 0,
+      "max_absolute": 0,
+      "mean_absolute": 0.0,
+      "stage": "frozen",
+      "part": "0-viewport",
+      "baseline": 0,
+      "compared": 4,
+      "units": "viewport byte values"
+    },
+    {
+      "exact": true,
+      "components": 13065,
+      "changed": 0,
+      "max_absolute": 0,
+      "mean_absolute": 0.0,
+      "stage": "frozen",
+      "part": "0-viewport",
+      "baseline": 0,
+      "compared": 5,
+      "units": "viewport byte values"
+    },
+    {
+      "exact": true,
+      "components": 13065,
+      "changed": 0,
+      "max_absolute": 0,
+      "mean_absolute": 0.0,
+      "stage": "frozen",
+      "part": "0-viewport",
+      "baseline": 0,
+      "compared": 6,
+      "units": "viewport byte values"
+    },
+    {
+      "exact": true,
+      "components": 13065,
+      "changed": 0,
+      "max_absolute": 0,
+      "mean_absolute": 0.0,
+      "stage": "frozen",
+      "part": "0-viewport",
+      "baseline": 0,
+      "compared": 7,
+      "units": "viewport byte values"
+    },
+    {
+      "exact": true,
+      "components": 13065,
+      "changed": 0,
+      "max_absolute": 0,
+      "mean_absolute": 0.0,
+      "stage": "frozen",
+      "part": "0-viewport",
+      "baseline": 0,
+      "compared": 8,
+      "units": "viewport byte values"
+    },
+    {
+      "exact": true,
+      "components": 13065,
+      "changed": 0,
+      "max_absolute": 0,
+      "mean_absolute": 0.0,
+      "stage": "frozen",
+      "part": "1-viewport",
+      "baseline": 0,
+      "compared": 1,
+      "units": "viewport byte values"
+    },
+    {
+      "exact": true,
+      "components": 13065,
+      "changed": 0,
+      "max_absolute": 0,
+      "mean_absolute": 0.0,
+      "stage": "frozen",
+      "part": "1-viewport",
+      "baseline": 0,
+      "compared": 2,
+      "units": "viewport byte values"
+    },
+    {
+      "exact": true,
+      "components": 13065,
+      "changed": 0,
+      "max_absolute": 0,
+      "mean_absolute": 0.0,
+      "stage": "frozen",
+      "part": "1-viewport",
+      "baseline": 0,
+      "compared": 3,
+      "units": "viewport byte values"
+    },
+    {
+      "exact": true,
+      "components": 13065,
+      "changed": 0,
+      "max_absolute": 0,
+      "mean_absolute": 0.0,
+      "stage": "frozen",
+      "part": "1-viewport",
+      "baseline": 0,
+      "compared": 4,
+      "units": "viewport byte values"
+    },
+    {
+      "exact": true,
+      "components": 13065,
+      "changed": 0,
+      "max_absolute": 0,
+      "mean_absolute": 0.0,
+      "stage": "frozen",
+      "part": "1-viewport",
+      "baseline": 0,
+      "compared": 5,
+      "units": "viewport byte values"
+    },
+    {
+      "exact": true,
+      "components": 13065,
+      "changed": 0,
+      "max_absolute": 0,
+      "mean_absolute": 0.0,
+      "stage": "frozen",
+      "part": "1-viewport",
+      "baseline": 0,
+      "compared": 6,
+      "units": "viewport byte values"
+    },
+    {
+      "exact": true,
+      "components": 13065,
+      "changed": 0,
+      "max_absolute": 0,
+      "mean_absolute": 0.0,
+      "stage": "frozen",
+      "part": "1-viewport",
+      "baseline": 0,
+      "compared": 7,
+      "units": "viewport byte values"
+    },
+    {
+      "exact": true,
+      "components": 13065,
+      "changed": 0,
+      "max_absolute": 0,
+      "mean_absolute": 0.0,
+      "stage": "frozen",
+      "part": "1-viewport",
+      "baseline": 0,
+      "compared": 8,
+      "units": "viewport byte values"
+    },
+    {
+      "exact": true,
+      "components": 139360,
+      "changed": 0,
+      "max_absolute": 0.0,
+      "mean_absolute": 0.0,
+      "stage": "frozen",
+      "part": "quilt",
+      "baseline": 0,
+      "compared": 1,
+      "units": "preview half-float"
+    },
+    {
+      "exact": true,
+      "components": 139360,
+      "changed": 0,
+      "max_absolute": 0.0,
+      "mean_absolute": 0.0,
+      "stage": "frozen",
+      "part": "quilt",
+      "baseline": 0,
+      "compared": 2,
+      "units": "preview half-float"
+    },
+    {
+      "exact": true,
+      "components": 139360,
+      "changed": 0,
+      "max_absolute": 0.0,
+      "mean_absolute": 0.0,
+      "stage": "frozen",
+      "part": "quilt",
+      "baseline": 0,
+      "compared": 3,
+      "units": "preview half-float"
+    },
+    {
+      "exact": true,
+      "components": 139360,
+      "changed": 0,
+      "max_absolute": 0.0,
+      "mean_absolute": 0.0,
+      "stage": "frozen",
+      "part": "quilt",
+      "baseline": 0,
+      "compared": 4,
+      "units": "preview half-float"
+    },
+    {
+      "exact": true,
+      "components": 139360,
+      "changed": 0,
+      "max_absolute": 0.0,
+      "mean_absolute": 0.0,
+      "stage": "frozen",
+      "part": "quilt",
+      "baseline": 0,
+      "compared": 5,
+      "units": "preview half-float"
+    },
+    {
+      "exact": true,
+      "components": 139360,
+      "changed": 0,
+      "max_absolute": 0.0,
+      "mean_absolute": 0.0,
+      "stage": "frozen",
+      "part": "quilt",
+      "baseline": 0,
+      "compared": 6,
+      "units": "preview half-float"
+    },
+    {
+      "exact": true,
+      "components": 139360,
+      "changed": 0,
+      "max_absolute": 0.0,
+      "mean_absolute": 0.0,
+      "stage": "frozen",
+      "part": "quilt",
+      "baseline": 0,
+      "compared": 7,
+      "units": "preview half-float"
+    },
+    {
+      "exact": true,
+      "components": 139360,
+      "changed": 0,
+      "max_absolute": 0.0,
+      "mean_absolute": 0.0,
+      "stage": "frozen",
+      "part": "quilt",
+      "baseline": 0,
+      "compared": 8,
+      "units": "preview half-float"
+    }
+  ],
+  "local_artifacts": {
+    "frozen-0-0-color.bin": {
+      "bytes": 34840,
+      "sha256": "ff8cd26a239e0b634ded9c1fd2ae9f891e8d563f147526e774fc9515428e40cc"
+    },
+    "frozen-0-0-depth.bin": {
+      "bytes": 17420,
+      "sha256": "df4ce4e5e4987483a0dd445c527bd11a202464d6956d71187f5457af2c12f8d2"
+    },
+    "frozen-0-0-viewport.bin": {
+      "bytes": 13065,
+      "sha256": "d8bb76d1eb41883996fbd248b4c1c0b1a4ba1324078004da5dd7eb174a480ac5"
+    },
+    "frozen-0-1-color.bin": {
+      "bytes": 34840,
+      "sha256": "c22ed910c9ec49470f36decd1471252fb4b4ab2b969da76c5cfa9c6516163d95"
+    },
+    "frozen-0-1-depth.bin": {
+      "bytes": 17420,
+      "sha256": "7db2f8221670dfe8baaf2b3aaf136bc040c9c6513b27b225e1bc71bc5a7a8f49"
+    },
+    "frozen-0-1-viewport.bin": {
+      "bytes": 13065,
+      "sha256": "051c3e61b2a7677743429c0ba74fdd77515c545510c8c08f5113c1184cbd25db"
+    },
+    "frozen-0-quilt.bin": {
+      "bytes": 278720,
+      "sha256": "9d572894196fbfa6aa0405298330294b55b0646d89d207f288f1f8fc9bf62eb9"
+    },
+    "frozen-1-0-color.bin": {
+      "bytes": 34840,
+      "sha256": "ff8cd26a239e0b634ded9c1fd2ae9f891e8d563f147526e774fc9515428e40cc"
+    },
+    "frozen-1-0-depth.bin": {
+      "bytes": 17420,
+      "sha256": "df4ce4e5e4987483a0dd445c527bd11a202464d6956d71187f5457af2c12f8d2"
+    },
+    "frozen-1-0-viewport.bin": {
+      "bytes": 13065,
+      "sha256": "d8bb76d1eb41883996fbd248b4c1c0b1a4ba1324078004da5dd7eb174a480ac5"
+    },
+    "frozen-1-1-color.bin": {
+      "bytes": 34840,
+      "sha256": "c22ed910c9ec49470f36decd1471252fb4b4ab2b969da76c5cfa9c6516163d95"
+    },
+    "frozen-1-1-depth.bin": {
+      "bytes": 17420,
+      "sha256": "7db2f8221670dfe8baaf2b3aaf136bc040c9c6513b27b225e1bc71bc5a7a8f49"
+    },
+    "frozen-1-1-viewport.bin": {
+      "bytes": 13065,
+      "sha256": "051c3e61b2a7677743429c0ba74fdd77515c545510c8c08f5113c1184cbd25db"
+    },
+    "frozen-1-quilt.bin": {
+      "bytes": 278720,
+      "sha256": "9d572894196fbfa6aa0405298330294b55b0646d89d207f288f1f8fc9bf62eb9"
+    },
+    "frozen-2-0-color.bin": {
+      "bytes": 34840,
+      "sha256": "ff8cd26a239e0b634ded9c1fd2ae9f891e8d563f147526e774fc9515428e40cc"
+    },
+    "frozen-2-0-depth.bin": {
+      "bytes": 17420,
+      "sha256": "ebdcfff3a0daf3c5d4058d994987329d70e7b1a7a868843a389753a1f610bcd5"
+    },
+    "frozen-2-0-viewport.bin": {
+      "bytes": 13065,
+      "sha256": "d8bb76d1eb41883996fbd248b4c1c0b1a4ba1324078004da5dd7eb174a480ac5"
+    },
+    "frozen-2-1-color.bin": {
+      "bytes": 34840,
+      "sha256": "c22ed910c9ec49470f36decd1471252fb4b4ab2b969da76c5cfa9c6516163d95"
+    },
+    "frozen-2-1-depth.bin": {
+      "bytes": 17420,
+      "sha256": "0ca3369d0a614839d8abf3401ea3ee6900b3a0c6977711a75f790d1953306fce"
+    },
+    "frozen-2-1-viewport.bin": {
+      "bytes": 13065,
+      "sha256": "051c3e61b2a7677743429c0ba74fdd77515c545510c8c08f5113c1184cbd25db"
+    },
+    "frozen-2-quilt.bin": {
+      "bytes": 278720,
+      "sha256": "9d572894196fbfa6aa0405298330294b55b0646d89d207f288f1f8fc9bf62eb9"
+    },
+    "frozen-3-0-color.bin": {
+      "bytes": 34840,
+      "sha256": "ff8cd26a239e0b634ded9c1fd2ae9f891e8d563f147526e774fc9515428e40cc"
+    },
+    "frozen-3-0-depth.bin": {
+      "bytes": 17420,
+      "sha256": "df4ce4e5e4987483a0dd445c527bd11a202464d6956d71187f5457af2c12f8d2"
+    },
+    "frozen-3-0-viewport.bin": {
+      "bytes": 13065,
+      "sha256": "d8bb76d1eb41883996fbd248b4c1c0b1a4ba1324078004da5dd7eb174a480ac5"
+    },
+    "frozen-3-1-color.bin": {
+      "bytes": 34840,
+      "sha256": "c22ed910c9ec49470f36decd1471252fb4b4ab2b969da76c5cfa9c6516163d95"
+    },
+    "frozen-3-1-depth.bin": {
+      "bytes": 17420,
+      "sha256": "7db2f8221670dfe8baaf2b3aaf136bc040c9c6513b27b225e1bc71bc5a7a8f49"
+    },
+    "frozen-3-1-viewport.bin": {
+      "bytes": 13065,
+      "sha256": "051c3e61b2a7677743429c0ba74fdd77515c545510c8c08f5113c1184cbd25db"
+    },
+    "frozen-3-quilt.bin": {
+      "bytes": 278720,
+      "sha256": "9d572894196fbfa6aa0405298330294b55b0646d89d207f288f1f8fc9bf62eb9"
+    },
+    "frozen-4-0-color.bin": {
+      "bytes": 34840,
+      "sha256": "ff8cd26a239e0b634ded9c1fd2ae9f891e8d563f147526e774fc9515428e40cc"
+    },
+    "frozen-4-0-depth.bin": {
+      "bytes": 17420,
+      "sha256": "df4ce4e5e4987483a0dd445c527bd11a202464d6956d71187f5457af2c12f8d2"
+    },
+    "frozen-4-0-viewport.bin": {
+      "bytes": 13065,
+      "sha256": "d8bb76d1eb41883996fbd248b4c1c0b1a4ba1324078004da5dd7eb174a480ac5"
+    },
+    "frozen-4-1-color.bin": {
+      "bytes": 34840,
+      "sha256": "c22ed910c9ec49470f36decd1471252fb4b4ab2b969da76c5cfa9c6516163d95"
+    },
+    "frozen-4-1-depth.bin": {
+      "bytes": 17420,
+      "sha256": "7db2f8221670dfe8baaf2b3aaf136bc040c9c6513b27b225e1bc71bc5a7a8f49"
+    },
+    "frozen-4-1-viewport.bin": {
+      "bytes": 13065,
+      "sha256": "051c3e61b2a7677743429c0ba74fdd77515c545510c8c08f5113c1184cbd25db"
+    },
+    "frozen-4-quilt.bin": {
+      "bytes": 278720,
+      "sha256": "9d572894196fbfa6aa0405298330294b55b0646d89d207f288f1f8fc9bf62eb9"
+    },
+    "frozen-5-0-color.bin": {
+      "bytes": 34840,
+      "sha256": "ff8cd26a239e0b634ded9c1fd2ae9f891e8d563f147526e774fc9515428e40cc"
+    },
+    "frozen-5-0-depth.bin": {
+      "bytes": 17420,
+      "sha256": "ebdcfff3a0daf3c5d4058d994987329d70e7b1a7a868843a389753a1f610bcd5"
+    },
+    "frozen-5-0-viewport.bin": {
+      "bytes": 13065,
+      "sha256": "d8bb76d1eb41883996fbd248b4c1c0b1a4ba1324078004da5dd7eb174a480ac5"
+    },
+    "frozen-5-1-color.bin": {
+      "bytes": 34840,
+      "sha256": "c22ed910c9ec49470f36decd1471252fb4b4ab2b969da76c5cfa9c6516163d95"
+    },
+    "frozen-5-1-depth.bin": {
+      "bytes": 17420,
+      "sha256": "0ca3369d0a614839d8abf3401ea3ee6900b3a0c6977711a75f790d1953306fce"
+    },
+    "frozen-5-1-viewport.bin": {
+      "bytes": 13065,
+      "sha256": "051c3e61b2a7677743429c0ba74fdd77515c545510c8c08f5113c1184cbd25db"
+    },
+    "frozen-5-quilt.bin": {
+      "bytes": 278720,
+      "sha256": "9d572894196fbfa6aa0405298330294b55b0646d89d207f288f1f8fc9bf62eb9"
+    },
+    "frozen-6-0-color.bin": {
+      "bytes": 34840,
+      "sha256": "ff8cd26a239e0b634ded9c1fd2ae9f891e8d563f147526e774fc9515428e40cc"
+    },
+    "frozen-6-0-depth.bin": {
+      "bytes": 17420,
+      "sha256": "df4ce4e5e4987483a0dd445c527bd11a202464d6956d71187f5457af2c12f8d2"
+    },
+    "frozen-6-0-viewport.bin": {
+      "bytes": 13065,
+      "sha256": "d8bb76d1eb41883996fbd248b4c1c0b1a4ba1324078004da5dd7eb174a480ac5"
+    },
+    "frozen-6-1-color.bin": {
+      "bytes": 34840,
+      "sha256": "c22ed910c9ec49470f36decd1471252fb4b4ab2b969da76c5cfa9c6516163d95"
+    },
+    "frozen-6-1-depth.bin": {
+      "bytes": 17420,
+      "sha256": "7db2f8221670dfe8baaf2b3aaf136bc040c9c6513b27b225e1bc71bc5a7a8f49"
+    },
+    "frozen-6-1-viewport.bin": {
+      "bytes": 13065,
+      "sha256": "051c3e61b2a7677743429c0ba74fdd77515c545510c8c08f5113c1184cbd25db"
+    },
+    "frozen-6-quilt.bin": {
+      "bytes": 278720,
+      "sha256": "9d572894196fbfa6aa0405298330294b55b0646d89d207f288f1f8fc9bf62eb9"
+    },
+    "frozen-7-0-color.bin": {
+      "bytes": 34840,
+      "sha256": "ff8cd26a239e0b634ded9c1fd2ae9f891e8d563f147526e774fc9515428e40cc"
+    },
+    "frozen-7-0-depth.bin": {
+      "bytes": 17420,
+      "sha256": "df4ce4e5e4987483a0dd445c527bd11a202464d6956d71187f5457af2c12f8d2"
+    },
+    "frozen-7-0-viewport.bin": {
+      "bytes": 13065,
+      "sha256": "d8bb76d1eb41883996fbd248b4c1c0b1a4ba1324078004da5dd7eb174a480ac5"
+    },
+    "frozen-7-1-color.bin": {
+      "bytes": 34840,
+      "sha256": "c22ed910c9ec49470f36decd1471252fb4b4ab2b969da76c5cfa9c6516163d95"
+    },
+    "frozen-7-1-depth.bin": {
+      "bytes": 17420,
+      "sha256": "7db2f8221670dfe8baaf2b3aaf136bc040c9c6513b27b225e1bc71bc5a7a8f49"
+    },
+    "frozen-7-1-viewport.bin": {
+      "bytes": 13065,
+      "sha256": "051c3e61b2a7677743429c0ba74fdd77515c545510c8c08f5113c1184cbd25db"
+    },
+    "frozen-7-quilt.bin": {
+      "bytes": 278720,
+      "sha256": "9d572894196fbfa6aa0405298330294b55b0646d89d207f288f1f8fc9bf62eb9"
+    },
+    "frozen-8-0-color.bin": {
+      "bytes": 34840,
+      "sha256": "ff8cd26a239e0b634ded9c1fd2ae9f891e8d563f147526e774fc9515428e40cc"
+    },
+    "frozen-8-0-depth.bin": {
+      "bytes": 17420,
+      "sha256": "ebdcfff3a0daf3c5d4058d994987329d70e7b1a7a868843a389753a1f610bcd5"
+    },
+    "frozen-8-0-viewport.bin": {
+      "bytes": 13065,
+      "sha256": "d8bb76d1eb41883996fbd248b4c1c0b1a4ba1324078004da5dd7eb174a480ac5"
+    },
+    "frozen-8-1-color.bin": {
+      "bytes": 34840,
+      "sha256": "c22ed910c9ec49470f36decd1471252fb4b4ab2b969da76c5cfa9c6516163d95"
+    },
+    "frozen-8-1-depth.bin": {
+      "bytes": 17420,
+      "sha256": "0ca3369d0a614839d8abf3401ea3ee6900b3a0c6977711a75f790d1953306fce"
+    },
+    "frozen-8-1-viewport.bin": {
+      "bytes": 13065,
+      "sha256": "051c3e61b2a7677743429c0ba74fdd77515c545510c8c08f5113c1184cbd25db"
+    },
+    "frozen-8-quilt.bin": {
+      "bytes": 278720,
+      "sha256": "9d572894196fbfa6aa0405298330294b55b0646d89d207f288f1f8fc9bf62eb9"
+    },
+    "settled-0-0-color.bin": {
+      "bytes": 34840,
+      "sha256": "ff8cd26a239e0b634ded9c1fd2ae9f891e8d563f147526e774fc9515428e40cc"
+    },
+    "settled-0-0-depth.bin": {
+      "bytes": 17420,
+      "sha256": "df4ce4e5e4987483a0dd445c527bd11a202464d6956d71187f5457af2c12f8d2"
+    },
+    "settled-0-0-viewport.bin": {
+      "bytes": 13065,
+      "sha256": "d8bb76d1eb41883996fbd248b4c1c0b1a4ba1324078004da5dd7eb174a480ac5"
+    },
+    "settled-0-1-color.bin": {
+      "bytes": 34840,
+      "sha256": "c22ed910c9ec49470f36decd1471252fb4b4ab2b969da76c5cfa9c6516163d95"
+    },
+    "settled-0-1-depth.bin": {
+      "bytes": 17420,
+      "sha256": "7db2f8221670dfe8baaf2b3aaf136bc040c9c6513b27b225e1bc71bc5a7a8f49"
+    },
+    "settled-0-1-viewport.bin": {
+      "bytes": 13065,
+      "sha256": "051c3e61b2a7677743429c0ba74fdd77515c545510c8c08f5113c1184cbd25db"
+    },
+    "settled-0-quilt.bin": {
+      "bytes": 278720,
+      "sha256": "9d572894196fbfa6aa0405298330294b55b0646d89d207f288f1f8fc9bf62eb9"
+    },
+    "settled-1-0-color.bin": {
+      "bytes": 34840,
+      "sha256": "ff8cd26a239e0b634ded9c1fd2ae9f891e8d563f147526e774fc9515428e40cc"
+    },
+    "settled-1-0-depth.bin": {
+      "bytes": 17420,
+      "sha256": "df4ce4e5e4987483a0dd445c527bd11a202464d6956d71187f5457af2c12f8d2"
+    },
+    "settled-1-0-viewport.bin": {
+      "bytes": 13065,
+      "sha256": "d8bb76d1eb41883996fbd248b4c1c0b1a4ba1324078004da5dd7eb174a480ac5"
+    },
+    "settled-1-1-color.bin": {
+      "bytes": 34840,
+      "sha256": "c22ed910c9ec49470f36decd1471252fb4b4ab2b969da76c5cfa9c6516163d95"
+    },
+    "settled-1-1-depth.bin": {
+      "bytes": 17420,
+      "sha256": "7db2f8221670dfe8baaf2b3aaf136bc040c9c6513b27b225e1bc71bc5a7a8f49"
+    },
+    "settled-1-1-viewport.bin": {
+      "bytes": 13065,
+      "sha256": "051c3e61b2a7677743429c0ba74fdd77515c545510c8c08f5113c1184cbd25db"
+    },
+    "settled-1-quilt.bin": {
+      "bytes": 278720,
+      "sha256": "9d572894196fbfa6aa0405298330294b55b0646d89d207f288f1f8fc9bf62eb9"
+    },
+    "settled-2-0-color.bin": {
+      "bytes": 34840,
+      "sha256": "ff8cd26a239e0b634ded9c1fd2ae9f891e8d563f147526e774fc9515428e40cc"
+    },
+    "settled-2-0-depth.bin": {
+      "bytes": 17420,
+      "sha256": "ebdcfff3a0daf3c5d4058d994987329d70e7b1a7a868843a389753a1f610bcd5"
+    },
+    "settled-2-0-viewport.bin": {
+      "bytes": 13065,
+      "sha256": "d8bb76d1eb41883996fbd248b4c1c0b1a4ba1324078004da5dd7eb174a480ac5"
+    },
+    "settled-2-1-color.bin": {
+      "bytes": 34840,
+      "sha256": "c22ed910c9ec49470f36decd1471252fb4b4ab2b969da76c5cfa9c6516163d95"
+    },
+    "settled-2-1-depth.bin": {
+      "bytes": 17420,
+      "sha256": "0ca3369d0a614839d8abf3401ea3ee6900b3a0c6977711a75f790d1953306fce"
+    },
+    "settled-2-1-viewport.bin": {
+      "bytes": 13065,
+      "sha256": "051c3e61b2a7677743429c0ba74fdd77515c545510c8c08f5113c1184cbd25db"
+    },
+    "settled-2-quilt.bin": {
+      "bytes": 278720,
+      "sha256": "9d572894196fbfa6aa0405298330294b55b0646d89d207f288f1f8fc9bf62eb9"
+    },
+    "settled-3-0-color.bin": {
+      "bytes": 34840,
+      "sha256": "ff8cd26a239e0b634ded9c1fd2ae9f891e8d563f147526e774fc9515428e40cc"
+    },
+    "settled-3-0-depth.bin": {
+      "bytes": 17420,
+      "sha256": "df4ce4e5e4987483a0dd445c527bd11a202464d6956d71187f5457af2c12f8d2"
+    },
+    "settled-3-0-viewport.bin": {
+      "bytes": 13065,
+      "sha256": "d8bb76d1eb41883996fbd248b4c1c0b1a4ba1324078004da5dd7eb174a480ac5"
+    },
+    "settled-3-1-color.bin": {
+      "bytes": 34840,
+      "sha256": "c22ed910c9ec49470f36decd1471252fb4b4ab2b969da76c5cfa9c6516163d95"
+    },
+    "settled-3-1-depth.bin": {
+      "bytes": 17420,
+      "sha256": "7db2f8221670dfe8baaf2b3aaf136bc040c9c6513b27b225e1bc71bc5a7a8f49"
+    },
+    "settled-3-1-viewport.bin": {
+      "bytes": 13065,
+      "sha256": "051c3e61b2a7677743429c0ba74fdd77515c545510c8c08f5113c1184cbd25db"
+    },
+    "settled-3-quilt.bin": {
+      "bytes": 278720,
+      "sha256": "9d572894196fbfa6aa0405298330294b55b0646d89d207f288f1f8fc9bf62eb9"
+    },
+    "settled-4-0-color.bin": {
+      "bytes": 34840,
+      "sha256": "ff8cd26a239e0b634ded9c1fd2ae9f891e8d563f147526e774fc9515428e40cc"
+    },
+    "settled-4-0-depth.bin": {
+      "bytes": 17420,
+      "sha256": "df4ce4e5e4987483a0dd445c527bd11a202464d6956d71187f5457af2c12f8d2"
+    },
+    "settled-4-0-viewport.bin": {
+      "bytes": 13065,
+      "sha256": "d8bb76d1eb41883996fbd248b4c1c0b1a4ba1324078004da5dd7eb174a480ac5"
+    },
+    "settled-4-1-color.bin": {
+      "bytes": 34840,
+      "sha256": "c22ed910c9ec49470f36decd1471252fb4b4ab2b969da76c5cfa9c6516163d95"
+    },
+    "settled-4-1-depth.bin": {
+      "bytes": 17420,
+      "sha256": "7db2f8221670dfe8baaf2b3aaf136bc040c9c6513b27b225e1bc71bc5a7a8f49"
+    },
+    "settled-4-1-viewport.bin": {
+      "bytes": 13065,
+      "sha256": "051c3e61b2a7677743429c0ba74fdd77515c545510c8c08f5113c1184cbd25db"
+    },
+    "settled-4-quilt.bin": {
+      "bytes": 278720,
+      "sha256": "9d572894196fbfa6aa0405298330294b55b0646d89d207f288f1f8fc9bf62eb9"
+    },
+    "settled-5-0-color.bin": {
+      "bytes": 34840,
+      "sha256": "ff8cd26a239e0b634ded9c1fd2ae9f891e8d563f147526e774fc9515428e40cc"
+    },
+    "settled-5-0-depth.bin": {
+      "bytes": 17420,
+      "sha256": "ebdcfff3a0daf3c5d4058d994987329d70e7b1a7a868843a389753a1f610bcd5"
+    },
+    "settled-5-0-viewport.bin": {
+      "bytes": 13065,
+      "sha256": "d8bb76d1eb41883996fbd248b4c1c0b1a4ba1324078004da5dd7eb174a480ac5"
+    },
+    "settled-5-1-color.bin": {
+      "bytes": 34840,
+      "sha256": "c22ed910c9ec49470f36decd1471252fb4b4ab2b969da76c5cfa9c6516163d95"
+    },
+    "settled-5-1-depth.bin": {
+      "bytes": 17420,
+      "sha256": "0ca3369d0a614839d8abf3401ea3ee6900b3a0c6977711a75f790d1953306fce"
+    },
+    "settled-5-1-viewport.bin": {
+      "bytes": 13065,
+      "sha256": "051c3e61b2a7677743429c0ba74fdd77515c545510c8c08f5113c1184cbd25db"
+    },
+    "settled-5-quilt.bin": {
+      "bytes": 278720,
+      "sha256": "9d572894196fbfa6aa0405298330294b55b0646d89d207f288f1f8fc9bf62eb9"
+    },
+    "settled-6-0-color.bin": {
+      "bytes": 34840,
+      "sha256": "ff8cd26a239e0b634ded9c1fd2ae9f891e8d563f147526e774fc9515428e40cc"
+    },
+    "settled-6-0-depth.bin": {
+      "bytes": 17420,
+      "sha256": "df4ce4e5e4987483a0dd445c527bd11a202464d6956d71187f5457af2c12f8d2"
+    },
+    "settled-6-0-viewport.bin": {
+      "bytes": 13065,
+      "sha256": "d8bb76d1eb41883996fbd248b4c1c0b1a4ba1324078004da5dd7eb174a480ac5"
+    },
+    "settled-6-1-color.bin": {
+      "bytes": 34840,
+      "sha256": "c22ed910c9ec49470f36decd1471252fb4b4ab2b969da76c5cfa9c6516163d95"
+    },
+    "settled-6-1-depth.bin": {
+      "bytes": 17420,
+      "sha256": "7db2f8221670dfe8baaf2b3aaf136bc040c9c6513b27b225e1bc71bc5a7a8f49"
+    },
+    "settled-6-1-viewport.bin": {
+      "bytes": 13065,
+      "sha256": "051c3e61b2a7677743429c0ba74fdd77515c545510c8c08f5113c1184cbd25db"
+    },
+    "settled-6-quilt.bin": {
+      "bytes": 278720,
+      "sha256": "9d572894196fbfa6aa0405298330294b55b0646d89d207f288f1f8fc9bf62eb9"
+    },
+    "settled-7-0-color.bin": {
+      "bytes": 34840,
+      "sha256": "ff8cd26a239e0b634ded9c1fd2ae9f891e8d563f147526e774fc9515428e40cc"
+    },
+    "settled-7-0-depth.bin": {
+      "bytes": 17420,
+      "sha256": "df4ce4e5e4987483a0dd445c527bd11a202464d6956d71187f5457af2c12f8d2"
+    },
+    "settled-7-0-viewport.bin": {
+      "bytes": 13065,
+      "sha256": "d8bb76d1eb41883996fbd248b4c1c0b1a4ba1324078004da5dd7eb174a480ac5"
+    },
+    "settled-7-1-color.bin": {
+      "bytes": 34840,
+      "sha256": "c22ed910c9ec49470f36decd1471252fb4b4ab2b969da76c5cfa9c6516163d95"
+    },
+    "settled-7-1-depth.bin": {
+      "bytes": 17420,
+      "sha256": "7db2f8221670dfe8baaf2b3aaf136bc040c9c6513b27b225e1bc71bc5a7a8f49"
+    },
+    "settled-7-1-viewport.bin": {
+      "bytes": 13065,
+      "sha256": "051c3e61b2a7677743429c0ba74fdd77515c545510c8c08f5113c1184cbd25db"
+    },
+    "settled-7-quilt.bin": {
+      "bytes": 278720,
+      "sha256": "9d572894196fbfa6aa0405298330294b55b0646d89d207f288f1f8fc9bf62eb9"
+    },
+    "settled-8-0-color.bin": {
+      "bytes": 34840,
+      "sha256": "ff8cd26a239e0b634ded9c1fd2ae9f891e8d563f147526e774fc9515428e40cc"
+    },
+    "settled-8-0-depth.bin": {
+      "bytes": 17420,
+      "sha256": "ebdcfff3a0daf3c5d4058d994987329d70e7b1a7a868843a389753a1f610bcd5"
+    },
+    "settled-8-0-viewport.bin": {
+      "bytes": 13065,
+      "sha256": "d8bb76d1eb41883996fbd248b4c1c0b1a4ba1324078004da5dd7eb174a480ac5"
+    },
+    "settled-8-1-color.bin": {
+      "bytes": 34840,
+      "sha256": "c22ed910c9ec49470f36decd1471252fb4b4ab2b969da76c5cfa9c6516163d95"
+    },
+    "settled-8-1-depth.bin": {
+      "bytes": 17420,
+      "sha256": "0ca3369d0a614839d8abf3401ea3ee6900b3a0c6977711a75f790d1953306fce"
+    },
+    "settled-8-1-viewport.bin": {
+      "bytes": 13065,
+      "sha256": "051c3e61b2a7677743429c0ba74fdd77515c545510c8c08f5113c1184cbd25db"
+    },
+    "settled-8-quilt.bin": {
+      "bytes": 278720,
+      "sha256": "9d572894196fbfa6aa0405298330294b55b0646d89d207f288f1f8fc9bf62eb9"
+    }
+  }
+}

@@ -2,7 +2,7 @@
 
 ## Project plan and status
 
-Checked items are implemented or completed experiments, with their limits recorded below. Unchecked items are unfinished. “In progress” identifies existing prototypes and research; it does not imply that a production implementation is ready. Latest regression run: **16 checks passed on the local Godot 4.8-dev build**.
+Checked items are implemented or completed experiments, with their limits recorded below. Unchecked items are unfinished. “In progress” identifies existing prototypes and research; it does not imply that a production implementation is ready. Latest regression runs: **16/16 checks passed on Godot 4.8-dev Vulkan/MoltenVK and native Metal with `GODOT_MTL_SYNC_MODE=none`**. Native Metal with default barriers still fails three checks; see [synchronization findings](benchmarks/native-bridge/metal-sync-results.json).
 
 ### Completed
 
@@ -13,6 +13,7 @@ Checked items are implemented or completed experiments, with their limits record
 - [x] Add cached GPU bindings, borrowed color/depth with tested snapshot fallback, optional profiling and resource-lifetime checks.
 - [x] Execute the shared positional-shadow-atlas engine experiment and document scene-specific gains and compatibility restrictions.
 - [x] Reduce depth-diagnostic feedback on GPU and support explicit on-demand quilt updates for static scenes.
+- [x] Isolate native Metal viewport/camera equivalence failures and validate all 16 checks with the engine’s optional hazard-tracking mode.
 - [x] Record reproducible benchmarks, image-quality comparisons, negative results and regression tests; keep repository text in English and paths relative.
 
 ### In progress: prototypes and research
@@ -28,7 +29,7 @@ Checked items are implemented or completed experiments, with their limits record
 - [ ] Validate a connected Looking Glass: calibration/device matching, view order, optical output, latency, disconnect/reconnect and shutdown.
 - [ ] Test animated geometry, camera cuts, thin occluders, transparent objects and particles against all-real references.
 - [ ] Resolve production color/tonemapping and temporal-jitter behavior; current compute preview is not final Godot postprocessed output.
-- [ ] Validate other GPUs and platforms, and establish a working native Metal path before claiming support.
+- [ ] Resolve the native Metal default-barrier defect, validate other GPUs/platforms, and verify physical output before claiming general support.
 - [ ] Package a reproducible addon release and test shader import, exported projects and a fresh clone; define quality/performance presets from measured results.
 
 ### Ideally add, if benchmarks justify the cost
@@ -86,7 +87,7 @@ The all-real quilt uses GPU Canvas draws. Compute uses CompositorEffect and the 
 | Adaptive anchors / temporal motion vectors / depth-aware hole fill | Architecture and roadmap; not implemented |
 | Shared positional shadows (optional engine patch) | Executed on 4.8-dev; Omni/Spot, safe fallback; requirements in engine-patches |
 | Engine multiview backend | 4.8-dev sources inspected; not implemented |
-| Native Metal | 4.8 static GDExtension copy passed; 3/16 Metal image-equivalence regressions fail, so general support remains unverified |
+| Native Metal | 4.8 addon checks 16/16 with `GODOT_MTL_SYNC_MODE=none`; default barriers fail 3/16. Static fixture copy passes; hardware output and general support remain unverified |
 
 Use all-real rendering as the reference. Synthesis cannot recover hidden geometry; transparent surfaces are absent from opaque depth, so RGB/depth mismatch causes errors. Compute preview uses simple gamma rather than complete Godot tone mapping. The native backend must apply optical calibration separately.
 

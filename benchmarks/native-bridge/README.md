@@ -24,3 +24,10 @@ Addon regression results: **Vulkan 16/16**, **Metal 13/16**. Metal failures are 
 ## Installed SDK offscreen probe
 
 The standalone native probe initialized real Bridge 2.6.3, queried zero devices, and observed failed Metal offscreen creation (`false`, handle zero) using `FIRST_LOOKING_GLASS_DEVICE`. Shutdown succeeded. No texture submission or consumer synchronization was tested. Exit zero indicates successful diagnostic execution, not successful window creation. See [raw log](installed-sdk-offscreen.log), [structured results](offscreen-results.json), and [reproduction and scope](../../native/bridge_metal/README.md#real-sdk-offscreen-diagnostic).
+
+
+## Native Metal optional synchronization mode
+
+`GODOT_MTL_SYNC_MODE=none` enables the engine’s native hazard-tracking path. On the same 4.8-dev build, all 16 addon checks and the native static copy pass. A subsequent default-barrier control again fails on-demand, resize/capture and buffer policy. Source/viewport diagnostic comparisons confirm that the discrepancy precedes quilt synthesis; the exact driver cause is unproven. The minimal core-only script is intermittent (initial failure, later 6/6 passes with each mode). No performance or production display-output result is claimed.
+
+See [mode-specific results](metal-sync-results.json), [all 16 checks](regression-metal-hazard.log), [default-barrier snapshots](equivalence-metal.json), [default-barrier repeat](equivalence-metal-barriers-repeat.json), [hazard-tracking snapshots](equivalence-metal-hazard.json), [minimal repeats](metal-sync-repeats.json), and [reproduction/issue draft](../../docs/native-metal-issue-draft.md). Generated pixel buffers stay local and ignored; SHA-256 manifests are included in snapshot analyses.

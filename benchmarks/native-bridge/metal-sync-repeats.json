@@ -1,0 +1,90 @@
+{
+  "engine_sha256": "00b5a1fa801ba45fca3cebb291decdbe3a2a269a9b8f43e19f2d76cb072b9adf",
+  "test_sha256": "6a787ef380984d018c53c86b633d71c984781e67948e041b804c5515207fa5d1",
+  "rows": [
+    {
+      "mode": "barriers",
+      "run": 1,
+      "exit_code": 0,
+      "passed": true,
+      "first_matches_opposite": false
+    },
+    {
+      "mode": "barriers",
+      "run": 2,
+      "exit_code": 0,
+      "passed": true,
+      "first_matches_opposite": false
+    },
+    {
+      "mode": "barriers",
+      "run": 3,
+      "exit_code": 0,
+      "passed": true,
+      "first_matches_opposite": false
+    },
+    {
+      "mode": "barriers",
+      "run": 4,
+      "exit_code": 0,
+      "passed": true,
+      "first_matches_opposite": false
+    },
+    {
+      "mode": "barriers",
+      "run": 5,
+      "exit_code": 0,
+      "passed": true,
+      "first_matches_opposite": false
+    },
+    {
+      "mode": "barriers",
+      "run": 6,
+      "exit_code": 0,
+      "passed": true,
+      "first_matches_opposite": false
+    },
+    {
+      "mode": "hazard_tracking",
+      "run": 1,
+      "exit_code": 0,
+      "passed": true,
+      "first_matches_opposite": false
+    },
+    {
+      "mode": "hazard_tracking",
+      "run": 2,
+      "exit_code": 0,
+      "passed": true,
+      "first_matches_opposite": false
+    },
+    {
+      "mode": "hazard_tracking",
+      "run": 3,
+      "exit_code": 0,
+      "passed": true,
+      "first_matches_opposite": false
+    },
+    {
+      "mode": "hazard_tracking",
+      "run": 4,
+      "exit_code": 0,
+      "passed": true,
+      "first_matches_opposite": false
+    },
+    {
+      "mode": "hazard_tracking",
+      "run": 5,
+      "exit_code": 0,
+      "passed": true,
+      "first_matches_opposite": false
+    },
+    {
+      "mode": "hazard_tracking",
+      "run": 6,
+      "exit_code": 0,
+      "passed": true,
+      "first_matches_opposite": false
+    }
+  ]
+}
