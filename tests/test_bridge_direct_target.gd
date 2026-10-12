@@ -178,6 +178,15 @@ func run() -> void:
         var rear_sphere: MeshInstance3D=subjects[3] if swap_sphere_depths else subjects[1]
         rear_sphere.position.z=convergence_z
         print("REAR CONVERGENCE CONTROL world_z=",rear_sphere.position.z," convergence_z=",convergence_z," scale=",rear_sphere.scale)
+    for argument in OS.get_cmdline_user_args():
+        if argument.begins_with("--rear-focus-offset="):
+            var offset: float=float(argument.trim_prefix("--rear-focus-offset="))
+            if not is_finite(offset) or absf(offset)>1.0:
+                fail("Rear focus offset must be finite and within [-1,1]")
+                return
+            var rear_sphere: MeshInstance3D=subjects[3] if swap_sphere_depths else subjects[1]
+            rear_sphere.position.z=convergence_z+offset
+            print("REAR OFFSET CONTROL world_z=",rear_sphere.position.z," convergence_z=",convergence_z," offset=",offset," scale=",rear_sphere.scale)
     if "--projection-grid" in OS.get_cmdline_user_args():
         populate_projection_grid(scene,6.0-focus)
     scene.add_child(rig)

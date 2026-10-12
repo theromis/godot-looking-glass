@@ -1,0 +1,42 @@
+{
+  "date": "2026-10-12",
+  "cli_arguments": [
+    "--large",
+    "--views=48",
+    "--real-views=48",
+    "--lit",
+    "--view-cone=54",
+    "--focus=5.6",
+    "--display-aspect",
+    "--angular-sampling",
+    "--compact-objects",
+    "--depth-scale=0.35",
+    "--neutral-spheres",
+    "--no-shadows",
+    "--diagnostic-stages",
+    "--swap-sphere-depths",
+    "--rear-focus-offset=-0.10"
+  ],
+  "comparison": "quilt48-neutral-rearconvergence.json",
+  "changed_parameter": "Only right sphere center moved 0.10 world units behind convergence",
+  "convergence_plane_world_z": 0.4,
+  "right_sphere_world_z": 0.3,
+  "right_sphere_focus_offset": -0.1,
+  "sphere_scale": [
+    0.4,
+    0.4,
+    0.35
+  ],
+  "checks": {
+    "fixture": true,
+    "hardware": true
+  },
+  "user_observation": "Pending",
+  "display_duration_seconds_requested": 20,
+  "limitations": [
+    "Scene-specific world-unit center offset, not device-calibrated safe depth range",
+    "Finite sphere surfaces span additional depth",
+    "Projected size and occlusion change",
+    "All 48 views real; no synthesis or quantitative optical measurement"
+  ]
+}

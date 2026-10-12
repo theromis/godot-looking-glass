@@ -1,0 +1,18 @@
+Godot Engine v4.8.dev.custom_build.c61fc0118 (2026-10-11 16:37:54 UTC) - https://godotengine.org
+Metal 4.0 - Forward+ - Using Device #0: Apple - Apple M4 (Apple9)
+REAR OFFSET CONTROL world_z=0.30000001192093 convergence_z=0.4 offset=-0.1 scale=(0.4, 0.4, 0.35)
+SUBJECT BOUNDS minimum_source_pixel_margin=33.4160346984863
+2026-10-12 12:01:00 [Error] 0x500 GL_INVALID_ENUM - invalid enumerant | prog=0 | activeTex=0 | boundTex2D=0 @ [SDK source location redacted]
+Showing direct imported SDK quilt: real_views=48 total_views=48 tile=(512, 682) lit=true virtual_cone=54.0 focus=5.6 angular_sampling=true depth_scale=0.35 swap_depth_colors=false camera_span_reference=6; no intermediate quilt blit
+PASS direct Bridge target: Godot compute writes imported SDK RGBA8 texture, no quilt blit, clean teardown; fixture=false capture_only=false
+DIRECT STAGE initialize
+DIRECT STAGE run
+DIRECT STAGE subjects
+DIRECT STAGE session opened
+DIRECT STAGE imported
+DIRECT STAGE rig ready
+DIRECT STAGE warmup 0
+DIRECT STAGE warmup 30
+DIRECT STAGE warmup 60
+DIRECT STAGE warmup 90
+process_exit=0
