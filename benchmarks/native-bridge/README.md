@@ -19,3 +19,8 @@ Rejected copy probes: `godot-metal-copy-initial.log`, `godot-metal-copy-cold-sta
 Addon regression results: **Vulkan 16/16**, **Metal 13/16**. Metal failures are on-demand equality, capture/workgroup equality after resize and borrowed-buffer policy. The suite initially stopped at on-demand; remaining checks ran separately, as recorded in `regression-artifacts/remaining.json`. Raw logs are preserved in `regression-metal48.log` and `regression-artifacts/`; no failed test was converted to a pass. Settled-startup attempts also failed. One captured mismatch contained 837 changed components out of 139,360, maximum absolute float delta 0.55181885; see `on-demand-metal-difference.json`. Causes are not established. Diagnostic binary dumps remain local and are hash-identified in that JSON.
 
 `godot-integration-results.json` records source/binding revisions, artifact hashes and the limited executed scope. No physical Looking Glass, real SDK texture draw, dynamic-frame handoff, multi-frame consumer lifetime or performance is claimed. No engine source patch was added by this stage.
+
+
+## Installed SDK offscreen probe
+
+The standalone native probe initialized real Bridge 2.6.3, queried zero devices, and observed failed Metal offscreen creation (`false`, handle zero) using `FIRST_LOOKING_GLASS_DEVICE`. Shutdown succeeded. No texture submission or consumer synchronization was tested. Exit zero indicates successful diagnostic execution, not successful window creation. See [raw log](installed-sdk-offscreen.log), [structured results](offscreen-results.json), and [reproduction and scope](../../native/bridge_metal/README.md#real-sdk-offscreen-diagnostic).

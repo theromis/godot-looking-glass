@@ -5,3 +5,4 @@ root=pathlib.Path(__file__).resolve().parent;a.output.mkdir(parents=True,exist_o
 common=['clang++','-std=c++17','-fobjc-arc','-Wall','-Wextra','-I'+str(a.sdk_headers),'-I'+str(root),'-framework','Metal','-framework','Foundation','-framework','IOSurface']
 subprocess.run(common+['-dynamiclib',str(root/'fixture.mm'),'-o',str(a.output/'fixture.dylib')],check=True)
 subprocess.run(common+[str(root/'adapter.mm'),str(root/'test.mm'),'-o',str(a.output/'test-adapter')],check=True)
+subprocess.run(common+[str(root/'probe_offscreen.mm'),'-o',str(a.output/'probe-offscreen')],check=True)

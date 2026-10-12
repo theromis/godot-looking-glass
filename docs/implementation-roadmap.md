@@ -125,3 +125,8 @@ A standalone Objective-C++ Metal boundary now dynamically loads Bridge, verifies
 ## Executed Godot native Metal diagnostic
 
 A new 4.8-dev native Metal runtime and optional test-fixture-only GDExtension now execute Godot quilt → Metal blit → SDK-fixture IOSurface copying. Three final 64×64 repeats matched every half-float component after explicit 120-update warmup and a verified frozen interval. Vulkan handles are rejected before native access. The same-queue sentinel requires already committed producer work; no streaming or real SDK display output is validated. Full native Metal QA passed 13/16, failing on-demand, resize/capture equivalence and borrowed-buffer policy; a settled refresh did not guarantee equality. Vulkan 4.8 still passes all 16. All failures are retained, and general native Metal support remains experimental. See [Godot diagnostic contract](../native/bridge_metal/README.md) and [results](../benchmarks/native-bridge/README.md).
+
+
+## Real Bridge offscreen route checked
+
+Real SDK 2.6.3 initialization, zero-device query and shutdown passed. Metal offscreen creation with the first-device sentinel failed with handle zero. This tested route cannot yet provide hardware-free real SDK texture transfer. No detailed SDK error or consumer completion contract was obtained. Next production milestones require a calibrated device and verified consumer lifetime semantics; one-shot fixture copying remains the executed boundary. See [native diagnostic](../native/bridge_metal/README.md#real-sdk-offscreen-diagnostic).

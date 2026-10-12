@@ -1,0 +1,15 @@
+{
+  "date": "2026-10-11",
+  "platform": "macOS Apple M4",
+  "runtime": "installed Looking Glass Bridge 2.6.3",
+  "probe": "native/bridge_metal/probe_offscreen.mm",
+  "initialize": true,
+  "display_query": true,
+  "display_count": 0,
+  "metal_offscreen_first_device": false,
+  "window_handle": 0,
+  "shutdown": true,
+  "quilt_submission_attempted": false,
+  "scope": "Standalone native SDK probe; no Godot runtime, physical output or streaming tested",
+  "limitation": "Failure has no detailed SDK error. Zero devices and failed creation are observed; causation and all alternative offscreen configurations are not established."
+}

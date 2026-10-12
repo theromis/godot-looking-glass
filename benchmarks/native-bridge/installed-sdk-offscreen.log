@@ -1,0 +1,10 @@
+initialize=1
+display_query=1 count=0
+offscreen_first_device=0 window=0
+2026-10-11 21:53:51 [Info] Loaded Bridge Settings:
+	enable_utilization_telemetry: true
+
+
+2026-10-11 21:53:51 [Info] Looking Glass Bridge Service Loaded
+shutdown=1
+exit_code=0
