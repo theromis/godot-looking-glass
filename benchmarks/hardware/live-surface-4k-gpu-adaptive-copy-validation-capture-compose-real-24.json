@@ -1,0 +1,153 @@
+{
+  "execution_passed": true,
+  "producer_exit": 0,
+  "worker_exit": 0,
+  "transport": "IOSurface GPU sharing; 32-byte control mailbox with copy acknowledgment",
+  "quilt_size": [
+    4092,
+    4092
+  ],
+  "producer_frames_requested": 8,
+  "worker_duration_seconds": 20,
+  "real_views": 24,
+  "total_views": 66,
+  "capture_compose": true,
+  "check_before_draw": true,
+  "adaptive_flush": true,
+  "validation_pixel_readback": true,
+  "uncapped": false,
+  "diagnostic_readback": false,
+  "gpu_only_frame_transport": false,
+  "user_observation": "Pending",
+  "consumer_completion_contract_verified": false,
+  "production_ready": false,
+  "rss_samples": [
+    {
+      "elapsed_seconds": 0.0,
+      "producer_rss_kib": 208,
+      "worker_rss_kib": 5936
+    },
+    {
+      "elapsed_seconds": 1.008,
+      "producer_rss_kib": 516704,
+      "worker_rss_kib": 140128
+    },
+    {
+      "elapsed_seconds": 2.019,
+      "producer_rss_kib": 451936,
+      "worker_rss_kib": 140656
+    },
+    {
+      "elapsed_seconds": 3.03,
+      "producer_rss_kib": 452848,
+      "worker_rss_kib": 140656
+    },
+    {
+      "elapsed_seconds": 4.04,
+      "producer_rss_kib": 518208,
+      "worker_rss_kib": 140656
+    },
+    {
+      "elapsed_seconds": 5.05,
+      "producer_rss_kib": 452800,
+      "worker_rss_kib": 140672
+    },
+    {
+      "elapsed_seconds": 6.056,
+      "producer_rss_kib": 452624,
+      "worker_rss_kib": 140688
+    },
+    {
+      "elapsed_seconds": 7.064,
+      "worker_rss_kib": 140768
+    },
+    {
+      "elapsed_seconds": 8.081,
+      "worker_rss_kib": 140784
+    },
+    {
+      "elapsed_seconds": 9.095,
+      "worker_rss_kib": 140832
+    },
+    {
+      "elapsed_seconds": 10.112,
+      "worker_rss_kib": 140944
+    },
+    {
+      "elapsed_seconds": 11.129,
+      "worker_rss_kib": 140960
+    },
+    {
+      "elapsed_seconds": 12.147,
+      "worker_rss_kib": 140960
+    },
+    {
+      "elapsed_seconds": 13.166,
+      "worker_rss_kib": 140960
+    },
+    {
+      "elapsed_seconds": 14.184,
+      "worker_rss_kib": 140960
+    },
+    {
+      "elapsed_seconds": 15.2,
+      "worker_rss_kib": 140976
+    },
+    {
+      "elapsed_seconds": 16.219,
+      "worker_rss_kib": 140976
+    },
+    {
+      "elapsed_seconds": 17.238,
+      "worker_rss_kib": 141008
+    },
+    {
+      "elapsed_seconds": 18.257,
+      "worker_rss_kib": 141024
+    },
+    {
+      "elapsed_seconds": 19.278,
+      "worker_rss_kib": 141024
+    },
+    {
+      "elapsed_seconds": 20.296,
+      "worker_rss_kib": 141024
+    }
+  ],
+  "rss_scope": "Process resident memory sampled with ps; not GPU allocations or a leak proof.",
+  "received_sequences": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8
+  ],
+  "worker_update_span_seconds": 5.206,
+  "worker_update_rate_hz": 1.3446,
+  "worker_mean_finish_ms": 0.000565143,
+  "worker_mean_copy_wait_ms": 2.33345,
+  "worker_mean_new_frame_draw_ms": 3.34361,
+  "mean_revision_flush_ms": 5.06425,
+  "mean_ack_wait_ms": 0.010625,
+  "mean_flush_count": 1.0,
+  "exact_reference_frames": 8.0,
+  "mean_process_wait_ms": 2.768125,
+  "mean_force_draw_ms": 2.274,
+  "mean_force_sync_ms": 0.000375,
+  "mean_first_draw_ms": 2.274,
+  "mean_later_draw_ms": 0.0,
+  "producer_frames_completed": 8,
+  "all_frames_received_in_order": true,
+  "sdk_cleanup_passed": true,
+  "worker_updates_completed": 8,
+  "rate_scope": "Worker SDK update submissions, not measured physical display FPS; Optional pacing; revisions flushed synchronously; stage means overlap across processes and must not be summed as frame latency.",
+  "mean_get_image_elapsed_ms": 0.0,
+  "mean_surface_publish_elapsed_ms": null,
+  "validation_scope": "Normal native GPU publication occurs before any quilt readback; copied IOSurface bytes compared to a fresh eight-flush reference. Publication timing is not measured in this mode.",
+  "date": "2026-10-12",
+  "copied_iosurface_bytes_match_reference": true,
+  "reference_schedule": "Original post-draw schedule with the same 24 real cameras and 66 output views; not a 66-real-view image-quality comparison."
+}

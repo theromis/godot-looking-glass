@@ -131,3 +131,20 @@ The 36-second GPU-only run produced/received 616 frames in order at 29.355 new S
 Broader moving occluder, lighting, transparency, synthesized-view, borrowed-buffer and alternate-backend tests remain necessary before making this an addon default.
 
 The final copy-first validation disabled capture notifications on the render thread for each reference, restoring the original post-draw composition schedule and eight flushes. All eight one-draw IOSurface copies matched those original-schedule reference byte arrays exactly; SDK cleanup passed. See [cross-schedule validation](../benchmarks/hardware/live-surface-4k-gpu-adaptive-copy-validation-capture-compose.json). Diagnostic readback follows the candidate GPU copy and does not precede it.
+
+## Configurable real-view budget
+
+`--real-views 24` selects 24 actual scene cameras and synthesizes the remaining views of the 66-view quilt; 12, 24, 36, 48 and 66 are accepted. Default remains 66. This changes scene rendering and synthesis work while retaining 4092×4092 output and the same native transport. `--run-label` optionally writes separate result records without overwriting previous runs.
+
+The capture-stage 24→66 path passed all eight copy-first comparisons against the same 24→66 scene using the original post-draw/eight-flush schedule. This checks scheduling/copy correctness, not quality equivalence to rendering all 66 cameras. See [24→66 validation](../benchmarks/hardware/live-surface-4k-gpu-adaptive-copy-validation-capture-compose-real-24.json). Dynamic disocclusions, lighting and transparency require separate visual assessment.
+
+### Paired 4K view-budget run (2026-10-12)
+
+| Actual cameras → output views | Frames received | New SDK submissions/s | Producer copy/publication mean ms |
+| --- | ---: | ---: | ---: |
+| 24 → 66 | 1,223 | 58.314 | 5.655 |
+| 66 → 66 | 615 | 29.330 | 23.972 |
+
+Both sequential runs used the same 36-second worker duration, approximately 21 seconds of elapsed-time animation, 4092×4092 quilt, one draw/capture-stage composition, no diagnostic readback and the same simple unshaded cube. All produced sequences were received in order and SDK cleanup passed. The measured submission-rate ratio is approximately 1.99; this is one trial per budget, not a statistically established universal gain or physical panel FPS.
+
+Native publication timing includes waiting for prior Godot GPU work on its queue, so its reduction does not mean the 64 MiB blit itself became four times faster. The comparison is consistent with lower scene-rendering work, but does not isolate GPU stage durations. Visual feedback for the current synthesized animation remains pending; earlier static hardware observations do not substitute for it. The real-camera default remains 66 until broader visual/scene testing. See [paired summary](../benchmarks/hardware/live-surface-view-budget-comparison.json).

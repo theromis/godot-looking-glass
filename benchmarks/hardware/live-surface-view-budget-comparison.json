@@ -1,0 +1,9 @@
+{
+  "date": "2026-10-12",
+  "real24_record": "live-surface-4k-gpu-duration-36-uncapped-adaptive-capture-compose-real-24-view-budget.json",
+  "real66_record": "live-surface-4k-gpu-duration-36-uncapped-adaptive-capture-compose-view-budget-control.json",
+  "real24_sdk_submission_hz": 58.3137,
+  "real66_sdk_submission_hz": 29.3302,
+  "submission_rate_ratio": 1.988179419165229,
+  "scope": "Single sequential trials, same 4092\u00b2 output, 66 output views, 36-second worker, approximately 21-second animation, capture-stage composition, one draw, no pixel readback. Simple unshaded cube only. Physical image-quality feedback pending."
+}

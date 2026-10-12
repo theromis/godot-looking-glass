@@ -19,6 +19,7 @@ func run() -> void:
         return
     var dimensions: Vector2i=Vector2i(4092,4092) if large else Vector2i(704,684)
     var frame_count: int=8 if large else 24
+    var real_views: int=66
     var duration_seconds: float=0
     var directory: String="res://benchmarks/hardware/live-transport"
     var surface_name: String=""
@@ -26,6 +27,7 @@ func run() -> void:
     var shared_name: String=""
     var pipe_path: String=""
     for argument in OS.get_cmdline_user_args():
+        if argument.begins_with("--real-views="): real_views=argument.trim_prefix("--real-views=").to_int()
         if argument.begins_with("--duration="): duration_seconds=argument.trim_prefix("--duration=").to_float()-15.0
         if argument.begins_with("--surface-name="): surface_name=argument.trim_prefix("--surface-name=")
         if argument.begins_with("--shm-name="): shared_name=argument.trim_prefix("--shm-name=")
@@ -59,7 +61,7 @@ func run() -> void:
     scene.add_child(box)
     var rig:=Rig.new()
     rig.total_views=66
-    rig.real_views=66
+    rig.real_views=real_views
     rig.columns=11
     rig.tile_size=Vector2i(372,682) if large else Vector2i(64,114)
     rig.synthesis=true
