@@ -16,6 +16,7 @@ Checked items are implemented or completed experiments, with their limits record
 - [x] Detect a 1440×2560 Looking Glass and display a user-confirmed solid color through real Bridge RGBA8/Metal interop; record the 66-view preset and format limitations.
 - [x] Add cached GPU bindings, borrowed color/depth with tested snapshot fallback, optional profiling and resource-lifetime checks.
 - [x] Execute the shared positional-shadow-atlas engine experiment and document scene-specific gains and compatibility restrictions.
+- [x] Add opt-in composition after the last source capture, allowing one draw; copied IOSurface bytes matched eight original-schedule reference frames and hardware animation was confirmed.
 - [x] Reduce depth-diagnostic feedback on GPU and support explicit on-demand quilt updates for static scenes.
 - [x] Isolate native Metal viewport/camera equivalence failures and validate all 16 checks with the engine’s optional hazard-tracking mode.
 - [x] Record reproducible benchmarks, image-quality comparisons, negative results and regression tests; keep repository text in English and paths relative.
@@ -296,3 +297,5 @@ Optional revision-driven completion needed two flushes instead of eight and matc
 A subsequent timing breakdown found that process-frame waits averaged only 0.211 ms per revision, while `force_draw` calls averaged 27.641 ms and `force_sync` 0.001 ms. VSync was already disabled. All 582 frames were received at 29.107 new SDK submissions/s. These CPU wall times locate the delay inside draw execution but do not isolate GPU work. See [main-loop breakdown](docs/live-iosurface-transport.md#main-loop-wait-breakdown-2026-10-12).
 
 Draw profiling found 5.625 ms in the first call and 24.473 ms in the second. Skipping the second call passed source readback comparisons but failed the stronger test of bytes actually copied into IOSurface before any source readback. The two-draw path passed all eight copy-first comparisons. The unsafe shortcut is restricted to a diagnostic negative control; ordinary output retains both draws. See [copy-first validation](docs/live-iosurface-transport.md#first-versus-second-draw-and-copy-first-validation).
+
+Opt-in `compose_in_capture_callback` records quilt compute before the current Godot GPU frame ends. One draw now passes copy-first comparisons against the original post-draw eight-flush reference. The hardware run received all 616 frames at 29.355 new SDK submissions/s; the previous two-draw control reached 27.670 Hz. Much of the removed draw wait moved to native publication/copy acknowledgment, so this is not a general speedup claim. See [capture-stage composition](docs/live-iosurface-transport.md#capture-stage-composition-opt-in).

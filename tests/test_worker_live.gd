@@ -3,7 +3,8 @@ const Rig=preload("res://addons/looking_glass/rig.gd")
 func _initialize() -> void: run.call_deferred()
 func run() -> void:
     RenderingServer.set_render_loop_enabled(false)
-    var check_before_draw: bool="--check-before-draw" in OS.get_cmdline_user_args()
+    var capture_compose: bool="--capture-compose" in OS.get_cmdline_user_args()
+    var check_before_draw: bool=capture_compose or "--check-before-draw" in OS.get_cmdline_user_args()
     var first_draw_us: int=0
     var later_draw_us: int=0
     var adaptive_flush: bool="--adaptive-flush" in OS.get_cmdline_user_args()
@@ -12,7 +13,7 @@ func run() -> void:
     var validation_count: int=0
     var uncapped: bool="--uncapped" in OS.get_cmdline_user_args()
     var large: bool="--large" in OS.get_cmdline_user_args()
-    if check_before_draw and not (adaptive_flush and validate_flush):
+    if check_before_draw and not (adaptive_flush and (validate_flush or capture_compose)):
         printerr("FAIL pre-draw shortcut requires explicit validation negative control")
         quit(1)
         return
@@ -64,6 +65,7 @@ func run() -> void:
     rig.synthesis=true
     rig.quilt_rgba8=true
     rig.update_on_demand=true
+    rig.compose_in_capture_callback=capture_compose
     rig.position.z=6
     rig.focus_distance=6
     rig.view_cone_degrees=30
@@ -122,6 +124,9 @@ func run() -> void:
                 quit(1)
                 return
             var candidate: PackedByteArray=pipe_writer.read_surface_pixels()
+            if capture_compose:
+                RenderingServer.call_on_render_thread(_set_capture_notifications.bind(rig,false))
+                RenderingServer.force_sync()
             rig.request_update()
             for i in range(8):
                 await process_frame
@@ -132,6 +137,9 @@ func run() -> void:
                 printerr("FAIL adaptive flush reference mismatch frame=",frame)
                 quit(1)
                 return
+            if capture_compose:
+                RenderingServer.call_on_render_thread(_set_capture_notifications.bind(rig,true))
+                RenderingServer.force_sync()
             validation_count+=1
         if not surface_name.is_empty():
             var ack_started: int=Time.get_ticks_usec()
@@ -200,3 +208,8 @@ func run() -> void:
     print("SURFACE producer gpu_only=",not surface_name.is_empty() and not (verify_surface or validate_flush)," diagnostic_readback=",(verify_surface or validate_flush) if not surface_name.is_empty() else true)
     print("PASS live Godot producer frames=",frame_count," mean_readback_ms=",float(readback_us)/(1000.0*frame_count)," mean_pipe_write_ms=",float(pipe_us)/(1000.0*frame_count))
     quit()
+
+func _set_capture_notifications(rig: Node3D, enabled: bool) -> void:
+    # Validation reference uses the original post-draw composition schedule.
+    for capture in rig.captures:
+        capture.capture_completed=rig._dispatch_requested if enabled else Callable()

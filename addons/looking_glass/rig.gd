@@ -24,6 +24,8 @@ var camera_span_reference_distance: float = 0.0
 ## Set before ready. Scene/material/light changes require request_update().
 ## Supported for compute synthesis; camera rig motion requests updates automatically.
 @export var update_on_demand: bool = false
+## Opt-in: record quilt dispatch after the last capture, before frame submission.
+@export var compose_in_capture_callback: bool = false
 var requested_revision: int = 0
 var completed_revision: int = 0
 var _render_requested_revision: int = 0
@@ -120,6 +122,8 @@ func _ready() -> void:
         camera.global_transform = global_transform * offset
         if synthesis:
             var capture = Capture.new(borrow_source_color or borrow_source_depth, borrow_source_depth)
+            if compose_in_capture_callback and update_on_demand:
+                capture.capture_completed = _dispatch_requested
             capture.near_clip = near_clip
             capture.far_clip = far_clip
             var compositor := Compositor.new()

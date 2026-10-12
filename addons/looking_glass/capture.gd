@@ -1,4 +1,6 @@
 extends CompositorEffect
+## Optional render-thread notification after color/depth commands are recorded.
+var capture_completed: Callable
 var requested_borrow_color: bool = false
 var requested_borrow_depth: bool = false
 var borrow_color: bool = false
@@ -102,6 +104,7 @@ func _render_callback(type: int, data: RenderData) -> void:
         depth = buffers.get_depth_layer(0)
         capture_count += 1
         frame = int(rd.get_captured_timestamps_frame()) + 1
+        if capture_completed.is_valid(): capture_completed.call()
         return
     var textures: Array = [buffers.get_depth_layer(0), depth] if borrow_color else [buffers.get_color_layer(0), buffers.get_depth_layer(0), color, depth]
     var sampled_count: int = 1 if borrow_color else 2
@@ -126,10 +129,12 @@ func _render_callback(type: int, data: RenderData) -> void:
     rd.compute_list_end()
     capture_count += 1
     frame = int(rd.get_captured_timestamps_frame()) + 1
+    if capture_completed.is_valid(): capture_completed.call()
 func release() -> void:
     if released:
         return
     released = true
+    capture_completed = Callable()
     if rd == null:
         return
     if color.is_valid() and not borrow_color:
