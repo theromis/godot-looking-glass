@@ -34,11 +34,13 @@
     "fixture": true,
     "hardware": true
   },
-  "user_observation": "Pending",
+  "user_observation": "Red sphere has a doubled shadow/dark edge on its left",
   "display_duration_seconds_requested": 20,
   "limitations": [
     "Color and shadow maps restored together; individual contributions not isolated",
     "Static compact scene, no motion/transparency validation",
     "All 48 views real; no optical measurement or performance result"
-  ]
+  ],
+  "user_interpretation": "Prefer avoiding high-contrast edges on objects away from convergence",
+  "assessment": "Residual dark-edge doubling remains after restoring colors and shadow maps. Contrast guidance is an appearance mitigation; shadow maps were not isolated as the cause and complete visual acceptance was not reported"
 }
