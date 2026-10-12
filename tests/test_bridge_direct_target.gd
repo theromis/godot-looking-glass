@@ -46,7 +46,8 @@ func run() -> void:
     var diagnostic=ClassDB.instantiate("LookingGlassMetalDiagnostic")
     var cols: int=2 if fixture else 11
     var rows: int=2 if fixture else 6
-    var tile := Vector2i(32,32) if fixture else Vector2i(64,114)
+    var large: bool="--large" in OS.get_cmdline_user_args()
+    var tile := Vector2i(32,32) if fixture else (Vector2i(372,682) if large else Vector2i(64,114))
     var aspect: float=1.0 if fixture else 0.5625
     if fixture:
         OS.set_environment("LG_FIXTURE_ACCEPT_QUILT","1")
@@ -108,7 +109,7 @@ func run() -> void:
     if rig.synthesizer.dispatch_count<1 or rig.completed_revision!=rig.requested_revision:
         fail("Static quilt did not finish latest explicit request")
         return
-    print("Showing direct imported SDK quilt: real_views=",rig.real_views," total_views=",rig.total_views,"; no intermediate quilt blit")
+    print("Showing direct imported SDK quilt: real_views=",rig.real_views," total_views=",rig.total_views," tile=",tile,"; no intermediate quilt blit")
     var report: Dictionary=diagnostic.submit_direct_target(0.0 if fixture else 20.0)
     if not report.get("ok",false):
         fail(str(report.get("error","Direct submission failed")))

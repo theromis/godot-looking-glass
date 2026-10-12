@@ -1,0 +1,33 @@
+{
+  "date": "2026-10-12",
+  "engine": "Godot 4.8 c61fc0118 native Metal",
+  "sdk": "2.6.3",
+  "environment": {
+    "GODOT_MTL_SYNC_MODE": "none"
+  },
+  "real_views": 24,
+  "total_views": 66,
+  "tile_size": [
+    372,
+    682
+  ],
+  "quilt_size": [
+    4092,
+    4092
+  ],
+  "transparent_panel": false,
+  "static_scene": true,
+  "duration_seconds": 20,
+  "output": "Direct imported SDK RGBA8 texture",
+  "api_success": true,
+  "exit_code": 0,
+  "user_observation": "User confirmed clear image and smooth angular transitions while rotating the monitor",
+  "purpose": "Assess synthesized angular continuity at default device quilt resolution",
+  "limitations": [
+    "Static pose, not animation or continuous streaming",
+    "No optical measurement or measured FPS",
+    "Nearest color/depth sampling retained",
+    "No MSAA configuration change"
+  ],
+  "assessment": "Qualitative static full-resolution 24-anchor synthesis passed"
+}

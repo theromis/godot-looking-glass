@@ -1,0 +1,32 @@
+{
+  "date": "2026-10-12",
+  "engine": "Godot 4.8 c61fc0118 native Metal",
+  "sdk": "2.6.3",
+  "environment": {
+    "GODOT_MTL_SYNC_MODE": "none"
+  },
+  "real_views": 66,
+  "total_views": 66,
+  "tile_size": [
+    372,
+    682
+  ],
+  "quilt_size": [
+    4092,
+    4092
+  ],
+  "transparent_panel": false,
+  "static_scene": true,
+  "duration_seconds": 20,
+  "output": "Direct imported SDK RGBA8 texture",
+  "api_success": true,
+  "exit_code": 0,
+  "user_observation": "User confirmed noticeably sharper image at default quilt resolution",
+  "purpose": "Separate low-resolution edge artifacts from view reconstruction",
+  "limitations": [
+    "No optical measurement or measured FPS",
+    "Per-view aspect from integer preset tiles differs slightly from display aspect",
+    "No MSAA configuration change",
+    "Synthesized view quality not tested in this run"
+  ]
+}

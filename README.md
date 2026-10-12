@@ -215,3 +215,7 @@ The subsequent moving-box/alpha-panel comparison exposed a limitation: when the 
 ### Opaque physical budget controls
 
 Removing the alpha panel did not eliminate user-observed angular jumps at 24 real cameras. The subsequent 48-real → 66-view opaque clip was reported smooth when rotating the monitor; the 36-camera assessment remains pending. Forty-eight is a visually accepted candidate for this scene, not a universal preset or a measured performance result. The minimum acceptable budget and cause of sparse-view discontinuities remain unresolved. See [hardware controls](benchmarks/hardware/README.md#opaque-angular-continuity-controls).
+
+### Default-resolution hardware correction
+
+The earlier hardware clips used only 64×114 pixels per view. At the actual 4092² default quilt dimensions (372×682 per view), the user reported a noticeably sharper 66-real-camera reference and **clear, smooth angular transitions with 24 real cameras reconstructed into 66 views**. No sampler or AA settings were changed. Thus the low-resolution angular failures should not be used to reject 24 anchors at normal resolution for this static scene. Full-resolution animation, transparency and broader scene coverage remain unvalidated. See [physical evidence](benchmarks/hardware/README.md#default-resolution-physical-comparison).

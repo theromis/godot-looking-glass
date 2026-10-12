@@ -160,3 +160,14 @@ GODOT_MTL_SYNC_MODE=none "$GODOT" --path . --rendering-driver metal --script tes
 Both commands prerecord eight distinct GPU-only quilts, then request five pose changes per second for twenty seconds. This discrete prerecorded animation is intentionally not a smooth-motion or continuous-streaming benchmark. The 66-real version provides a qualitative baseline to distinguish sparse-view artifacts from clip cadence. On 2026-10-12 both real-SDK runs passed API submission and teardown; the user reported angular jumps in the 24-anchor clip while rotating the monitor, versus smooth angular transitions in the 66-real baseline. This rejects the 24-anchor mode for this tested scene; it does not isolate the cause or measure temporal FPS.
 
 Capture runs at `EFFECT_CALLBACK_TYPE_POST_TRANSPARENT` in `addons/looking_glass/capture.gd:30`, so alpha-blended color is included. The depth-reprojection shader still has only the resolved scene depth: it does not reconstruct separate transparent and opaque depth layers. Therefore adding the panel does not establish correct multilayer transparency, refraction or particles. No transparency-support default or quality claim is inferred from API success. See [24-anchor run](../../benchmarks/hardware/sequence24-transparency.json) and [66-real baseline](../../benchmarks/hardware/sequence66-transparency.json).
+
+## Default-resolution physical target check
+
+The frozen direct-target test now supports `--large`: 372×682 pixels per view, 11×6 views, exactly 4092×4092, matching the connected SDK quilt dimensions. Small diagnostic output is still the default unless this option is passed.
+
+```sh
+GODOT_MTL_SYNC_MODE=none "$GODOT" --path . --rendering-driver metal --script tests/test_bridge_direct_target.gd -- --large --real-views=66
+GODOT_MTL_SYNC_MODE=none "$GODOT" --path . --rendering-driver metal --script tests/test_bridge_direct_target.gd -- --large --real-views=24
+```
+
+On 2026-10-12 the user confirmed that the all-real 4092² scene was noticeably sharper than earlier 704×684 tests. Those earlier sparse-view continuity observations must not be generalized to the full-resolution path without a new assessment. The source color/depth sampler, rendering AA settings and existing gamma transfer were unchanged, so this is a resolution control, not a filtering fix. Both scripts use a frozen pose and show it for 20 seconds; moving the monitor tests qualitative angular continuity rather than temporal frame rate. The eight-pose clip test retains its separate small-resolution memory budget and is not upgraded implicitly.
