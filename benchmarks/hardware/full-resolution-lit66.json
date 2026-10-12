@@ -1,0 +1,37 @@
+{
+  "date": "2026-10-12",
+  "engine": "Godot 4.8 c61fc0118 native Metal",
+  "sdk": "2.6.3",
+  "environment": {
+    "GODOT_MTL_SYNC_MODE": "none"
+  },
+  "real_views": 66,
+  "total_views": 66,
+  "tile_size": [
+    372,
+    682
+  ],
+  "quilt_size": [
+    4092,
+    4092
+  ],
+  "lighting": "Per-pixel shaded materials, warm directional light, colored ambient fill and shadow-receiving floor",
+  "shadow_settings": {
+    "enabled": true,
+    "angular_distance_degrees": 2,
+    "blur": 1,
+    "max_distance": 15
+  },
+  "duration_seconds": 20,
+  "api_success": true,
+  "exit_code": 0,
+  "user_observation": "User reported shading improved, but foreground and background objects appear doubled",
+  "limitations": [
+    "Frozen all-real baseline only",
+    "No synthesis, transparency or motion assessment",
+    "No measured performance",
+    "Existing simple gamma output, no final Godot tonemapping validation"
+  ],
+  "assessment": "All-real lit baseline has unresolved foreground/background ghosting",
+  "fixture_regression": "Lit four-view direct fixture output exact and nonempty PASS"
+}

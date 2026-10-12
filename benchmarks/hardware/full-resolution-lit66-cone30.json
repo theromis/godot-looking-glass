@@ -1,0 +1,29 @@
+{
+  "date": "2026-10-12",
+  "engine": "Godot 4.8 c61fc0118 native Metal",
+  "sdk": "2.6.3",
+  "environment": {
+    "GODOT_MTL_SYNC_MODE": "none"
+  },
+  "real_views": 66,
+  "total_views": 66,
+  "quilt_size": [
+    4092,
+    4092
+  ],
+  "lighting_enabled": true,
+  "virtual_camera_cone_degrees": 30,
+  "device_calibration_cone_unchanged_degrees": 54,
+  "focus_distance": 6,
+  "duration_seconds": 20,
+  "api_success": true,
+  "exit_code": 0,
+  "user_observation": "User confirmed noticeably reduced foreground/background double images with 30-degree virtual camera cone",
+  "purpose": "Reduce virtual parallax while preserving all-real lighting to investigate foreground/background double images",
+  "limitations": [
+    "Cause not isolated; not a calibration fix",
+    "Reduced apparent depth is expected",
+    "No measured performance or optical error"
+  ],
+  "assessment": "Reduced parallax qualitatively improves this lit all-real scene; residual ghosting not quantified"
+}

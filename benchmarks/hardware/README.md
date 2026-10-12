@@ -88,3 +88,9 @@ On 2026-10-12 the same static opaque scene was tested at the connected device's 
 Earlier angular jumps at 24 cameras were observed at 704×684 (64×114 per view). The larger-resolution control shows that those failures do not establish that 24 anchors are inherently insufficient for this scene. Nearest color/depth filtering and AA settings were unchanged. Resolution was changed without adopting a new synthesis algorithm. This does not prove the exact aliasing mechanism or validate full-resolution motion, transparency, optical calibration accuracy or universal quality.
 
 See [all-real reference](full-resolution-real66.json), [24-anchor assessment](full-resolution-synth24.json) and [commands](../../native/bridge_metal/README.md#default-resolution-physical-target-check). The finite animated clips remain small-resolution tests with a separate memory limit.
+
+## Lit/shadowed depth control
+
+On 2026-10-12 the 4092² all-real baseline was repeated with per-pixel material lighting, ambient fill, a warm directional light, shadow-enabled angular size 2° and a gray receiving floor. The user reported that shading improved the image, but foreground/background objects doubled. The same lit scene with the virtual camera cone reduced from 54° to 30° was reported to have noticeably less doubling. Both SDK sessions passed and closed cleanly; the lit fixture also passed exact, nonempty RGBA8 comparison.
+
+This points to virtual parallax/depth as a useful control for this scene, not a proven optical/calibration diagnosis. The actual Bridge device calibration cone remains 54°. No postprocess depth blur or tonemapping fix was added. Residual double images, apparent-depth preference, synthesis with shading and temporal output remain unassessed. See [lit baseline](full-resolution-lit66.json), [30° control](full-resolution-lit66-cone30.json) and [commands](../../native/bridge_metal/README.md#lit-full-resolution-baseline).

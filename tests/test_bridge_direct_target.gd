@@ -10,6 +10,7 @@ func fail(message: String) -> void:
     quit(1)
 func run() -> void:
     RenderingServer.set_render_loop_enabled(false)
+    var lit: bool="--lit" in OS.get_cmdline_user_args()
     var scene := Node3D.new()
     root.add_child(scene)
     var world := WorldEnvironment.new()
@@ -20,7 +21,7 @@ func run() -> void:
     var box := MeshInstance3D.new()
     box.mesh=BoxMesh.new()
     var material := StandardMaterial3D.new()
-    material.shading_mode=BaseMaterial3D.SHADING_MODE_UNSHADED
+    material.shading_mode=BaseMaterial3D.SHADING_MODE_PER_PIXEL if lit else BaseMaterial3D.SHADING_MODE_UNSHADED
     material.albedo_color=Color(0.8,0.3,0.1)
     box.material_override=material
     scene.add_child(box)
@@ -29,10 +30,34 @@ func run() -> void:
         sphere.mesh=SphereMesh.new()
         sphere.position=Vector3((i-1)*0.75,0.55,(i-1)*0.8)
         var sphere_material := StandardMaterial3D.new()
-        sphere_material.shading_mode=BaseMaterial3D.SHADING_MODE_UNSHADED
+        sphere_material.shading_mode=BaseMaterial3D.SHADING_MODE_PER_PIXEL if lit else BaseMaterial3D.SHADING_MODE_UNSHADED
         sphere_material.albedo_color=[Color.RED,Color.GREEN,Color.BLUE][i]
         sphere.material_override=sphere_material
         scene.add_child(sphere)
+    if lit:
+        material.roughness=0.45
+        world.environment.ambient_light_source=Environment.AMBIENT_SOURCE_COLOR
+        world.environment.ambient_light_color=Color(0.45,0.55,0.7)
+        world.environment.ambient_light_energy=0.3
+        var sun := DirectionalLight3D.new()
+        sun.rotation_degrees=Vector3(-45,-35,0)
+        sun.light_color=Color(1.0,0.9,0.8)
+        sun.light_energy=1.2
+        sun.shadow_enabled=true
+        sun.light_angular_distance=2.0
+        sun.shadow_blur=1.0
+        sun.directional_shadow_max_distance=15.0
+        scene.add_child(sun)
+        var floor_mesh := MeshInstance3D.new()
+        var floor_plane := PlaneMesh.new()
+        floor_plane.size=Vector2(5,5)
+        floor_mesh.mesh=floor_plane
+        floor_mesh.position.y=-0.6
+        var floor_material := StandardMaterial3D.new()
+        floor_material.albedo_color=Color(0.5,0.52,0.55)
+        floor_material.roughness=0.85
+        floor_mesh.material_override=floor_material
+        scene.add_child(floor_mesh)
     var fixture: bool="--fixture" in OS.get_cmdline_user_args()
     var runtime: String="res://native/bridge_metal/build/fixture.dylib" if fixture else OS.get_environment("BRIDGE_LIBRARY")
     var display: String="7" if fixture else OS.get_environment("BRIDGE_DISPLAY_INDEX")
@@ -81,7 +106,14 @@ func run() -> void:
     rig.quilt_rgba8=true
     rig.update_on_demand=true
     rig.borrow_source_depth=true
-    rig.view_cone_degrees=54
+    var virtual_cone: float=54.0
+    for argument in OS.get_cmdline_user_args():
+        if argument.begins_with("--view-cone="):
+            virtual_cone=float(argument.trim_prefix("--view-cone="))
+    if not is_finite(virtual_cone) or virtual_cone<1 or virtual_cone>80:
+        fail("Invalid virtual camera cone")
+        return
+    rig.view_cone_degrees=virtual_cone
     rig.position.z=6
     scene.add_child(rig)
     # Frozen output. Finish subsequent Godot frames so synthesis recorded by
@@ -109,7 +141,7 @@ func run() -> void:
     if rig.synthesizer.dispatch_count<1 or rig.completed_revision!=rig.requested_revision:
         fail("Static quilt did not finish latest explicit request")
         return
-    print("Showing direct imported SDK quilt: real_views=",rig.real_views," total_views=",rig.total_views," tile=",tile,"; no intermediate quilt blit")
+    print("Showing direct imported SDK quilt: real_views=",rig.real_views," total_views=",rig.total_views," tile=",tile," lit=",lit," virtual_cone=",virtual_cone,"; no intermediate quilt blit")
     var report: Dictionary=diagnostic.submit_direct_target(0.0 if fixture else 20.0)
     if not report.get("ok",false):
         fail(str(report.get("error","Direct submission failed")))

@@ -171,3 +171,23 @@ GODOT_MTL_SYNC_MODE=none "$GODOT" --path . --rendering-driver metal --script tes
 ```
 
 On 2026-10-12 the user confirmed that the all-real 4092² scene was noticeably sharper than earlier 704×684 tests. Those earlier sparse-view continuity observations must not be generalized to the full-resolution path without a new assessment. The source color/depth sampler, rendering AA settings and existing gamma transfer were unchanged, so this is a resolution control, not a filtering fix. Both scripts use a frozen pose and show it for 20 seconds; moving the monitor tests qualitative angular continuity rather than temporal frame rate. The eight-pose clip test retains its separate small-resolution memory budget and is not upgraded implicitly.
+
+## Lit full-resolution baseline
+
+`--lit` switches diagnostic object materials from unshaded to per-pixel shading, adds a warm directional light (energy 1.2), colored ambient fill (energy 0.3), and a rough gray shadow-receiving floor. Directional shadows are enabled with a 2° light angular size, blur 1 and maximum distance 15. These parameters request soft-shadow rendering; visual penumbra quality is not established by API success.
+
+```sh
+GODOT_MTL_SYNC_MODE=none "$GODOT" --path . --rendering-driver metal --script tests/test_bridge_direct_target.gd -- --large --real-views=66 --lit
+```
+
+The 66-real-camera frozen baseline avoids depth synthesis during this first lighting check. It was executed at 4092² on 2026-10-12 and the SDK session passed; the user reported improved shading but double images for foreground/background objects. This occurs in an all-real baseline, so that observation cannot be attributed to view synthesis alone. Existing simple gamma conversion remains; this does not validate Godot final tonemapping, HDR display or accurate output color. Shader lighting and shadow render costs were not timed. See [record](../../benchmarks/hardware/full-resolution-lit66.json).
+
+### Virtual parallax control
+
+`--view-cone=30` changes only the virtual camera rig's angular range. It does not edit device calibration or change Bridge's optical transform. The default remains 54°. This is a diagnostic depth/parallax adjustment, not a calibration repair. The same lit 66-real 4092² scene was repeated with a 30° virtual cone to investigate foreground/background double images.
+
+```sh
+GODOT_MTL_SYNC_MODE=none "$GODOT" --path . --rendering-driver metal --script tests/test_bridge_direct_target.gd -- --large --real-views=66 --lit --view-cone=30
+```
+
+The official [depth-of-field guidance](https://docs.lookingglassfactory.com/developer-tools/index/depth-of-field-and-other-post-processing-effects) discusses the limited depth range of these displays and focusing postprocessing on the focal plane. This makes content depth/focus worth investigating; it does not identify the cause of this particular double-image report. No depth-of-field blur was added, and color/tonemapping accuracy remains unvalidated. See [30° diagnostic](../../benchmarks/hardware/full-resolution-lit66-cone30.json).

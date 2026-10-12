@@ -219,3 +219,7 @@ Removing the alpha panel did not eliminate user-observed angular jumps at 24 rea
 ### Default-resolution hardware correction
 
 The earlier hardware clips used only 64×114 pixels per view. At the actual 4092² default quilt dimensions (372×682 per view), the user reported a noticeably sharper 66-real-camera reference and **clear, smooth angular transitions with 24 real cameras reconstructed into 66 views**. No sampler or AA settings were changed. Thus the low-resolution angular failures should not be used to reject 24 anchors at normal resolution for this static scene. Full-resolution animation, transparency and broader scene coverage remain unvalidated. See [physical evidence](benchmarks/hardware/README.md#default-resolution-physical-comparison).
+
+### Lit display test and parallax control
+
+The physical diagnostic supports `--lit` for per-pixel shading, ambient fill, a directional light and soft-shadow parameters with a receiving floor. At full 4092² resolution the user reported better shading but foreground/background doubling in the all-real scene. Reducing only the virtual camera cone to 30° noticeably reduced that doubling; device calibration remains unchanged. This is a scene-specific parallax adjustment, not an established calibration fix. Use `--large --real-views=66 --lit --view-cone=30` for reproduction. [Hardware observations](benchmarks/hardware/README.md#litshadowed-depth-control).
