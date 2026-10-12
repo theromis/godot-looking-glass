@@ -19,12 +19,14 @@
   "process_exit": 0,
   "timed_out": false,
   "first_attempt": "Timed out at 110 seconds; killed by subprocess wrapper",
-  "user_observation": "Pending",
+  "user_observation": "Strong double images remained at the rear blue sphere; the front red sphere now also showed more noticeable doubling",
   "display_duration_seconds_requested": 20,
   "device_calibration_modified": false,
   "limitations": [
     "Color swap also changes luminance and contrast; cannot independently establish a channel defect",
-    "All 48 views real, no synthesis"
+    "All 48 views real, no synthesis",
+    "Rear/front objects differ in screen position as well as depth",
+    "Subjective visibility assessment, not an optical crosstalk measurement"
   ],
   "diagnostic_retry_sampled": true,
   "diagnostic_retry_passed": false,
@@ -32,5 +34,7 @@
   "root_cause": "Conditional untyped array assigned to Array[Color] aborted the deferred GDScript function in release template; SceneTree event loop remained active",
   "fix": "Choose the original color-array index instead of assigning a conditional typed array",
   "fixture_passed": true,
-  "minimal_headless_reproduction": "Stops after before-assignment marker and times out without SDK/GPU"
+  "minimal_headless_reproduction": "Stops after before-assignment marker and times out without SDK/GPU",
+  "user_interpretation": "A dark ghost may be less noticeable against blue than against red",
+  "assessment": "Artifact did not move exclusively with the red material. Both rear position and material-dependent visibility remain relevant; depth and contrast effects are not independently isolated"
 }
