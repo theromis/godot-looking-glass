@@ -27,13 +27,15 @@ func run() -> void:
     box.material_override=material
     scene.add_child(box)
     subjects.append(box)
+    var swap_depth_colors: bool="--swap-depth-colors" in OS.get_cmdline_user_args()
+    var sphere_colors: Array[Color]=[Color.BLUE,Color.GREEN,Color.RED] if swap_depth_colors else [Color.RED,Color.GREEN,Color.BLUE]
     for i in range(3):
         var sphere := MeshInstance3D.new()
         sphere.mesh=SphereMesh.new()
         sphere.position=Vector3((i-1)*0.75,0.55,(i-1)*0.8)
         var sphere_material := StandardMaterial3D.new()
         sphere_material.shading_mode=BaseMaterial3D.SHADING_MODE_PER_PIXEL if lit else BaseMaterial3D.SHADING_MODE_UNSHADED
-        sphere_material.albedo_color=[Color.RED,Color.GREEN,Color.BLUE][i]
+        sphere_material.albedo_color=sphere_colors[i]
         sphere.material_override=sphere_material
         scene.add_child(sphere)
         subjects.append(sphere)
@@ -195,7 +197,7 @@ func run() -> void:
         if capture.dimensions!=rig.get_source_view_size():
             fail("Source capture dimensions differ from configured camera size")
             return
-    print("Showing direct imported SDK quilt: real_views=",rig.real_views," total_views=",rig.total_views," tile=",tile," lit=",lit," virtual_cone=",virtual_cone," focus=",focus," angular_sampling=",rig.angular_view_sampling," depth_scale=",depth_scale," camera_span_reference=6; no intermediate quilt blit")
+    print("Showing direct imported SDK quilt: real_views=",rig.real_views," total_views=",rig.total_views," tile=",tile," lit=",lit," virtual_cone=",virtual_cone," focus=",focus," angular_sampling=",rig.angular_view_sampling," depth_scale=",depth_scale," swap_depth_colors=",swap_depth_colors," camera_span_reference=6; no intermediate quilt blit")
     var capture_only: bool="--capture-only" in OS.get_cmdline_user_args()
     var capture_directory: String=""
     for argument in OS.get_cmdline_user_args():

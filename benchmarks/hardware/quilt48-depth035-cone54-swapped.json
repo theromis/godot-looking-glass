@@ -1,0 +1,29 @@
+{
+  "date": "2026-10-12",
+  "cli_arguments": [
+    "--large",
+    "--views=48",
+    "--real-views=48",
+    "--lit",
+    "--view-cone=54",
+    "--focus=5.6",
+    "--display-aspect",
+    "--angular-sampling",
+    "--compact-objects",
+    "--depth-scale=0.35",
+    "--swap-depth-colors"
+  ],
+  "comparison": "quilt48-depth035-cone54.json",
+  "changed_parameter": "Only rear/front sphere albedo colors swapped: rear blue, front red; green unchanged",
+  "execution_passed": false,
+  "process_exit": null,
+  "timed_out": true,
+  "first_attempt": "Timed out at 110 seconds; killed by subprocess wrapper",
+  "user_observation": "Pending",
+  "display_duration_seconds_requested": 20,
+  "device_calibration_modified": false,
+  "limitations": [
+    "Color swap also changes luminance and contrast; cannot independently establish a channel defect",
+    "All 48 views real, no synthesis"
+  ]
+}

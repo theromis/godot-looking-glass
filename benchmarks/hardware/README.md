@@ -152,3 +152,9 @@ GODOT_MTL_SYNC_MODE=none "$GODOT" --path . --rendering-driver metal --script tes
 ## 54-degree control at 35-percent geometry depth
 
 The same compact lit 48-real-view setup was shown at reference cone 54 degrees, with focus 5.6 and depth factor 0.35 unchanged. The successful repeat completed presentation and teardown; minimum source-camera subject margin was 29.966 pixels. The user reported very strong double images on the rear red sphere, slight spreading elsewhere, and an overall tolerable image. At 40 degrees, the user clarified that the rear red sphere doubles most strongly while other objects look normal. The 40-degree profile remains the preferred recorded compromise. These qualitative observations do not isolate depth, color/contrast, or optical crosstalk as the cause. See [54-degree result](quilt48-depth035-cone54.json).
+
+## Rear/front color-swap control
+
+The diagnostic accepts `--swap-depth-colors` to exchange only the rear/front sphere albedo colors (rear blue, front red; green unchanged). The 54-degree, focus-5.6, depth-0.35 configuration is retained for direct comparison with the preceding 54-degree run. Positions, geometry, lights, source dimensions and quilt remain unchanged. This tests whether the most noticeable double image follows the position or the material color; luminance/contrast also change, so it cannot independently diagnose a hardware color-channel defect. The [execution record](quilt48-depth035-cone54-swapped.json) keeps the user assessment pending until supplied.
+
+Execution limitation: both color-swap attempts timed out at 110 seconds. The retained retry produced no startup/PASS output, so neither presentation nor clean SDK teardown is verified. No optical conclusion is recorded. The wrapper killed the timed-out child process; the control remains pending.
