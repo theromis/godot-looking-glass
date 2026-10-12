@@ -2,8 +2,10 @@
   "date": "2026-10-12",
   "exit_code": 0,
   "execution_passed": true,
-  "user_observation": "Pending",
+  "user_observation": "Display remained one color instead of alternating",
   "scope": "Native adapter switches distinct immutable blue/red SDK targets; no Godot",
   "duration_seconds": 20,
-  "switch_rate_hz": 1
+  "switch_rate_hz": 1,
+  "physical_switching_passed": false,
+  "assessment": "Texture-switch symptom reproduces without Godot despite exact blue/red output bytes and successful SDK calls; internal cause not established"
 }
