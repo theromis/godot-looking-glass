@@ -53,7 +53,7 @@ bool MetalAdapter::submit_once(id<MTLTexture> source, id<MTLCommandBuffer> produ
     if (!initialized_ || submitted_ || !source || !producer) return fail("One-shot submission requires open session, texture and producer command buffer");
     if (source.device != device_ || producer.commandQueue.device != device_) return fail("Metal device mismatch");
     if (!columns || !rows || source.width%columns || source.height%rows || !std::isfinite(aspect) || aspect<=0 || !std::isfinite(zoom) || zoom<=0) return fail("Invalid quilt geometry");
-    if (source.textureType != MTLTextureType2D || source.sampleCount != 1 || source.arrayLength != 1 || source.pixelFormat != MTLPixelFormatRGBA16Float) return fail("Expected single-sample 2D RGBA16Float quilt");
+    if (source.textureType != MTLTextureType2D || source.sampleCount != 1 || source.arrayLength != 1 || (source.pixelFormat != MTLPixelFormatRGBA16Float && source.pixelFormat != MTLPixelFormatRGBA8Unorm)) return fail("Expected single-sample 2D RGBA16Float or RGBA8Unorm quilt");
     if (producer.status == MTLCommandBufferStatusNotEnqueued || producer.status == MTLCommandBufferStatusEnqueued) return fail("Producer must already be committed");
     [producer waitUntilCompleted];
     if (producer.status != MTLCommandBufferStatusCompleted) return fail("Producer GPU work failed");
@@ -78,6 +78,19 @@ bool MetalAdapter::submit_once(id<MTLTexture> source, id<MTLCommandBuffer> produ
     if (!draw_(window_,(__bridge void *)output_,columns,rows,aspect,zoom)) return fail("SDK quilt submission failed");
     error_.clear();
     return true;
+}
+bool MetalAdapter::show_immutable(unsigned long columns, unsigned long rows, float aspect, double seconds) {
+    if (![NSThread isMainThread] || !output_ || !submitted_ || seconds<=0 || seconds>30) return fail("Immutable display requires main thread, submitted quilt and bounded duration");
+    auto show=reinterpret_cast<decltype(&show_window)>(dlsym(library_,"show_window"));
+    auto pump=reinterpret_cast<void(*)()>(dlsym(library_,"SDL_PumpEvents"));
+    if (!show || !show(window_,true)) return fail("Cannot show Bridge window");
+    NSDate *deadline=[NSDate dateWithTimeIntervalSinceNow:seconds];
+    while ([deadline timeIntervalSinceNow]>0) {
+        if (pump) pump();
+        if (!draw_(window_,(__bridge void *)output_,columns,rows,aspect,1)) return fail("Immutable resubmission failed");
+        [[NSRunLoop currentRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:0.05]];
+    }
+    return true; // Texture never modified; no consumer completion-fence claim.
 }
 bool MetalAdapter::close() {
     if (output_ && initialized_ && sdk_owns_output_) {

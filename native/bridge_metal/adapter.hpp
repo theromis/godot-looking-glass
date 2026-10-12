@@ -16,6 +16,7 @@ public:
     bool submit_once(id<MTLTexture> source, id<MTLCommandBuffer> producer,
         unsigned long columns, unsigned long rows, float aspect, float zoom = 1.0f);
     bool close();
+    bool show_immutable(unsigned long columns, unsigned long rows, float aspect, double seconds);
     const std::string &error() const { return error_; }
     const std::string &version() const { return version_; }
 private:

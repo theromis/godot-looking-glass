@@ -1,0 +1,46 @@
+{
+  "date": "2026-10-11",
+  "sdk": "2.6.3",
+  "engine": "4.8.dev.custom_build.c61fc0118",
+  "driver": "native Metal",
+  "environment": {
+    "GODOT_MTL_SYNC_MODE": "none"
+  },
+  "quilt_size": [
+    704,
+    684
+  ],
+  "grid": [
+    11,
+    6
+  ],
+  "views": 66,
+  "format": "RGBA8Unorm",
+  "gpu_copy": true,
+  "cpu_pixel_readback": false,
+  "display_duration_seconds": 20,
+  "runs": [
+    {
+      "real_views": 2,
+      "api_success": true,
+      "exit_code": 0,
+      "user_observation": "Image appeared but looked incorrect",
+      "log": "godot-real-static.log"
+    },
+    {
+      "real_views": 66,
+      "api_success": true,
+      "exit_code": 0,
+      "user_observation": "User: looks approximately correct",
+      "log": "godot-real-static-all-real.log"
+    }
+  ],
+  "fixture_regression": "Exact RGBA16Float Godot-to-IOSurface comparison PASS; standalone adapter failure/lifetime regression PASS",
+  "limitations": [
+    "Qualitative user confirmation only; optical view ordering and depth not instrumentally measured",
+    "No animated texture reuse or consumer completion fence",
+    "No timing benchmark",
+    "SDK initialization logs GL_INVALID_ENUM",
+    "Low-resolution diagnostic, not default 4092x4092 device preset"
+  ]
+}

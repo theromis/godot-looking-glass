@@ -19,7 +19,7 @@ Checked items are implemented or completed experiments, with their limits record
 
 ### In progress: prototypes and research
 
-- [ ] **Native Bridge output:** an optional GDExtension copies a frozen Godot 4.8 Metal quilt into a real IOSurface SDK fixture; a separate real-SDK RGBA8 color probe displayed on hardware. Godot scene output and animated streaming remain unfinished; 66-view GPU composition is tested with two real cameras. See [native boundary](native/bridge_metal/README.md).
+- [ ] **Native Bridge output:** an optional GDExtension copies a frozen Godot 4.8 Metal quilt into a real IOSurface SDK fixture; a separate real-SDK RGBA8 color probe displayed on hardware. A frozen 66-real-camera Godot RGBA8 scene reached the physical display and was reported approximately correct; optical measurements and animated streaming remain unfinished. See [native boundary](native/bridge_metal/README.md).
 - [ ] **Synthesis quality:** the inverse-warp MVP and bounded rescue exist; robust visibility, disocclusion handling and motion/transparency quality remain unfinished.
 - [ ] **Adaptive view selection:** fixed budgets and offline placement are evaluated; depth-only selectors worsened quality, so a reliable runtime controller is still missing.
 - [ ] **Shared-shadow production readiness:** the optional patch is tested; atlas overflow, coverage/subdivision changes, changing worlds/masks and broader upstream validation remain pending.
@@ -45,7 +45,7 @@ Detailed implementation history and readiness criteria: [implementation roadmap]
 
 Standalone research addon and demo for Godot 4: off-axis cameras, GPU quilt preview, experimental GPU depth synthesis, and Bridge detection. Unity/Looking Glass code and SDK binaries are not included in the project.
 
-Executed on Godot 4.5.1, Apple M4, Vulkan Forward+ through MoltenVK. The project runs from the repository root (`.`); engine sources in the optional sibling checkout `../godot` (4.8-dev) were inspected, and an optional experimental shared positional shadow patch was added (see `engine-patches/README.md`). The connected 1440×2560 display is detected, and real Bridge RGBA8 solid-color output is user-confirmed. End-to-end Godot scene submission and streaming are unfinished; 66-view RGBA8 composition is tested on Godot 4.8 Metal and Vulkan. See [hardware results](benchmarks/hardware/README.md).
+Executed on Godot 4.5.1, Apple M4, Vulkan Forward+ through MoltenVK. The project runs from the repository root (`.`); engine sources in the optional sibling checkout `../godot` (4.8-dev) were inspected, and an optional experimental shared positional shadow patch was added (see `engine-patches/README.md`). The connected 1440×2560 display is detected, and real Bridge RGBA8 solid-color output is user-confirmed. Frozen Godot scene submission succeeded through real Bridge; the 66-real-camera baseline was reported approximately correct. Optical measurements and streaming remain unfinished. See [hardware results](benchmarks/hardware/README.md).
 
 ## Development disclosure
 

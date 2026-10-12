@@ -1,4 +1,4 @@
-// Optional test extension. No real SDK window is opened by this class.
+// Optional frozen-quilt diagnostic. Real SDK output is an explicit bounded call.
 #include "adapter.hpp"
 #include <godot_cpp/classes/ref_counted.hpp>
 #include <godot_cpp/classes/rendering_device.hpp>
@@ -15,8 +15,37 @@ class LookingGlassMetalDiagnostic : public RefCounted {
 protected:
     static void _bind_methods() {
         ClassDB::bind_method(D_METHOD("copy_static_quilt", "quilt", "fixture", "columns", "rows", "aspect"), &LookingGlassMetalDiagnostic::copy_static_quilt);
+        ClassDB::bind_method(D_METHOD("show_static_quilt", "quilt", "runtime", "display_index", "columns", "rows", "aspect", "seconds"), &LookingGlassMetalDiagnostic::show_static_quilt);
     }
 public:
+    Dictionary show_static_quilt(RID quilt, String path, int64_t index, int64_t columns, int64_t rows, double aspect, double seconds) {
+        Dictionary result;
+        auto *server=RenderingServer::get_singleton();
+        if (server->get_current_rendering_driver_name()!="metal" || ![NSThread isMainThread]) {
+            result["error"]="Native Metal and main thread required"; return result;
+        }
+        auto *rd=server->get_rendering_device();
+        if (!rd || !rd->texture_is_valid(quilt) || index<0 || columns<=0 || rows<=0 || seconds<=0 || seconds>30) {
+            result["error"]="Invalid frozen quilt or output configuration"; return result;
+        }
+        // Caller disables the render loop, freezes the rig and flushes prior frames.
+        // Reading these stable native handles does not flush pending RD lists.
+        id<MTLDevice> device=(__bridge id<MTLDevice>)(void *)(uintptr_t)rd->get_driver_resource(RenderingDevice::DRIVER_RESOURCE_LOGICAL_DEVICE,RID(),0);
+        id<MTLCommandQueue> queue=(__bridge id<MTLCommandQueue>)(void *)(uintptr_t)rd->get_driver_resource(RenderingDevice::DRIVER_RESOURCE_COMMAND_QUEUE,RID(),0);
+        id<MTLTexture> source=(__bridge id<MTLTexture>)(void *)(uintptr_t)rd->get_driver_resource(RenderingDevice::DRIVER_RESOURCE_TEXTURE,quilt,0);
+        if (!device || !queue || !source || source.pixelFormat!=MTLPixelFormatRGBA8Unorm) {
+            result["error"]="RGBA8 native Metal quilt required"; return result;
+        }
+        auto fence=[queue commandBuffer]; [fence commit];
+        looking_glass::MetalAdapter adapter;
+        String absolute=ProjectSettings::get_singleton()->globalize_path(path);
+        bool ok=adapter.load(absolute.utf8().get_data()) && adapter.open(device,index) && adapter.submit_once(source,fence,columns,rows,aspect) && adapter.show_immutable(columns,rows,aspect,seconds);
+        result["sdk_version"]=String(adapter.version().c_str());
+        if (!ok) result["error"]=String(adapter.error().c_str());
+        if (!adapter.close()) { ok=false; result["error"]=String(adapter.error().c_str()); }
+        result["ok"]=ok;
+        return result;
+    }
     Dictionary copy_static_quilt(RID quilt, String path, int64_t columns, int64_t rows, double aspect) {
         Dictionary result;
         auto *server=RenderingServer::get_singleton();

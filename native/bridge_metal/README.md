@@ -96,3 +96,15 @@ See [outcomes](../../benchmarks/native-bridge/metal-sync-results.json) and [unpu
 ## Connected hardware and format boundary
 
 The no-device blocker is superseded for the connected display. `build.py` now also builds `probe-hardware`: a separate native SDK diagnostic supporting offscreen RGBA8, explicit physical window visibility and a 30-second immutable-color presentation. The user confirmed physical blue output. The probe dynamically resolves the optional SDL pump; it does not mutate the texture during consumption or establish an animated consumer fence. The existing Godot GDExtension remains fixture-only. Both tested shared RGBA16Float SDK descriptors failed allocation; RGBA8 worked, so Godot preview conversion is the next integration step. The connected preset has 66 views, while the addon caps views at 48. See [device, format, GL warning, user observation and reproduction](../../benchmarks/hardware/README.md).
+
+## Real Godot frozen-quilt diagnostic
+
+`LookingGlassMetalDiagnostic.show_static_quilt()` is an explicit, main-thread-only, bounded real-SDK call. It requires a frozen RGBA8 native Metal texture and already committed producer frames. It copies the texture on GPU into the SDK IOSurface, waits for that copy, explicitly shows the window and resubmits the same immutable texture during an event loop (at most 30 seconds). It never overwrites the SDK texture and performs no CPU pixel readback. CPU waits remain intentional in this diagnostic. Submission return is not a consumer completion fence; this is not animated output. SDK release/shutdown are required before the texture is discarded.
+
+Build the optional extension and set external `BRIDGE_LIBRARY` and an explicit calibrated `BRIDGE_DISPLAY_INDEX`. Run on the latest native Metal Godot:
+
+```sh
+GODOT_MTL_SYNC_MODE=none "$GODOT" --path . --rendering-driver metal --script tests/test_real_bridge_static.gd
+```
+
+The current test renders all 66 cameras into an 11×6 RGBA8 quilt, with 64×114 tiles, and shows an orange box plus RGB spheres at different depths for 20 seconds. It is intentionally below the SDK's 4092² preset. A prior two-real-camera run was API-successful and physically visible, but the user reported incorrect appearance. The subsequent 66-real-camera baseline was reported approximately correct by the user. This implicates sparse synthesis as a hypothesis; it does not isolate the exact cause or establish instrumented optical correctness. The real script does not load the SDK without explicit runtime and display configuration; no SDK binary is distributed. The original fixture-only `copy_static_quilt()` remains separate and its exact RGBA16Float regression passed after this extension.
