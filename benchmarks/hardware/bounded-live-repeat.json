@@ -1,0 +1,11 @@
+{
+  "date": "2026-10-12",
+  "repeat_of": "bounded-live-real.json",
+  "execution_passed": true,
+  "exit_code": 0,
+  "immutable_frames": 8,
+  "user_observation": "User answered no to combined image-appearance and cube-update question",
+  "continuous_streaming": false,
+  "physical_validation_passed": false,
+  "observation_limits": "Whether no image appeared or only updates were absent awaits clarification"
+}
