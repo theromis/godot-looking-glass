@@ -1,5 +1,45 @@
 # Looking Glass Godot Lab
 
+## Project plan and status
+
+Checked items are implemented or completed experiments, with their limits recorded below. Unchecked items are unfinished. “In progress” identifies existing prototypes and research; it does not imply that a production implementation is ready. Latest regression run: **16 checks passed on the local Godot 4.8-dev build**.
+
+### Completed
+
+- [x] Inspect the official Unity 6.1 plugin, record download provenance, inventory sources and document licensing boundaries.
+- [x] Build a standalone Godot addon and demo with shared World3D, configurable off-axis cameras and hardware-free quilt preview.
+- [x] Compose quilts entirely on GPU and implement experimental two-source depth reprojection with configurable real-view budgets.
+- [x] Implement Bridge HTTP device detection, calibration parsing and session management; validate the protocol with a fixture and the installed service.
+- [x] Add cached GPU bindings, borrowed color/depth with tested snapshot fallback, optional profiling and resource-lifetime checks.
+- [x] Execute the shared positional-shadow-atlas engine experiment and document scene-specific gains and compatibility restrictions.
+- [x] Reduce depth-diagnostic feedback on GPU and support explicit on-demand quilt updates for static scenes.
+- [x] Record reproducible benchmarks, image-quality comparisons, negative results and regression tests; keep repository text in English and paths relative.
+
+### In progress: prototypes and research
+
+- [ ] **Synthesis quality:** the inverse-warp MVP and bounded rescue exist; robust visibility, disocclusion handling and motion/transparency quality remain unfinished.
+- [ ] **Adaptive view selection:** fixed budgets and offline placement are evaluated; depth-only selectors worsened quality, so a reliable runtime controller is still missing.
+- [ ] **Shared-shadow production readiness:** the optional patch is tested; atlas overflow, coverage/subdivision changes, changing worlds/masks and broader upstream validation remain pending.
+
+### Required next steps
+
+- [ ] Implement native GPU texture delivery to Bridge, with explicit texture ownership, format agreement and queue synchronization; HTTP detection alone is not display output.
+- [ ] Validate a connected Looking Glass: calibration/device matching, view order, optical output, latency, disconnect/reconnect and shutdown.
+- [ ] Test animated geometry, camera cuts, thin occluders, transparent objects and particles against all-real references.
+- [ ] Resolve production color/tonemapping and temporal-jitter behavior; current compute preview is not final Godot postprocessed output.
+- [ ] Validate other GPUs and platforms, and establish a working native Metal path before claiming support.
+- [ ] Package a reproducible addon release and test shader import, exported projects and a fresh clone; define quality/performance presets from measured results.
+
+### Ideally add, if benchmarks justify the cost
+
+- [ ] Multi-source visibility reconstruction and bounded depth-aware hole filling with confidence/validity maps.
+- [ ] Temporal reprojection with motion vectors, rejection rules and history invalidation.
+- [ ] Adaptive real-view budgets and placement with hysteresis, quality limits and bounded asynchronous feedback.
+- [ ] Optional grouped engine rendering with texture arrays, union culling and Vulkan multiview where supported.
+- [ ] Direct native texture sharing, multiple-display support and automated quality/performance regression coverage across GPUs.
+
+Detailed implementation history and readiness criteria: [implementation roadmap](docs/implementation-roadmap.md). Architecture and tradeoffs: [Godot architecture](docs/godot-architecture.md). Measurements and limitations: [performance analysis](docs/performance-optimization.md).
+
 Standalone research addon and demo for Godot 4: off-axis cameras, GPU quilt preview, experimental GPU depth synthesis, and Bridge detection. Unity/Looking Glass code and SDK binaries are not included in the project.
 
 Executed on Godot 4.5.1, Apple M4, Vulkan Forward+ through MoltenVK. The project runs from the repository root (`.`); engine sources in the optional sibling checkout `../godot` (4.8-dev) were inspected, and an optional experimental shared positional shadow patch was added (see `engine-patches/README.md`). Physical Looking Glass output is unverified: Bridge reports 0 calibrated LKG devices. Native GPU texture submission to Bridge is not implemented yet.
