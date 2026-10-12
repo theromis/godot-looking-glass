@@ -170,6 +170,10 @@ func run() -> void:
         for subject in subjects:
             subject.position.z=convergence_z+(subject.position.z-convergence_z)*depth_scale
             subject.scale.z*=depth_scale
+    if "--rear-half-distance" in OS.get_cmdline_user_args():
+        var rear_sphere: MeshInstance3D=subjects[3] if swap_sphere_depths else subjects[1]
+        rear_sphere.position.z=convergence_z+(rear_sphere.position.z-convergence_z)*0.5
+        print("REAR DEPTH CONTROL world_z=",rear_sphere.position.z," convergence_z=",convergence_z," scale=",rear_sphere.scale)
     if "--projection-grid" in OS.get_cmdline_user_args():
         populate_projection_grid(scene,6.0-focus)
     scene.add_child(rig)

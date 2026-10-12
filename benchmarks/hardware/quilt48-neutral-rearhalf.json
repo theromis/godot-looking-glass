@@ -1,0 +1,44 @@
+{
+  "date": "2026-10-12",
+  "cli_arguments": [
+    "--large",
+    "--views=48",
+    "--real-views=48",
+    "--lit",
+    "--view-cone=54",
+    "--focus=5.6",
+    "--display-aspect",
+    "--angular-sampling",
+    "--compact-objects",
+    "--depth-scale=0.35",
+    "--neutral-spheres",
+    "--no-shadows",
+    "--diagnostic-stages",
+    "--swap-sphere-depths",
+    "--rear-half-distance"
+  ],
+  "comparison": "quilt48-neutral-depthswap.json",
+  "changed_parameter": "Only rear/right sphere Z center moved halfway toward convergence plane after existing depth compression; scale retained",
+  "convergence_plane_world_z": 0.4,
+  "rear_sphere_previous_world_z": -0.02,
+  "rear_sphere_world_z": 0.19,
+  "left_sphere_world_z": 0.54,
+  "middle_sphere_world_z": 0.26,
+  "sphere_scale": [
+    0.4,
+    0.4,
+    0.35
+  ],
+  "checks": {
+    "fixture": true,
+    "hardware": true
+  },
+  "user_observation": "Pending",
+  "display_duration_seconds_requested": 20,
+  "limitations": [
+    "Center distance changed; finite sphere extent remains",
+    "Projected size and occlusion can change with center movement",
+    "Qualitative comparison, no optical measurement",
+    "All 48 views real; no synthesis"
+  ]
+}
