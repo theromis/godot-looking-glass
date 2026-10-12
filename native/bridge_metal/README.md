@@ -137,3 +137,13 @@ GODOT_MTL_SYNC_MODE=none "$GODOT" --path . --rendering-driver metal --script tes
 ```
 
 The fixture uses four real 32² views. The physical test uses 66 real 64×114 views, a 704×684 quilt and no CPU pixel readback. Pixel readback is performed only in fixture validation. This path requires native Metal; Vulkan/MoltenVK native image handles are not imported as Metal pointers. See [recorded outcomes](../../benchmarks/hardware/godot-direct-target.json).
+
+## Physical synthesis-budget check
+
+The direct-target diagnostic accepts `--real-views=N` after `--`. Its default remains the all-real baseline. For example, use the same external runtime/device environment to display 24 real cameras reconstructed into 66 views:
+
+```sh
+GODOT_MTL_SYNC_MODE=none "$GODOT" --path . --rendering-driver metal --script tests/test_bridge_direct_target.gd -- --real-views=24
+```
+
+This retains the 704×684, 20-second frozen-scene test. It is a physical qualitative check of sparse synthesis, not an animated performance preset or optical measurement. Compare object silhouettes and depth while moving within the display's viewing cone. The higher-resolution offline quality comparison is documented separately in [view-budget66](../../benchmarks/view-budget66/README.md).

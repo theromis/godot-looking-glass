@@ -66,7 +66,14 @@ func run() -> void:
     var rig := Rig.new()
     rig.external_quilt_target=imported
     rig.total_views=cols*rows
-    rig.real_views=cols*rows # Optical baseline: no synthesized views.
+    var budget: int=cols*rows
+    for argument in OS.get_cmdline_user_args():
+        if argument.begins_with("--real-views="):
+            budget=int(argument.trim_prefix("--real-views="))
+    if budget<2 or budget>cols*rows:
+        fail("Real-view budget outside valid range")
+        return
+    rig.real_views=budget # Default remains the all-real optical baseline.
     rig.columns=cols
     rig.tile_size=tile
     rig.synthesis=true
@@ -101,7 +108,7 @@ func run() -> void:
     if rig.synthesizer.dispatch_count<1 or rig.completed_revision!=rig.requested_revision:
         fail("Static quilt did not finish latest explicit request")
         return
-    print("Showing direct imported SDK quilt; no intermediate quilt blit")
+    print("Showing direct imported SDK quilt: real_views=",rig.real_views," total_views=",rig.total_views,"; no intermediate quilt blit")
     var report: Dictionary=diagnostic.submit_direct_target(0.0 if fixture else 20.0)
     if not report.get("ok",false):
         fail(str(report.get("error","Direct submission failed")))

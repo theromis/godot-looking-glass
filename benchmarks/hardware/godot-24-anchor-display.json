@@ -1,0 +1,27 @@
+{
+  "date": "2026-10-12",
+  "engine": "Godot 4.8 c61fc0118",
+  "driver": "native Metal",
+  "environment": {
+    "GODOT_MTL_SYNC_MODE": "none"
+  },
+  "sdk": "2.6.3",
+  "real_views": 24,
+  "total_views": 66,
+  "quilt_size": [
+    704,
+    684
+  ],
+  "view_cone_degrees": 54,
+  "output": "Direct imported SDK RGBA8 texture",
+  "duration_seconds": 20,
+  "api_success": true,
+  "exit_code": 0,
+  "user_observation": "Pending",
+  "limitations": [
+    "Frozen scene only",
+    "Low-resolution quilt compared with offline quality capture",
+    "Physical visual quality requires user observation"
+  ],
+  "fixture_regression": "2-anchor / 4-view direct fixture output matches exact RGBA8 pixels, nonempty image and clean teardown PASS"
+}

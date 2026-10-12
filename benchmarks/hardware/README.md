@@ -66,3 +66,7 @@ An eight-pose Godot clip was copied on GPU into eight distinct SDK RGBA8 texture
 ## Direct imported target
 
 On 2026-10-12, Godot compute wrote directly into an imported real Bridge RGBA8 IOSurface. The native path allocates no intermediate output quilt and performs no output blit. The 66-real-camera physical API test returned success and shut down cleanly; visual confirmation is pending. A separate fixture run verified exact RGBA8 pixels and nonempty content. This is a frozen-frame experiment, not continuous streaming or a measured speedup. See [evidence](godot-direct-target.json) and [setup](../../native/bridge_metal/README.md#direct-imported-sdk-target-frozen-frame-experiment).
+
+## 24-anchor physical check
+
+On 2026-10-12 the frozen 24-real-camera scene reconstructed into 66 views was submitted directly to the real Bridge RGBA8 allocation and shown for 20 seconds. API execution and teardown passed. Physical quality observation is pending; no balanced preset is enabled automatically. See [record](godot-24-anchor-display.json) and [sanitized log](godot-24-anchor-display.log). The same new budget argument passed a smaller synthesized fixture test with exact, nonempty RGBA8 output.
