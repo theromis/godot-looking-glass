@@ -8,6 +8,7 @@ Checked items are implemented or completed experiments, with their limits record
 
 - [x] Inspect the official Unity 6.1 plugin, record download provenance, inventory sources and document licensing boundaries.
 - [x] Build a standalone Godot addon and demo with shared World3D, configurable off-axis cameras and hardware-free quilt preview.
+- [x] Add interactive scene tuning with focus/cone/depth/light controls, real-view budget and isolated focus-plane preview.
 - [x] Compose quilts entirely on GPU and implement experimental two-source depth reprojection with configurable real-view budgets.
 - [x] Implement Bridge HTTP device detection, calibration parsing and session management; validate serialized/wrapped calibration with a fixture and the connected display.
 - [x] Write frozen Godot RGBA8 quilts directly into imported SDK IOSurfaces without an output blit; exact fixture and real-SDK API tests passed, physical visual confirmation pending.
@@ -70,6 +71,20 @@ GODOT_LG_BIN=godot  # Godot on PATH, or a relative path to your chosen binary
 ```
 
 Arguments after `--`: `--borrow-color` (experimental direct HDR color access), `--rendered-benchmark` (samples quilt updates; use --static for comparable captures), `--objects=N` (0–4096 additional identical objects), `--batch-objects` (combine them into a MultiMesh), `--no-viewport-timing` (benchmark without viewport timestamps), `--profile-passes` (detailed intervals; requires engine flag `--gpu-profile` before `--`), `--views=N` (1–48), `--real=N` (enables synthesis; endpoints are always real), `--tile=N` (square tile), `--static`, `--opaque`, `--positional-lights=N`, `--no-positional-shadows`, `--fixed-motion`, `--no-mesh-lod`, `--shared-shadows`, `--bridge`, `--calibration=calibration/visual.json`, `--benchmark=res://benchmarks/run.json`, `--capture=res://benchmarks/run.png`. Without `--tile`, tiles are 192×256. CLI applies views before real; use this argument order. Before running arbitrary scenes, configure cone/FOV/focus/near/far/grid/resolution exports in `rig.gd`. Recreate the rig to change configuration at runtime.
+
+## Interactive scene tuning
+
+Run the hardware-free tuning scene on the latest tested Godot 4.8 build:
+
+```sh
+"$GODOT_LG_BIN" --path . --rendering-driver vulkan demo/tuning.tscn
+# Native Metal on the tested macOS build:
+GODOT_MTL_SYNC_MODE=none "$GODOT_LG_BIN" --path . --rendering-driver metal demo/tuning.tscn
+```
+
+Adjust focus, reference cone, subject depth factor, real cameras out of 48, source resolution, right-sphere offset, shading and shadows, then click **Apply settings**. The rig is recreated to apply projection and camera-count changes. A central view shows the focus-plane outline; quilt cameras exclude that outline. Camera span reference remains at distance 6, matching the physical focus controls. Depth factor scales demo geometry, and offset moves the right sphere relative to convergence. The default preview uses 189×336 tiles rather than the physical 4K quilt.
+
+This scene does not submit to Bridge or claim optical-quality validation. Use the separately documented frozen hardware tests for physical assessment. GPU smoke validation covers rig recreation, marker isolation and synthesized output dispatch; [executed results](benchmarks/tuning-smoke.json). Run it with `demo/tuning.tscn -- --tuning-smoke`; `--tuning-capture` adds a one-time diagnostic screenshot.
 
 ## Addon integration
 

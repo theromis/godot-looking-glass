@@ -1,0 +1,16 @@
+{
+  "date": "2026-10-12",
+  "engine": "Godot 4.8 c61fc0118 native Metal",
+  "environment": {
+    "GODOT_MTL_SYNC_MODE": "none"
+  },
+  "passed": true,
+  "exit_code": 0,
+  "checks": [
+    "48-real raster rig rebuilt as 12-real compute rig",
+    "Focus marker moves to world Z 0.8 at focus 5.2",
+    "Marker excluded from quilt camera layers",
+    "Preview texture available and compute dispatch executed"
+  ],
+  "scope": "Hardware-free demo smoke; no Bridge output or physical image-quality validation"
+}
