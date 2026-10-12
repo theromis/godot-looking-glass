@@ -1,0 +1,24 @@
+{
+  "date": "2026-10-12",
+  "results": [
+    {
+      "mode": "shared",
+      "warmup_draws": 8,
+      "exact_pose_matches": 8,
+      "record": "live-surface-4k-gpu-adaptive-copy-validation-capture-compose-real-24-complex-shared-shadows-full-casters-warmed-shared-8.json"
+    },
+    {
+      "mode": "independent",
+      "warmup_draws": 8,
+      "exact_pose_matches": 8,
+      "record": "live-surface-4k-gpu-adaptive-copy-validation-capture-compose-real-24-complex-shared-shadows-full-casters-warmed-independent-8.json"
+    },
+    {
+      "mode": "shared",
+      "warmup_draws": 1,
+      "exact_pose_matches": 8,
+      "record": "live-surface-4k-gpu-adaptive-copy-validation-capture-compose-real-24-complex-shared-shadows-full-casters-warmed-shared-1.json"
+    }
+  ],
+  "interpretation": "Either single-mode eight-draw warmup passes; one shared-mode draw also passes. This does not isolate an atlas-specific internal cause. Optional warmup defaults to one shared draw; scene-specific result."
+}

@@ -24,6 +24,8 @@ parser.add_argument('--validate-flush', action='store_true')
 parser.add_argument('--check-before-draw', action='store_true')
 parser.add_argument('--capture-compose', action='store_true')
 parser.add_argument('--full-shadow-casters', action='store_true')
+parser.add_argument('--warm-shadow-mode', default='shared', choices=('both','shared','independent'))
+parser.add_argument('--warm-shadow-draws', default=1, type=int, choices=(1,2,4,8))
 parser.add_argument('--warm-shadow-atlases', action='store_true')
 parser.add_argument('--collect-shadow-diffs', action='store_true')
 parser.add_argument('--shared-shadows', action='store_true')
@@ -65,7 +67,7 @@ try:
         if not select.select([worker.stdout],[],[],5)[0] or worker.stdout.readline().strip()!='SURFACE ready':
             raise RuntimeError('Shared-memory worker did not become ready')
         env = dict(os.environ, GODOT_MTL_SYNC_MODE='none')
-        producer_flags=['--real-views='+str(args.real_views)]+(['--adaptive-flush'] if args.adaptive_flush else [])+(['--validate-flush'] if args.validate_flush else [])+(['--check-before-draw'] if args.check_before_draw else [])+(['--capture-compose'] if args.capture_compose else [])+(['--complex-scene'] if args.complex_scene else [])+(['--no-shadows'] if args.no_shadows else [])+(['--no-alpha-panel'] if args.no_alpha_panel else [])+(['--shared-shadows'] if args.shared_shadows else [])+(['--collect-shadow-diffs'] if args.collect_shadow_diffs else [])+(['--warm-shadow-atlases'] if args.warm_shadow_atlases else [])
+        producer_flags=['--real-views='+str(args.real_views)]+(['--adaptive-flush'] if args.adaptive_flush else [])+(['--validate-flush'] if args.validate_flush else [])+(['--check-before-draw'] if args.check_before_draw else [])+(['--capture-compose'] if args.capture_compose else [])+(['--complex-scene'] if args.complex_scene else [])+(['--no-shadows'] if args.no_shadows else [])+(['--no-alpha-panel'] if args.no_alpha_panel else [])+(['--shared-shadows'] if args.shared_shadows else [])+(['--collect-shadow-diffs'] if args.collect_shadow_diffs else [])+(['--warm-shadow-atlases','--warm-shadow-mode='+args.warm_shadow_mode,'--warm-shadow-draws='+str(args.warm_shadow_draws)] if args.warm_shadow_atlases else [])
         producer = subprocess.Popen([args.godot, '--path', project_path, '--rendering-driver', 'metal',
                                      '--script', 'tests/test_worker_live.gd', '--', '--surface-name='+name]+suffix+producer_flags,
                                     stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True, env=env)
@@ -80,7 +82,12 @@ try:
                 stop_sampling.wait(1)
         sampler=threading.Thread(target=sample_memory,daemon=True)
         sampler.start()
-        pout, perr = producer.communicate(timeout=args.duration+35)
+        try:
+            pout, perr = producer.communicate(timeout=args.duration+35)
+        except subprocess.TimeoutExpired:
+            producer.kill()
+            pout, perr = producer.communicate()
+            perr += "\nFAIL live producer timeout\n"
         wout, werr = worker.communicate(timeout=args.duration+30)
         stop_sampling.set()
         sampler.join(timeout=3)
@@ -106,11 +113,12 @@ try:
         if args.full_shadow_casters: stem += '-full-casters'
         if args.collect_shadow_diffs: stem += '-pose-diffs'
         if args.warm_shadow_atlases: stem += '-warmed'
+        if args.warm_shadow_atlases and (args.warm_shadow_mode!='both' or args.warm_shadow_draws!=8): stem += '-'+args.warm_shadow_mode+'-'+str(args.warm_shadow_draws)
         (base/(stem+'.log')).write_text('\n'.join(lines)+'\n')
         result = {'execution_passed': ok, 'producer_exit': producer.returncode, 'worker_exit': worker.returncode,
                   'transport': 'IOSurface GPU sharing; 32-byte control mailbox with copy acknowledgment',
                   'quilt_size': [4092,4092] if args.large else [704,684], 'producer_frames_requested': None if args.duration!=20 else (8 if args.large else 24), 'worker_duration_seconds': args.duration,
-                  'warm_shadow_atlases': args.warm_shadow_atlases, 'full_shadow_casters': args.full_shadow_casters, 'shared_positional_shadows_requested': args.shared_shadows, 'shadows_enabled': args.complex_scene and not args.no_shadows, 'alpha_panel_enabled': args.complex_scene and not args.no_alpha_panel, 'scene': 'lit occlusion and alpha panel' if args.complex_scene else 'unshaded cube', 'run_label': args.run_label, 'real_views': args.real_views, 'total_views': 66, 'capture_compose': args.capture_compose, 'check_before_draw': args.check_before_draw or args.capture_compose, 'adaptive_flush': args.adaptive_flush, 'validation_pixel_readback': args.validate_flush, 'uncapped': args.uncapped, 'diagnostic_readback': args.verify, 'gpu_only_frame_transport': not (args.verify or args.validate_flush), 'user_observation': 'Pending', 'consumer_completion_contract_verified': False, 'production_ready': False}
+                  'warm_shadow_mode': args.warm_shadow_mode if args.warm_shadow_atlases else None, 'warm_shadow_draws': args.warm_shadow_draws if args.warm_shadow_atlases else 0, 'warm_shadow_atlases': args.warm_shadow_atlases, 'full_shadow_casters': args.full_shadow_casters, 'shared_positional_shadows_requested': args.shared_shadows, 'shadows_enabled': args.complex_scene and not args.no_shadows, 'alpha_panel_enabled': args.complex_scene and not args.no_alpha_panel, 'scene': 'lit occlusion and alpha panel' if args.complex_scene else 'unshaded cube', 'run_label': args.run_label, 'real_views': args.real_views, 'total_views': 66, 'capture_compose': args.capture_compose, 'check_before_draw': args.check_before_draw or args.capture_compose, 'adaptive_flush': args.adaptive_flush, 'validation_pixel_readback': args.validate_flush, 'uncapped': args.uncapped, 'diagnostic_readback': args.verify, 'gpu_only_frame_transport': not (args.verify or args.validate_flush), 'user_observation': 'Pending', 'consumer_completion_contract_verified': False, 'production_ready': False}
         sequences = re.findall(r'live_sequence=(\d+)', wout)
         result['rss_samples']=memory_samples
         result['rss_scope']='Process resident memory sampled with ps; not GPU allocations or a leak proof.'

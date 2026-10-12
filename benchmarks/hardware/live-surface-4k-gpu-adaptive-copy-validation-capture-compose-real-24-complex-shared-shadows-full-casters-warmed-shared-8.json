@@ -1,0 +1,165 @@
+{
+  "execution_passed": true,
+  "producer_exit": 0,
+  "worker_exit": 0,
+  "transport": "IOSurface GPU sharing; 32-byte control mailbox with copy acknowledgment",
+  "quilt_size": [
+    4092,
+    4092
+  ],
+  "producer_frames_requested": 8,
+  "worker_duration_seconds": 20,
+  "warm_shadow_mode": "shared",
+  "warm_shadow_draws": 8,
+  "warm_shadow_atlases": true,
+  "full_shadow_casters": true,
+  "shared_positional_shadows_requested": true,
+  "shadows_enabled": true,
+  "alpha_panel_enabled": true,
+  "scene": "lit occlusion and alpha panel",
+  "run_label": "",
+  "real_views": 24,
+  "total_views": 66,
+  "capture_compose": true,
+  "check_before_draw": true,
+  "adaptive_flush": true,
+  "validation_pixel_readback": true,
+  "uncapped": false,
+  "diagnostic_readback": false,
+  "gpu_only_frame_transport": false,
+  "user_observation": "Pending",
+  "consumer_completion_contract_verified": false,
+  "production_ready": false,
+  "rss_samples": [
+    {
+      "elapsed_seconds": 0.0,
+      "producer_rss_kib": 352,
+      "worker_rss_kib": 7072
+    },
+    {
+      "elapsed_seconds": 1.01,
+      "producer_rss_kib": 530864,
+      "worker_rss_kib": 139904
+    },
+    {
+      "elapsed_seconds": 2.02,
+      "producer_rss_kib": 466768,
+      "worker_rss_kib": 140416
+    },
+    {
+      "elapsed_seconds": 3.03,
+      "producer_rss_kib": 467888,
+      "worker_rss_kib": 140400
+    },
+    {
+      "elapsed_seconds": 4.037,
+      "producer_rss_kib": 534288,
+      "worker_rss_kib": 140400
+    },
+    {
+      "elapsed_seconds": 5.047,
+      "producer_rss_kib": 468864,
+      "worker_rss_kib": 140400
+    },
+    {
+      "elapsed_seconds": 6.054,
+      "producer_rss_kib": 469296,
+      "worker_rss_kib": 140480
+    },
+    {
+      "elapsed_seconds": 7.068,
+      "worker_rss_kib": 140496
+    },
+    {
+      "elapsed_seconds": 8.087,
+      "worker_rss_kib": 140560
+    },
+    {
+      "elapsed_seconds": 9.11,
+      "worker_rss_kib": 140560
+    },
+    {
+      "elapsed_seconds": 10.131,
+      "worker_rss_kib": 140576
+    },
+    {
+      "elapsed_seconds": 11.149,
+      "worker_rss_kib": 140576
+    },
+    {
+      "elapsed_seconds": 12.171,
+      "worker_rss_kib": 140576
+    },
+    {
+      "elapsed_seconds": 13.191,
+      "worker_rss_kib": 140592
+    },
+    {
+      "elapsed_seconds": 14.212,
+      "worker_rss_kib": 140592
+    },
+    {
+      "elapsed_seconds": 15.235,
+      "worker_rss_kib": 140624
+    },
+    {
+      "elapsed_seconds": 16.256,
+      "worker_rss_kib": 140640
+    },
+    {
+      "elapsed_seconds": 17.275,
+      "worker_rss_kib": 140640
+    },
+    {
+      "elapsed_seconds": 18.293,
+      "worker_rss_kib": 140656
+    },
+    {
+      "elapsed_seconds": 19.312,
+      "worker_rss_kib": 140672
+    },
+    {
+      "elapsed_seconds": 20.33,
+      "worker_rss_kib": 140624
+    }
+  ],
+  "rss_scope": "Process resident memory sampled with ps; not GPU allocations or a leak proof.",
+  "received_sequences": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8
+  ],
+  "worker_update_span_seconds": 5.41974,
+  "worker_update_rate_hz": 1.29157,
+  "worker_mean_finish_ms": 0.000488143,
+  "worker_mean_copy_wait_ms": 2.15826,
+  "worker_mean_new_frame_draw_ms": 2.83055,
+  "mean_revision_flush_ms": 2.029125,
+  "mean_ack_wait_ms": 0.009625,
+  "mean_flush_count": 1.0,
+  "exact_reference_frames": 8.0,
+  "mean_process_wait_ms": 0.058875,
+  "mean_force_draw_ms": 1.948875,
+  "mean_force_sync_ms": 0.000125,
+  "mean_first_draw_ms": 1.948875,
+  "mean_later_draw_ms": 0.0,
+  "mean_shadow_draw_calls": 12.0,
+  "comparison_mismatches": 0.0,
+  "producer_frames_completed": 8,
+  "all_frames_received_in_order": true,
+  "sdk_cleanup_passed": true,
+  "transport_execution_passed": true,
+  "source_comparison_passed": true,
+  "worker_updates_completed": 8,
+  "rate_scope": "Worker SDK update submissions, not measured physical display FPS; Optional pacing; revisions flushed synchronously; stage means overlap across processes and must not be summed as frame latency.",
+  "mean_get_image_elapsed_ms": 0.0,
+  "mean_surface_publish_elapsed_ms": null,
+  "validation_scope": "Normal native GPU publication occurs before any quilt readback; copied IOSurface bytes compared to a fresh eight-flush reference. Publication timing is not measured in this mode.",
+  "date": "2026-10-12",
+  "scope": "Eight copied IOSurface poses compared byte-for-byte against independent-atlas original post-draw/eight-flush references. Startup warmup mode varied; not a performance benchmark."
+}

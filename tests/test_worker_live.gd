@@ -3,6 +3,8 @@ const Rig=preload("res://addons/looking_glass/rig.gd")
 func _initialize() -> void: run.call_deferred()
 func run() -> void:
     RenderingServer.set_render_loop_enabled(false)
+    var warm_shadow_mode: String="shared"
+    var warm_shadow_draws: int=1
     var warm_shadow_atlases: bool="--warm-shadow-atlases" in OS.get_cmdline_user_args()
     var collect_shadow_diffs: bool="--collect-shadow-diffs" in OS.get_cmdline_user_args()
     var mismatch_count: int=0
@@ -41,6 +43,8 @@ func run() -> void:
     var shared_name: String=""
     var pipe_path: String=""
     for argument in OS.get_cmdline_user_args():
+        if argument.begins_with("--warm-shadow-mode="): warm_shadow_mode=argument.trim_prefix("--warm-shadow-mode=")
+        if argument.begins_with("--warm-shadow-draws="): warm_shadow_draws=argument.trim_prefix("--warm-shadow-draws=").to_int()
         if argument.begins_with("--real-views="): real_views=argument.trim_prefix("--real-views=").to_int()
         if argument.begins_with("--duration="): duration_seconds=argument.trim_prefix("--duration=").to_float()-15.0
         if argument.begins_with("--surface-name="): surface_name=argument.trim_prefix("--surface-name=")
@@ -92,13 +96,18 @@ func run() -> void:
     if not ProjectSettings.get_setting("rendering/lights_and_shadows/tighter_shadow_caster_culling",true):
         for view in rig.views: view.mesh_lod_threshold=0.0
     if warm_shadow_atlases:
-        for enabled in [false,true]:
+        var modes: Array=[false,true] if warm_shadow_mode=="both" else ([true] if warm_shadow_mode=="shared" else [false])
+        for enabled in modes:
+            print("WARM shadow enabled=",enabled," draws=",warm_shadow_draws)
             _set_shadow_links(rig,enabled)
             rig.request_update()
-            for i in range(8):
+            for i in range(warm_shadow_draws):
                 await process_frame
                 RenderingServer.force_draw(false,1.0/60.0)
                 RenderingServer.force_sync()
+        _set_shadow_links(rig,true)
+        RenderingServer.force_sync()
+        print("WARM shadow completed")
     var readback_us: int=0
     var pipe_us: int=0
     var render_us: int=0
