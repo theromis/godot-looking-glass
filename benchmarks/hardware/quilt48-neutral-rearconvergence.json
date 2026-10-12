@@ -1,0 +1,43 @@
+{
+  "date": "2026-10-12",
+  "cli_arguments": [
+    "--large",
+    "--views=48",
+    "--real-views=48",
+    "--lit",
+    "--view-cone=54",
+    "--focus=5.6",
+    "--display-aspect",
+    "--angular-sampling",
+    "--compact-objects",
+    "--depth-scale=0.35",
+    "--neutral-spheres",
+    "--no-shadows",
+    "--diagnostic-stages",
+    "--swap-sphere-depths",
+    "--rear-at-convergence"
+  ],
+  "comparison": "quilt48-neutral-rearhalf.json",
+  "changed_parameter": "Only right sphere Z center moved from 0.19 to convergence plane 0.4; scale and other subjects retained",
+  "convergence_plane_world_z": 0.4,
+  "right_sphere_world_z": 0.4,
+  "left_sphere_world_z": 0.54,
+  "middle_sphere_world_z": 0.26,
+  "sphere_scale": [
+    0.4,
+    0.4,
+    0.35
+  ],
+  "checks": {
+    "fixture": true,
+    "hardware": true
+  },
+  "user_observation": "Pending",
+  "display_duration_seconds_requested": 20,
+  "limitations": [
+    "Sphere center is on convergence; finite surfaces are not all on the plane",
+    "Projected size and occlusion change with center movement",
+    "Qualitative comparison, no optical measurement",
+    "All 48 views real; no synthesis"
+  ]
+}
