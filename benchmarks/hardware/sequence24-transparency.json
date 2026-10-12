@@ -17,11 +17,12 @@
   "sdk": "2.6.3",
   "api_success": true,
   "exit_code": 0,
-  "user_observation": "Pending",
+  "user_observation": "User rotated the monitor: image jumped between angular views in the 24-anchor synthesized clip",
   "limitations": [
     "Finite prerecorded poses, not continuous streaming",
     "Transparency is color-only blending against opaque depth, not multilayer transparency reprojection",
     "No motion vectors or temporal reconstruction",
     "No measured FPS or latency"
-  ]
+  ],
+  "assessment": "Failed qualitative angular continuity check"
 }

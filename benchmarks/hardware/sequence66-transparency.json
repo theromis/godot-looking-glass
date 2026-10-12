@@ -17,10 +17,11 @@
   "sdk": "2.6.3",
   "api_success": true,
   "exit_code": 0,
-  "user_observation": "Pending",
+  "user_observation": "User rotated the monitor: angular transitions were smooth in the all-real clip",
   "limitations": [
     "Finite prerecorded all-real baseline, not continuous streaming",
     "No measured FPS or latency",
     "No optical depth instrumentation"
-  ]
+  ],
+  "assessment": "Qualitative angular continuity baseline confirmed"
 }

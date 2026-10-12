@@ -19,7 +19,7 @@
       "total_views": 66,
       "api_success": true,
       "exit_code": 0,
-      "user_observation": "Pending",
+      "user_observation": "User rotated the monitor: image jumped between angular views in the 24-anchor synthesized clip",
       "log": "sequence24-transparency-repeat.log"
     },
     {
@@ -27,13 +27,14 @@
       "total_views": 66,
       "api_success": true,
       "exit_code": 0,
-      "user_observation": "Pending",
+      "user_observation": "User rotated the monitor: angular transitions were smooth in the all-real clip",
       "log": "sequence66-transparency-repeat.log"
     }
   ],
   "limitations": [
     "Finite prerecorded clips, not continuous streaming",
     "No multilayer transparent depth reconstruction",
-    "Visual assessment pending"
-  ]
+    "User qualitative angular continuity assessment only; no isolated transparency cause or temporal FPS measurement"
+  ],
+  "interpretation": "24-anchor synthesis exhibited angular jumps; 66-real baseline was smooth. Same requested clip cadence does not isolate exact cause."
 }

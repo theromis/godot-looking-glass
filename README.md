@@ -207,3 +207,7 @@ The actual addon kernel (24 real cameras → 66 views, borrowed raw depth, eight
 ### 66-view anchor quality checkpoint
 
 A same-format 66-real reference was compared against 12/24/36 real-camera budgets at the connected device's 54° cone. In the tested static opaque scene, synthetic-view PSNR was 27.82 / 29.81 / 29.74 dB; the common synthesized-view mask gives 27.81 / 29.81 / 29.82 dB. Every anchor tile matched exactly. Twenty-four real cameras are a candidate balanced setting for this scene; the user reported that the physical 24-anchor output looked approximately normal in the static test. Broader scene coverage, transparency and motion remain unvalidated. See [protocol and per-view results](benchmarks/view-budget66/README.md).
+
+### Physical angular continuity limitation
+
+The subsequent moving-box/alpha-panel comparison exposed a limitation: when the user rotated the monitor, the 24-real → 66 synthesized clip jumped between angular views, while the 66-real baseline transitioned smoothly. The earlier static 24-anchor image was reported approximately normal, but it does not validate angular continuity. Do not treat 24 anchors as a generally accepted display preset. Sparse source coverage and single-layer depth for transparency are hypotheses, not isolated causes. The next controlled checks should compare synthesized and all-real quilts without the alpha panel, then vary source budgets. See [repeated physical observations](benchmarks/hardware/transparency-repeat.json).
