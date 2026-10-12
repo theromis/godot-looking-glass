@@ -45,6 +45,10 @@ Standalone research addon and demo for Godot 4: off-axis cameras, GPU quilt prev
 
 Executed on Godot 4.5.1, Apple M4, Vulkan Forward+ through MoltenVK. The project runs from the repository root (`.`); engine sources in the optional sibling checkout `../godot` (4.8-dev) were inspected, and an optional experimental shared positional shadow patch was added (see `engine-patches/README.md`). Physical Looking Glass output is unverified: Bridge reports 0 calibrated LKG devices. Native GPU texture submission to Bridge is not implemented yet.
 
+## Development disclosure
+
+Codex/LLM tools are used to generate and edit code, tests and documentation in this project. Reported measurements come from executed experiments, with raw results and limitations recorded. This is an independent experimental project; physical Looking Glass output is not yet validated. Proprietary Unity implementations and Bridge runtime binaries are not included.
+
 ## Running
 
 Run the commands below from the repository root. Command arguments, inventory paths and archived artifact paths are relative to that root; Markdown links are relative to their document. External engine/reference checkouts are optional sibling directories (`../godot`, `../looking-glass-reference`, `../Looking.Glass.Plugin.4.0.1-alpha-6.1`). Historical system-library paths in diagnostic logs are normalized relative to the original repository root; they are provenance, not runtime configuration. Benchmark measurements and artifact hashes are unchanged. Set the Godot executable and Python environment to your local installation; no user-specific installation path is required.
