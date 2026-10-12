@@ -33,12 +33,13 @@
     "fixture": true,
     "hardware": true
   },
-  "user_observation": "Pending",
+  "user_observation": "Rear sphere doubling decreased compared with the previous depth-swap presentation",
   "display_duration_seconds_requested": 20,
   "limitations": [
     "Center distance changed; finite sphere extent remains",
     "Projected size and occlusion can change with center movement",
     "Qualitative comparison, no optical measurement",
     "All 48 views real; no synthesis"
-  ]
+  ],
+  "assessment": "Supports reduced ghosting visibility as rear center approaches convergence at unchanged camera baseline/cone; does not establish complete elimination or the physical cause"
 }

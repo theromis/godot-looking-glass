@@ -178,3 +178,5 @@ The user reported that the strongest double image moved to the right rear sphere
 ## Rear-sphere convergence-distance control
 
 The `--rear-half-distance` option moves only the rear sphere center halfway toward convergence after the existing depth compression. Following the neutral depth-swap control, the right rear sphere moves from Z=-0.02 to Z=0.19 toward the Z=0.4 convergence plane. Its scale stays (0.4, 0.4, 0.35); other subjects, camera spacing/cone 54 degrees, focus 5.6, neutral albedos and shadow-free shading remain unchanged. This halves the center distance, not all surface distances; projected size and occlusion can also change. See [execution and pending observation](quilt48-neutral-rearhalf.json).
+
+The user confirmed decreased rear-sphere doubling compared with the previous depth-swap control. This supports dependence on distance from convergence at unchanged camera baseline/cone; complete elimination and a definitive physical cause remain unconfirmed.
