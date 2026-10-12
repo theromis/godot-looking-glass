@@ -74,3 +74,17 @@ The 60-second worker run received all 1,238 frames in order over 44.884 seconds 
 The longest measured producer stage is revision preparation; its eight forced flushes are diagnostic overhead mixed with actual rendering, so this does not isolate GPU scene cost. Worker stages execute concurrently with producer work. The next useful experiment is reducing flushes while validating that each received quilt contains the intended revision; it should precede speculative buffering changes. See [measurements](../benchmarks/hardware/live-surface-4k-gpu-duration-60-uncapped.json).
 
 The subsequent elapsed-time animation code passed a 30-second API run: all 432 frames were received, new-frame submissions averaged 28.744 Hz and SDK cleanup passed. A separate physical assessment was not requested for that repeat; the user observation above belongs to the initial 60-second run. See the [repeat record](../benchmarks/hardware/live-surface-4k-gpu-duration-30-uncapped.json).
+
+## Revision-driven flush completion
+
+The optional `--adaptive-flush` producer stops the manual flush loop when `completed_revision == requested_revision`, retaining the eight-iteration limit and failure check. The existing rig marks completion after all requested source captures have advanced and quilt dispatch has been submitted; the native publication copy still runs on the Godot queue and waits for its GPU completion. No source-copy ownership or Bridge synchronization rules are relaxed.
+
+`--adaptive-flush --validate-flush --large` intentionally reads the candidate quilt back, requests a fresh capture of the identical frozen scene, flushes eight times, and compares complete image byte arrays. Eight distinct cube poses/material states passed exactly, using two candidate flushes each. Worker SDK output checksums are a separate test; this comparison validates source quilt contents against the conservative capture path. The first validation log incorrectly reported no diagnostic readback in its producer summary; the JSON explicitly corrects that label and the code now reports validation readback. See the [validation record](../benchmarks/hardware/live-surface-4k-gpu-adaptive-validation.json).
+
+The test covers this simple opaque scene on the tested native Metal build, not arbitrary animation, shadows, transparency or cross-backend completion. The adaptive mode remains opt-in.
+
+### Adaptive throughput result
+
+The 60-second worker run received all 1,272 frames in order, used two flushes per revision, and submitted new SDK frames at 28.265 Hz. The user confirmed correct visible animation. Producer revision preparation averaged 30.074 ms, previous-copy acknowledgment wait 0.799 ms, and copy/publication 4.506 ms. Worker copy/wait averaged 3.693 ms and its new-frame SDK call 12.695 ms. No pixel readback was enabled; cleanup passed. See [full results](../benchmarks/hardware/live-surface-4k-gpu-duration-60-uncapped-adaptive.json).
+
+This did not establish a material throughput improvement: the earlier eight-flush 60-second run reached 27.560 Hz and its elapsed-time 30-second repeat reached 28.744 Hz. Run durations and animation differ, and repeated matched trials were not performed. Removing six flushes reduces explicit work, but preparation still includes main-loop/process-frame waits; the timings do not isolate GPU rendering. Next investigate those waits and presentation pacing before claiming a benefit or changing addon defaults.

@@ -18,6 +18,8 @@ parser.add_argument('--display-index', default='1')
 parser.add_argument('--large', action='store_true')
 parser.add_argument('--verify', action='store_true')
 parser.add_argument('--uncapped', action='store_true')
+parser.add_argument('--adaptive-flush', action='store_true')
+parser.add_argument('--validate-flush', action='store_true')
 parser.add_argument('--duration', type=int, default=20, help='Bounded worker duration in seconds (20–600).')
 args = parser.parse_args()
 if not 20 <= args.duration <= 600: parser.error("--duration must be between 20 and 600")
@@ -36,8 +38,9 @@ try:
         if not select.select([worker.stdout],[],[],5)[0] or worker.stdout.readline().strip()!='SURFACE ready':
             raise RuntimeError('Shared-memory worker did not become ready')
         env = dict(os.environ, GODOT_MTL_SYNC_MODE='none')
+        producer_flags=(['--adaptive-flush'] if args.adaptive_flush else [])+(['--validate-flush'] if args.validate_flush else [])
         producer = subprocess.Popen([args.godot, '--path', '.', '--rendering-driver', 'metal',
-                                     '--script', 'tests/test_worker_live.gd', '--', '--surface-name='+name]+suffix,
+                                     '--script', 'tests/test_worker_live.gd', '--', '--surface-name='+name]+suffix+producer_flags,
                                     stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True, env=env)
         def sample_memory():
             began=time.monotonic()
@@ -58,16 +61,18 @@ try:
         ok = producer.returncode == 0 and worker.returncode == 0 and 'PASS live Godot producer' in pout and 'SCRIPT ERROR' not in output and '\nERROR:' not in output
         lines = [re.sub(r'@ /.*', '@ [SDK source location redacted]', line) for line in output.splitlines()
                  if any(key in line for key in ['live_sequence=', 'persistent_updates=', 'consumer_completion',
-                                               'live_godot', 'PASS live', 'FAIL live', 'SCRIPT ERROR', 'ERROR:', 'GL_INVALID_ENUM', 'SURFACE producer', 'gpu_surface_input=', 'SURFACE import', 'FAIL surface', 'SURFACE port', 'worker_update_', 'PRODUCER animation_', 'PRODUCER mean_', 'worker_mean_'])]
+                                               'live_godot', 'PASS live', 'FAIL live', 'SCRIPT ERROR', 'ERROR:', 'GL_INVALID_ENUM', 'SURFACE producer', 'gpu_surface_input=', 'SURFACE import', 'FAIL surface', 'SURFACE port', 'worker_update_', 'PRODUCER animation_', 'PRODUCER mean_', 'PRODUCER adaptive_', 'worker_mean_', 'FAIL adaptive'])]
         base = Path('benchmarks/hardware')
         stem = 'live-surface-'+('4k' if args.large else 'small')+('-verify' if args.verify else '-gpu')
         if args.duration != 20: stem += '-duration-'+str(args.duration)
         if args.uncapped: stem += '-uncapped'
+        if args.adaptive_flush: stem += '-adaptive'
+        if args.validate_flush: stem += '-validation'
         (base/(stem+'.log')).write_text('\n'.join(lines)+'\n')
         result = {'execution_passed': ok, 'producer_exit': producer.returncode, 'worker_exit': worker.returncode,
                   'transport': 'IOSurface GPU sharing; 32-byte control mailbox with copy acknowledgment',
                   'quilt_size': [4092,4092] if args.large else [704,684], 'producer_frames_requested': None if args.duration!=20 else (8 if args.large else 24), 'worker_duration_seconds': args.duration,
-                  'uncapped': args.uncapped, 'diagnostic_readback': args.verify, 'gpu_only_frame_transport': not args.verify, 'user_observation': 'Pending', 'consumer_completion_contract_verified': False, 'production_ready': False}
+                  'adaptive_flush': args.adaptive_flush, 'validation_pixel_readback': args.validate_flush, 'uncapped': args.uncapped, 'diagnostic_readback': args.verify, 'gpu_only_frame_transport': not (args.verify or args.validate_flush), 'user_observation': 'Pending', 'consumer_completion_contract_verified': False, 'production_ready': False}
         sequences = re.findall(r'live_sequence=(\d+)', wout)
         result['rss_samples']=memory_samples
         result['rss_scope']='Process resident memory sampled with ps; not GPU allocations or a leak proof.'
@@ -75,7 +80,7 @@ try:
         for key in ('worker_update_span_seconds','worker_update_rate_hz','worker_mean_finish_ms','worker_mean_copy_wait_ms','worker_mean_new_frame_draw_ms'):
             measured=re.search(key+r'=([\d.]+)',wout)
             if measured: result[key]=float(measured[1])
-        for key in ('mean_revision_flush_ms','mean_ack_wait_ms'):
+        for key in ('mean_revision_flush_ms','mean_ack_wait_ms','mean_flush_count','exact_reference_frames'):
             measured=re.search(key+r'=([\d.]+)',pout)
             if measured: result[key]=float(measured[1])
         produced=re.search(r'PASS live Godot producer frames=(\d+)',pout)

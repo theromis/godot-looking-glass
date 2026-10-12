@@ -3,6 +3,10 @@ const Rig=preload("res://addons/looking_glass/rig.gd")
 func _initialize() -> void: run.call_deferred()
 func run() -> void:
     RenderingServer.set_render_loop_enabled(false)
+    var adaptive_flush: bool="--adaptive-flush" in OS.get_cmdline_user_args()
+    var validate_flush: bool="--validate-flush" in OS.get_cmdline_user_args()
+    var flush_count: int=0
+    var validation_count: int=0
     var uncapped: bool="--uncapped" in OS.get_cmdline_user_args()
     var large: bool="--large" in OS.get_cmdline_user_args()
     var dimensions: Vector2i=Vector2i(4092,4092) if large else Vector2i(704,684)
@@ -76,11 +80,28 @@ func run() -> void:
             await process_frame
             RenderingServer.force_draw(false,1.0/60.0)
             RenderingServer.force_sync()
+            flush_count+=1
+            if adaptive_flush and rig.completed_revision==rig.requested_revision: break
         render_us+=Time.get_ticks_usec()-render_started
         if rig.completed_revision!=rig.requested_revision:
             printerr("FAIL live producer revision")
             quit(1)
             return
+        if validate_flush:
+            # Diagnostic CPU readback only: compare early completion with a fresh
+            # eight-flush capture of the identical frozen scene/material state.
+            var candidate: Image=rig.quilt_texture.get_image()
+            rig.request_update()
+            for i in range(8):
+                await process_frame
+                RenderingServer.force_draw(false,1.0/60.0)
+                RenderingServer.force_sync()
+            var reference: Image=rig.quilt_texture.get_image()
+            if candidate==null or reference==null or candidate.get_data()!=reference.get_data():
+                printerr("FAIL adaptive flush reference mismatch frame=",frame)
+                quit(1)
+                return
+            validation_count+=1
         if not surface_name.is_empty():
             var ack_started: int=Time.get_ticks_usec()
             var deadline: int=Time.get_ticks_msec()+2000
@@ -141,7 +162,8 @@ func run() -> void:
         pipe_writer.close_shared_frame()
     scene.queue_free()
     for i in range(4): await process_frame
+    print("PRODUCER adaptive_flush=",adaptive_flush," mean_flush_count=",float(flush_count)/frame_count," exact_reference_frames=",validation_count)
     print("PRODUCER mean_revision_flush_ms=",float(render_us)/(1000.0*frame_count)," mean_ack_wait_ms=",float(ack_us)/(1000.0*frame_count))
-    print("SURFACE producer gpu_only=",not surface_name.is_empty() and not verify_surface," diagnostic_readback=",verify_surface if not surface_name.is_empty() else true)
+    print("SURFACE producer gpu_only=",not surface_name.is_empty() and not (verify_surface or validate_flush)," diagnostic_readback=",(verify_surface or validate_flush) if not surface_name.is_empty() else true)
     print("PASS live Godot producer frames=",frame_count," mean_readback_ms=",float(readback_us)/(1000.0*frame_count)," mean_pipe_write_ms=",float(pipe_us)/(1000.0*frame_count))
     quit()
