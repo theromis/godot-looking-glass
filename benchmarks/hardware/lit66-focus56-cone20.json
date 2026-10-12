@@ -1,0 +1,30 @@
+{
+  "date": "2026-10-12",
+  "engine": "Godot 4.8 c61fc0118 native Metal",
+  "sdk": "2.6.3",
+  "environment": {
+    "GODOT_MTL_SYNC_MODE": "none"
+  },
+  "real_views": 66,
+  "quilt_size": [
+    4092,
+    4092
+  ],
+  "lit": true,
+  "virtual_camera_cone_degrees": 20,
+  "focus_distance": 5.6,
+  "camera_span_reference_distance": 6,
+  "camera_rig_world_z": 6,
+  "device_calibration_unchanged": true,
+  "duration_seconds": 20,
+  "api_success": true,
+  "exit_code": 0,
+  "user_observation": "User explicitly associated the correction with the latest 20-degree test: double images reduced but a little remains",
+  "purpose": "Reduce camera spacing/parallax with unchanged midpoint convergence",
+  "limitations": [
+    "Reduced apparent depth expected",
+    "Cause of double images not isolated",
+    "No measured optical error or performance"
+  ],
+  "assessment": "Qualitative improvement at 20-degree virtual cone and convergence 5.6; residual double images remain"
+}

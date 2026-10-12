@@ -1,0 +1,31 @@
+{
+  "date": "2026-10-12",
+  "engine": "Godot 4.8 c61fc0118 native Metal",
+  "sdk": "2.6.3",
+  "environment": {
+    "GODOT_MTL_SYNC_MODE": "none"
+  },
+  "real_views": 66,
+  "quilt_size": [
+    4092,
+    4092
+  ],
+  "lit": true,
+  "virtual_camera_cone_degrees": 30,
+  "focus_distance": 5.6,
+  "camera_span_reference_distance": 6,
+  "camera_rig_world_z": 6,
+  "convergence_plane_world_z": 0.4,
+  "device_calibration_unchanged": true,
+  "duration_seconds": 20,
+  "api_success": true,
+  "exit_code": 0,
+  "user_observation": "Previous all-objects-double report withdrawn by user",
+  "purpose": "Midpoint convergence compromise with unchanged camera baseline",
+  "limitations": [
+    "Qualitative clarity assessment only",
+    "No depth-of-field blur or synthesis",
+    "No measured performance or optical error"
+  ],
+  "assessment": "Previous negative assessment withdrawn; no confirmed replacement observation for this 30-degree midpoint test"
+}

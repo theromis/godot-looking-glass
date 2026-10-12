@@ -100,3 +100,9 @@ This points to virtual parallax/depth as a useful control for this scene, not a 
 The user clarified that the lit 30° baseline looked good at the rear object/back of the middle object but blurred the foreground/front of the middle object. The 4092², 66-real lit scene was repeated with convergence distance 5.2 instead of 6.0. Camera world positions and eye spacing stayed fixed using `camera_span_reference_distance=6.0`; device calibration, lighting and virtual cone were unchanged. The user reported sharper foreground and worse rear geometry.
 
 This confirms that the perceived clarity distribution changes with convergence in this diagnostic. It does not establish a calibration diagnosis, a universally acceptable focus, or uniformly sharp depth. No depth-of-field blur or synthesis is involved. A midpoint convergence and/or reduced parallax are next candidate controls, not verified fixes. See [actual settings and observation](lit66-focus52.json).
+
+## Midpoint convergence and 20-degree parallax control
+
+The lit 4092² all-real scene was shown at convergence 5.6 and virtual cone 30°, then at the same convergence with cone 20°. Both SDK runs passed and shut down cleanly. The user withdrew the initial negative report and explicitly clarified that the latest 20° test reduced double images, with slight residual doubling. The 30° midpoint test therefore has no confirmed replacement visual assessment.
+
+At 20°, the camera span reference remains 6.0, convergence is 5.6, lighting and resolution are unchanged and device calibration is not edited. This is a qualitative improvement, not elimination of ghosting, instrumented optical validation or an accepted universal preset. See [30° test](lit66-focus56.json) and [confirmed 20° observation](lit66-focus56-cone20.json).
