@@ -1,4 +1,5 @@
 #include <cmath>
+#include <chrono>
 // Explicit bounded experiment. Current GL-context completion is not a public
 // SDK consumer-completion contract; do not reuse this as production streaming.
 #include <bridge.h>
@@ -17,12 +18,13 @@
 #include <cerrno>
 #define LOAD(name) auto name##_fn=reinterpret_cast<decltype(&name)>(dlsym(library,#name)); if(!name##_fn) return 2
 int main(int argc,char **argv) { @autoreleasepool {
-    if((argc<4 || argc>8) || std::string(argv[3])!="--experimental-reuse") return 2;
-    bool large=false, verify_surface=false;
+    if((argc<4 || argc>9) || std::string(argv[3])!="--experimental-reuse") return 2;
+    bool large=false, verify_surface=false, uncapped=false;
     double duration=20.0;
     for(int arg=5;arg<argc;++arg) {
         if(std::string(argv[arg])=="--large") large=true;
         else if(std::string(argv[arg])=="--verify") verify_surface=true;
+        else if(std::string(argv[arg])=="--uncapped") uncapped=true;
         else if(std::string(argv[arg]).rfind("--duration=",0)==0) { duration=std::stod(std::string(argv[arg]).substr(11)); if(!std::isfinite(duration) || duration<20 || duration>600) return 2; }
         else return 2;
     }
@@ -91,9 +93,12 @@ int main(int argc,char **argv) { @autoreleasepool {
     NSDate *started=[NSDate date];
     int previous=-1;
     double first_update=-1,last_update=0;
+    double finish_ms=0,copy_ms=0,draw_ms=0;
+    auto clock_now=[] { return std::chrono::steady_clock::now(); };
+    auto elapsed_ms=[&](auto begin) { return std::chrono::duration<double,std::milli>(clock_now()-begin).count(); };
     while(ok && -[started timeIntervalSinceNow]<duration) {
         int frame=int(-[started timeIntervalSinceNow]*2.0);
-        if(frame!=previous) {
+        if(uncapped || frame!=previous) {
             std::vector<unsigned char> incoming;
             unsigned sequence=0, surface_id=0, expected_checksum=0;
             if(live_input) {
@@ -148,7 +153,7 @@ int main(int argc,char **argv) { @autoreleasepool {
                     if(pipe_input && !pipe_bytes.empty()) { usleep(100); continue; }
                     if(pump) pump();
                     if(updates) draw_interop_quilt_texture_metal_fn(window,native,11,6,0.5625,1);
-                    [[NSRunLoop currentRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:0.02]];
+                    [[NSRunLoop currentRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:(uncapped?0.001:0.02)]];
                     continue;
                 }
             }
@@ -158,11 +163,13 @@ int main(int argc,char **argv) { @autoreleasepool {
                 CGLContextObj current=CGLGetCurrentContext();
                 if(!current || current!=observed) { ok=false; stable_context=false; break; }
                 for(int i=0;i<16 && glGetError()!=GL_NO_ERROR;++i) {}
-                glFinish(); ++finishes;
+                auto finish_started=clock_now();
+                glFinish(); ++finishes; finish_ms+=elapsed_ms(finish_started);
                 if(glGetError()!=GL_NO_ERROR) { ok=false; break; }
             }
             const float blue[]={0.2f,0.4f,0.6f,1};
             const float red[]={230.0f/255,26.0f/255,26.0f/255,1};
+            auto copy_started=clock_now();
             auto command=[queue commandBuffer];
             if(surface_input) {
                 auto blit=[command blitCommandEncoder];
@@ -185,6 +192,7 @@ int main(int argc,char **argv) { @autoreleasepool {
             [compute endEncoding];
             }
             [command commit]; [command waitUntilCompleted];
+            copy_ms+=elapsed_ms(copy_started);
             ok=command.status==MTLCommandBufferStatusCompleted;
             if(!surface_input || verify_surface) {
             // Explicit diagnostic readback proves both written patterns.
@@ -196,7 +204,9 @@ int main(int argc,char **argv) { @autoreleasepool {
             }
             ok=ok && exact;
             if(surface_input && ok) ok=surface_mailbox.acknowledge(sequence);
+            auto draw_started=clock_now();
             if(ok) ok=draw_interop_quilt_texture_metal_fn(window,native,11,6,0.5625,1);
+            draw_ms+=elapsed_ms(draw_started);
             CGLContextObj current=CGLGetCurrentContext();
             if(!observed) observed=current;
             stable_context=stable_context && current && current==observed;
@@ -206,8 +216,9 @@ int main(int argc,char **argv) { @autoreleasepool {
         }
         if(pump) pump();
         if(ok && updates) ok=draw_interop_quilt_texture_metal_fn(window,native,11,6,0.5625,1);
-        [[NSRunLoop currentRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:0.02]];
+        [[NSRunLoop currentRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:(uncapped?0.001:0.02)]];
     }
+    std::cout<<"worker_mean_finish_ms="<<(finishes?finish_ms/finishes:0)<<" worker_mean_copy_wait_ms="<<(updates?copy_ms/updates:0)<<" worker_mean_new_frame_draw_ms="<<(updates?draw_ms/updates:0)<<std::endl;
     std::cout<<"worker_update_span_seconds="<<(last_update-first_update)<<" worker_update_rate_hz="<<((updates>1 && last_update>first_update)?(updates-1)/(last_update-first_update):0)<<std::endl;
     if(CGLGetCurrentContext()) glFinish();
     imported_texture=nil;

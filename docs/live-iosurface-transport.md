@@ -51,3 +51,26 @@ The worker still checks for updates at approximately 2 Hz, and the producer inte
 The 4092×4092 run produced and received all 212 frames in order during 105.086 seconds of animation, then held the last frame until worker shutdown. The user confirmed ongoing visible updates. The SDK-submission rate between first and last new frame was 2.009 Hz under the approximately 2 Hz cap. Mean producer publication/copy-wait elapsed time was 3.329 ms. No diagnostic pixel readback was performed. Both processes exited successfully and SDK release/shutdown passed.
 
 After ten seconds of warmup, producer RSS was 242,128 KiB initially and 189,008 KiB at its final sample; worker RSS was 91,440 KiB initially and 90,752 KiB at its final sample. Memory samples are recorded below; these values do not establish absence of GPU leaks. The known SDK initialization GL_INVALID_ENUM was still logged despite successful visible output. See the [full measurements](../benchmarks/hardware/live-surface-4k-gpu-duration-120.json) and [sanitized log](../benchmarks/hardware/live-surface-4k-gpu-duration-120.log). SDK consumer-completion guarantees and higher-rate stability remain unresolved.
+
+## Uncapped diagnostic mode
+
+Use `--large --duration 60 --uncapped` with the launcher to remove the producer's 0.4-second delay and the worker's 2 Hz admission cap. The event loop still yields for approximately 1 ms and each Godot revision still uses eight explicit frame flushes. One outstanding source frame and copy acknowledgment are retained. This is the throughput of this synchronous diagnostic harness, not the maximum native renderer throughput.
+
+Additional stage means are CPU wall-clock measurements: `mean_revision_flush_ms` includes eight Godot process-frame waits and forced draws/synchronization; `mean_ack_wait_ms` covers waiting for the previous source-copy acknowledgment; `mean_surface_publish_elapsed_ms` includes producer copy/publication; worker `worker_mean_finish_ms` covers the experimental observed-context `glFinish`, `worker_mean_copy_wait_ms` covers encoding/submission/completion of the worker GPU copy, and `worker_mean_new_frame_draw_ms` covers the new-frame SDK call. Repeated event-loop redraws and display completion are outside the last metric. Stages overlap across processes and must not be added as end-to-end latency. No Metal GPU timestamps or physical refresh measurement are implied.
+
+### Uncapped 4K result (2026-10-12)
+
+The 60-second worker run received all 1,238 frames in order over 44.884 seconds between first/last submissions, averaging 27.560 new SDK frame submissions per second. The user confirmed normal visible updates. There was no producer/worker pixel readback and SDK release/shutdown passed. This is a simple unshaded cube scene with 66 actual cameras and a synchronous eight-flush harness, not a general game benchmark or measured panel FPS. The initial run advanced rotation/color per frame; uncapped animation now advances by elapsed time.
+
+| CPU wall-time stage | Mean ms |
+| --- | ---: |
+| Godot revision preparation (eight flushes, waits/draw/sync included) | 34.269 |
+| Previous source acknowledgment wait | 0.147 |
+| Producer GPU copy and publication | 1.922 |
+| Worker observed-context finish | 0.006 |
+| Worker GPU encoding/copy/completion wait | 3.401 |
+| Worker new-frame SDK draw call | 11.624 |
+
+The longest measured producer stage is revision preparation; its eight forced flushes are diagnostic overhead mixed with actual rendering, so this does not isolate GPU scene cost. Worker stages execute concurrently with producer work. The next useful experiment is reducing flushes while validating that each received quilt contains the intended revision; it should precede speculative buffering changes. See [measurements](../benchmarks/hardware/live-surface-4k-gpu-duration-60-uncapped.json).
+
+The subsequent elapsed-time animation code passed a 30-second API run: all 432 frames were received, new-frame submissions averaged 28.744 Hz and SDK cleanup passed. A separate physical assessment was not requested for that repeat; the user observation above belongs to the initial 60-second run. See the [repeat record](../benchmarks/hardware/live-surface-4k-gpu-duration-30-uncapped.json).

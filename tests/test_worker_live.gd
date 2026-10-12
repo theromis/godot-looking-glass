@@ -3,6 +3,7 @@ const Rig=preload("res://addons/looking_glass/rig.gd")
 func _initialize() -> void: run.call_deferred()
 func run() -> void:
     RenderingServer.set_render_loop_enabled(false)
+    var uncapped: bool="--uncapped" in OS.get_cmdline_user_args()
     var large: bool="--large" in OS.get_cmdline_user_args()
     var dimensions: Vector2i=Vector2i(4092,4092) if large else Vector2i(704,684)
     var frame_count: int=8 if large else 24
@@ -58,26 +59,34 @@ func run() -> void:
     scene.add_child(rig)
     var readback_us: int=0
     var pipe_us: int=0
+    var render_us: int=0
+    var ack_us: int=0
     var animation_started: int=Time.get_ticks_msec()
     var produced: int=0
     if duration_seconds>0: frame_count=10000
     for frame in range(frame_count):
         if duration_seconds>0 and float(Time.get_ticks_msec()-animation_started)/1000.0>=duration_seconds: break
-        box.rotation.y=float(frame)*0.15
-        material.albedo_color=Color(0.95,0.3,0.05) if frame%2==0 else Color(0.05,0.9,0.95)
+        var animation_time: float=float(Time.get_ticks_msec()-animation_started)/1000.0
+        box.rotation.y=animation_time*0.5 if uncapped else float(frame)*0.15
+        var color_phase: int=int(animation_time*2.0) if uncapped else frame
+        material.albedo_color=Color(0.95,0.3,0.05) if color_phase%2==0 else Color(0.05,0.9,0.95)
+        var render_started: int=Time.get_ticks_usec()
         rig.request_update()
         for i in range(8):
             await process_frame
             RenderingServer.force_draw(false,1.0/60.0)
             RenderingServer.force_sync()
+        render_us+=Time.get_ticks_usec()-render_started
         if rig.completed_revision!=rig.requested_revision:
             printerr("FAIL live producer revision")
             quit(1)
             return
         if not surface_name.is_empty():
+            var ack_started: int=Time.get_ticks_usec()
             var deadline: int=Time.get_ticks_msec()+2000
             while not pipe_writer.surface_ready() and Time.get_ticks_msec()<deadline:
                 await create_timer(0.005).timeout
+            ack_us+=Time.get_ticks_usec()-ack_started
             var started: int=Time.get_ticks_usec()
             if not pipe_writer.publish_surface(frame+1,rig.synthesizer.quilt,verify_surface):
                 printerr("FAIL surface publish")
@@ -115,7 +124,7 @@ func run() -> void:
                     return
         produced+=1
         print("PRODUCER sequence=",frame+1)
-        await create_timer(0.4).timeout
+        if not uncapped: await create_timer(0.4).timeout
     frame_count=produced
     print("PRODUCER animation_elapsed_seconds=",float(Time.get_ticks_msec()-animation_started)/1000.0)
     if not surface_name.is_empty():
@@ -132,6 +141,7 @@ func run() -> void:
         pipe_writer.close_shared_frame()
     scene.queue_free()
     for i in range(4): await process_frame
+    print("PRODUCER mean_revision_flush_ms=",float(render_us)/(1000.0*frame_count)," mean_ack_wait_ms=",float(ack_us)/(1000.0*frame_count))
     print("SURFACE producer gpu_only=",not surface_name.is_empty() and not verify_surface," diagnostic_readback=",verify_surface if not surface_name.is_empty() else true)
     print("PASS live Godot producer frames=",frame_count," mean_readback_ms=",float(readback_us)/(1000.0*frame_count)," mean_pipe_write_ms=",float(pipe_us)/(1000.0*frame_count))
     quit()
