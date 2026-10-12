@@ -1,5 +1,9 @@
 // Optional frozen-quilt diagnostic. Real SDK output is an explicit bounded call.
 #include "adapter.hpp"
+#include <fcntl.h>
+#include <unistd.h>
+#include <sys/stat.h>
+#include <cerrno>
 #include <godot_cpp/classes/ref_counted.hpp>
 #include <godot_cpp/classes/rendering_device.hpp>
 #include <godot_cpp/classes/rendering_server.hpp>
@@ -19,6 +23,9 @@ class LookingGlassMetalDiagnostic : public RefCounted {
     RID direct_import;
 protected:
     static void _bind_methods() {
+        ClassDB::bind_method(D_METHOD("open_frame_pipe", "path"), &LookingGlassMetalDiagnostic::open_frame_pipe);
+        ClassDB::bind_method(D_METHOD("write_frame_pipe", "sequence", "pixels"), &LookingGlassMetalDiagnostic::write_frame_pipe);
+        ClassDB::bind_method(D_METHOD("close_frame_pipe"), &LookingGlassMetalDiagnostic::close_frame_pipe);
         ClassDB::bind_method(D_METHOD("copy_static_quilt", "quilt", "fixture", "columns", "rows", "aspect"), &LookingGlassMetalDiagnostic::copy_static_quilt);
         ClassDB::bind_method(D_METHOD("show_static_quilt", "quilt", "runtime", "display_index", "columns", "rows", "aspect", "seconds"), &LookingGlassMetalDiagnostic::show_static_quilt);
         ClassDB::bind_method(D_METHOD("begin_sequence", "runtime", "display_index", "columns", "rows", "aspect"), &LookingGlassMetalDiagnostic::begin_sequence);
@@ -36,6 +43,35 @@ protected:
         ClassDB::bind_method(D_METHOD("wait_for_native_producer"), &LookingGlassMetalDiagnostic::wait_for_native_producer);
     }
 public:
+    int frame_pipe=-1;
+    ~LookingGlassMetalDiagnostic() { close_frame_pipe(); }
+    bool open_frame_pipe(String path) {
+        if (frame_pipe>=0 || ![NSThread isMainThread]) return false;
+        struct stat info;
+        if (stat(path.utf8().get_data(),&info)!=0 || !S_ISFIFO(info.st_mode)) return false;
+        frame_pipe=::open(path.utf8().get_data(),O_WRONLY);
+#ifdef F_SETNOSIGPIPE
+        if (frame_pipe>=0 && fcntl(frame_pipe,F_SETNOSIGPIPE,1)<0) { close_frame_pipe(); return false; }
+#endif
+        return frame_pipe>=0;
+    }
+    bool write_frame_pipe(int64_t sequence, PackedByteArray pixels) {
+        if (frame_pipe<0 || sequence<=0 || sequence>UINT32_MAX || pixels.size()!=704*684*4 || ![NSThread isMainThread]) return false;
+        uint32_t header[]={0x4c475131,static_cast<uint32_t>(sequence),704,684};
+        const unsigned char *parts[]={reinterpret_cast<unsigned char *>(header),pixels.ptr()};
+        const size_t lengths[]={sizeof(header),static_cast<size_t>(pixels.size())};
+        for (int part=0;part<2;++part) {
+            size_t offset=0;
+            while (offset<lengths[part]) {
+                ssize_t count=::write(frame_pipe,parts[part]+offset,lengths[part]-offset);
+                if (count<0 && errno==EINTR) continue;
+                if (count<=0) return false;
+                offset+=count;
+            }
+        }
+        return true;
+    }
+    void close_frame_pipe() { if (frame_pipe>=0) { ::close(frame_pipe); frame_pipe=-1; } }
     bool wait_for_native_producer() {
         // Diagnostic CPU wait for already committed work. Does not flush RD.
         auto *server=RenderingServer::get_singleton();

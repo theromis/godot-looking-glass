@@ -9,11 +9,17 @@
 #include <vector>
 #include <fstream>
 #include <cstring>
+#include <unistd.h>
+#include <fcntl.h>
+#include <cerrno>
 #define LOAD(name) auto name##_fn=reinterpret_cast<decltype(&name)>(dlsym(library,#name)); if(!name##_fn) return 2
 int main(int argc,char **argv) { @autoreleasepool {
     if((argc!=4 && argc!=5) || std::string(argv[3])!="--experimental-reuse") return 2;
-    bool live_input=argc==5 && std::string(argv[4]).rfind("--live-directory=",0)==0;
-    std::string live_path=live_input?std::string(argv[4]).substr(17)+"/latest.bin":"";
+    bool pipe_input=argc==5 && std::string(argv[4])=="--live-stdin";
+    bool live_input=pipe_input || (argc==5 && std::string(argv[4]).rfind("--live-directory=",0)==0);
+    std::vector<unsigned char> pipe_bytes;
+    if(pipe_input) fcntl(STDIN_FILENO,F_SETFL,fcntl(STDIN_FILENO,F_GETFL)|O_NONBLOCK);
+    std::string live_path=live_input && !pipe_input?std::string(argv[4]).substr(17)+"/latest.bin":"";
     bool frame_input=argc==5 && !live_input;
     unsigned last_sequence=0;
     std::vector<std::vector<unsigned char>> frames;
@@ -64,6 +70,24 @@ int main(int argc,char **argv) { @autoreleasepool {
             std::vector<unsigned char> incoming;
             unsigned sequence=0;
             if(live_input) {
+                if(pipe_input) {
+                    const size_t packet_size=16+704*684*4;
+                    unsigned char chunk[65536];
+                    for(unsigned batch=0;batch<64;++batch) {
+                        ssize_t count=read(STDIN_FILENO,chunk,sizeof(chunk));
+                        if(count<0 && errno!=EAGAIN && errno!=EWOULDBLOCK) { ok=false; break; }
+                        if(count<=0) break;
+                        pipe_bytes.insert(pipe_bytes.end(),chunk,chunk+count);
+                        while(pipe_bytes.size()>=packet_size) {
+                            unsigned header[4]; std::memcpy(header,pipe_bytes.data(),16);
+                            if(header[0]!=0x4c475131 || header[2]!=704 || header[3]!=684 || header[1]<=last_sequence) { ok=false; break; }
+                            sequence=header[1];
+                            incoming.assign(pipe_bytes.begin()+16,pipe_bytes.begin()+packet_size);
+                            pipe_bytes.erase(pipe_bytes.begin(),pipe_bytes.begin()+packet_size);
+                        }
+                        if(!ok) break;
+                    }
+                } else {
                 std::ifstream file(live_path,std::ios::binary|std::ios::ate);
                 if(file && file.tellg()==16+704*684*4) {
                     file.seekg(0); unsigned header[4]={};
@@ -73,7 +97,10 @@ int main(int argc,char **argv) { @autoreleasepool {
                         if(file.read(reinterpret_cast<char *>(incoming.data()),incoming.size())) sequence=header[1];
                     }
                 }
+                }
+                if(!ok) break;
                 if(!sequence) {
+                    if(pipe_input && !pipe_bytes.empty()) { usleep(100); continue; }
                     if(pump) pump();
                     if(updates) draw_interop_quilt_texture_metal_fn(window,native,11,6,0.5625,1);
                     [[NSRunLoop currentRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:0.02]];
@@ -112,7 +139,7 @@ int main(int argc,char **argv) { @autoreleasepool {
             const unsigned char b[]={51,102,153,255},r[]={230,26,26,255};
             for(size_t i=0;i<pixels.size();++i) if(pixels[i]!=(live_input?incoming[i]:(frame_input?frames[frame%2][i]:(frame%2?r[i%4]:b[i%4])))) exact=false;
             ok=ok && exact;
-            if(ok && updates) ok=draw_interop_quilt_texture_metal_fn(window,native,11,6,0.5625,1);
+            if(ok) ok=draw_interop_quilt_texture_metal_fn(window,native,11,6,0.5625,1);
             CGLContextObj current=CGLGetCurrentContext();
             if(!observed) observed=current;
             stable_context=stable_context && current && current==observed;

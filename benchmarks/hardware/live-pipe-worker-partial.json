@@ -1,0 +1,22 @@
+{
+  "execution_passed": false,
+  "producer_exit": -13,
+  "worker_exit": 0,
+  "transport": "POSIX FIFO to worker stdin; CPU readback/upload; no per-frame disk files",
+  "quilt_size": [
+    704,
+    684
+  ],
+  "producer_frames_requested": 24,
+  "worker_duration_seconds": 20,
+  "user_observation": "User confirmed visible image and updates",
+  "consumer_completion_contract_verified": false,
+  "production_ready": false,
+  "received_sequences": [
+    1,
+    2,
+    3
+  ],
+  "physical_updates_confirmed": true,
+  "assessment": "Partial transfer only: three frames before worker deadline and producer SIGPIPE"
+}

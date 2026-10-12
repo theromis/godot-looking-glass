@@ -1,0 +1,7 @@
+2026-10-12 12:51:11 [Error] 0x500 GL_INVALID_ENUM - invalid enumerant | prog=0 | activeTex=0 | boundTex2D=0 @ [SDK source location redacted]
+live_sequence=1
+live_sequence=2
+live_sequence=3
+persistent_updates=3 exact_gpu_pixels=1 observed_context_stable=1 observed_gl_finishes=2 sdk_calls_ok=1 release=1 shutdown=1
+consumer_completion_contract_verified=false experimental_reuse=true
+live_godot_input=1 last_sequence=3

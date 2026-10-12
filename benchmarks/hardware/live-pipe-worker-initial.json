@@ -1,0 +1,17 @@
+{
+  "execution_passed": false,
+  "producer_exit": 1,
+  "worker_exit": 1,
+  "transport": "POSIX FIFO to worker stdin; CPU readback/upload; no per-frame disk files",
+  "quilt_size": [
+    704,
+    684
+  ],
+  "producer_frames_requested": 24,
+  "worker_duration_seconds": 20,
+  "user_observation": "User reported no output",
+  "consumer_completion_contract_verified": false,
+  "production_ready": false,
+  "received_sequences": [],
+  "failure_reason": "Godot FileAccess failed opening FIFO; producer exited before emitting frames"
+}

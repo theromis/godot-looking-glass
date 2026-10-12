@@ -270,3 +270,7 @@ Two prerecorded Godot quilts now visibly alternate through the separate persiste
 ### Live Godot-to-Metal CPU fallback checkpoint
 
 A running Godot producer generated 24 new quilts; the isolated persistent Metal worker presented 22 latest-frame updates with exact pixel checks and clean teardown. The user confirmed visible motion/updates. The single small-quilt run measured 0.563 ms average get_image elapsed time only, excluding file transport/upload/display latency. This atomic-file CPU fallback is bounded and experimental; it is not GPU-only, full-resolution or production-synchronized streaming. See [protocol and measurements](docs/live-file-transport.md).
+
+### Live CPU pipe checkpoint
+
+The latest bounded small-quilt run transferred all 24 newly rendered Godot frames through a private FIFO into the isolated Metal worker, with exact GPU pixel checks and clean process/SDK teardown. The user confirmed continued motion/color changes. Per-frame disk files are removed; CPU readback/kernel copying/upload and experimental consumer synchronization remain. Average get_image elapsed time was 0.588 ms in this single run, excluding other transport costs. See [protocol and retained failed attempts](docs/live-pipe-transport.md).
