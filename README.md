@@ -266,3 +266,7 @@ A separate bounded worker updated one SDK-created Metal texture 40 times; exact 
 ### Godot frames in the persistent Metal worker
 
 Two prerecorded Godot quilts now visibly alternate through the separate persistent-input Metal worker. Initial and repeat runs passed 40 exact GPU updates and teardown; the user confirmed cube color changes in the repeat. This validates actual Godot frame delivery to that output path. The test uses CPU-prepared files and initial buffer uploads; live transport, 4K animation and a verified all-consumer synchronization contract remain unfinished. See [protocol, source comparison and results](docs/persistent-metal-worker.md#prerecorded-godot-frame-transport-control).
+
+### Live Godot-to-Metal CPU fallback checkpoint
+
+A running Godot producer generated 24 new quilts; the isolated persistent Metal worker presented 22 latest-frame updates with exact pixel checks and clean teardown. The user confirmed visible motion/updates. The single small-quilt run measured 0.563 ms average get_image elapsed time only, excluding file transport/upload/display latency. This atomic-file CPU fallback is bounded and experimental; it is not GPU-only, full-resolution or production-synchronized streaming. See [protocol and measurements](docs/live-file-transport.md).

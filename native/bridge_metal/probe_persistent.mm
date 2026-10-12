@@ -12,7 +12,10 @@
 #define LOAD(name) auto name##_fn=reinterpret_cast<decltype(&name)>(dlsym(library,#name)); if(!name##_fn) return 2
 int main(int argc,char **argv) { @autoreleasepool {
     if((argc!=4 && argc!=5) || std::string(argv[3])!="--experimental-reuse") return 2;
-    bool frame_input=argc==5;
+    bool live_input=argc==5 && std::string(argv[4]).rfind("--live-directory=",0)==0;
+    std::string live_path=live_input?std::string(argv[4]).substr(17)+"/latest.bin":"";
+    bool frame_input=argc==5 && !live_input;
+    unsigned last_sequence=0;
     std::vector<std::vector<unsigned char>> frames;
     if(frame_input) {
         for(int i=0;i<2;++i) {
@@ -58,6 +61,25 @@ int main(int argc,char **argv) { @autoreleasepool {
     while(ok && -[started timeIntervalSinceNow]<20.0) {
         int frame=int(-[started timeIntervalSinceNow]*2.0);
         if(frame!=previous) {
+            std::vector<unsigned char> incoming;
+            unsigned sequence=0;
+            if(live_input) {
+                std::ifstream file(live_path,std::ios::binary|std::ios::ate);
+                if(file && file.tellg()==16+704*684*4) {
+                    file.seekg(0); unsigned header[4]={};
+                    file.read(reinterpret_cast<char *>(header),16);
+                    if(header[0]==0x4c475131 && header[2]==704 && header[3]==684 && header[1]>last_sequence) {
+                        incoming.resize(704*684*4);
+                        if(file.read(reinterpret_cast<char *>(incoming.data()),incoming.size())) sequence=header[1];
+                    }
+                }
+                if(!sequence) {
+                    if(pump) pump();
+                    if(updates) draw_interop_quilt_texture_metal_fn(window,native,11,6,0.5625,1);
+                    [[NSRunLoop currentRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:0.02]];
+                    continue;
+                }
+            }
             // Wait observed-context work only. The SDK may use other contexts or
             // schedule future work; no general consumer safety is asserted.
             if(updates) {
@@ -70,9 +92,10 @@ int main(int argc,char **argv) { @autoreleasepool {
             const float blue[]={0.2f,0.4f,0.6f,1};
             const float red[]={230.0f/255,26.0f/255,26.0f/255,1};
             auto command=[queue commandBuffer];
-            if(frame_input) {
+            if(frame_input || live_input) {
+                if(live_input) uploads[0]=[device newBufferWithBytes:incoming.data() length:incoming.size() options:MTLResourceStorageModeShared];
                 auto blit=[command blitCommandEncoder];
-                [blit copyFromBuffer:uploads[frame%2] sourceOffset:0 sourceBytesPerRow:704*4 sourceBytesPerImage:704*684*4 sourceSize:MTLSizeMake(704,684,1) toTexture:texture destinationSlice:0 destinationLevel:0 destinationOrigin:MTLOriginMake(0,0,0)];
+                [blit copyFromBuffer:uploads[live_input?0:frame%2] sourceOffset:0 sourceBytesPerRow:704*4 sourceBytesPerImage:704*684*4 sourceSize:MTLSizeMake(704,684,1) toTexture:texture destinationSlice:0 destinationLevel:0 destinationOrigin:MTLOriginMake(0,0,0)];
                 [blit endEncoding];
             } else {
             auto compute=[command computeCommandEncoder];
@@ -87,16 +110,17 @@ int main(int argc,char **argv) { @autoreleasepool {
             std::vector<unsigned char> pixels(704*684*4);
             [texture getBytes:pixels.data() bytesPerRow:704*4 fromRegion:MTLRegionMake2D(0,0,704,684) mipmapLevel:0];
             const unsigned char b[]={51,102,153,255},r[]={230,26,26,255};
-            for(size_t i=0;i<pixels.size();++i) if(pixels[i]!=(frame_input?frames[frame%2][i]:(frame%2?r[i%4]:b[i%4]))) exact=false;
+            for(size_t i=0;i<pixels.size();++i) if(pixels[i]!=(live_input?incoming[i]:(frame_input?frames[frame%2][i]:(frame%2?r[i%4]:b[i%4])))) exact=false;
             ok=ok && exact;
-            if(ok) ok=draw_interop_quilt_texture_metal_fn(window,native,11,6,0.5625,1);
+            if(ok && updates) ok=draw_interop_quilt_texture_metal_fn(window,native,11,6,0.5625,1);
             CGLContextObj current=CGLGetCurrentContext();
             if(!observed) observed=current;
             stable_context=stable_context && current && current==observed;
             ++updates; previous=frame;
+            if(live_input) { last_sequence=sequence; std::cout<<"live_sequence="<<sequence<<std::endl; }
         }
         if(pump) pump();
-        if(ok) ok=draw_interop_quilt_texture_metal_fn(window,native,11,6,0.5625,1);
+        if(ok && updates) ok=draw_interop_quilt_texture_metal_fn(window,native,11,6,0.5625,1);
         [[NSRunLoop currentRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:0.02]];
     }
     if(CGLGetCurrentContext()) glFinish();
@@ -104,6 +128,7 @@ int main(int argc,char **argv) { @autoreleasepool {
     bool stopped=uninitialize_bridge_fn();
     std::cout<<"persistent_updates="<<updates<<" exact_gpu_pixels="<<exact<<" observed_context_stable="<<stable_context<<" observed_gl_finishes="<<finishes<<" sdk_calls_ok="<<ok<<" release="<<released<<" shutdown="<<stopped<<std::endl;
     std::cout<<"consumer_completion_contract_verified=false experimental_reuse=true"<<std::endl;
+    std::cout<<"live_godot_input="<<live_input<<" last_sequence="<<last_sequence<<std::endl;
     std::cout<<"godot_frame_input="<<frame_input<<" prerecorded="<<frame_input<<std::endl;
     if(stopped) dlclose(library);
     return ok && exact && released && stopped && updates>1?0:1;

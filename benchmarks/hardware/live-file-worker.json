@@ -1,0 +1,29 @@
+{
+  "date": "2026-10-12",
+  "execution_passed": true,
+  "producer_exit": 0,
+  "worker_exit": 0,
+  "user_observation": "User confirmed visible cube motion and updates",
+  "transport": "Atomic latest-frame file with CPU readback/upload",
+  "quilt_size": [
+    704,
+    684
+  ],
+  "producer_frames_requested": 24,
+  "worker_duration_seconds": 20,
+  "consumer_completion_contract_verified": false,
+  "production_ready": false,
+  "physical_updates_confirmed": true,
+  "produced_frames": 24,
+  "presented_updates": 22,
+  "skipped_source_sequences": [
+    12,
+    20
+  ],
+  "last_source_sequence": 24,
+  "mean_get_image_elapsed_ms": 0.56266666666667,
+  "measurement_scope": "Single small-quilt run; get_image only, excludes file transport/upload/display latency",
+  "exact_pixel_checks_passed": true,
+  "release_passed": true,
+  "shutdown_passed": true
+}

@@ -17,3 +17,6 @@
 
 /benchmarks/native-bridge/*.bin
 benchmarks/native-bridge/equivalence*-local/
+
+/benchmarks/hardware/live-transport/
+/worker-frames/
