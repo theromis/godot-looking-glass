@@ -148,3 +148,18 @@ The capture-stage 24→66 path passed all eight copy-first comparisons against t
 Both sequential runs used the same 36-second worker duration, approximately 21 seconds of elapsed-time animation, 4092×4092 quilt, one draw/capture-stage composition, no diagnostic readback and the same simple unshaded cube. All produced sequences were received in order and SDK cleanup passed. The measured submission-rate ratio is approximately 1.99; this is one trial per budget, not a statistically established universal gain or physical panel FPS.
 
 Native publication timing includes waiting for prior Godot GPU work on its queue, so its reduction does not mean the 64 MiB blit itself became four times faster. The comparison is consistent with lower scene-rendering work, but does not isolate GPU stage durations. The user subsequently confirmed that the current animated 24→66 output looks normal on the display. This observation covers the simple cube, not complex occlusion, lighting or transparency. The real-camera default remains 66 until broader visual/scene testing. See [paired summary](../benchmarks/hardware/live-surface-view-budget-comparison.json).
+
+## Lit occlusion and alpha-panel fixture
+
+`--complex-scene` adds a moving orange occluder in front of three RGB spheres at different depths, one shadowed OmniLight, a floor receiving shadows and a translucent cyan panel. Geometry/material setup lives in `tests/worker_scene_fixture.gd`; the live producer freezes a scene pose while preparing each quilt. Rotation/translation use elapsed time in uncapped mode.
+
+```sh
+python3 native/bridge_metal/run_live_surface.py --godot "$GODOT_LG_BIN" --runtime "$BRIDGE_LIBRARY" --large --adaptive-flush --capture-compose --real-views 24 --complex-scene --validate-flush
+python3 native/bridge_metal/run_live_surface.py --godot "$GODOT_LG_BIN" --runtime "$BRIDGE_LIBRARY" --large --adaptive-flush --capture-compose --real-views 24 --complex-scene --uncapped --duration 36
+```
+
+All eight copied IOSurfaces matched the original post-draw/eight-flush references with the same 24 actual cameras. This verifies scheduling/copy correctness, not equivalence to 66 actual cameras. The GPU-only animated run received all 628 frames in order at 29.972 new SDK submissions/s, used one draw, performed no diagnostic pixel readback and completed SDK teardown. The user reported that the scene looks normal, including moving occlusions and the alpha panel. This is qualitative scene-specific feedback, not a guarantee for arbitrary transparency or disocclusions.
+
+Revision preparation averaged 4.343 ms, previous-copy acknowledgment wait 5.599 ms, and producer copy/publication (including prior queue work) 23.529 ms. Worker copy/wait averaged 2.960 ms and its new-frame SDK call 3.422 ms. The earlier simple cube reached 58.314 Hz with the same 24-view budget, but these different scenes are not an isolated shadow, lighting or transparency A/B test. Further profiling should isolate those costs before attributing the loss to a particular feature.
+
+See [copy-first validation](../benchmarks/hardware/live-surface-4k-gpu-adaptive-copy-validation-capture-compose-real-24-complex.json) and [animated hardware result](../benchmarks/hardware/live-surface-4k-gpu-duration-36-uncapped-adaptive-capture-compose-real-24-complex.json). The known initialization GL_INVALID_ENUM remains in successful SDK logs. Long-term/full-rate SDK consumer synchronization is still experimental.

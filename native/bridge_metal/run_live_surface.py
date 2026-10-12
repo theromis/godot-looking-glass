@@ -22,6 +22,7 @@ parser.add_argument('--adaptive-flush', action='store_true')
 parser.add_argument('--validate-flush', action='store_true')
 parser.add_argument('--check-before-draw', action='store_true')
 parser.add_argument('--capture-compose', action='store_true')
+parser.add_argument('--complex-scene', action='store_true')
 parser.add_argument('--run-label', default='')
 parser.add_argument('--real-views', type=int, default=66, choices=(12,24,36,48,66))
 parser.add_argument('--duration', type=int, default=20, help='Bounded worker duration in seconds (20–600).')
@@ -45,7 +46,7 @@ try:
         if not select.select([worker.stdout],[],[],5)[0] or worker.stdout.readline().strip()!='SURFACE ready':
             raise RuntimeError('Shared-memory worker did not become ready')
         env = dict(os.environ, GODOT_MTL_SYNC_MODE='none')
-        producer_flags=['--real-views='+str(args.real_views)]+(['--adaptive-flush'] if args.adaptive_flush else [])+(['--validate-flush'] if args.validate_flush else [])+(['--check-before-draw'] if args.check_before_draw else [])+(['--capture-compose'] if args.capture_compose else [])
+        producer_flags=['--real-views='+str(args.real_views)]+(['--adaptive-flush'] if args.adaptive_flush else [])+(['--validate-flush'] if args.validate_flush else [])+(['--check-before-draw'] if args.check_before_draw else [])+(['--capture-compose'] if args.capture_compose else [])+(['--complex-scene'] if args.complex_scene else [])
         producer = subprocess.Popen([args.godot, '--path', '.', '--rendering-driver', 'metal',
                                      '--script', 'tests/test_worker_live.gd', '--', '--surface-name='+name]+suffix+producer_flags,
                                     stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True, env=env)
@@ -79,11 +80,12 @@ try:
         if args.capture_compose: stem += '-capture-compose'
         if args.real_views != 66: stem += '-real-'+str(args.real_views)
         if args.run_label: stem += '-'+args.run_label
+        if args.complex_scene: stem += '-complex'
         (base/(stem+'.log')).write_text('\n'.join(lines)+'\n')
         result = {'execution_passed': ok, 'producer_exit': producer.returncode, 'worker_exit': worker.returncode,
                   'transport': 'IOSurface GPU sharing; 32-byte control mailbox with copy acknowledgment',
                   'quilt_size': [4092,4092] if args.large else [704,684], 'producer_frames_requested': None if args.duration!=20 else (8 if args.large else 24), 'worker_duration_seconds': args.duration,
-                  'run_label': args.run_label, 'real_views': args.real_views, 'total_views': 66, 'capture_compose': args.capture_compose, 'check_before_draw': args.check_before_draw or args.capture_compose, 'adaptive_flush': args.adaptive_flush, 'validation_pixel_readback': args.validate_flush, 'uncapped': args.uncapped, 'diagnostic_readback': args.verify, 'gpu_only_frame_transport': not (args.verify or args.validate_flush), 'user_observation': 'Pending', 'consumer_completion_contract_verified': False, 'production_ready': False}
+                  'scene': 'lit occlusion and alpha panel' if args.complex_scene else 'unshaded cube', 'run_label': args.run_label, 'real_views': args.real_views, 'total_views': 66, 'capture_compose': args.capture_compose, 'check_before_draw': args.check_before_draw or args.capture_compose, 'adaptive_flush': args.adaptive_flush, 'validation_pixel_readback': args.validate_flush, 'uncapped': args.uncapped, 'diagnostic_readback': args.verify, 'gpu_only_frame_transport': not (args.verify or args.validate_flush), 'user_observation': 'Pending', 'consumer_completion_contract_verified': False, 'production_ready': False}
         sequences = re.findall(r'live_sequence=(\d+)', wout)
         result['rss_samples']=memory_samples
         result['rss_scope']='Process resident memory sampled with ps; not GPU allocations or a leak proof.'

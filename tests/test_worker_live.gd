@@ -3,6 +3,7 @@ const Rig=preload("res://addons/looking_glass/rig.gd")
 func _initialize() -> void: run.call_deferred()
 func run() -> void:
     RenderingServer.set_render_loop_enabled(false)
+    var complex_scene: bool="--complex-scene" in OS.get_cmdline_user_args()
     var capture_compose: bool="--capture-compose" in OS.get_cmdline_user_args()
     var check_before_draw: bool=capture_compose or "--check-before-draw" in OS.get_cmdline_user_args()
     var first_draw_us: int=0
@@ -59,6 +60,8 @@ func run() -> void:
     material.shading_mode=BaseMaterial3D.SHADING_MODE_UNSHADED
     box.material_override=material
     scene.add_child(box)
+    if complex_scene:
+        preload("res://tests/worker_scene_fixture.gd").add_details(scene,world.environment,box,material)
     var rig:=Rig.new()
     rig.total_views=66
     rig.real_views=real_views
@@ -87,7 +90,10 @@ func run() -> void:
         var animation_time: float=float(Time.get_ticks_msec()-animation_started)/1000.0
         box.rotation.y=animation_time*0.5 if uncapped else float(frame)*0.15
         var color_phase: int=int(animation_time*2.0) if uncapped else frame
-        material.albedo_color=Color(0.95,0.3,0.05) if color_phase%2==0 else Color(0.05,0.9,0.95)
+        if complex_scene:
+            box.position=Vector3(sin(animation_time*0.9)*0.85,0,0.3) if uncapped else Vector3(sin(float(frame)*0.5)*0.85,0,0.3)
+        else:
+            material.albedo_color=Color(0.95,0.3,0.05) if color_phase%2==0 else Color(0.05,0.9,0.95)
         var render_started: int=Time.get_ticks_usec()
         rig.request_update()
         for i in range(8):
