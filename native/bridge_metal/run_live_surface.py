@@ -11,6 +11,7 @@ import select
 import threading
 import time
 import tempfile
+from concurrent.futures import ThreadPoolExecutor
 
 parser = argparse.ArgumentParser()
 parser.add_argument('--godot', required=True)
@@ -56,6 +57,7 @@ if args.full_shadow_casters:
     (staged/'project.godot').write_text(Path('project.godot').read_text()+'\n[rendering]\nlights_and_shadows/tighter_shadow_caster_culling=false\n')
     project_path=str(staged)
 worker = producer = None
+worker_reader=None
 stop_sampling=threading.Event()
 memory_samples=[]
 sampler=None
@@ -71,6 +73,15 @@ try:
         producer = subprocess.Popen([args.godot, '--path', project_path, '--rendering-driver', 'metal',
                                      '--script', 'tests/test_worker_live.gd', '--', '--surface-name='+name]+suffix+producer_flags,
                                     stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True, env=env)
+        def collect_worker():
+            try:
+                return worker.communicate(timeout=args.duration+30)
+            except subprocess.TimeoutExpired:
+                worker.kill()
+                output,error=worker.communicate()
+                return output,error+"\nFAIL live worker timeout\n"
+        worker_reader=ThreadPoolExecutor(max_workers=1)
+        worker_output=worker_reader.submit(collect_worker)
         def sample_memory():
             began=time.monotonic()
             while not stop_sampling.is_set():
@@ -88,7 +99,7 @@ try:
             producer.kill()
             pout, perr = producer.communicate()
             perr += "\nFAIL live producer timeout\n"
-        wout, werr = worker.communicate(timeout=args.duration+30)
+        wout, werr = worker_output.result(timeout=args.duration+35)
         stop_sampling.set()
         sampler.join(timeout=3)
         output = pout + perr + wout + werr
@@ -116,7 +127,7 @@ try:
         if args.warm_shadow_atlases and (args.warm_shadow_mode!='both' or args.warm_shadow_draws!=8): stem += '-'+args.warm_shadow_mode+'-'+str(args.warm_shadow_draws)
         (base/(stem+'.log')).write_text('\n'.join(lines)+'\n')
         result = {'execution_passed': ok, 'producer_exit': producer.returncode, 'worker_exit': worker.returncode,
-                  'transport': 'IOSurface GPU sharing; 32-byte control mailbox with copy acknowledgment',
+                  'worker_output_drained_concurrently': True, 'transport': 'IOSurface GPU sharing; 32-byte control mailbox with copy acknowledgment',
                   'quilt_size': [4092,4092] if args.large else [704,684], 'producer_frames_requested': None if args.duration!=20 else (8 if args.large else 24), 'worker_duration_seconds': args.duration,
                   'warm_shadow_mode': args.warm_shadow_mode if args.warm_shadow_atlases else None, 'warm_shadow_draws': args.warm_shadow_draws if args.warm_shadow_atlases else 0, 'warm_shadow_atlases': args.warm_shadow_atlases, 'full_shadow_casters': args.full_shadow_casters, 'shared_positional_shadows_requested': args.shared_shadows, 'shadows_enabled': args.complex_scene and not args.no_shadows, 'alpha_panel_enabled': args.complex_scene and not args.no_alpha_panel, 'scene': 'lit occlusion and alpha panel' if args.complex_scene else 'unshaded cube', 'run_label': args.run_label, 'real_views': args.real_views, 'total_views': 66, 'capture_compose': args.capture_compose, 'check_before_draw': args.check_before_draw or args.capture_compose, 'adaptive_flush': args.adaptive_flush, 'validation_pixel_readback': args.validate_flush, 'uncapped': args.uncapped, 'diagnostic_readback': args.verify, 'gpu_only_frame_transport': not (args.verify or args.validate_flush), 'user_observation': 'Pending', 'consumer_completion_contract_verified': False, 'production_ready': False}
         sequences = re.findall(r'live_sequence=(\d+)', wout)
@@ -157,7 +168,8 @@ finally:
         for child in (producer, worker):
             if child is not None and child.poll() is None:
                 child.kill()
-                child.communicate()
+                if child is not worker or worker_reader is None: child.communicate()
+        if worker_reader is not None: worker_reader.shutdown(wait=True)
         libc=ctypes.CDLL(None)
         libc.shm_unlink(name.encode())
         libc.sem_unlink((name+'_s').encode())
