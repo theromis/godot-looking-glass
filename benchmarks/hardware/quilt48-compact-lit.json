@@ -1,0 +1,64 @@
+{
+  "date": "2026-10-12",
+  "engine": "Godot 4.8 c61fc0118 native Metal",
+  "sdk": "2.6.3",
+  "environment": {
+    "GODOT_MTL_SYNC_MODE": "none"
+  },
+  "real_views": 48,
+  "total_views": 48,
+  "grid": [
+    8,
+    6
+  ],
+  "quilt_size": [
+    4096,
+    4092
+  ],
+  "source_view_size": [
+    378,
+    672
+  ],
+  "angular_view_sampling": true,
+  "lit": true,
+  "shadow_maps_enabled": true,
+  "virtual_camera_cone_degrees": 20,
+  "focus_distance": 5.6,
+  "camera_span_reference_distance": 6,
+  "compact_objects": {
+    "box_scale": [
+      0.55,
+      0.55,
+      1
+    ],
+    "sphere_scale": [
+      0.4,
+      0.4,
+      1
+    ],
+    "sphere_x_positions": [
+      -0.4,
+      0,
+      0.4
+    ],
+    "world_z_centers_and_extents_unchanged": true
+  },
+  "all_subject_aabbs_inside_every_camera": true,
+  "minimum_source_pixel_margin": 14.5037536621094,
+  "duration_seconds": 20,
+  "api_success": true,
+  "exit_code": 0,
+  "user_observation": "User reported scene looks better; rear sphere double image more noticeable, others also double but less conspicuously, possibly due to smaller size",
+  "purpose": "Reduce projected object bounds to remove source-view clipping without changing their Z extent or camera setup",
+  "limitations": [
+    "Object shapes/normals and lateral positions change, so not a pure optical clipping-only measurement",
+    "Floor excluded from subject bounds check",
+    "No measured optical crosstalk or performance"
+  ],
+  "assessment": "Compact fully in-frame scene retains ghosting; source-view clipping cannot explain it alone",
+  "fixture_regression": {
+    "status": "PASS exact nonempty RGBA8 bytes and source bounds check",
+    "actual_fixture_views": 4,
+    "minimum_source_pixel_margin": 1.38130950927734
+  }
+}

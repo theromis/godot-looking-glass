@@ -240,3 +240,17 @@ GODOT_MTL_SYNC_MODE=none "$GODOT" --path . --rendering-driver metal --script tes
 ```
 
 The saved quilt passed capture/teardown. Visual inspection of center view 32 found no obvious duplicated geometry, but outer sphere silhouettes are partly clipped at the view bounds. This is a limited inspection, not an exhaustive image analysis or proof of optical crosstalk. PNGs stay local/ignored; [capture metadata and hash](../../benchmarks/hardware/flat-lit-views.json) preserve the observation. Other records: [combined](../../benchmarks/hardware/combined-angular-aspect-lit66.json), [no shadow maps](../../benchmarks/hardware/combined-lit66-no-shadows.json), [48-view quilt](../../benchmarks/hardware/quilt48-lit.json).
+
+## Source-view clipping control
+
+`--compact-objects` reduces object X/Y scales while preserving their Z positions and extents. The cube scale becomes (0.55, 0.55, 1); sphere scales become (0.4, 0.4, 1), with X centers moved to -0.4, 0 and +0.4. It changes shape normals and lateral layout, so it is not a pure single-factor optical experiment. The floor is excluded from the subject-fit check.
+
+Every subject AABB corner is projected through every source camera. The test requires all projected bounds to fit with at least one source pixel of margin. The physical 48-view, 4096×4092, lit test passed with minimum margin 14.5038 source pixels, preserving the prior convergence/cone/camera sampling and shadow settings. SDK submission/teardown passed; the user reported a better overall image but continuing double images, most conspicuous at the rear sphere. The user suggested smaller size may make other ghosts less noticeable. This is not a complete fix. No default scene layout changed.
+
+```sh
+GODOT_MTL_SYNC_MODE=none "$GODOT" --path . --rendering-driver metal --script tests/test_bridge_direct_target.gd -- --large --views=48 --real-views=48 --lit --view-cone=20 --focus=5.6 --display-aspect --angular-sampling --compact-objects
+```
+
+See [bounds and configuration](../../benchmarks/hardware/quilt48-compact-lit.json). No optical-crosstalk cause or ghosting fix is established by fitting geometry inside view bounds.
+
+The smaller four-view fixture also passed exact nonempty RGBA8 and source-bounds checks, with minimum margin 1.3813 pixels. This is a bounded fixture geometry test, not a physical 48-view optical measurement. The retained rear-sphere artifact motivates an optional scene-depth compression control around the convergence plane, which has not yet been implemented or tested.

@@ -19,12 +19,14 @@ func run() -> void:
     world.environment.background_color=Color(0.2,0.4,0.7)
     scene.add_child(world)
     var box := MeshInstance3D.new()
+    var subjects: Array[MeshInstance3D]=[]
     box.mesh=BoxMesh.new()
     var material := StandardMaterial3D.new()
     material.shading_mode=BaseMaterial3D.SHADING_MODE_PER_PIXEL if lit else BaseMaterial3D.SHADING_MODE_UNSHADED
     material.albedo_color=Color(0.8,0.3,0.1)
     box.material_override=material
     scene.add_child(box)
+    subjects.append(box)
     for i in range(3):
         var sphere := MeshInstance3D.new()
         sphere.mesh=SphereMesh.new()
@@ -34,6 +36,14 @@ func run() -> void:
         sphere_material.albedo_color=[Color.RED,Color.GREEN,Color.BLUE][i]
         sphere.material_override=sphere_material
         scene.add_child(sphere)
+        subjects.append(sphere)
+    var compact: bool="--compact-objects" in OS.get_cmdline_user_args()
+    if compact:
+        # Preserve Z centers/extents; shrink screen-plane geometry and shift X.
+        box.scale=Vector3(0.55,0.55,1.0)
+        for i in range(3):
+            subjects[i+1].scale=Vector3(0.4,0.4,1.0)
+            subjects[i+1].position.x=(i-1)*0.4
     if lit:
         material.roughness=0.45
         world.environment.ambient_light_source=Environment.AMBIENT_SOURCE_COLOR
@@ -138,6 +148,12 @@ func run() -> void:
     if "--projection-grid" in OS.get_cmdline_user_args():
         populate_projection_grid(scene,6.0-focus)
     scene.add_child(rig)
+    if compact:
+        var margin: float=subject_bounds_margin(rig,subjects)
+        print("SUBJECT BOUNDS minimum_source_pixel_margin=",margin)
+        if margin<1.0:
+            fail("Subject bounding boxes do not fit all source cameras")
+            return
     # Frozen output. Finish subsequent Godot frames so synthesis recorded by
     # frame_post_draw has been committed by RenderingDevice::swap_buffers.
     # Explicit refreshes warm renderer pipelines; not a production warmup policy.
@@ -211,6 +227,20 @@ func run() -> void:
     if fixture: OS.unset_environment("LG_FIXTURE_ACCEPT_QUILT")
     print("PASS direct Bridge target: Godot compute writes imported SDK RGBA8 texture, no quilt blit, clean teardown; fixture="+str(fixture)+" capture_only="+str(capture_only))
     quit()
+
+func subject_bounds_margin(rig: Node3D, subjects: Array[MeshInstance3D]) -> float:
+    var margin: float=INF
+    for camera in rig.cameras:
+        var view_size := Vector2(camera.get_viewport().size)
+        for subject in subjects:
+            var bounds: AABB=subject.get_aabb()
+            for corner_index in range(8):
+                var factor := Vector3(corner_index&1,(corner_index>>1)&1,(corner_index>>2)&1)
+                var world: Vector3=subject.global_transform*(bounds.position+bounds.size*factor)
+                if camera.is_position_behind(world): return -INF
+                var pixel: Vector2=camera.unproject_position(world)
+                margin=minf(margin,minf(minf(pixel.x,view_size.x-pixel.x),minf(pixel.y,view_size.y-pixel.y)))
+    return margin
 
 func populate_projection_grid(scene: Node3D, plane_z: float) -> void:
     # Grid geometry lies exactly on the convergence plane. No source blur/DOF.
