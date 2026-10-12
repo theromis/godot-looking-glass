@@ -203,3 +203,7 @@ On Apple M4, a synthetic 4092² RGBA8 constant-fill test measured 0.64–0.73 ms
 ### Godot synthesis comparison
 
 The actual addon kernel (24 real cameras → 66 views, borrowed raw depth, eight iterations) was tested against a real SDK target at 4092². Across three paired runs, direct output reduced synchronous draw/submission/GPU-wait medians by 1.25–2.12 ms versus an intermediate Godot RD texture plus copy. Complete output bytes matched in every run. These are elapsed wall measurements with frozen source cameras, not isolated GPU time or scene FPS; absolute times varied strongly. Small-quilt gains were marginal. See [protocol and all samples](benchmarks/hardware/sdk-synthesis-benchmark.md).
+
+### 66-view anchor quality checkpoint
+
+A same-format 66-real reference was compared against 12/24/36 real-camera budgets at the connected device's 54° cone. In the tested static opaque scene, synthetic-view PSNR was 27.82 / 29.81 / 29.74 dB; the common synthesized-view mask gives 27.81 / 29.81 / 29.82 dB. Every anchor tile matched exactly. Twenty-four real cameras are a candidate balanced setting for this scene; physical synthesized-output quality and broader scene coverage remain unvalidated. See [protocol and per-view results](benchmarks/view-budget66/README.md).
