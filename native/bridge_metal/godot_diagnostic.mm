@@ -24,7 +24,7 @@ class LookingGlassMetalDiagnostic : public RefCounted {
 protected:
     static void _bind_methods() {
         ClassDB::bind_method(D_METHOD("open_frame_pipe", "path"), &LookingGlassMetalDiagnostic::open_frame_pipe);
-        ClassDB::bind_method(D_METHOD("write_frame_pipe", "sequence", "pixels"), &LookingGlassMetalDiagnostic::write_frame_pipe);
+        ClassDB::bind_method(D_METHOD("write_frame_pipe", "sequence", "pixels", "width", "height"), &LookingGlassMetalDiagnostic::write_frame_pipe);
         ClassDB::bind_method(D_METHOD("close_frame_pipe"), &LookingGlassMetalDiagnostic::close_frame_pipe);
         ClassDB::bind_method(D_METHOD("copy_static_quilt", "quilt", "fixture", "columns", "rows", "aspect"), &LookingGlassMetalDiagnostic::copy_static_quilt);
         ClassDB::bind_method(D_METHOD("show_static_quilt", "quilt", "runtime", "display_index", "columns", "rows", "aspect", "seconds"), &LookingGlassMetalDiagnostic::show_static_quilt);
@@ -55,9 +55,9 @@ public:
 #endif
         return frame_pipe>=0;
     }
-    bool write_frame_pipe(int64_t sequence, PackedByteArray pixels) {
-        if (frame_pipe<0 || sequence<=0 || sequence>UINT32_MAX || pixels.size()!=704*684*4 || ![NSThread isMainThread]) return false;
-        uint32_t header[]={0x4c475131,static_cast<uint32_t>(sequence),704,684};
+    bool write_frame_pipe(int64_t sequence, PackedByteArray pixels, int64_t width, int64_t height) {
+        if (frame_pipe<0 || sequence<=0 || sequence>UINT32_MAX || !((width==704 && height==684) || (width==4092 && height==4092)) || pixels.size()!=width*height*4 || ![NSThread isMainThread]) return false;
+        uint32_t header[]={0x4c475131,static_cast<uint32_t>(sequence),static_cast<uint32_t>(width),static_cast<uint32_t>(height)};
         const unsigned char *parts[]={reinterpret_cast<unsigned char *>(header),pixels.ptr()};
         const size_t lengths[]={sizeof(header),static_cast<size_t>(pixels.size())};
         for (int part=0;part<2;++part) {

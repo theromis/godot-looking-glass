@@ -16,6 +16,14 @@ The diagnostic produces 24 new frames while the worker runs for 20 seconds at a 
 
 See [run results](../benchmarks/hardware/live-pipe-worker.json). Atomic file transport remains available as a separate fallback; pass `--pipe-path` only for this launcher-managed FIFO mode.
 
+## Full-resolution control
+
+Add `--large` to the launcher for a fixed 4092×4092, 11×6 quilt. It renders eight new all-real frames, retains the 20-second worker bound and reports producer readback and blocking pipe-write elapsed time separately. Native writes accept only the tested small and 4K dimensions. Worker staging rows are padded to 256-byte pitch for GPU buffer-to-texture copies; protocol pixels remain tightly packed.
+
+On 2026-10-12, all eight 4K frames arrived with exact pixel checks and successful producer/SDK teardown. Average `get_image()` elapsed time was 11.615 ms; average pipe-write elapsed time was 1494.582 ms. The latter includes image-data access/native writes and backpressure while the consumer drains and processes data. It is not a pure kernel-bandwidth measurement or total display latency. Worker diagnostic readback and allocations remain enabled. No smooth animation or 4K FPS claim follows from this run.
+
+Each RGBA8 payload is 66,977,856 bytes (about 63.88 MiB). This measured pipe fallback is unsuitable for smooth 4K output in its current form. Shared-memory transport and fewer copies are the next investigation; a speedup is not assumed. See [4K execution/observation](../benchmarks/hardware/live-pipe-4k.json).
+
 Godot FileAccess did not open the FIFO in the initial run; that failure and the user-reported absence of output are retained separately. Pipe mode now loads the diagnostic GDExtension solely for open/write/close operations, without initializing or loading the Bridge runtime in the Godot process. The native writer retries partial writes/EINTR and rejects non-FIFO paths and invalid payload sizes.
 
 The first native pipe run produced visible updates but transferred only three frames: yielding to SDK/window work for every partial packet starved the pipe reader until the worker deadline, and the producer received SIGPIPE. That partial result is retained separately. The receiver now drains an incomplete packet promptly while retaining the outer time bound; native Darwin pipe writes suppress SIGPIPE per descriptor so an unavailable reader becomes a checked write failure.

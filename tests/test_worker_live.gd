@@ -3,6 +3,9 @@ const Rig=preload("res://addons/looking_glass/rig.gd")
 func _initialize() -> void: run.call_deferred()
 func run() -> void:
     RenderingServer.set_render_loop_enabled(false)
+    var large: bool="--large" in OS.get_cmdline_user_args()
+    var dimensions: Vector2i=Vector2i(4092,4092) if large else Vector2i(704,684)
+    var frame_count: int=8 if large else 24
     var directory: String="res://benchmarks/hardware/live-transport"
     var pipe_path: String=""
     for argument in OS.get_cmdline_user_args():
@@ -33,7 +36,7 @@ func run() -> void:
     rig.total_views=66
     rig.real_views=66
     rig.columns=11
-    rig.tile_size=Vector2i(64,114)
+    rig.tile_size=Vector2i(372,682) if large else Vector2i(64,114)
     rig.synthesis=true
     rig.quilt_rgba8=true
     rig.update_on_demand=true
@@ -42,7 +45,8 @@ func run() -> void:
     rig.view_cone_degrees=30
     scene.add_child(rig)
     var readback_us: int=0
-    for frame in range(24):
+    var pipe_us: int=0
+    for frame in range(frame_count):
         box.rotation.y=float(frame)*0.15
         material.albedo_color=Color(0.95,0.3,0.05) if frame%2==0 else Color(0.05,0.9,0.95)
         rig.request_update()
@@ -57,14 +61,16 @@ func run() -> void:
         var started: int=Time.get_ticks_usec()
         var image: Image=rig.quilt_texture.get_image()
         readback_us+=Time.get_ticks_usec()-started
-        if image==null or image.get_size()!=Vector2i(704,684):
+        if image==null or image.get_size()!=dimensions:
             quit(1)
             return
         if pipe_writer!=null:
-            if not pipe_writer.write_frame_pipe(frame+1,image.get_data()):
+            var pipe_started: int=Time.get_ticks_usec()
+            if not pipe_writer.write_frame_pipe(frame+1,image.get_data(),dimensions.x,dimensions.y):
                 printerr("FAIL live producer pipe write")
                 quit(1)
                 return
+            pipe_us+=Time.get_ticks_usec()-pipe_started
         else:
             var file:=FileAccess.open(directory+"/pending.tmp",FileAccess.WRITE)
             if file==null:
@@ -72,8 +78,8 @@ func run() -> void:
                 return
             file.store_32(0x4c475131)
             file.store_32(frame+1)
-            file.store_32(704)
-            file.store_32(684)
+            file.store_32(dimensions.x)
+            file.store_32(dimensions.y)
             file.store_buffer(image.get_data())
             file.close()
             if DirAccess.rename_absolute(directory+"/pending.tmp",directory+"/latest.bin")!=OK:
@@ -84,5 +90,5 @@ func run() -> void:
     if pipe_writer!=null: pipe_writer.close_frame_pipe()
     scene.queue_free()
     for i in range(4): await process_frame
-    print("PASS live Godot producer frames=24 mean_readback_ms=",float(readback_us)/24000.0)
+    print("PASS live Godot producer frames=",frame_count," mean_readback_ms=",float(readback_us)/(1000.0*frame_count)," mean_pipe_write_ms=",float(pipe_us)/(1000.0*frame_count))
     quit()

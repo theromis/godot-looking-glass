@@ -274,3 +274,7 @@ A running Godot producer generated 24 new quilts; the isolated persistent Metal 
 ### Live CPU pipe checkpoint
 
 The latest bounded small-quilt run transferred all 24 newly rendered Godot frames through a private FIFO into the isolated Metal worker, with exact GPU pixel checks and clean process/SDK teardown. The user confirmed continued motion/color changes. Per-frame disk files are removed; CPU readback/kernel copying/upload and experimental consumer synchronization remain. Average get_image elapsed time was 0.588 ms in this single run, excluding other transport costs. See [protocol and retained failed attempts](docs/live-pipe-transport.md).
+
+### Full-resolution live pipe control
+
+All eight new 4092×4092 Godot quilts reached the isolated Metal worker, with exact pixel checks and clean teardown; the user confirmed visible image/updates. This does not validate smooth 4K animation: average producer readback was 11.615 ms and blocking pipe write was 1494.582 ms per frame in the single bounded diagnostic run. CPU transport/backpressure is the next optimization target; shared-memory and GPU-sharing paths remain unfinished. See [measurement scope](docs/live-pipe-transport.md#full-resolution-control).

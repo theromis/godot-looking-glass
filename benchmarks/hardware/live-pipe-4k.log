@@ -1,0 +1,13 @@
+PASS live Godot producer frames=8 mean_readback_ms=11.614875 mean_pipe_write_ms=1494.5815
+2026-10-12 12:55:33 [Error] 0x500 GL_INVALID_ENUM - invalid enumerant | prog=0 | activeTex=0 | boundTex2D=0 @ [SDK source location redacted]
+live_sequence=1
+live_sequence=2
+live_sequence=3
+live_sequence=4
+live_sequence=5
+live_sequence=6
+live_sequence=7
+live_sequence=8
+persistent_updates=8 exact_gpu_pixels=1 observed_context_stable=1 observed_gl_finishes=7 sdk_calls_ok=1 release=1 shutdown=1
+consumer_completion_contract_verified=false experimental_reuse=true
+live_godot_input=1 last_sequence=8
