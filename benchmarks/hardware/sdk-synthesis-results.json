@@ -1,0 +1,3840 @@
+{
+  "date": "2026-10-12",
+  "hardware": "Apple M4",
+  "engine": "4.8.dev.custom_build.c61fc0118",
+  "sdk": "2.6.3",
+  "driver": "native Metal",
+  "environment": {
+    "GODOT_MTL_SYNC_MODE": "none"
+  },
+  "timing": "Main-thread force_draw / force_sync / committed native Metal fence elapsed wall time; render-thread dispatch recording separately",
+  "warmup_samples_per_run": 20,
+  "runs": [
+    {
+      "exact_output_bytes": true,
+      "quilt_size": [
+        704,
+        684
+      ],
+      "real_views": 24,
+      "samples": [
+        {
+          "draw_submit_wait_wall_ms": 0.484,
+          "id": 20,
+          "mode": "direct",
+          "recording_cpu_ms": 0.012
+        },
+        {
+          "draw_submit_wait_wall_ms": 0.557,
+          "id": 21,
+          "mode": "copy",
+          "recording_cpu_ms": 0.013
+        },
+        {
+          "draw_submit_wait_wall_ms": 0.583,
+          "id": 22,
+          "mode": "copy",
+          "recording_cpu_ms": 0.013
+        },
+        {
+          "draw_submit_wait_wall_ms": 0.529,
+          "id": 23,
+          "mode": "direct",
+          "recording_cpu_ms": 0.012
+        },
+        {
+          "draw_submit_wait_wall_ms": 0.642,
+          "id": 24,
+          "mode": "direct",
+          "recording_cpu_ms": 0.012
+        },
+        {
+          "draw_submit_wait_wall_ms": 0.582,
+          "id": 25,
+          "mode": "copy",
+          "recording_cpu_ms": 0.013
+        },
+        {
+          "draw_submit_wait_wall_ms": 0.632,
+          "id": 26,
+          "mode": "copy",
+          "recording_cpu_ms": 0.013
+        },
+        {
+          "draw_submit_wait_wall_ms": 0.605,
+          "id": 27,
+          "mode": "direct",
+          "recording_cpu_ms": 0.013
+        },
+        {
+          "draw_submit_wait_wall_ms": 0.619,
+          "id": 28,
+          "mode": "direct",
+          "recording_cpu_ms": 0.013
+        },
+        {
+          "draw_submit_wait_wall_ms": 0.526,
+          "id": 29,
+          "mode": "copy",
+          "recording_cpu_ms": 0.013
+        },
+        {
+          "draw_submit_wait_wall_ms": 0.608,
+          "id": 30,
+          "mode": "copy",
+          "recording_cpu_ms": 0.012
+        },
+        {
+          "draw_submit_wait_wall_ms": 0.615,
+          "id": 31,
+          "mode": "direct",
+          "recording_cpu_ms": 0.012
+        },
+        {
+          "draw_submit_wait_wall_ms": 0.597,
+          "id": 32,
+          "mode": "direct",
+          "recording_cpu_ms": 0.012
+        },
+        {
+          "draw_submit_wait_wall_ms": 0.607,
+          "id": 33,
+          "mode": "copy",
+          "recording_cpu_ms": 0.014
+        },
+        {
+          "draw_submit_wait_wall_ms": 0.629,
+          "id": 34,
+          "mode": "copy",
+          "recording_cpu_ms": 0.013
+        },
+        {
+          "draw_submit_wait_wall_ms": 0.672,
+          "id": 35,
+          "mode": "direct",
+          "recording_cpu_ms": 0.012
+        },
+        {
+          "draw_submit_wait_wall_ms": 0.602,
+          "id": 36,
+          "mode": "direct",
+          "recording_cpu_ms": 0.013
+        },
+        {
+          "draw_submit_wait_wall_ms": 0.617,
+          "id": 37,
+          "mode": "copy",
+          "recording_cpu_ms": 0.013
+        },
+        {
+          "draw_submit_wait_wall_ms": 0.612,
+          "id": 38,
+          "mode": "copy",
+          "recording_cpu_ms": 0.013
+        },
+        {
+          "draw_submit_wait_wall_ms": 0.61,
+          "id": 39,
+          "mode": "direct",
+          "recording_cpu_ms": 0.013
+        },
+        {
+          "draw_submit_wait_wall_ms": 0.602,
+          "id": 40,
+          "mode": "direct",
+          "recording_cpu_ms": 0.013
+        },
+        {
+          "draw_submit_wait_wall_ms": 0.608,
+          "id": 41,
+          "mode": "copy",
+          "recording_cpu_ms": 0.013
+        },
+        {
+          "draw_submit_wait_wall_ms": 0.694,
+          "id": 42,
+          "mode": "copy",
+          "recording_cpu_ms": 0.013
+        },
+        {
+          "draw_submit_wait_wall_ms": 0.598,
+          "id": 43,
+          "mode": "direct",
+          "recording_cpu_ms": 0.013
+        },
+        {
+          "draw_submit_wait_wall_ms": 0.591,
+          "id": 44,
+          "mode": "direct",
+          "recording_cpu_ms": 0.014
+        },
+        {
+          "draw_submit_wait_wall_ms": 0.888,
+          "id": 45,
+          "mode": "copy",
+          "recording_cpu_ms": 0.013
+        },
+        {
+          "draw_submit_wait_wall_ms": 0.723,
+          "id": 46,
+          "mode": "copy",
+          "recording_cpu_ms": 0.013
+        },
+        {
+          "draw_submit_wait_wall_ms": 0.739,
+          "id": 47,
+          "mode": "direct",
+          "recording_cpu_ms": 0.013
+        },
+        {
+          "draw_submit_wait_wall_ms": 0.667,
+          "id": 48,
+          "mode": "direct",
+          "recording_cpu_ms": 0.012
+        },
+        {
+          "draw_submit_wait_wall_ms": 0.562,
+          "id": 49,
+          "mode": "copy",
+          "recording_cpu_ms": 0.013
+        },
+        {
+          "draw_submit_wait_wall_ms": 0.643,
+          "id": 50,
+          "mode": "copy",
+          "recording_cpu_ms": 0.013
+        },
+        {
+          "draw_submit_wait_wall_ms": 0.616,
+          "id": 51,
+          "mode": "direct",
+          "recording_cpu_ms": 0.012
+        },
+        {
+          "draw_submit_wait_wall_ms": 0.596,
+          "id": 52,
+          "mode": "direct",
+          "recording_cpu_ms": 0.013
+        },
+        {
+          "draw_submit_wait_wall_ms": 0.606,
+          "id": 53,
+          "mode": "copy",
+          "recording_cpu_ms": 0.013
+        },
+        {
+          "draw_submit_wait_wall_ms": 0.552,
+          "id": 54,
+          "mode": "copy",
+          "recording_cpu_ms": 0.013
+        },
+        {
+          "draw_submit_wait_wall_ms": 0.634,
+          "id": 55,
+          "mode": "direct",
+          "recording_cpu_ms": 0.014
+        },
+        {
+          "draw_submit_wait_wall_ms": 0.595,
+          "id": 56,
+          "mode": "direct",
+          "recording_cpu_ms": 0.013
+        },
+        {
+          "draw_submit_wait_wall_ms": 0.623,
+          "id": 57,
+          "mode": "copy",
+          "recording_cpu_ms": 0.013
+        },
+        {
+          "draw_submit_wait_wall_ms": 0.631,
+          "id": 58,
+          "mode": "copy",
+          "recording_cpu_ms": 0.014
+        },
+        {
+          "draw_submit_wait_wall_ms": 0.618,
+          "id": 59,
+          "mode": "direct",
+          "recording_cpu_ms": 0.013
+        },
+        {
+          "draw_submit_wait_wall_ms": 0.602,
+          "id": 60,
+          "mode": "direct",
+          "recording_cpu_ms": 0.013
+        },
+        {
+          "draw_submit_wait_wall_ms": 0.633,
+          "id": 61,
+          "mode": "copy",
+          "recording_cpu_ms": 0.013
+        },
+        {
+          "draw_submit_wait_wall_ms": 0.622,
+          "id": 62,
+          "mode": "copy",
+          "recording_cpu_ms": 0.014
+        },
+        {
+          "draw_submit_wait_wall_ms": 0.594,
+          "id": 63,
+          "mode": "direct",
+          "recording_cpu_ms": 0.013
+        },
+        {
+          "draw_submit_wait_wall_ms": 0.589,
+          "id": 64,
+          "mode": "direct",
+          "recording_cpu_ms": 0.013
+        },
+        {
+          "draw_submit_wait_wall_ms": 0.611,
+          "id": 65,
+          "mode": "copy",
+          "recording_cpu_ms": 0.013
+        },
+        {
+          "draw_submit_wait_wall_ms": 0.898,
+          "id": 66,
+          "mode": "copy",
+          "recording_cpu_ms": 0.014
+        },
+        {
+          "draw_submit_wait_wall_ms": 0.748,
+          "id": 67,
+          "mode": "direct",
+          "recording_cpu_ms": 0.013
+        },
+        {
+          "draw_submit_wait_wall_ms": 0.67,
+          "id": 68,
+          "mode": "direct",
+          "recording_cpu_ms": 0.013
+        },
+        {
+          "draw_submit_wait_wall_ms": 0.678,
+          "id": 69,
+          "mode": "copy",
+          "recording_cpu_ms": 0.014
+        },
+        {
+          "draw_submit_wait_wall_ms": 0.742,
+          "id": 70,
+          "mode": "copy",
+          "recording_cpu_ms": 0.014
+        },
+        {
+          "draw_submit_wait_wall_ms": 0.688,
+          "id": 71,
+          "mode": "direct",
+          "recording_cpu_ms": 0.013
+        },
+        {
+          "draw_submit_wait_wall_ms": 0.647,
+          "id": 72,
+          "mode": "direct",
+          "recording_cpu_ms": 0.014
+        },
+        {
+          "draw_submit_wait_wall_ms": 0.636,
+          "id": 73,
+          "mode": "copy",
+          "recording_cpu_ms": 0.014
+        },
+        {
+          "draw_submit_wait_wall_ms": 0.741,
+          "id": 74,
+          "mode": "copy",
+          "recording_cpu_ms": 0.014
+        },
+        {
+          "draw_submit_wait_wall_ms": 0.623,
+          "id": 75,
+          "mode": "direct",
+          "recording_cpu_ms": 0.014
+        },
+        {
+          "draw_submit_wait_wall_ms": 0.607,
+          "id": 76,
+          "mode": "direct",
+          "recording_cpu_ms": 0.014
+        },
+        {
+          "draw_submit_wait_wall_ms": 0.641,
+          "id": 77,
+          "mode": "copy",
+          "recording_cpu_ms": 0.014
+        },
+        {
+          "draw_submit_wait_wall_ms": 0.65,
+          "id": 78,
+          "mode": "copy",
+          "recording_cpu_ms": 0.016
+        },
+        {
+          "draw_submit_wait_wall_ms": 0.756,
+          "id": 79,
+          "mode": "direct",
+          "recording_cpu_ms": 0.015
+        },
+        {
+          "draw_submit_wait_wall_ms": 0.563,
+          "id": 80,
+          "mode": "direct",
+          "recording_cpu_ms": 0.014
+        },
+        {
+          "draw_submit_wait_wall_ms": 0.661,
+          "id": 81,
+          "mode": "copy",
+          "recording_cpu_ms": 0.015
+        },
+        {
+          "draw_submit_wait_wall_ms": 0.588,
+          "id": 82,
+          "mode": "copy",
+          "recording_cpu_ms": 0.015
+        },
+        {
+          "draw_submit_wait_wall_ms": 0.618,
+          "id": 83,
+          "mode": "direct",
+          "recording_cpu_ms": 0.014
+        },
+        {
+          "draw_submit_wait_wall_ms": 0.559,
+          "id": 84,
+          "mode": "direct",
+          "recording_cpu_ms": 0.014
+        },
+        {
+          "draw_submit_wait_wall_ms": 0.586,
+          "id": 85,
+          "mode": "copy",
+          "recording_cpu_ms": 0.014
+        },
+        {
+          "draw_submit_wait_wall_ms": 0.58,
+          "id": 86,
+          "mode": "copy",
+          "recording_cpu_ms": 0.014
+        },
+        {
+          "draw_submit_wait_wall_ms": 0.669,
+          "id": 87,
+          "mode": "direct",
+          "recording_cpu_ms": 0.014
+        },
+        {
+          "draw_submit_wait_wall_ms": 0.705,
+          "id": 88,
+          "mode": "direct",
+          "recording_cpu_ms": 0.013
+        },
+        {
+          "draw_submit_wait_wall_ms": 0.792,
+          "id": 89,
+          "mode": "copy",
+          "recording_cpu_ms": 0.014
+        },
+        {
+          "draw_submit_wait_wall_ms": 0.813,
+          "id": 90,
+          "mode": "copy",
+          "recording_cpu_ms": 0.014
+        },
+        {
+          "draw_submit_wait_wall_ms": 0.784,
+          "id": 91,
+          "mode": "direct",
+          "recording_cpu_ms": 0.015
+        },
+        {
+          "draw_submit_wait_wall_ms": 0.757,
+          "id": 92,
+          "mode": "direct",
+          "recording_cpu_ms": 0.014
+        },
+        {
+          "draw_submit_wait_wall_ms": 0.791,
+          "id": 93,
+          "mode": "copy",
+          "recording_cpu_ms": 0.015
+        },
+        {
+          "draw_submit_wait_wall_ms": 0.787,
+          "id": 94,
+          "mode": "copy",
+          "recording_cpu_ms": 0.014
+        },
+        {
+          "draw_submit_wait_wall_ms": 0.737,
+          "id": 95,
+          "mode": "direct",
+          "recording_cpu_ms": 0.014
+        },
+        {
+          "draw_submit_wait_wall_ms": 0.634,
+          "id": 96,
+          "mode": "direct",
+          "recording_cpu_ms": 0.014
+        },
+        {
+          "draw_submit_wait_wall_ms": 0.645,
+          "id": 97,
+          "mode": "copy",
+          "recording_cpu_ms": 0.015
+        },
+        {
+          "draw_submit_wait_wall_ms": 0.655,
+          "id": 98,
+          "mode": "copy",
+          "recording_cpu_ms": 0.015
+        },
+        {
+          "draw_submit_wait_wall_ms": 0.674,
+          "id": 99,
+          "mode": "direct",
+          "recording_cpu_ms": 0.015
+        },
+        {
+          "draw_submit_wait_wall_ms": 0.602,
+          "id": 100,
+          "mode": "direct",
+          "recording_cpu_ms": 0.014
+        },
+        {
+          "draw_submit_wait_wall_ms": 0.645,
+          "id": 101,
+          "mode": "copy",
+          "recording_cpu_ms": 0.015
+        },
+        {
+          "draw_submit_wait_wall_ms": 0.648,
+          "id": 102,
+          "mode": "copy",
+          "recording_cpu_ms": 0.015
+        },
+        {
+          "draw_submit_wait_wall_ms": 0.611,
+          "id": 103,
+          "mode": "direct",
+          "recording_cpu_ms": 0.014
+        },
+        {
+          "draw_submit_wait_wall_ms": 0.634,
+          "id": 104,
+          "mode": "direct",
+          "recording_cpu_ms": 0.014
+        },
+        {
+          "draw_submit_wait_wall_ms": 0.865,
+          "id": 105,
+          "mode": "copy",
+          "recording_cpu_ms": 0.016
+        },
+        {
+          "draw_submit_wait_wall_ms": 0.812,
+          "id": 106,
+          "mode": "copy",
+          "recording_cpu_ms": 0.015
+        },
+        {
+          "draw_submit_wait_wall_ms": 0.778,
+          "id": 107,
+          "mode": "direct",
+          "recording_cpu_ms": 0.015
+        },
+        {
+          "draw_submit_wait_wall_ms": 0.732,
+          "id": 108,
+          "mode": "direct",
+          "recording_cpu_ms": 0.014
+        },
+        {
+          "draw_submit_wait_wall_ms": 0.799,
+          "id": 109,
+          "mode": "copy",
+          "recording_cpu_ms": 0.015
+        },
+        {
+          "draw_submit_wait_wall_ms": 0.802,
+          "id": 110,
+          "mode": "copy",
+          "recording_cpu_ms": 0.015
+        },
+        {
+          "draw_submit_wait_wall_ms": 0.773,
+          "id": 111,
+          "mode": "direct",
+          "recording_cpu_ms": 0.015
+        },
+        {
+          "draw_submit_wait_wall_ms": 0.768,
+          "id": 112,
+          "mode": "direct",
+          "recording_cpu_ms": 0.014
+        },
+        {
+          "draw_submit_wait_wall_ms": 0.799,
+          "id": 113,
+          "mode": "copy",
+          "recording_cpu_ms": 0.015
+        },
+        {
+          "draw_submit_wait_wall_ms": 0.828,
+          "id": 114,
+          "mode": "copy",
+          "recording_cpu_ms": 0.014
+        },
+        {
+          "draw_submit_wait_wall_ms": 0.771,
+          "id": 115,
+          "mode": "direct",
+          "recording_cpu_ms": 0.015
+        },
+        {
+          "draw_submit_wait_wall_ms": 0.754,
+          "id": 116,
+          "mode": "direct",
+          "recording_cpu_ms": 0.015
+        },
+        {
+          "draw_submit_wait_wall_ms": 0.77,
+          "id": 117,
+          "mode": "copy",
+          "recording_cpu_ms": 0.016
+        },
+        {
+          "draw_submit_wait_wall_ms": 0.658,
+          "id": 118,
+          "mode": "copy",
+          "recording_cpu_ms": 0.015
+        },
+        {
+          "draw_submit_wait_wall_ms": 0.632,
+          "id": 119,
+          "mode": "direct",
+          "recording_cpu_ms": 0.015
+        }
+      ],
+      "sdk_draw_submitted": false,
+      "source_captures_frozen": true,
+      "total_views": 66,
+      "repeat": 1,
+      "summary": {
+        "direct": {
+          "samples": 50,
+          "draw_submit_wait_wall_ms": {
+            "median": 0.6275,
+            "p10": 0.591,
+            "p90": 0.768
+          },
+          "recording_cpu_median_ms": 0.0135
+        },
+        "copy": {
+          "samples": 50,
+          "draw_submit_wait_wall_ms": {
+            "median": 0.644,
+            "p10": 0.582,
+            "p90": 0.813
+          },
+          "recording_cpu_median_ms": 0.014
+        }
+      }
+    },
+    {
+      "exact_output_bytes": true,
+      "quilt_size": [
+        4092,
+        4092
+      ],
+      "real_views": 24,
+      "samples": [
+        {
+          "draw_submit_wait_wall_ms": 6.349,
+          "id": 20,
+          "mode": "direct",
+          "recording_cpu_ms": 0.055
+        },
+        {
+          "draw_submit_wait_wall_ms": 8.698,
+          "id": 21,
+          "mode": "copy",
+          "recording_cpu_ms": 0.07
+        },
+        {
+          "draw_submit_wait_wall_ms": 8.088,
+          "id": 22,
+          "mode": "copy",
+          "recording_cpu_ms": 0.058
+        },
+        {
+          "draw_submit_wait_wall_ms": 6.743,
+          "id": 23,
+          "mode": "direct",
+          "recording_cpu_ms": 0.03
+        },
+        {
+          "draw_submit_wait_wall_ms": 5.169,
+          "id": 24,
+          "mode": "direct",
+          "recording_cpu_ms": 0.027
+        },
+        {
+          "draw_submit_wait_wall_ms": 9.659,
+          "id": 25,
+          "mode": "copy",
+          "recording_cpu_ms": 0.03
+        },
+        {
+          "draw_submit_wait_wall_ms": 7.108,
+          "id": 26,
+          "mode": "copy",
+          "recording_cpu_ms": 0.024
+        },
+        {
+          "draw_submit_wait_wall_ms": 5.542,
+          "id": 27,
+          "mode": "direct",
+          "recording_cpu_ms": 0.019
+        },
+        {
+          "draw_submit_wait_wall_ms": 4.775,
+          "id": 28,
+          "mode": "direct",
+          "recording_cpu_ms": 0.018
+        },
+        {
+          "draw_submit_wait_wall_ms": 6.019,
+          "id": 29,
+          "mode": "copy",
+          "recording_cpu_ms": 0.019
+        },
+        {
+          "draw_submit_wait_wall_ms": 6.63,
+          "id": 30,
+          "mode": "copy",
+          "recording_cpu_ms": 0.018
+        },
+        {
+          "draw_submit_wait_wall_ms": 3.536,
+          "id": 31,
+          "mode": "direct",
+          "recording_cpu_ms": 0.017
+        },
+        {
+          "draw_submit_wait_wall_ms": 3.634,
+          "id": 32,
+          "mode": "direct",
+          "recording_cpu_ms": 0.017
+        },
+        {
+          "draw_submit_wait_wall_ms": 4.875,
+          "id": 33,
+          "mode": "copy",
+          "recording_cpu_ms": 0.015
+        },
+        {
+          "draw_submit_wait_wall_ms": 5.443,
+          "id": 34,
+          "mode": "copy",
+          "recording_cpu_ms": 0.015
+        },
+        {
+          "draw_submit_wait_wall_ms": 3.214,
+          "id": 35,
+          "mode": "direct",
+          "recording_cpu_ms": 0.015
+        },
+        {
+          "draw_submit_wait_wall_ms": 3.089,
+          "id": 36,
+          "mode": "direct",
+          "recording_cpu_ms": 0.015
+        },
+        {
+          "draw_submit_wait_wall_ms": 4.127,
+          "id": 37,
+          "mode": "copy",
+          "recording_cpu_ms": 0.014
+        },
+        {
+          "draw_submit_wait_wall_ms": 4.181,
+          "id": 38,
+          "mode": "copy",
+          "recording_cpu_ms": 0.014
+        },
+        {
+          "draw_submit_wait_wall_ms": 2.718,
+          "id": 39,
+          "mode": "direct",
+          "recording_cpu_ms": 0.014
+        },
+        {
+          "draw_submit_wait_wall_ms": 2.737,
+          "id": 40,
+          "mode": "direct",
+          "recording_cpu_ms": 0.014
+        },
+        {
+          "draw_submit_wait_wall_ms": 4.474,
+          "id": 41,
+          "mode": "copy",
+          "recording_cpu_ms": 0.013
+        },
+        {
+          "draw_submit_wait_wall_ms": 3.86,
+          "id": 42,
+          "mode": "copy",
+          "recording_cpu_ms": 0.012
+        },
+        {
+          "draw_submit_wait_wall_ms": 2.945,
+          "id": 43,
+          "mode": "direct",
+          "recording_cpu_ms": 0.013
+        },
+        {
+          "draw_submit_wait_wall_ms": 2.644,
+          "id": 44,
+          "mode": "direct",
+          "recording_cpu_ms": 0.012
+        },
+        {
+          "draw_submit_wait_wall_ms": 3.815,
+          "id": 45,
+          "mode": "copy",
+          "recording_cpu_ms": 0.013
+        },
+        {
+          "draw_submit_wait_wall_ms": 4.206,
+          "id": 46,
+          "mode": "copy",
+          "recording_cpu_ms": 0.012
+        },
+        {
+          "draw_submit_wait_wall_ms": 2.793,
+          "id": 47,
+          "mode": "direct",
+          "recording_cpu_ms": 0.011
+        },
+        {
+          "draw_submit_wait_wall_ms": 2.606,
+          "id": 48,
+          "mode": "direct",
+          "recording_cpu_ms": 0.011
+        },
+        {
+          "draw_submit_wait_wall_ms": 3.763,
+          "id": 49,
+          "mode": "copy",
+          "recording_cpu_ms": 0.012
+        },
+        {
+          "draw_submit_wait_wall_ms": 3.776,
+          "id": 50,
+          "mode": "copy",
+          "recording_cpu_ms": 0.011
+        },
+        {
+          "draw_submit_wait_wall_ms": 3.112,
+          "id": 51,
+          "mode": "direct",
+          "recording_cpu_ms": 0.011
+        },
+        {
+          "draw_submit_wait_wall_ms": 2.677,
+          "id": 52,
+          "mode": "direct",
+          "recording_cpu_ms": 0.011
+        },
+        {
+          "draw_submit_wait_wall_ms": 3.751,
+          "id": 53,
+          "mode": "copy",
+          "recording_cpu_ms": 0.011
+        },
+        {
+          "draw_submit_wait_wall_ms": 3.918,
+          "id": 54,
+          "mode": "copy",
+          "recording_cpu_ms": 0.011
+        },
+        {
+          "draw_submit_wait_wall_ms": 2.577,
+          "id": 55,
+          "mode": "direct",
+          "recording_cpu_ms": 0.011
+        },
+        {
+          "draw_submit_wait_wall_ms": 3.014,
+          "id": 56,
+          "mode": "direct",
+          "recording_cpu_ms": 0.011
+        },
+        {
+          "draw_submit_wait_wall_ms": 3.972,
+          "id": 57,
+          "mode": "copy",
+          "recording_cpu_ms": 0.011
+        },
+        {
+          "draw_submit_wait_wall_ms": 3.778,
+          "id": 58,
+          "mode": "copy",
+          "recording_cpu_ms": 0.011
+        },
+        {
+          "draw_submit_wait_wall_ms": 2.572,
+          "id": 59,
+          "mode": "direct",
+          "recording_cpu_ms": 0.01
+        },
+        {
+          "draw_submit_wait_wall_ms": 2.691,
+          "id": 60,
+          "mode": "direct",
+          "recording_cpu_ms": 0.011
+        },
+        {
+          "draw_submit_wait_wall_ms": 4.157,
+          "id": 61,
+          "mode": "copy",
+          "recording_cpu_ms": 0.011
+        },
+        {
+          "draw_submit_wait_wall_ms": 3.929,
+          "id": 62,
+          "mode": "copy",
+          "recording_cpu_ms": 0.011
+        },
+        {
+          "draw_submit_wait_wall_ms": 2.569,
+          "id": 63,
+          "mode": "direct",
+          "recording_cpu_ms": 0.011
+        },
+        {
+          "draw_submit_wait_wall_ms": 2.563,
+          "id": 64,
+          "mode": "direct",
+          "recording_cpu_ms": 0.011
+        },
+        {
+          "draw_submit_wait_wall_ms": 3.774,
+          "id": 65,
+          "mode": "copy",
+          "recording_cpu_ms": 0.012
+        },
+        {
+          "draw_submit_wait_wall_ms": 3.802,
+          "id": 66,
+          "mode": "copy",
+          "recording_cpu_ms": 0.011
+        },
+        {
+          "draw_submit_wait_wall_ms": 2.723,
+          "id": 67,
+          "mode": "direct",
+          "recording_cpu_ms": 0.011
+        },
+        {
+          "draw_submit_wait_wall_ms": 2.576,
+          "id": 68,
+          "mode": "direct",
+          "recording_cpu_ms": 0.011
+        },
+        {
+          "draw_submit_wait_wall_ms": 3.748,
+          "id": 69,
+          "mode": "copy",
+          "recording_cpu_ms": 0.011
+        },
+        {
+          "draw_submit_wait_wall_ms": 4.156,
+          "id": 70,
+          "mode": "copy",
+          "recording_cpu_ms": 0.011
+        },
+        {
+          "draw_submit_wait_wall_ms": 2.556,
+          "id": 71,
+          "mode": "direct",
+          "recording_cpu_ms": 0.011
+        },
+        {
+          "draw_submit_wait_wall_ms": 2.616,
+          "id": 72,
+          "mode": "direct",
+          "recording_cpu_ms": 0.011
+        },
+        {
+          "draw_submit_wait_wall_ms": 3.758,
+          "id": 73,
+          "mode": "copy",
+          "recording_cpu_ms": 0.011
+        },
+        {
+          "draw_submit_wait_wall_ms": 4.16,
+          "id": 74,
+          "mode": "copy",
+          "recording_cpu_ms": 0.011
+        },
+        {
+          "draw_submit_wait_wall_ms": 3.17,
+          "id": 75,
+          "mode": "direct",
+          "recording_cpu_ms": 0.011
+        },
+        {
+          "draw_submit_wait_wall_ms": 2.637,
+          "id": 76,
+          "mode": "direct",
+          "recording_cpu_ms": 0.011
+        },
+        {
+          "draw_submit_wait_wall_ms": 3.75,
+          "id": 77,
+          "mode": "copy",
+          "recording_cpu_ms": 0.012
+        },
+        {
+          "draw_submit_wait_wall_ms": 3.835,
+          "id": 78,
+          "mode": "copy",
+          "recording_cpu_ms": 0.011
+        },
+        {
+          "draw_submit_wait_wall_ms": 2.617,
+          "id": 79,
+          "mode": "direct",
+          "recording_cpu_ms": 0.011
+        },
+        {
+          "draw_submit_wait_wall_ms": 2.587,
+          "id": 80,
+          "mode": "direct",
+          "recording_cpu_ms": 0.011
+        },
+        {
+          "draw_submit_wait_wall_ms": 3.94,
+          "id": 81,
+          "mode": "copy",
+          "recording_cpu_ms": 0.011
+        },
+        {
+          "draw_submit_wait_wall_ms": 3.806,
+          "id": 82,
+          "mode": "copy",
+          "recording_cpu_ms": 0.012
+        },
+        {
+          "draw_submit_wait_wall_ms": 2.573,
+          "id": 83,
+          "mode": "direct",
+          "recording_cpu_ms": 0.01
+        },
+        {
+          "draw_submit_wait_wall_ms": 3.203,
+          "id": 84,
+          "mode": "direct",
+          "recording_cpu_ms": 0.01
+        },
+        {
+          "draw_submit_wait_wall_ms": 3.762,
+          "id": 85,
+          "mode": "copy",
+          "recording_cpu_ms": 0.011
+        },
+        {
+          "draw_submit_wait_wall_ms": 3.982,
+          "id": 86,
+          "mode": "copy",
+          "recording_cpu_ms": 0.011
+        },
+        {
+          "draw_submit_wait_wall_ms": 2.579,
+          "id": 87,
+          "mode": "direct",
+          "recording_cpu_ms": 0.011
+        },
+        {
+          "draw_submit_wait_wall_ms": 2.552,
+          "id": 88,
+          "mode": "direct",
+          "recording_cpu_ms": 0.011
+        },
+        {
+          "draw_submit_wait_wall_ms": 4.339,
+          "id": 89,
+          "mode": "copy",
+          "recording_cpu_ms": 0.011
+        },
+        {
+          "draw_submit_wait_wall_ms": 3.812,
+          "id": 90,
+          "mode": "copy",
+          "recording_cpu_ms": 0.011
+        },
+        {
+          "draw_submit_wait_wall_ms": 2.775,
+          "id": 91,
+          "mode": "direct",
+          "recording_cpu_ms": 0.011
+        },
+        {
+          "draw_submit_wait_wall_ms": 2.617,
+          "id": 92,
+          "mode": "direct",
+          "recording_cpu_ms": 0.011
+        },
+        {
+          "draw_submit_wait_wall_ms": 3.816,
+          "id": 93,
+          "mode": "copy",
+          "recording_cpu_ms": 0.011
+        },
+        {
+          "draw_submit_wait_wall_ms": 3.783,
+          "id": 94,
+          "mode": "copy",
+          "recording_cpu_ms": 0.011
+        },
+        {
+          "draw_submit_wait_wall_ms": 2.599,
+          "id": 95,
+          "mode": "direct",
+          "recording_cpu_ms": 0.011
+        },
+        {
+          "draw_submit_wait_wall_ms": 2.749,
+          "id": 96,
+          "mode": "direct",
+          "recording_cpu_ms": 0.011
+        },
+        {
+          "draw_submit_wait_wall_ms": 3.812,
+          "id": 97,
+          "mode": "copy",
+          "recording_cpu_ms": 0.011
+        },
+        {
+          "draw_submit_wait_wall_ms": 3.91,
+          "id": 98,
+          "mode": "copy",
+          "recording_cpu_ms": 0.011
+        },
+        {
+          "draw_submit_wait_wall_ms": 2.583,
+          "id": 99,
+          "mode": "direct",
+          "recording_cpu_ms": 0.011
+        },
+        {
+          "draw_submit_wait_wall_ms": 2.573,
+          "id": 100,
+          "mode": "direct",
+          "recording_cpu_ms": 0.011
+        },
+        {
+          "draw_submit_wait_wall_ms": 3.99,
+          "id": 101,
+          "mode": "copy",
+          "recording_cpu_ms": 0.011
+        },
+        {
+          "draw_submit_wait_wall_ms": 3.852,
+          "id": 102,
+          "mode": "copy",
+          "recording_cpu_ms": 0.011
+        },
+        {
+          "draw_submit_wait_wall_ms": 2.579,
+          "id": 103,
+          "mode": "direct",
+          "recording_cpu_ms": 0.01
+        },
+        {
+          "draw_submit_wait_wall_ms": 2.626,
+          "id": 104,
+          "mode": "direct",
+          "recording_cpu_ms": 0.011
+        },
+        {
+          "draw_submit_wait_wall_ms": 3.815,
+          "id": 105,
+          "mode": "copy",
+          "recording_cpu_ms": 0.011
+        },
+        {
+          "draw_submit_wait_wall_ms": 3.985,
+          "id": 106,
+          "mode": "copy",
+          "recording_cpu_ms": 0.011
+        },
+        {
+          "draw_submit_wait_wall_ms": 2.611,
+          "id": 107,
+          "mode": "direct",
+          "recording_cpu_ms": 0.011
+        },
+        {
+          "draw_submit_wait_wall_ms": 2.538,
+          "id": 108,
+          "mode": "direct",
+          "recording_cpu_ms": 0.011
+        },
+        {
+          "draw_submit_wait_wall_ms": 3.77,
+          "id": 109,
+          "mode": "copy",
+          "recording_cpu_ms": 0.011
+        },
+        {
+          "draw_submit_wait_wall_ms": 3.952,
+          "id": 110,
+          "mode": "copy",
+          "recording_cpu_ms": 0.011
+        },
+        {
+          "draw_submit_wait_wall_ms": 2.644,
+          "id": 111,
+          "mode": "direct",
+          "recording_cpu_ms": 0.011
+        },
+        {
+          "draw_submit_wait_wall_ms": 2.611,
+          "id": 112,
+          "mode": "direct",
+          "recording_cpu_ms": 0.011
+        },
+        {
+          "draw_submit_wait_wall_ms": 3.757,
+          "id": 113,
+          "mode": "copy",
+          "recording_cpu_ms": 0.011
+        },
+        {
+          "draw_submit_wait_wall_ms": 3.812,
+          "id": 114,
+          "mode": "copy",
+          "recording_cpu_ms": 0.011
+        },
+        {
+          "draw_submit_wait_wall_ms": 2.749,
+          "id": 115,
+          "mode": "direct",
+          "recording_cpu_ms": 0.011
+        },
+        {
+          "draw_submit_wait_wall_ms": 2.601,
+          "id": 116,
+          "mode": "direct",
+          "recording_cpu_ms": 0.011
+        },
+        {
+          "draw_submit_wait_wall_ms": 3.839,
+          "id": 117,
+          "mode": "copy",
+          "recording_cpu_ms": 0.016
+        },
+        {
+          "draw_submit_wait_wall_ms": 3.879,
+          "id": 118,
+          "mode": "copy",
+          "recording_cpu_ms": 0.011
+        },
+        {
+          "draw_submit_wait_wall_ms": 3.0,
+          "id": 119,
+          "mode": "direct",
+          "recording_cpu_ms": 0.011
+        }
+      ],
+      "sdk_draw_submitted": false,
+      "source_captures_frozen": true,
+      "total_views": 66,
+      "repeat": 1,
+      "summary": {
+        "direct": {
+          "samples": 50,
+          "draw_submit_wait_wall_ms": {
+            "median": 2.644,
+            "p10": 2.572,
+            "p90": 4.775
+          },
+          "recording_cpu_median_ms": 0.011
+        },
+        "copy": {
+          "samples": 50,
+          "draw_submit_wait_wall_ms": {
+            "median": 3.8945,
+            "p10": 3.762,
+            "p90": 6.63
+          },
+          "recording_cpu_median_ms": 0.011
+        }
+      }
+    },
+    {
+      "exact_output_bytes": true,
+      "quilt_size": [
+        704,
+        684
+      ],
+      "real_views": 24,
+      "samples": [
+        {
+          "draw_submit_wait_wall_ms": 0.853,
+          "id": 20,
+          "mode": "direct",
+          "recording_cpu_ms": 0.021
+        },
+        {
+          "draw_submit_wait_wall_ms": 0.824,
+          "id": 21,
+          "mode": "copy",
+          "recording_cpu_ms": 0.022
+        },
+        {
+          "draw_submit_wait_wall_ms": 0.794,
+          "id": 22,
+          "mode": "copy",
+          "recording_cpu_ms": 0.022
+        },
+        {
+          "draw_submit_wait_wall_ms": 0.859,
+          "id": 23,
+          "mode": "direct",
+          "recording_cpu_ms": 0.024
+        },
+        {
+          "draw_submit_wait_wall_ms": 0.893,
+          "id": 24,
+          "mode": "direct",
+          "recording_cpu_ms": 0.023
+        },
+        {
+          "draw_submit_wait_wall_ms": 0.955,
+          "id": 25,
+          "mode": "copy",
+          "recording_cpu_ms": 0.024
+        },
+        {
+          "draw_submit_wait_wall_ms": 0.981,
+          "id": 26,
+          "mode": "copy",
+          "recording_cpu_ms": 0.024
+        },
+        {
+          "draw_submit_wait_wall_ms": 0.802,
+          "id": 27,
+          "mode": "direct",
+          "recording_cpu_ms": 0.023
+        },
+        {
+          "draw_submit_wait_wall_ms": 0.836,
+          "id": 28,
+          "mode": "direct",
+          "recording_cpu_ms": 0.024
+        },
+        {
+          "draw_submit_wait_wall_ms": 0.874,
+          "id": 29,
+          "mode": "copy",
+          "recording_cpu_ms": 0.024
+        },
+        {
+          "draw_submit_wait_wall_ms": 0.833,
+          "id": 30,
+          "mode": "copy",
+          "recording_cpu_ms": 0.023
+        },
+        {
+          "draw_submit_wait_wall_ms": 0.947,
+          "id": 31,
+          "mode": "direct",
+          "recording_cpu_ms": 0.024
+        },
+        {
+          "draw_submit_wait_wall_ms": 1.02,
+          "id": 32,
+          "mode": "direct",
+          "recording_cpu_ms": 0.023
+        },
+        {
+          "draw_submit_wait_wall_ms": 1.026,
+          "id": 33,
+          "mode": "copy",
+          "recording_cpu_ms": 0.024
+        },
+        {
+          "draw_submit_wait_wall_ms": 1.049,
+          "id": 34,
+          "mode": "copy",
+          "recording_cpu_ms": 0.024
+        },
+        {
+          "draw_submit_wait_wall_ms": 1.015,
+          "id": 35,
+          "mode": "direct",
+          "recording_cpu_ms": 0.023
+        },
+        {
+          "draw_submit_wait_wall_ms": 0.981,
+          "id": 36,
+          "mode": "direct",
+          "recording_cpu_ms": 0.023
+        },
+        {
+          "draw_submit_wait_wall_ms": 1.052,
+          "id": 37,
+          "mode": "copy",
+          "recording_cpu_ms": 0.024
+        },
+        {
+          "draw_submit_wait_wall_ms": 1.061,
+          "id": 38,
+          "mode": "copy",
+          "recording_cpu_ms": 0.023
+        },
+        {
+          "draw_submit_wait_wall_ms": 1.011,
+          "id": 39,
+          "mode": "direct",
+          "recording_cpu_ms": 0.024
+        },
+        {
+          "draw_submit_wait_wall_ms": 1.06,
+          "id": 40,
+          "mode": "direct",
+          "recording_cpu_ms": 0.024
+        },
+        {
+          "draw_submit_wait_wall_ms": 0.902,
+          "id": 41,
+          "mode": "copy",
+          "recording_cpu_ms": 0.024
+        },
+        {
+          "draw_submit_wait_wall_ms": 0.81,
+          "id": 42,
+          "mode": "copy",
+          "recording_cpu_ms": 0.023
+        },
+        {
+          "draw_submit_wait_wall_ms": 0.862,
+          "id": 43,
+          "mode": "direct",
+          "recording_cpu_ms": 0.023
+        },
+        {
+          "draw_submit_wait_wall_ms": 1.024,
+          "id": 44,
+          "mode": "direct",
+          "recording_cpu_ms": 0.024
+        },
+        {
+          "draw_submit_wait_wall_ms": 1.012,
+          "id": 45,
+          "mode": "copy",
+          "recording_cpu_ms": 0.023
+        },
+        {
+          "draw_submit_wait_wall_ms": 1.049,
+          "id": 46,
+          "mode": "copy",
+          "recording_cpu_ms": 0.024
+        },
+        {
+          "draw_submit_wait_wall_ms": 0.985,
+          "id": 47,
+          "mode": "direct",
+          "recording_cpu_ms": 0.023
+        },
+        {
+          "draw_submit_wait_wall_ms": 1.007,
+          "id": 48,
+          "mode": "direct",
+          "recording_cpu_ms": 0.024
+        },
+        {
+          "draw_submit_wait_wall_ms": 1.035,
+          "id": 49,
+          "mode": "copy",
+          "recording_cpu_ms": 0.023
+        },
+        {
+          "draw_submit_wait_wall_ms": 1.031,
+          "id": 50,
+          "mode": "copy",
+          "recording_cpu_ms": 0.023
+        },
+        {
+          "draw_submit_wait_wall_ms": 0.969,
+          "id": 51,
+          "mode": "direct",
+          "recording_cpu_ms": 0.024
+        },
+        {
+          "draw_submit_wait_wall_ms": 0.972,
+          "id": 52,
+          "mode": "direct",
+          "recording_cpu_ms": 0.027
+        },
+        {
+          "draw_submit_wait_wall_ms": 1.039,
+          "id": 53,
+          "mode": "copy",
+          "recording_cpu_ms": 0.028
+        },
+        {
+          "draw_submit_wait_wall_ms": 1.056,
+          "id": 54,
+          "mode": "copy",
+          "recording_cpu_ms": 0.028
+        },
+        {
+          "draw_submit_wait_wall_ms": 0.865,
+          "id": 55,
+          "mode": "direct",
+          "recording_cpu_ms": 0.026
+        },
+        {
+          "draw_submit_wait_wall_ms": 0.866,
+          "id": 56,
+          "mode": "direct",
+          "recording_cpu_ms": 0.027
+        },
+        {
+          "draw_submit_wait_wall_ms": 0.932,
+          "id": 57,
+          "mode": "copy",
+          "recording_cpu_ms": 0.031
+        },
+        {
+          "draw_submit_wait_wall_ms": 1.094,
+          "id": 58,
+          "mode": "copy",
+          "recording_cpu_ms": 0.027
+        },
+        {
+          "draw_submit_wait_wall_ms": 1.03,
+          "id": 59,
+          "mode": "direct",
+          "recording_cpu_ms": 0.027
+        },
+        {
+          "draw_submit_wait_wall_ms": 1.001,
+          "id": 60,
+          "mode": "direct",
+          "recording_cpu_ms": 0.027
+        },
+        {
+          "draw_submit_wait_wall_ms": 1.068,
+          "id": 61,
+          "mode": "copy",
+          "recording_cpu_ms": 0.028
+        },
+        {
+          "draw_submit_wait_wall_ms": 0.979,
+          "id": 62,
+          "mode": "copy",
+          "recording_cpu_ms": 0.028
+        },
+        {
+          "draw_submit_wait_wall_ms": 0.968,
+          "id": 63,
+          "mode": "direct",
+          "recording_cpu_ms": 0.028
+        },
+        {
+          "draw_submit_wait_wall_ms": 0.993,
+          "id": 64,
+          "mode": "direct",
+          "recording_cpu_ms": 0.028
+        },
+        {
+          "draw_submit_wait_wall_ms": 1.049,
+          "id": 65,
+          "mode": "copy",
+          "recording_cpu_ms": 0.029
+        },
+        {
+          "draw_submit_wait_wall_ms": 1.073,
+          "id": 66,
+          "mode": "copy",
+          "recording_cpu_ms": 0.028
+        },
+        {
+          "draw_submit_wait_wall_ms": 1.047,
+          "id": 67,
+          "mode": "direct",
+          "recording_cpu_ms": 0.028
+        },
+        {
+          "draw_submit_wait_wall_ms": 1.065,
+          "id": 68,
+          "mode": "direct",
+          "recording_cpu_ms": 0.028
+        },
+        {
+          "draw_submit_wait_wall_ms": 0.809,
+          "id": 69,
+          "mode": "copy",
+          "recording_cpu_ms": 0.027
+        },
+        {
+          "draw_submit_wait_wall_ms": 1.069,
+          "id": 70,
+          "mode": "copy",
+          "recording_cpu_ms": 0.027
+        },
+        {
+          "draw_submit_wait_wall_ms": 1.008,
+          "id": 71,
+          "mode": "direct",
+          "recording_cpu_ms": 0.027
+        },
+        {
+          "draw_submit_wait_wall_ms": 0.967,
+          "id": 72,
+          "mode": "direct",
+          "recording_cpu_ms": 0.028
+        },
+        {
+          "draw_submit_wait_wall_ms": 1.08,
+          "id": 73,
+          "mode": "copy",
+          "recording_cpu_ms": 0.031
+        },
+        {
+          "draw_submit_wait_wall_ms": 1.059,
+          "id": 74,
+          "mode": "copy",
+          "recording_cpu_ms": 0.03
+        },
+        {
+          "draw_submit_wait_wall_ms": 1.017,
+          "id": 75,
+          "mode": "direct",
+          "recording_cpu_ms": 0.027
+        },
+        {
+          "draw_submit_wait_wall_ms": 1.002,
+          "id": 76,
+          "mode": "direct",
+          "recording_cpu_ms": 0.027
+        },
+        {
+          "draw_submit_wait_wall_ms": 1.056,
+          "id": 77,
+          "mode": "copy",
+          "recording_cpu_ms": 0.029
+        },
+        {
+          "draw_submit_wait_wall_ms": 1.086,
+          "id": 78,
+          "mode": "copy",
+          "recording_cpu_ms": 0.028
+        },
+        {
+          "draw_submit_wait_wall_ms": 1.027,
+          "id": 79,
+          "mode": "direct",
+          "recording_cpu_ms": 0.026
+        },
+        {
+          "draw_submit_wait_wall_ms": 0.994,
+          "id": 80,
+          "mode": "direct",
+          "recording_cpu_ms": 0.027
+        },
+        {
+          "draw_submit_wait_wall_ms": 1.164,
+          "id": 81,
+          "mode": "copy",
+          "recording_cpu_ms": 0.035
+        },
+        {
+          "draw_submit_wait_wall_ms": 1.235,
+          "id": 82,
+          "mode": "copy",
+          "recording_cpu_ms": 0.034
+        },
+        {
+          "draw_submit_wait_wall_ms": 1.176,
+          "id": 83,
+          "mode": "direct",
+          "recording_cpu_ms": 0.034
+        },
+        {
+          "draw_submit_wait_wall_ms": 1.043,
+          "id": 84,
+          "mode": "direct",
+          "recording_cpu_ms": 0.032
+        },
+        {
+          "draw_submit_wait_wall_ms": 1.119,
+          "id": 85,
+          "mode": "copy",
+          "recording_cpu_ms": 0.033
+        },
+        {
+          "draw_submit_wait_wall_ms": 1.134,
+          "id": 86,
+          "mode": "copy",
+          "recording_cpu_ms": 0.034
+        },
+        {
+          "draw_submit_wait_wall_ms": 1.102,
+          "id": 87,
+          "mode": "direct",
+          "recording_cpu_ms": 0.033
+        },
+        {
+          "draw_submit_wait_wall_ms": 1.068,
+          "id": 88,
+          "mode": "direct",
+          "recording_cpu_ms": 0.033
+        },
+        {
+          "draw_submit_wait_wall_ms": 1.123,
+          "id": 89,
+          "mode": "copy",
+          "recording_cpu_ms": 0.032
+        },
+        {
+          "draw_submit_wait_wall_ms": 1.143,
+          "id": 90,
+          "mode": "copy",
+          "recording_cpu_ms": 0.032
+        },
+        {
+          "draw_submit_wait_wall_ms": 1.113,
+          "id": 91,
+          "mode": "direct",
+          "recording_cpu_ms": 0.031
+        },
+        {
+          "draw_submit_wait_wall_ms": 1.165,
+          "id": 92,
+          "mode": "direct",
+          "recording_cpu_ms": 0.033
+        },
+        {
+          "draw_submit_wait_wall_ms": 1.109,
+          "id": 93,
+          "mode": "copy",
+          "recording_cpu_ms": 0.032
+        },
+        {
+          "draw_submit_wait_wall_ms": 1.286,
+          "id": 94,
+          "mode": "copy",
+          "recording_cpu_ms": 0.034
+        },
+        {
+          "draw_submit_wait_wall_ms": 1.193,
+          "id": 95,
+          "mode": "direct",
+          "recording_cpu_ms": 0.032
+        },
+        {
+          "draw_submit_wait_wall_ms": 1.494,
+          "id": 96,
+          "mode": "direct",
+          "recording_cpu_ms": 0.063
+        },
+        {
+          "draw_submit_wait_wall_ms": 1.51,
+          "id": 97,
+          "mode": "copy",
+          "recording_cpu_ms": 0.053
+        },
+        {
+          "draw_submit_wait_wall_ms": 1.52,
+          "id": 98,
+          "mode": "copy",
+          "recording_cpu_ms": 0.064
+        },
+        {
+          "draw_submit_wait_wall_ms": 1.303,
+          "id": 99,
+          "mode": "direct",
+          "recording_cpu_ms": 0.061
+        },
+        {
+          "draw_submit_wait_wall_ms": 1.198,
+          "id": 100,
+          "mode": "direct",
+          "recording_cpu_ms": 0.047
+        },
+        {
+          "draw_submit_wait_wall_ms": 1.212,
+          "id": 101,
+          "mode": "copy",
+          "recording_cpu_ms": 0.045
+        },
+        {
+          "draw_submit_wait_wall_ms": 1.438,
+          "id": 102,
+          "mode": "copy",
+          "recording_cpu_ms": 0.042
+        },
+        {
+          "draw_submit_wait_wall_ms": 1.137,
+          "id": 103,
+          "mode": "direct",
+          "recording_cpu_ms": 0.041
+        },
+        {
+          "draw_submit_wait_wall_ms": 1.049,
+          "id": 104,
+          "mode": "direct",
+          "recording_cpu_ms": 0.04
+        },
+        {
+          "draw_submit_wait_wall_ms": 1.26,
+          "id": 105,
+          "mode": "copy",
+          "recording_cpu_ms": 0.049
+        },
+        {
+          "draw_submit_wait_wall_ms": 1.271,
+          "id": 106,
+          "mode": "copy",
+          "recording_cpu_ms": 0.045
+        },
+        {
+          "draw_submit_wait_wall_ms": 1.148,
+          "id": 107,
+          "mode": "direct",
+          "recording_cpu_ms": 0.044
+        },
+        {
+          "draw_submit_wait_wall_ms": 1.135,
+          "id": 108,
+          "mode": "direct",
+          "recording_cpu_ms": 0.045
+        },
+        {
+          "draw_submit_wait_wall_ms": 1.346,
+          "id": 109,
+          "mode": "copy",
+          "recording_cpu_ms": 0.053
+        },
+        {
+          "draw_submit_wait_wall_ms": 1.465,
+          "id": 110,
+          "mode": "copy",
+          "recording_cpu_ms": 0.062
+        },
+        {
+          "draw_submit_wait_wall_ms": 1.292,
+          "id": 111,
+          "mode": "direct",
+          "recording_cpu_ms": 0.072
+        },
+        {
+          "draw_submit_wait_wall_ms": 1.204,
+          "id": 112,
+          "mode": "direct",
+          "recording_cpu_ms": 0.056
+        },
+        {
+          "draw_submit_wait_wall_ms": 1.172,
+          "id": 113,
+          "mode": "copy",
+          "recording_cpu_ms": 0.06
+        },
+        {
+          "draw_submit_wait_wall_ms": 1.257,
+          "id": 114,
+          "mode": "copy",
+          "recording_cpu_ms": 0.049
+        },
+        {
+          "draw_submit_wait_wall_ms": 1.174,
+          "id": 115,
+          "mode": "direct",
+          "recording_cpu_ms": 0.052
+        },
+        {
+          "draw_submit_wait_wall_ms": 1.166,
+          "id": 116,
+          "mode": "direct",
+          "recording_cpu_ms": 0.046
+        },
+        {
+          "draw_submit_wait_wall_ms": 1.438,
+          "id": 117,
+          "mode": "copy",
+          "recording_cpu_ms": 0.059
+        },
+        {
+          "draw_submit_wait_wall_ms": 1.575,
+          "id": 118,
+          "mode": "copy",
+          "recording_cpu_ms": 0.073
+        },
+        {
+          "draw_submit_wait_wall_ms": 1.447,
+          "id": 119,
+          "mode": "direct",
+          "recording_cpu_ms": 0.069
+        }
+      ],
+      "sdk_draw_submitted": false,
+      "source_captures_frozen": true,
+      "total_views": 66,
+      "repeat": 2,
+      "summary": {
+        "direct": {
+          "samples": 50,
+          "draw_submit_wait_wall_ms": {
+            "median": 1.022,
+            "p10": 0.865,
+            "p90": 1.204
+          },
+          "recording_cpu_median_ms": 0.027
+        },
+        "copy": {
+          "samples": 50,
+          "draw_submit_wait_wall_ms": {
+            "median": 1.0685,
+            "p10": 0.874,
+            "p90": 1.438
+          },
+          "recording_cpu_median_ms": 0.0285
+        }
+      }
+    },
+    {
+      "exact_output_bytes": true,
+      "quilt_size": [
+        4092,
+        4092
+      ],
+      "real_views": 24,
+      "samples": [
+        {
+          "draw_submit_wait_wall_ms": 7.071,
+          "id": 20,
+          "mode": "direct",
+          "recording_cpu_ms": 0.046
+        },
+        {
+          "draw_submit_wait_wall_ms": 10.117,
+          "id": 21,
+          "mode": "copy",
+          "recording_cpu_ms": 0.044
+        },
+        {
+          "draw_submit_wait_wall_ms": 8.932,
+          "id": 22,
+          "mode": "copy",
+          "recording_cpu_ms": 0.042
+        },
+        {
+          "draw_submit_wait_wall_ms": 7.462,
+          "id": 23,
+          "mode": "direct",
+          "recording_cpu_ms": 0.037
+        },
+        {
+          "draw_submit_wait_wall_ms": 6.904,
+          "id": 24,
+          "mode": "direct",
+          "recording_cpu_ms": 0.037
+        },
+        {
+          "draw_submit_wait_wall_ms": 9.48,
+          "id": 25,
+          "mode": "copy",
+          "recording_cpu_ms": 0.041
+        },
+        {
+          "draw_submit_wait_wall_ms": 10.268,
+          "id": 26,
+          "mode": "copy",
+          "recording_cpu_ms": 0.047
+        },
+        {
+          "draw_submit_wait_wall_ms": 6.558,
+          "id": 27,
+          "mode": "direct",
+          "recording_cpu_ms": 0.036
+        },
+        {
+          "draw_submit_wait_wall_ms": 8.144,
+          "id": 28,
+          "mode": "direct",
+          "recording_cpu_ms": 0.038
+        },
+        {
+          "draw_submit_wait_wall_ms": 8.428,
+          "id": 29,
+          "mode": "copy",
+          "recording_cpu_ms": 0.041
+        },
+        {
+          "draw_submit_wait_wall_ms": 10.527,
+          "id": 30,
+          "mode": "copy",
+          "recording_cpu_ms": 0.075
+        },
+        {
+          "draw_submit_wait_wall_ms": 7.039,
+          "id": 31,
+          "mode": "direct",
+          "recording_cpu_ms": 0.039
+        },
+        {
+          "draw_submit_wait_wall_ms": 7.96,
+          "id": 32,
+          "mode": "direct",
+          "recording_cpu_ms": 0.038
+        },
+        {
+          "draw_submit_wait_wall_ms": 9.184,
+          "id": 33,
+          "mode": "copy",
+          "recording_cpu_ms": 0.048
+        },
+        {
+          "draw_submit_wait_wall_ms": 9.904,
+          "id": 34,
+          "mode": "copy",
+          "recording_cpu_ms": 0.065
+        },
+        {
+          "draw_submit_wait_wall_ms": 6.823,
+          "id": 35,
+          "mode": "direct",
+          "recording_cpu_ms": 0.038
+        },
+        {
+          "draw_submit_wait_wall_ms": 7.152,
+          "id": 36,
+          "mode": "direct",
+          "recording_cpu_ms": 0.107
+        },
+        {
+          "draw_submit_wait_wall_ms": 9.011,
+          "id": 37,
+          "mode": "copy",
+          "recording_cpu_ms": 0.046
+        },
+        {
+          "draw_submit_wait_wall_ms": 9.056,
+          "id": 38,
+          "mode": "copy",
+          "recording_cpu_ms": 0.126
+        },
+        {
+          "draw_submit_wait_wall_ms": 8.153,
+          "id": 39,
+          "mode": "direct",
+          "recording_cpu_ms": 0.041
+        },
+        {
+          "draw_submit_wait_wall_ms": 7.076,
+          "id": 40,
+          "mode": "direct",
+          "recording_cpu_ms": 0.039
+        },
+        {
+          "draw_submit_wait_wall_ms": 9.896,
+          "id": 41,
+          "mode": "copy",
+          "recording_cpu_ms": 0.044
+        },
+        {
+          "draw_submit_wait_wall_ms": 9.025,
+          "id": 42,
+          "mode": "copy",
+          "recording_cpu_ms": 0.037
+        },
+        {
+          "draw_submit_wait_wall_ms": 8.152,
+          "id": 43,
+          "mode": "direct",
+          "recording_cpu_ms": 0.041
+        },
+        {
+          "draw_submit_wait_wall_ms": 6.869,
+          "id": 44,
+          "mode": "direct",
+          "recording_cpu_ms": 0.039
+        },
+        {
+          "draw_submit_wait_wall_ms": 9.719,
+          "id": 45,
+          "mode": "copy",
+          "recording_cpu_ms": 0.04
+        },
+        {
+          "draw_submit_wait_wall_ms": 9.198,
+          "id": 46,
+          "mode": "copy",
+          "recording_cpu_ms": 0.062
+        },
+        {
+          "draw_submit_wait_wall_ms": 7.376,
+          "id": 47,
+          "mode": "direct",
+          "recording_cpu_ms": 0.137
+        },
+        {
+          "draw_submit_wait_wall_ms": 8.299,
+          "id": 48,
+          "mode": "direct",
+          "recording_cpu_ms": 0.042
+        },
+        {
+          "draw_submit_wait_wall_ms": 8.962,
+          "id": 49,
+          "mode": "copy",
+          "recording_cpu_ms": 0.05
+        },
+        {
+          "draw_submit_wait_wall_ms": 8.894,
+          "id": 50,
+          "mode": "copy",
+          "recording_cpu_ms": 0.048
+        },
+        {
+          "draw_submit_wait_wall_ms": 7.908,
+          "id": 51,
+          "mode": "direct",
+          "recording_cpu_ms": 0.033
+        },
+        {
+          "draw_submit_wait_wall_ms": 6.861,
+          "id": 52,
+          "mode": "direct",
+          "recording_cpu_ms": 0.033
+        },
+        {
+          "draw_submit_wait_wall_ms": 9.801,
+          "id": 53,
+          "mode": "copy",
+          "recording_cpu_ms": 0.032
+        },
+        {
+          "draw_submit_wait_wall_ms": 9.164,
+          "id": 54,
+          "mode": "copy",
+          "recording_cpu_ms": 0.042
+        },
+        {
+          "draw_submit_wait_wall_ms": 7.771,
+          "id": 55,
+          "mode": "direct",
+          "recording_cpu_ms": 0.055
+        },
+        {
+          "draw_submit_wait_wall_ms": 7.627,
+          "id": 56,
+          "mode": "direct",
+          "recording_cpu_ms": 0.116
+        },
+        {
+          "draw_submit_wait_wall_ms": 9.849,
+          "id": 57,
+          "mode": "copy",
+          "recording_cpu_ms": 0.071
+        },
+        {
+          "draw_submit_wait_wall_ms": 9.336,
+          "id": 58,
+          "mode": "copy",
+          "recording_cpu_ms": 0.075
+        },
+        {
+          "draw_submit_wait_wall_ms": 7.216,
+          "id": 59,
+          "mode": "direct",
+          "recording_cpu_ms": 0.065
+        },
+        {
+          "draw_submit_wait_wall_ms": 7.569,
+          "id": 60,
+          "mode": "direct",
+          "recording_cpu_ms": 0.07
+        },
+        {
+          "draw_submit_wait_wall_ms": 9.492,
+          "id": 61,
+          "mode": "copy",
+          "recording_cpu_ms": 0.121
+        },
+        {
+          "draw_submit_wait_wall_ms": 9.796,
+          "id": 62,
+          "mode": "copy",
+          "recording_cpu_ms": 0.081
+        },
+        {
+          "draw_submit_wait_wall_ms": 7.37,
+          "id": 63,
+          "mode": "direct",
+          "recording_cpu_ms": 0.056
+        },
+        {
+          "draw_submit_wait_wall_ms": 8.033,
+          "id": 64,
+          "mode": "direct",
+          "recording_cpu_ms": 0.075
+        },
+        {
+          "draw_submit_wait_wall_ms": 9.475,
+          "id": 65,
+          "mode": "copy",
+          "recording_cpu_ms": 0.073
+        },
+        {
+          "draw_submit_wait_wall_ms": 10.114,
+          "id": 66,
+          "mode": "copy",
+          "recording_cpu_ms": 0.077
+        },
+        {
+          "draw_submit_wait_wall_ms": 7.738,
+          "id": 67,
+          "mode": "direct",
+          "recording_cpu_ms": 0.117
+        },
+        {
+          "draw_submit_wait_wall_ms": 7.286,
+          "id": 68,
+          "mode": "direct",
+          "recording_cpu_ms": 0.068
+        },
+        {
+          "draw_submit_wait_wall_ms": 10.105,
+          "id": 69,
+          "mode": "copy",
+          "recording_cpu_ms": 0.074
+        },
+        {
+          "draw_submit_wait_wall_ms": 9.343,
+          "id": 70,
+          "mode": "copy",
+          "recording_cpu_ms": 0.07
+        },
+        {
+          "draw_submit_wait_wall_ms": 7.733,
+          "id": 71,
+          "mode": "direct",
+          "recording_cpu_ms": 0.068
+        },
+        {
+          "draw_submit_wait_wall_ms": 7.501,
+          "id": 72,
+          "mode": "direct",
+          "recording_cpu_ms": 0.088
+        },
+        {
+          "draw_submit_wait_wall_ms": 9.926,
+          "id": 73,
+          "mode": "copy",
+          "recording_cpu_ms": 0.075
+        },
+        {
+          "draw_submit_wait_wall_ms": 10.07,
+          "id": 74,
+          "mode": "copy",
+          "recording_cpu_ms": 0.108
+        },
+        {
+          "draw_submit_wait_wall_ms": 7.58,
+          "id": 75,
+          "mode": "direct",
+          "recording_cpu_ms": 0.071
+        },
+        {
+          "draw_submit_wait_wall_ms": 7.944,
+          "id": 76,
+          "mode": "direct",
+          "recording_cpu_ms": 0.072
+        },
+        {
+          "draw_submit_wait_wall_ms": 9.28,
+          "id": 77,
+          "mode": "copy",
+          "recording_cpu_ms": 0.077
+        },
+        {
+          "draw_submit_wait_wall_ms": 10.06,
+          "id": 78,
+          "mode": "copy",
+          "recording_cpu_ms": 0.102
+        },
+        {
+          "draw_submit_wait_wall_ms": 7.574,
+          "id": 79,
+          "mode": "direct",
+          "recording_cpu_ms": 0.074
+        },
+        {
+          "draw_submit_wait_wall_ms": 7.811,
+          "id": 80,
+          "mode": "direct",
+          "recording_cpu_ms": 0.083
+        },
+        {
+          "draw_submit_wait_wall_ms": 9.767,
+          "id": 81,
+          "mode": "copy",
+          "recording_cpu_ms": 0.087
+        },
+        {
+          "draw_submit_wait_wall_ms": 9.571,
+          "id": 82,
+          "mode": "copy",
+          "recording_cpu_ms": 0.068
+        },
+        {
+          "draw_submit_wait_wall_ms": 7.937,
+          "id": 83,
+          "mode": "direct",
+          "recording_cpu_ms": 0.068
+        },
+        {
+          "draw_submit_wait_wall_ms": 7.572,
+          "id": 84,
+          "mode": "direct",
+          "recording_cpu_ms": 0.065
+        },
+        {
+          "draw_submit_wait_wall_ms": 9.733,
+          "id": 85,
+          "mode": "copy",
+          "recording_cpu_ms": 0.079
+        },
+        {
+          "draw_submit_wait_wall_ms": 9.524,
+          "id": 86,
+          "mode": "copy",
+          "recording_cpu_ms": 0.067
+        },
+        {
+          "draw_submit_wait_wall_ms": 7.823,
+          "id": 87,
+          "mode": "direct",
+          "recording_cpu_ms": 0.065
+        },
+        {
+          "draw_submit_wait_wall_ms": 7.41,
+          "id": 88,
+          "mode": "direct",
+          "recording_cpu_ms": 0.102
+        },
+        {
+          "draw_submit_wait_wall_ms": 10.272,
+          "id": 89,
+          "mode": "copy",
+          "recording_cpu_ms": 0.097
+        },
+        {
+          "draw_submit_wait_wall_ms": 11.169,
+          "id": 90,
+          "mode": "copy",
+          "recording_cpu_ms": 0.086
+        },
+        {
+          "draw_submit_wait_wall_ms": 8.638,
+          "id": 91,
+          "mode": "direct",
+          "recording_cpu_ms": 0.066
+        },
+        {
+          "draw_submit_wait_wall_ms": 8.041,
+          "id": 92,
+          "mode": "direct",
+          "recording_cpu_ms": 0.095
+        },
+        {
+          "draw_submit_wait_wall_ms": 9.527,
+          "id": 93,
+          "mode": "copy",
+          "recording_cpu_ms": 0.075
+        },
+        {
+          "draw_submit_wait_wall_ms": 10.154,
+          "id": 94,
+          "mode": "copy",
+          "recording_cpu_ms": 0.091
+        },
+        {
+          "draw_submit_wait_wall_ms": 7.54,
+          "id": 95,
+          "mode": "direct",
+          "recording_cpu_ms": 0.059
+        },
+        {
+          "draw_submit_wait_wall_ms": 7.718,
+          "id": 96,
+          "mode": "direct",
+          "recording_cpu_ms": 0.068
+        },
+        {
+          "draw_submit_wait_wall_ms": 10.213,
+          "id": 97,
+          "mode": "copy",
+          "recording_cpu_ms": 0.069
+        },
+        {
+          "draw_submit_wait_wall_ms": 9.364,
+          "id": 98,
+          "mode": "copy",
+          "recording_cpu_ms": 0.071
+        },
+        {
+          "draw_submit_wait_wall_ms": 6.657,
+          "id": 99,
+          "mode": "direct",
+          "recording_cpu_ms": 0.033
+        },
+        {
+          "draw_submit_wait_wall_ms": 6.988,
+          "id": 100,
+          "mode": "direct",
+          "recording_cpu_ms": 0.034
+        },
+        {
+          "draw_submit_wait_wall_ms": 8.845,
+          "id": 101,
+          "mode": "copy",
+          "recording_cpu_ms": 0.04
+        },
+        {
+          "draw_submit_wait_wall_ms": 9.226,
+          "id": 102,
+          "mode": "copy",
+          "recording_cpu_ms": 0.032
+        },
+        {
+          "draw_submit_wait_wall_ms": 6.787,
+          "id": 103,
+          "mode": "direct",
+          "recording_cpu_ms": 0.031
+        },
+        {
+          "draw_submit_wait_wall_ms": 7.367,
+          "id": 104,
+          "mode": "direct",
+          "recording_cpu_ms": 0.031
+        },
+        {
+          "draw_submit_wait_wall_ms": 8.694,
+          "id": 105,
+          "mode": "copy",
+          "recording_cpu_ms": 0.041
+        },
+        {
+          "draw_submit_wait_wall_ms": 9.207,
+          "id": 106,
+          "mode": "copy",
+          "recording_cpu_ms": 0.048
+        },
+        {
+          "draw_submit_wait_wall_ms": 7.113,
+          "id": 107,
+          "mode": "direct",
+          "recording_cpu_ms": 0.037
+        },
+        {
+          "draw_submit_wait_wall_ms": 7.79,
+          "id": 108,
+          "mode": "direct",
+          "recording_cpu_ms": 0.074
+        },
+        {
+          "draw_submit_wait_wall_ms": 9.46,
+          "id": 109,
+          "mode": "copy",
+          "recording_cpu_ms": 0.073
+        },
+        {
+          "draw_submit_wait_wall_ms": 9.026,
+          "id": 110,
+          "mode": "copy",
+          "recording_cpu_ms": 0.058
+        },
+        {
+          "draw_submit_wait_wall_ms": 7.732,
+          "id": 111,
+          "mode": "direct",
+          "recording_cpu_ms": 0.06
+        },
+        {
+          "draw_submit_wait_wall_ms": 7.0,
+          "id": 112,
+          "mode": "direct",
+          "recording_cpu_ms": 0.038
+        },
+        {
+          "draw_submit_wait_wall_ms": 9.737,
+          "id": 113,
+          "mode": "copy",
+          "recording_cpu_ms": 0.071
+        },
+        {
+          "draw_submit_wait_wall_ms": 9.028,
+          "id": 114,
+          "mode": "copy",
+          "recording_cpu_ms": 0.039
+        },
+        {
+          "draw_submit_wait_wall_ms": 7.732,
+          "id": 115,
+          "mode": "direct",
+          "recording_cpu_ms": 0.064
+        },
+        {
+          "draw_submit_wait_wall_ms": 7.484,
+          "id": 116,
+          "mode": "direct",
+          "recording_cpu_ms": 0.069
+        },
+        {
+          "draw_submit_wait_wall_ms": 9.723,
+          "id": 117,
+          "mode": "copy",
+          "recording_cpu_ms": 0.068
+        },
+        {
+          "draw_submit_wait_wall_ms": 9.563,
+          "id": 118,
+          "mode": "copy",
+          "recording_cpu_ms": 0.043
+        },
+        {
+          "draw_submit_wait_wall_ms": 7.078,
+          "id": 119,
+          "mode": "direct",
+          "recording_cpu_ms": 0.041
+        }
+      ],
+      "sdk_draw_submitted": false,
+      "source_captures_frozen": true,
+      "total_views": 66,
+      "repeat": 2,
+      "summary": {
+        "direct": {
+          "samples": 50,
+          "draw_submit_wait_wall_ms": {
+            "median": 7.5545,
+            "p10": 6.869,
+            "p90": 8.144
+          },
+          "recording_cpu_median_ms": 0.0595
+        },
+        "copy": {
+          "samples": 50,
+          "draw_submit_wait_wall_ms": {
+            "median": 9.5255,
+            "p10": 8.962,
+            "p90": 10.213
+          },
+          "recording_cpu_median_ms": 0.068
+        }
+      }
+    },
+    {
+      "exact_output_bytes": true,
+      "quilt_size": [
+        704,
+        684
+      ],
+      "real_views": 24,
+      "samples": [
+        {
+          "draw_submit_wait_wall_ms": 1.456,
+          "id": 20,
+          "mode": "direct",
+          "recording_cpu_ms": 0.102
+        },
+        {
+          "draw_submit_wait_wall_ms": 1.216,
+          "id": 21,
+          "mode": "copy",
+          "recording_cpu_ms": 0.085
+        },
+        {
+          "draw_submit_wait_wall_ms": 1.402,
+          "id": 22,
+          "mode": "copy",
+          "recording_cpu_ms": 0.069
+        },
+        {
+          "draw_submit_wait_wall_ms": 1.252,
+          "id": 23,
+          "mode": "direct",
+          "recording_cpu_ms": 0.06
+        },
+        {
+          "draw_submit_wait_wall_ms": 1.15,
+          "id": 24,
+          "mode": "direct",
+          "recording_cpu_ms": 0.056
+        },
+        {
+          "draw_submit_wait_wall_ms": 1.24,
+          "id": 25,
+          "mode": "copy",
+          "recording_cpu_ms": 0.051
+        },
+        {
+          "draw_submit_wait_wall_ms": 1.684,
+          "id": 26,
+          "mode": "copy",
+          "recording_cpu_ms": 0.053
+        },
+        {
+          "draw_submit_wait_wall_ms": 1.53,
+          "id": 27,
+          "mode": "direct",
+          "recording_cpu_ms": 0.063
+        },
+        {
+          "draw_submit_wait_wall_ms": 1.377,
+          "id": 28,
+          "mode": "direct",
+          "recording_cpu_ms": 0.067
+        },
+        {
+          "draw_submit_wait_wall_ms": 1.504,
+          "id": 29,
+          "mode": "copy",
+          "recording_cpu_ms": 0.051
+        },
+        {
+          "draw_submit_wait_wall_ms": 1.67,
+          "id": 30,
+          "mode": "copy",
+          "recording_cpu_ms": 0.108
+        },
+        {
+          "draw_submit_wait_wall_ms": 1.147,
+          "id": 31,
+          "mode": "direct",
+          "recording_cpu_ms": 0.051
+        },
+        {
+          "draw_submit_wait_wall_ms": 1.057,
+          "id": 32,
+          "mode": "direct",
+          "recording_cpu_ms": 0.045
+        },
+        {
+          "draw_submit_wait_wall_ms": 1.216,
+          "id": 33,
+          "mode": "copy",
+          "recording_cpu_ms": 0.052
+        },
+        {
+          "draw_submit_wait_wall_ms": 1.75,
+          "id": 34,
+          "mode": "copy",
+          "recording_cpu_ms": 0.096
+        },
+        {
+          "draw_submit_wait_wall_ms": 1.601,
+          "id": 35,
+          "mode": "direct",
+          "recording_cpu_ms": 0.095
+        },
+        {
+          "draw_submit_wait_wall_ms": 1.475,
+          "id": 36,
+          "mode": "direct",
+          "recording_cpu_ms": 0.089
+        },
+        {
+          "draw_submit_wait_wall_ms": 1.215,
+          "id": 37,
+          "mode": "copy",
+          "recording_cpu_ms": 0.05
+        },
+        {
+          "draw_submit_wait_wall_ms": 1.633,
+          "id": 38,
+          "mode": "copy",
+          "recording_cpu_ms": 0.092
+        },
+        {
+          "draw_submit_wait_wall_ms": 1.159,
+          "id": 39,
+          "mode": "direct",
+          "recording_cpu_ms": 0.049
+        },
+        {
+          "draw_submit_wait_wall_ms": 1.093,
+          "id": 40,
+          "mode": "direct",
+          "recording_cpu_ms": 0.044
+        },
+        {
+          "draw_submit_wait_wall_ms": 1.181,
+          "id": 41,
+          "mode": "copy",
+          "recording_cpu_ms": 0.043
+        },
+        {
+          "draw_submit_wait_wall_ms": 1.229,
+          "id": 42,
+          "mode": "copy",
+          "recording_cpu_ms": 0.046
+        },
+        {
+          "draw_submit_wait_wall_ms": 1.473,
+          "id": 43,
+          "mode": "direct",
+          "recording_cpu_ms": 0.074
+        },
+        {
+          "draw_submit_wait_wall_ms": 1.423,
+          "id": 44,
+          "mode": "direct",
+          "recording_cpu_ms": 0.042
+        },
+        {
+          "draw_submit_wait_wall_ms": 1.569,
+          "id": 45,
+          "mode": "copy",
+          "recording_cpu_ms": 0.056
+        },
+        {
+          "draw_submit_wait_wall_ms": 1.332,
+          "id": 46,
+          "mode": "copy",
+          "recording_cpu_ms": 0.053
+        },
+        {
+          "draw_submit_wait_wall_ms": 1.322,
+          "id": 47,
+          "mode": "direct",
+          "recording_cpu_ms": 0.098
+        },
+        {
+          "draw_submit_wait_wall_ms": 1.08,
+          "id": 48,
+          "mode": "direct",
+          "recording_cpu_ms": 0.044
+        },
+        {
+          "draw_submit_wait_wall_ms": 1.171,
+          "id": 49,
+          "mode": "copy",
+          "recording_cpu_ms": 0.046
+        },
+        {
+          "draw_submit_wait_wall_ms": 1.206,
+          "id": 50,
+          "mode": "copy",
+          "recording_cpu_ms": 0.043
+        },
+        {
+          "draw_submit_wait_wall_ms": 1.587,
+          "id": 51,
+          "mode": "direct",
+          "recording_cpu_ms": 0.091
+        },
+        {
+          "draw_submit_wait_wall_ms": 1.399,
+          "id": 52,
+          "mode": "direct",
+          "recording_cpu_ms": 0.042
+        },
+        {
+          "draw_submit_wait_wall_ms": 1.298,
+          "id": 53,
+          "mode": "copy",
+          "recording_cpu_ms": 0.095
+        },
+        {
+          "draw_submit_wait_wall_ms": 1.219,
+          "id": 54,
+          "mode": "copy",
+          "recording_cpu_ms": 0.046
+        },
+        {
+          "draw_submit_wait_wall_ms": 1.21,
+          "id": 55,
+          "mode": "direct",
+          "recording_cpu_ms": 0.057
+        },
+        {
+          "draw_submit_wait_wall_ms": 1.231,
+          "id": 56,
+          "mode": "direct",
+          "recording_cpu_ms": 0.099
+        },
+        {
+          "draw_submit_wait_wall_ms": 1.213,
+          "id": 57,
+          "mode": "copy",
+          "recording_cpu_ms": 0.054
+        },
+        {
+          "draw_submit_wait_wall_ms": 1.219,
+          "id": 58,
+          "mode": "copy",
+          "recording_cpu_ms": 0.05
+        },
+        {
+          "draw_submit_wait_wall_ms": 1.172,
+          "id": 59,
+          "mode": "direct",
+          "recording_cpu_ms": 0.048
+        },
+        {
+          "draw_submit_wait_wall_ms": 1.374,
+          "id": 60,
+          "mode": "direct",
+          "recording_cpu_ms": 0.044
+        },
+        {
+          "draw_submit_wait_wall_ms": 1.305,
+          "id": 61,
+          "mode": "copy",
+          "recording_cpu_ms": 0.052
+        },
+        {
+          "draw_submit_wait_wall_ms": 1.726,
+          "id": 62,
+          "mode": "copy",
+          "recording_cpu_ms": 0.094
+        },
+        {
+          "draw_submit_wait_wall_ms": 1.454,
+          "id": 63,
+          "mode": "direct",
+          "recording_cpu_ms": 0.055
+        },
+        {
+          "draw_submit_wait_wall_ms": 1.269,
+          "id": 64,
+          "mode": "direct",
+          "recording_cpu_ms": 0.095
+        },
+        {
+          "draw_submit_wait_wall_ms": 1.152,
+          "id": 65,
+          "mode": "copy",
+          "recording_cpu_ms": 0.048
+        },
+        {
+          "draw_submit_wait_wall_ms": 1.187,
+          "id": 66,
+          "mode": "copy",
+          "recording_cpu_ms": 0.045
+        },
+        {
+          "draw_submit_wait_wall_ms": 1.205,
+          "id": 67,
+          "mode": "direct",
+          "recording_cpu_ms": 0.049
+        },
+        {
+          "draw_submit_wait_wall_ms": 1.572,
+          "id": 68,
+          "mode": "direct",
+          "recording_cpu_ms": 0.044
+        },
+        {
+          "draw_submit_wait_wall_ms": 1.578,
+          "id": 69,
+          "mode": "copy",
+          "recording_cpu_ms": 0.122
+        },
+        {
+          "draw_submit_wait_wall_ms": 1.495,
+          "id": 70,
+          "mode": "copy",
+          "recording_cpu_ms": 0.093
+        },
+        {
+          "draw_submit_wait_wall_ms": 1.275,
+          "id": 71,
+          "mode": "direct",
+          "recording_cpu_ms": 0.046
+        },
+        {
+          "draw_submit_wait_wall_ms": 1.211,
+          "id": 72,
+          "mode": "direct",
+          "recording_cpu_ms": 0.056
+        },
+        {
+          "draw_submit_wait_wall_ms": 1.173,
+          "id": 73,
+          "mode": "copy",
+          "recording_cpu_ms": 0.043
+        },
+        {
+          "draw_submit_wait_wall_ms": 1.201,
+          "id": 74,
+          "mode": "copy",
+          "recording_cpu_ms": 0.042
+        },
+        {
+          "draw_submit_wait_wall_ms": 1.123,
+          "id": 75,
+          "mode": "direct",
+          "recording_cpu_ms": 0.046
+        },
+        {
+          "draw_submit_wait_wall_ms": 1.071,
+          "id": 76,
+          "mode": "direct",
+          "recording_cpu_ms": 0.042
+        },
+        {
+          "draw_submit_wait_wall_ms": 1.605,
+          "id": 77,
+          "mode": "copy",
+          "recording_cpu_ms": 0.121
+        },
+        {
+          "draw_submit_wait_wall_ms": 1.584,
+          "id": 78,
+          "mode": "copy",
+          "recording_cpu_ms": 0.09
+        },
+        {
+          "draw_submit_wait_wall_ms": 1.186,
+          "id": 79,
+          "mode": "direct",
+          "recording_cpu_ms": 0.06
+        },
+        {
+          "draw_submit_wait_wall_ms": 1.169,
+          "id": 80,
+          "mode": "direct",
+          "recording_cpu_ms": 0.047
+        },
+        {
+          "draw_submit_wait_wall_ms": 1.451,
+          "id": 81,
+          "mode": "copy",
+          "recording_cpu_ms": 0.102
+        },
+        {
+          "draw_submit_wait_wall_ms": 1.177,
+          "id": 82,
+          "mode": "copy",
+          "recording_cpu_ms": 0.048
+        },
+        {
+          "draw_submit_wait_wall_ms": 1.231,
+          "id": 83,
+          "mode": "direct",
+          "recording_cpu_ms": 0.051
+        },
+        {
+          "draw_submit_wait_wall_ms": 1.054,
+          "id": 84,
+          "mode": "direct",
+          "recording_cpu_ms": 0.042
+        },
+        {
+          "draw_submit_wait_wall_ms": 1.582,
+          "id": 85,
+          "mode": "copy",
+          "recording_cpu_ms": 0.102
+        },
+        {
+          "draw_submit_wait_wall_ms": 1.362,
+          "id": 86,
+          "mode": "copy",
+          "recording_cpu_ms": 0.087
+        },
+        {
+          "draw_submit_wait_wall_ms": 1.432,
+          "id": 87,
+          "mode": "direct",
+          "recording_cpu_ms": 0.062
+        },
+        {
+          "draw_submit_wait_wall_ms": 0.966,
+          "id": 88,
+          "mode": "direct",
+          "recording_cpu_ms": 0.056
+        },
+        {
+          "draw_submit_wait_wall_ms": 1.356,
+          "id": 89,
+          "mode": "copy",
+          "recording_cpu_ms": 0.067
+        },
+        {
+          "draw_submit_wait_wall_ms": 1.298,
+          "id": 90,
+          "mode": "copy",
+          "recording_cpu_ms": 0.062
+        },
+        {
+          "draw_submit_wait_wall_ms": 1.152,
+          "id": 91,
+          "mode": "direct",
+          "recording_cpu_ms": 0.046
+        },
+        {
+          "draw_submit_wait_wall_ms": 1.083,
+          "id": 92,
+          "mode": "direct",
+          "recording_cpu_ms": 0.045
+        },
+        {
+          "draw_submit_wait_wall_ms": 1.174,
+          "id": 93,
+          "mode": "copy",
+          "recording_cpu_ms": 0.044
+        },
+        {
+          "draw_submit_wait_wall_ms": 1.824,
+          "id": 94,
+          "mode": "copy",
+          "recording_cpu_ms": 0.046
+        },
+        {
+          "draw_submit_wait_wall_ms": 1.612,
+          "id": 95,
+          "mode": "direct",
+          "recording_cpu_ms": 0.094
+        },
+        {
+          "draw_submit_wait_wall_ms": 1.133,
+          "id": 96,
+          "mode": "direct",
+          "recording_cpu_ms": 0.088
+        },
+        {
+          "draw_submit_wait_wall_ms": 1.211,
+          "id": 97,
+          "mode": "copy",
+          "recording_cpu_ms": 0.047
+        },
+        {
+          "draw_submit_wait_wall_ms": 1.407,
+          "id": 98,
+          "mode": "copy",
+          "recording_cpu_ms": 0.093
+        },
+        {
+          "draw_submit_wait_wall_ms": 1.158,
+          "id": 99,
+          "mode": "direct",
+          "recording_cpu_ms": 0.043
+        },
+        {
+          "draw_submit_wait_wall_ms": 1.075,
+          "id": 100,
+          "mode": "direct",
+          "recording_cpu_ms": 0.045
+        },
+        {
+          "draw_submit_wait_wall_ms": 1.134,
+          "id": 101,
+          "mode": "copy",
+          "recording_cpu_ms": 0.043
+        },
+        {
+          "draw_submit_wait_wall_ms": 1.717,
+          "id": 102,
+          "mode": "copy",
+          "recording_cpu_ms": 0.043
+        },
+        {
+          "draw_submit_wait_wall_ms": 1.33,
+          "id": 103,
+          "mode": "direct",
+          "recording_cpu_ms": 0.087
+        },
+        {
+          "draw_submit_wait_wall_ms": 1.473,
+          "id": 104,
+          "mode": "direct",
+          "recording_cpu_ms": 0.085
+        },
+        {
+          "draw_submit_wait_wall_ms": 1.639,
+          "id": 105,
+          "mode": "copy",
+          "recording_cpu_ms": 0.064
+        },
+        {
+          "draw_submit_wait_wall_ms": 1.837,
+          "id": 106,
+          "mode": "copy",
+          "recording_cpu_ms": 0.125
+        },
+        {
+          "draw_submit_wait_wall_ms": 1.143,
+          "id": 107,
+          "mode": "direct",
+          "recording_cpu_ms": 0.05
+        },
+        {
+          "draw_submit_wait_wall_ms": 1.089,
+          "id": 108,
+          "mode": "direct",
+          "recording_cpu_ms": 0.046
+        },
+        {
+          "draw_submit_wait_wall_ms": 1.169,
+          "id": 109,
+          "mode": "copy",
+          "recording_cpu_ms": 0.047
+        },
+        {
+          "draw_submit_wait_wall_ms": 1.303,
+          "id": 110,
+          "mode": "copy",
+          "recording_cpu_ms": 0.045
+        },
+        {
+          "draw_submit_wait_wall_ms": 1.203,
+          "id": 111,
+          "mode": "direct",
+          "recording_cpu_ms": 0.054
+        },
+        {
+          "draw_submit_wait_wall_ms": 1.403,
+          "id": 112,
+          "mode": "direct",
+          "recording_cpu_ms": 0.044
+        },
+        {
+          "draw_submit_wait_wall_ms": 1.261,
+          "id": 113,
+          "mode": "copy",
+          "recording_cpu_ms": 0.052
+        },
+        {
+          "draw_submit_wait_wall_ms": 1.403,
+          "id": 114,
+          "mode": "copy",
+          "recording_cpu_ms": 0.052
+        },
+        {
+          "draw_submit_wait_wall_ms": 1.198,
+          "id": 115,
+          "mode": "direct",
+          "recording_cpu_ms": 0.068
+        },
+        {
+          "draw_submit_wait_wall_ms": 1.13,
+          "id": 116,
+          "mode": "direct",
+          "recording_cpu_ms": 0.069
+        },
+        {
+          "draw_submit_wait_wall_ms": 1.202,
+          "id": 117,
+          "mode": "copy",
+          "recording_cpu_ms": 0.048
+        },
+        {
+          "draw_submit_wait_wall_ms": 1.218,
+          "id": 118,
+          "mode": "copy",
+          "recording_cpu_ms": 0.044
+        },
+        {
+          "draw_submit_wait_wall_ms": 1.644,
+          "id": 119,
+          "mode": "direct",
+          "recording_cpu_ms": 0.044
+        }
+      ],
+      "sdk_draw_submitted": false,
+      "source_captures_frozen": true,
+      "total_views": 66,
+      "repeat": 3,
+      "summary": {
+        "direct": {
+          "samples": 50,
+          "draw_submit_wait_wall_ms": {
+            "median": 1.2105000000000001,
+            "p10": 1.08,
+            "p90": 1.572
+          },
+          "recording_cpu_median_ms": 0.0525
+        },
+        "copy": {
+          "samples": 50,
+          "draw_submit_wait_wall_ms": {
+            "median": 1.3005,
+            "p10": 1.174,
+            "p90": 1.717
+          },
+          "recording_cpu_median_ms": 0.052
+        }
+      }
+    },
+    {
+      "exact_output_bytes": true,
+      "quilt_size": [
+        4092,
+        4092
+      ],
+      "real_views": 24,
+      "samples": [
+        {
+          "draw_submit_wait_wall_ms": 8.478,
+          "id": 20,
+          "mode": "direct",
+          "recording_cpu_ms": 0.079
+        },
+        {
+          "draw_submit_wait_wall_ms": 10.381,
+          "id": 21,
+          "mode": "copy",
+          "recording_cpu_ms": 0.067
+        },
+        {
+          "draw_submit_wait_wall_ms": 9.684,
+          "id": 22,
+          "mode": "copy",
+          "recording_cpu_ms": 0.09
+        },
+        {
+          "draw_submit_wait_wall_ms": 7.353,
+          "id": 23,
+          "mode": "direct",
+          "recording_cpu_ms": 0.061
+        },
+        {
+          "draw_submit_wait_wall_ms": 7.899,
+          "id": 24,
+          "mode": "direct",
+          "recording_cpu_ms": 0.076
+        },
+        {
+          "draw_submit_wait_wall_ms": 9.784,
+          "id": 25,
+          "mode": "copy",
+          "recording_cpu_ms": 0.079
+        },
+        {
+          "draw_submit_wait_wall_ms": 9.779,
+          "id": 26,
+          "mode": "copy",
+          "recording_cpu_ms": 0.084
+        },
+        {
+          "draw_submit_wait_wall_ms": 8.024,
+          "id": 27,
+          "mode": "direct",
+          "recording_cpu_ms": 0.125
+        },
+        {
+          "draw_submit_wait_wall_ms": 7.525,
+          "id": 28,
+          "mode": "direct",
+          "recording_cpu_ms": 0.131
+        },
+        {
+          "draw_submit_wait_wall_ms": 9.687,
+          "id": 29,
+          "mode": "copy",
+          "recording_cpu_ms": 0.101
+        },
+        {
+          "draw_submit_wait_wall_ms": 9.34,
+          "id": 30,
+          "mode": "copy",
+          "recording_cpu_ms": 0.06
+        },
+        {
+          "draw_submit_wait_wall_ms": 7.761,
+          "id": 31,
+          "mode": "direct",
+          "recording_cpu_ms": 0.054
+        },
+        {
+          "draw_submit_wait_wall_ms": 7.328,
+          "id": 32,
+          "mode": "direct",
+          "recording_cpu_ms": 0.077
+        },
+        {
+          "draw_submit_wait_wall_ms": 9.901,
+          "id": 33,
+          "mode": "copy",
+          "recording_cpu_ms": 0.073
+        },
+        {
+          "draw_submit_wait_wall_ms": 10.045,
+          "id": 34,
+          "mode": "copy",
+          "recording_cpu_ms": 0.059
+        },
+        {
+          "draw_submit_wait_wall_ms": 7.438,
+          "id": 35,
+          "mode": "direct",
+          "recording_cpu_ms": 0.095
+        },
+        {
+          "draw_submit_wait_wall_ms": 7.878,
+          "id": 36,
+          "mode": "direct",
+          "recording_cpu_ms": 0.08
+        },
+        {
+          "draw_submit_wait_wall_ms": 9.207,
+          "id": 37,
+          "mode": "copy",
+          "recording_cpu_ms": 0.076
+        },
+        {
+          "draw_submit_wait_wall_ms": 9.682,
+          "id": 38,
+          "mode": "copy",
+          "recording_cpu_ms": 0.071
+        },
+        {
+          "draw_submit_wait_wall_ms": 7.245,
+          "id": 39,
+          "mode": "direct",
+          "recording_cpu_ms": 0.069
+        },
+        {
+          "draw_submit_wait_wall_ms": 7.752,
+          "id": 40,
+          "mode": "direct",
+          "recording_cpu_ms": 0.074
+        },
+        {
+          "draw_submit_wait_wall_ms": 9.311,
+          "id": 41,
+          "mode": "copy",
+          "recording_cpu_ms": 0.074
+        },
+        {
+          "draw_submit_wait_wall_ms": 8.944,
+          "id": 42,
+          "mode": "copy",
+          "recording_cpu_ms": 0.074
+        },
+        {
+          "draw_submit_wait_wall_ms": 7.66,
+          "id": 43,
+          "mode": "direct",
+          "recording_cpu_ms": 0.079
+        },
+        {
+          "draw_submit_wait_wall_ms": 7.447,
+          "id": 44,
+          "mode": "direct",
+          "recording_cpu_ms": 0.071
+        },
+        {
+          "draw_submit_wait_wall_ms": 9.875,
+          "id": 45,
+          "mode": "copy",
+          "recording_cpu_ms": 0.081
+        },
+        {
+          "draw_submit_wait_wall_ms": 9.559,
+          "id": 46,
+          "mode": "copy",
+          "recording_cpu_ms": 0.077
+        },
+        {
+          "draw_submit_wait_wall_ms": 7.892,
+          "id": 47,
+          "mode": "direct",
+          "recording_cpu_ms": 0.07
+        },
+        {
+          "draw_submit_wait_wall_ms": 7.53,
+          "id": 48,
+          "mode": "direct",
+          "recording_cpu_ms": 0.117
+        },
+        {
+          "draw_submit_wait_wall_ms": 9.973,
+          "id": 49,
+          "mode": "copy",
+          "recording_cpu_ms": 0.071
+        },
+        {
+          "draw_submit_wait_wall_ms": 9.862,
+          "id": 50,
+          "mode": "copy",
+          "recording_cpu_ms": 0.125
+        },
+        {
+          "draw_submit_wait_wall_ms": 7.434,
+          "id": 51,
+          "mode": "direct",
+          "recording_cpu_ms": 0.119
+        },
+        {
+          "draw_submit_wait_wall_ms": 9.111,
+          "id": 52,
+          "mode": "direct",
+          "recording_cpu_ms": 0.125
+        },
+        {
+          "draw_submit_wait_wall_ms": 9.702,
+          "id": 53,
+          "mode": "copy",
+          "recording_cpu_ms": 0.086
+        },
+        {
+          "draw_submit_wait_wall_ms": 10.678,
+          "id": 54,
+          "mode": "copy",
+          "recording_cpu_ms": 0.121
+        },
+        {
+          "draw_submit_wait_wall_ms": 8.079,
+          "id": 55,
+          "mode": "direct",
+          "recording_cpu_ms": 0.124
+        },
+        {
+          "draw_submit_wait_wall_ms": 7.55,
+          "id": 56,
+          "mode": "direct",
+          "recording_cpu_ms": 0.136
+        },
+        {
+          "draw_submit_wait_wall_ms": 10.084,
+          "id": 57,
+          "mode": "copy",
+          "recording_cpu_ms": 0.115
+        },
+        {
+          "draw_submit_wait_wall_ms": 9.999,
+          "id": 58,
+          "mode": "copy",
+          "recording_cpu_ms": 0.127
+        },
+        {
+          "draw_submit_wait_wall_ms": 7.789,
+          "id": 59,
+          "mode": "direct",
+          "recording_cpu_ms": 0.12
+        },
+        {
+          "draw_submit_wait_wall_ms": 7.623,
+          "id": 60,
+          "mode": "direct",
+          "recording_cpu_ms": 0.128
+        },
+        {
+          "draw_submit_wait_wall_ms": 9.175,
+          "id": 61,
+          "mode": "copy",
+          "recording_cpu_ms": 0.118
+        },
+        {
+          "draw_submit_wait_wall_ms": 8.946,
+          "id": 62,
+          "mode": "copy",
+          "recording_cpu_ms": 0.101
+        },
+        {
+          "draw_submit_wait_wall_ms": 7.167,
+          "id": 63,
+          "mode": "direct",
+          "recording_cpu_ms": 0.103
+        },
+        {
+          "draw_submit_wait_wall_ms": 7.155,
+          "id": 64,
+          "mode": "direct",
+          "recording_cpu_ms": 0.151
+        },
+        {
+          "draw_submit_wait_wall_ms": 10.212,
+          "id": 65,
+          "mode": "copy",
+          "recording_cpu_ms": 0.118
+        },
+        {
+          "draw_submit_wait_wall_ms": 9.372,
+          "id": 66,
+          "mode": "copy",
+          "recording_cpu_ms": 0.122
+        },
+        {
+          "draw_submit_wait_wall_ms": 7.337,
+          "id": 67,
+          "mode": "direct",
+          "recording_cpu_ms": 0.112
+        },
+        {
+          "draw_submit_wait_wall_ms": 6.828,
+          "id": 68,
+          "mode": "direct",
+          "recording_cpu_ms": 0.11
+        },
+        {
+          "draw_submit_wait_wall_ms": 8.92,
+          "id": 69,
+          "mode": "copy",
+          "recording_cpu_ms": 0.064
+        },
+        {
+          "draw_submit_wait_wall_ms": 8.754,
+          "id": 70,
+          "mode": "copy",
+          "recording_cpu_ms": 0.051
+        },
+        {
+          "draw_submit_wait_wall_ms": 6.726,
+          "id": 71,
+          "mode": "direct",
+          "recording_cpu_ms": 0.132
+        },
+        {
+          "draw_submit_wait_wall_ms": 6.758,
+          "id": 72,
+          "mode": "direct",
+          "recording_cpu_ms": 0.104
+        },
+        {
+          "draw_submit_wait_wall_ms": 8.82,
+          "id": 73,
+          "mode": "copy",
+          "recording_cpu_ms": 0.102
+        },
+        {
+          "draw_submit_wait_wall_ms": 8.73,
+          "id": 74,
+          "mode": "copy",
+          "recording_cpu_ms": 0.066
+        },
+        {
+          "draw_submit_wait_wall_ms": 7.188,
+          "id": 75,
+          "mode": "direct",
+          "recording_cpu_ms": 0.102
+        },
+        {
+          "draw_submit_wait_wall_ms": 7.423,
+          "id": 76,
+          "mode": "direct",
+          "recording_cpu_ms": 0.126
+        },
+        {
+          "draw_submit_wait_wall_ms": 9.042,
+          "id": 77,
+          "mode": "copy",
+          "recording_cpu_ms": 0.125
+        },
+        {
+          "draw_submit_wait_wall_ms": 9.136,
+          "id": 78,
+          "mode": "copy",
+          "recording_cpu_ms": 0.113
+        },
+        {
+          "draw_submit_wait_wall_ms": 6.941,
+          "id": 79,
+          "mode": "direct",
+          "recording_cpu_ms": 0.112
+        },
+        {
+          "draw_submit_wait_wall_ms": 7.368,
+          "id": 80,
+          "mode": "direct",
+          "recording_cpu_ms": 0.079
+        },
+        {
+          "draw_submit_wait_wall_ms": 8.926,
+          "id": 81,
+          "mode": "copy",
+          "recording_cpu_ms": 0.086
+        },
+        {
+          "draw_submit_wait_wall_ms": 9.21,
+          "id": 82,
+          "mode": "copy",
+          "recording_cpu_ms": 0.103
+        },
+        {
+          "draw_submit_wait_wall_ms": 6.879,
+          "id": 83,
+          "mode": "direct",
+          "recording_cpu_ms": 0.108
+        },
+        {
+          "draw_submit_wait_wall_ms": 6.525,
+          "id": 84,
+          "mode": "direct",
+          "recording_cpu_ms": 0.051
+        },
+        {
+          "draw_submit_wait_wall_ms": 9.302,
+          "id": 85,
+          "mode": "copy",
+          "recording_cpu_ms": 0.103
+        },
+        {
+          "draw_submit_wait_wall_ms": 9.403,
+          "id": 86,
+          "mode": "copy",
+          "recording_cpu_ms": 0.111
+        },
+        {
+          "draw_submit_wait_wall_ms": 7.815,
+          "id": 87,
+          "mode": "direct",
+          "recording_cpu_ms": 0.122
+        },
+        {
+          "draw_submit_wait_wall_ms": 7.65,
+          "id": 88,
+          "mode": "direct",
+          "recording_cpu_ms": 0.113
+        },
+        {
+          "draw_submit_wait_wall_ms": 9.918,
+          "id": 89,
+          "mode": "copy",
+          "recording_cpu_ms": 0.131
+        },
+        {
+          "draw_submit_wait_wall_ms": 9.385,
+          "id": 90,
+          "mode": "copy",
+          "recording_cpu_ms": 0.114
+        },
+        {
+          "draw_submit_wait_wall_ms": 7.351,
+          "id": 91,
+          "mode": "direct",
+          "recording_cpu_ms": 0.125
+        },
+        {
+          "draw_submit_wait_wall_ms": 7.73,
+          "id": 92,
+          "mode": "direct",
+          "recording_cpu_ms": 0.118
+        },
+        {
+          "draw_submit_wait_wall_ms": 9.658,
+          "id": 93,
+          "mode": "copy",
+          "recording_cpu_ms": 0.129
+        },
+        {
+          "draw_submit_wait_wall_ms": 9.794,
+          "id": 94,
+          "mode": "copy",
+          "recording_cpu_ms": 0.126
+        },
+        {
+          "draw_submit_wait_wall_ms": 7.259,
+          "id": 95,
+          "mode": "direct",
+          "recording_cpu_ms": 0.054
+        },
+        {
+          "draw_submit_wait_wall_ms": 7.235,
+          "id": 96,
+          "mode": "direct",
+          "recording_cpu_ms": 0.05
+        },
+        {
+          "draw_submit_wait_wall_ms": 8.957,
+          "id": 97,
+          "mode": "copy",
+          "recording_cpu_ms": 0.079
+        },
+        {
+          "draw_submit_wait_wall_ms": 9.606,
+          "id": 98,
+          "mode": "copy",
+          "recording_cpu_ms": 0.068
+        },
+        {
+          "draw_submit_wait_wall_ms": 7.414,
+          "id": 99,
+          "mode": "direct",
+          "recording_cpu_ms": 0.125
+        },
+        {
+          "draw_submit_wait_wall_ms": 7.528,
+          "id": 100,
+          "mode": "direct",
+          "recording_cpu_ms": 0.114
+        },
+        {
+          "draw_submit_wait_wall_ms": 9.881,
+          "id": 101,
+          "mode": "copy",
+          "recording_cpu_ms": 0.132
+        },
+        {
+          "draw_submit_wait_wall_ms": 9.187,
+          "id": 102,
+          "mode": "copy",
+          "recording_cpu_ms": 0.103
+        },
+        {
+          "draw_submit_wait_wall_ms": 7.165,
+          "id": 103,
+          "mode": "direct",
+          "recording_cpu_ms": 0.102
+        },
+        {
+          "draw_submit_wait_wall_ms": 6.71,
+          "id": 104,
+          "mode": "direct",
+          "recording_cpu_ms": 0.102
+        },
+        {
+          "draw_submit_wait_wall_ms": 9.243,
+          "id": 105,
+          "mode": "copy",
+          "recording_cpu_ms": 0.087
+        },
+        {
+          "draw_submit_wait_wall_ms": 9.178,
+          "id": 106,
+          "mode": "copy",
+          "recording_cpu_ms": 0.107
+        },
+        {
+          "draw_submit_wait_wall_ms": 7.118,
+          "id": 107,
+          "mode": "direct",
+          "recording_cpu_ms": 0.051
+        },
+        {
+          "draw_submit_wait_wall_ms": 7.459,
+          "id": 108,
+          "mode": "direct",
+          "recording_cpu_ms": 0.122
+        },
+        {
+          "draw_submit_wait_wall_ms": 9.556,
+          "id": 109,
+          "mode": "copy",
+          "recording_cpu_ms": 0.108
+        },
+        {
+          "draw_submit_wait_wall_ms": 9.892,
+          "id": 110,
+          "mode": "copy",
+          "recording_cpu_ms": 0.121
+        },
+        {
+          "draw_submit_wait_wall_ms": 7.387,
+          "id": 111,
+          "mode": "direct",
+          "recording_cpu_ms": 0.123
+        },
+        {
+          "draw_submit_wait_wall_ms": 7.85,
+          "id": 112,
+          "mode": "direct",
+          "recording_cpu_ms": 0.074
+        },
+        {
+          "draw_submit_wait_wall_ms": 9.339,
+          "id": 113,
+          "mode": "copy",
+          "recording_cpu_ms": 0.093
+        },
+        {
+          "draw_submit_wait_wall_ms": 9.768,
+          "id": 114,
+          "mode": "copy",
+          "recording_cpu_ms": 0.058
+        },
+        {
+          "draw_submit_wait_wall_ms": 7.709,
+          "id": 115,
+          "mode": "direct",
+          "recording_cpu_ms": 0.078
+        },
+        {
+          "draw_submit_wait_wall_ms": 7.295,
+          "id": 116,
+          "mode": "direct",
+          "recording_cpu_ms": 0.075
+        },
+        {
+          "draw_submit_wait_wall_ms": 9.946,
+          "id": 117,
+          "mode": "copy",
+          "recording_cpu_ms": 0.08
+        },
+        {
+          "draw_submit_wait_wall_ms": 9.476,
+          "id": 118,
+          "mode": "copy",
+          "recording_cpu_ms": 0.122
+        },
+        {
+          "draw_submit_wait_wall_ms": 7.689,
+          "id": 119,
+          "mode": "direct",
+          "recording_cpu_ms": 0.133
+        }
+      ],
+      "sdk_draw_submitted": false,
+      "source_captures_frozen": true,
+      "total_views": 66,
+      "repeat": 3,
+      "summary": {
+        "direct": {
+          "samples": 50,
+          "draw_submit_wait_wall_ms": {
+            "median": 7.436,
+            "p10": 6.879,
+            "p90": 7.899
+          },
+          "recording_cpu_median_ms": 0.106
+        },
+        "copy": {
+          "samples": 50,
+          "draw_submit_wait_wall_ms": {
+            "median": 9.5575,
+            "p10": 8.944,
+            "p90": 10.045
+          },
+          "recording_cpu_median_ms": 0.097
+        }
+      }
+    }
+  ],
+  "limitations": [
+    "Not isolated GPU time or interactive FPS",
+    "Source cameras frozen; only actual compute synthesis and optional RD texture copy repeated",
+    "No Bridge draw/optical consumer submitted during measurements",
+    "Readback only after samples for exact-output validation",
+    "Synchronous diagnostic waits and root Godot draw overhead included",
+    "RD GPU timestamp values were zero in rejected instrumentation pilots"
+  ],
+  "benchmark_source_sha256": "5622e57f49749b2f5e7b66bf6304c75355ca389d7145bcf3f83fe812ce8bebc4",
+  "algorithm": {
+    "borrowed_raw_depth": true,
+    "iterations": 8,
+    "workgroup": [
+      8,
+      8
+    ],
+    "gamma_encoded_rgba8_output": true,
+    "disocclusion_rescue": false,
+    "source_scene": "Unshaded orange box and RGB spheres at different depths, blue background"
+  },
+  "sampler_setup": "Uniform sets rebound outside timed recording/completion intervals when changing target; same cached shader/pipeline and frozen source textures reused",
+  "sdk_source_consumer_status": "No draw_interop_quilt_texture_metal calls; target never submitted to Bridge"
+}

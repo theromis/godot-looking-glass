@@ -199,3 +199,7 @@ The native Metal extension can allocate an SDK RGBA8 IOSurface, import it throug
 ### Direct-target microbenchmark
 
 On Apple M4, a synthetic 4092² RGBA8 constant-fill test measured 0.64–0.73 ms for direct SDK IOSurface compute writes versus 1.96–2.20 ms for private compute output plus blit, across three runs. No Bridge consumer draw or Godot scene rendering was timed. This supports retaining the optional direct target path but is not an end-to-end FPS claim. See [method, distributions and reproduction](benchmarks/hardware/direct-target-microbenchmark.md).
+
+### Godot synthesis comparison
+
+The actual addon kernel (24 real cameras → 66 views, borrowed raw depth, eight iterations) was tested against a real SDK target at 4092². Across three paired runs, direct output reduced synchronous draw/submission/GPU-wait medians by 1.25–2.12 ms versus an intermediate Godot RD texture plus copy. Complete output bytes matched in every run. These are elapsed wall measurements with frozen source cameras, not isolated GPU time or scene FPS; absolute times varied strongly. Small-quilt gains were marginal. See [protocol and all samples](benchmarks/hardware/sdk-synthesis-benchmark.md).

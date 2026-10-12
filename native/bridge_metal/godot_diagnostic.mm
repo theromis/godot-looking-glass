@@ -30,8 +30,19 @@ protected:
         ClassDB::bind_method(D_METHOD("submit_direct_target", "seconds"), &LookingGlassMetalDiagnostic::submit_direct_target);
         ClassDB::bind_method(D_METHOD("release_direct_import"), &LookingGlassMetalDiagnostic::release_direct_import);
         ClassDB::bind_method(D_METHOD("read_fixture_output", "fixture"), &LookingGlassMetalDiagnostic::read_fixture_output);
+        ClassDB::bind_method(D_METHOD("wait_for_native_producer"), &LookingGlassMetalDiagnostic::wait_for_native_producer);
     }
 public:
+    bool wait_for_native_producer() {
+        // Diagnostic CPU wait for already committed work. Does not flush RD.
+        auto *server=RenderingServer::get_singleton();
+        if (server->get_current_rendering_driver_name()!="metal" || ![NSThread isMainThread]) return false;
+        auto *rd=server->get_rendering_device();
+        id<MTLCommandQueue> queue=(__bridge id<MTLCommandQueue>)(void *)(uintptr_t)rd->get_driver_resource(RenderingDevice::DRIVER_RESOURCE_COMMAND_QUEUE,RID(),0);
+        if (!queue) return false;
+        auto fence=[queue commandBuffer]; [fence commit]; [fence waitUntilCompleted];
+        return fence.status==MTLCommandBufferStatusCompleted;
+    }
     PackedByteArray read_fixture_output(String path) {
         // Explicit fixture-only diagnostic readback, never a real output path.
         PackedByteArray bytes;
