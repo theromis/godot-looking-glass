@@ -43,6 +43,7 @@ func run() -> void:
     rig.columns=2
     rig.tile_size=Vector2i(32,32)
     rig.synthesis=true
+    rig.quilt_rgba8="--rgba8" in OS.get_cmdline_user_args()
     rig.update_on_demand=true
     rig.borrow_source_depth=true
     rig.position.z=6
@@ -93,5 +94,5 @@ func run() -> void:
         return
     scene.queue_free()
     for i in range(4): await process_frame
-    print("PASS Godot 4.8 native Metal quilt -> SDK-fixture IOSurface: exact RGBA16Float pixels, frozen post-frame producer fence, no physical output claim")
+    print("PASS Godot 4.8 native Metal quilt -> SDK-fixture IOSurface: exact ","RGBA8" if rig.quilt_rgba8 else "RGBA16Float"," pixels, frozen post-frame producer fence, no physical output claim")
     quit()

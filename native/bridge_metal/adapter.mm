@@ -12,6 +12,7 @@ MetalAdapter::~MetalAdapter() {
         (void)CFBridgingRetain(device_);
         (void)CFBridgingRetain(queue_);
         (void)CFBridgingRetain(output_);
+        (void)CFBridgingRetain(previous_outputs_);
     }
 }
 bool MetalAdapter::load(const std::string &path) {
@@ -79,26 +80,48 @@ bool MetalAdapter::submit_once(id<MTLTexture> source, id<MTLCommandBuffer> produ
     error_.clear();
     return true;
 }
+bool MetalAdapter::append_immutable(id<MTLTexture> source, id<MTLCommandBuffer> producer, unsigned long columns, unsigned long rows, float aspect) {
+    if (!initialized_ || !source || source.pixelFormat!=MTLPixelFormatRGBA8Unorm) return fail("Sequence requires open session and RGBA8 source");
+    uint64_t bytes=static_cast<uint64_t>(source.width)*source.height*4;
+    if (previous_outputs_.count+(output_?1:0)>=16 || bytes>128*1024*1024 || sequence_bytes_>128*1024*1024-bytes) return fail("Immutable sequence budget exceeded (16 frames / 128 MiB texture payload)");
+    if (output_) {
+        if (!sdk_owns_output_) return fail("Cannot extend a released sequence");
+        if (!previous_outputs_) previous_outputs_=[NSMutableArray new];
+        [previous_outputs_ addObject:output_];
+        output_=nil; sdk_owns_output_=false;
+    }
+    submitted_=false;
+    if (!submit_once(source,producer,columns,rows,aspect)) return false;
+    sequence_bytes_+=bytes;
+    return true;
+}
 bool MetalAdapter::show_immutable(unsigned long columns, unsigned long rows, float aspect, double seconds) {
-    if (![NSThread isMainThread] || !output_ || !submitted_ || seconds<=0 || seconds>30) return fail("Immutable display requires main thread, submitted quilt and bounded duration");
+    if (![NSThread isMainThread] || !output_ || !submitted_ || !std::isfinite(seconds) || seconds<=0 || seconds>30) return fail("Immutable display requires main thread, submitted quilt and bounded duration");
     auto show=reinterpret_cast<decltype(&show_window)>(dlsym(library_,"show_window"));
     auto pump=reinterpret_cast<void(*)()>(dlsym(library_,"SDL_PumpEvents"));
     if (!show || !show(window_,true)) return fail("Cannot show Bridge window");
     NSDate *deadline=[NSDate dateWithTimeIntervalSinceNow:seconds];
+    NSDate *started=[NSDate date];
     while ([deadline timeIntervalSinceNow]>0) {
         if (pump) pump();
-        if (!draw_(window_,(__bridge void *)output_,columns,rows,aspect,1)) return fail("Immutable resubmission failed");
+        NSUInteger frame=static_cast<NSUInteger>(-[started timeIntervalSinceNow]*5.0)%(previous_outputs_.count+1);
+        id<MTLTexture> selected=frame<previous_outputs_.count?previous_outputs_[frame]:output_;
+        if (!draw_(window_,(__bridge void *)selected,columns,rows,aspect,1)) return fail("Immutable resubmission failed");
         [[NSRunLoop currentRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:0.05]];
     }
     return true; // Texture never modified; no consumer completion-fence claim.
 }
 bool MetalAdapter::close() {
+    while (initialized_ && previous_released_<previous_outputs_.count) {
+        if (!release_(window_,(__bridge void *)previous_outputs_[previous_released_])) return fail("Sequence texture release failed; session remains pinned");
+        ++previous_released_;
+    }
     if (output_ && initialized_ && sdk_owns_output_) {
         if (!release_(window_,(__bridge void *)output_)) return fail("SDK texture release failed; session remains pinned");
         sdk_owns_output_=false;
     }
     if (initialized_ && !shutdown_()) return fail("SDK shutdown failed; session remains pinned");
-    output_=nil; queue_=nil; device_=nil;
+    output_=nil; previous_outputs_=nil; previous_released_=0; sequence_bytes_=0; queue_=nil; device_=nil;
     window_=0; initialized_=false; submitted_=false;
     if (library_) dlclose(library_);
     library_=nullptr;

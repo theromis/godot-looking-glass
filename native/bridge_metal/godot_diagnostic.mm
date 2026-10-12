@@ -9,15 +9,65 @@
 #include <godot_cpp/variant/dictionary.hpp>
 #include <godot_cpp/variant/packed_byte_array.hpp>
 #include <dlfcn.h>
+#include <memory>
 using namespace godot;
 class LookingGlassMetalDiagnostic : public RefCounted {
     GDCLASS(LookingGlassMetalDiagnostic, RefCounted)
+    std::unique_ptr<looking_glass::MetalAdapter> sequence;
+    int64_t sequence_columns=0, sequence_rows=0;
+    double sequence_aspect=0;
 protected:
     static void _bind_methods() {
         ClassDB::bind_method(D_METHOD("copy_static_quilt", "quilt", "fixture", "columns", "rows", "aspect"), &LookingGlassMetalDiagnostic::copy_static_quilt);
         ClassDB::bind_method(D_METHOD("show_static_quilt", "quilt", "runtime", "display_index", "columns", "rows", "aspect", "seconds"), &LookingGlassMetalDiagnostic::show_static_quilt);
+        ClassDB::bind_method(D_METHOD("begin_sequence", "runtime", "display_index", "columns", "rows", "aspect"), &LookingGlassMetalDiagnostic::begin_sequence);
+        ClassDB::bind_method(D_METHOD("capture_sequence_frame", "quilt"), &LookingGlassMetalDiagnostic::capture_sequence_frame);
+        ClassDB::bind_method(D_METHOD("play_sequence", "seconds"), &LookingGlassMetalDiagnostic::play_sequence);
+        ClassDB::bind_method(D_METHOD("close_sequence"), &LookingGlassMetalDiagnostic::close_sequence);
     }
 public:
+    Dictionary begin_sequence(String path, int64_t index, int64_t columns, int64_t rows, double aspect) {
+        Dictionary result;
+        auto *server=RenderingServer::get_singleton();
+        if (sequence || ![NSThread isMainThread] || server->get_current_rendering_driver_name()!="metal" || index<0 || columns<=0 || rows<=0 || aspect<=0) {
+            result["error"]="Invalid sequence configuration/thread/driver or existing sequence"; return result;
+        }
+        auto *rd=server->get_rendering_device();
+        if (!rd) { result["error"]="RenderingDevice unavailable"; return result; }
+        id<MTLDevice> device=(__bridge id<MTLDevice>)(void *)(uintptr_t)rd->get_driver_resource(RenderingDevice::DRIVER_RESOURCE_LOGICAL_DEVICE,RID(),0);
+        sequence=std::make_unique<looking_glass::MetalAdapter>();
+        String absolute=ProjectSettings::get_singleton()->globalize_path(path);
+        bool ok=sequence->load(absolute.utf8().get_data()) && sequence->open(device,index);
+        if (!ok) { result["error"]=String(sequence->error().c_str()); sequence.reset(); }
+        sequence_columns=columns; sequence_rows=rows; sequence_aspect=aspect;
+        result["ok"]=ok; return result;
+    }
+    Dictionary capture_sequence_frame(RID quilt) {
+        Dictionary result;
+        auto *rd=RenderingServer::get_singleton()->get_rendering_device();
+        if (!sequence || ![NSThread isMainThread] || !rd || !rd->texture_is_valid(quilt)) { result["error"]="Open sequence and frozen valid quilt required"; return result; }
+        id<MTLCommandQueue> queue=(__bridge id<MTLCommandQueue>)(void *)(uintptr_t)rd->get_driver_resource(RenderingDevice::DRIVER_RESOURCE_COMMAND_QUEUE,RID(),0);
+        id<MTLTexture> source=(__bridge id<MTLTexture>)(void *)(uintptr_t)rd->get_driver_resource(RenderingDevice::DRIVER_RESOURCE_TEXTURE,quilt,0);
+        if (!queue || !source) { result["error"]="Native source handles missing"; return result; }
+        auto fence=[queue commandBuffer]; [fence commit];
+        bool ok=sequence->append_immutable(source,fence,sequence_columns,sequence_rows,sequence_aspect);
+        result["ok"]=ok; if (!ok) result["error"]=String(sequence->error().c_str());
+        return result;
+    }
+    Dictionary play_sequence(double seconds) {
+        Dictionary result;
+        bool ok=sequence && sequence->show_immutable(sequence_columns,sequence_rows,sequence_aspect,seconds);
+        result["ok"]=ok; if (!ok) result["error"]=sequence?String(sequence->error().c_str()):String("No sequence");
+        return result;
+    }
+    Dictionary close_sequence() {
+        Dictionary result;
+        if (![NSThread isMainThread]) { result["error"]="Main thread required"; return result; }
+        bool ok=!sequence || sequence->close();
+        if (!ok) result["error"]=String(sequence->error().c_str());
+        else sequence.reset();
+        result["ok"]=ok; return result;
+    }
     Dictionary show_static_quilt(RID quilt, String path, int64_t index, int64_t columns, int64_t rows, double aspect, double seconds) {
         Dictionary result;
         auto *server=RenderingServer::get_singleton();

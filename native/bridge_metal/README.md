@@ -108,3 +108,15 @@ GODOT_MTL_SYNC_MODE=none "$GODOT" --path . --rendering-driver metal --script tes
 ```
 
 The current test renders all 66 cameras into an 11×6 RGBA8 quilt, with 64×114 tiles, and shows an orange box plus RGB spheres at different depths for 20 seconds. It is intentionally below the SDK's 4092² preset. A prior two-real-camera run was API-successful and physically visible, but the user reported incorrect appearance. The subsequent 66-real-camera baseline was reported correct by the user. This implicates sparse synthesis as a hypothesis; it does not isolate the exact cause or establish instrumented optical correctness. The real script does not load the SDK without explicit runtime and display configuration; no SDK binary is distributed. The original fixture-only `copy_static_quilt()` remains separate and its exact RGBA16Float regression passed after this extension.
+
+## Bounded immutable animation diagnostic
+
+The extension now exposes `begin_sequence()`, `capture_sequence_frame()`, `play_sequence()` and `close_sequence()`. Each frozen producer pose is copied to a newly allocated SDK RGBA8 IOSurface exactly once. Earlier SDK textures remain retained and unchanged until session teardown. Playback selects among these immutable textures; it never recycles output storage. The adapter rejects more than 16 frames or more than 128 MiB of calculated RGBA8 texture payload. This bound excludes IOSurface padding, driver allocations and SDK working buffers. Release failures preserve the session and retry only unreleased textures.
+
+`tests/test_real_bridge_sequence.gd` renders eight poses of a moving/rotating orange box with 66 real cameras, captures them on GPU, then plays the clip for 20 seconds. The 704×684 quilts require 15,409,152 bytes of calculated output texture payload. Playback requests a pose change every 0.2 seconds; this is an intentional clip cadence, not a measured rendering FPS. It is neither interactive real-time scene streaming nor an indefinite ring buffer. No CPU quilt readback is performed. Use the same external SDK/device environment as the static test:
+
+```sh
+GODOT_MTL_SYNC_MODE=none "$GODOT" --path . --rendering-driver metal --script tests/test_real_bridge_sequence.gd
+```
+
+Standalone adapter tests verified 16 changing RGBA8 GPU copies exactly against the fixture, rejected the seventeenth frame, and tested failed-release retry. The Godot fixture test also verifies exact RGBA8 output with `-- --rgba8`. The public native reference and external `BridgeRuntime/bridge.h:378` do not provide an explicit Metal consumer completion fence. This absence does not prove the SDK is asynchronous or unsafe; it means this project has not established a texture-reuse contract. A production streaming path still needs that contract or independently validated synchronization.

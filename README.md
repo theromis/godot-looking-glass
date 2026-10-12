@@ -10,6 +10,7 @@ Checked items are implemented or completed experiments, with their limits record
 - [x] Build a standalone Godot addon and demo with shared World3D, configurable off-axis cameras and hardware-free quilt preview.
 - [x] Compose quilts entirely on GPU and implement experimental two-source depth reprojection with configurable real-view budgets.
 - [x] Implement Bridge HTTP device detection, calibration parsing and session management; validate serialized/wrapped calibration with a fixture and the connected display.
+- [x] Implement bounded GPU-only playback of eight prerecorded Godot poses using distinct immutable SDK textures; real SDK API checks passed, visual animation confirmation pending.
 - [x] Detect a 1440×2560 Looking Glass and display a user-confirmed solid color through real Bridge RGBA8/Metal interop; record the 66-view preset and format limitations.
 - [x] Add cached GPU bindings, borrowed color/depth with tested snapshot fallback, optional profiling and resource-lifetime checks.
 - [x] Execute the shared positional-shadow-atlas engine experiment and document scene-specific gains and compatibility restrictions.
@@ -185,3 +186,7 @@ Optional `update_on_demand` renders source views and assembles the compute quilt
 Set `rig.synthesis = true` and `rig.quilt_rgba8 = true` before adding the rig to the scene. The selected synthesis shader writes normalized RGBA8 directly, without a separate conversion dispatch. The default remains RGBA16Float. This mode clamps the existing gamma-encoded shader result to [0, 1]; it adds neither a second gamma curve nor HDR tonemapping. Source color captures remain float textures. Shader compilation occurs once per rig initialization; exported projects using this mode must include the raw addon shader `.glsl` files for runtime compilation.
 
 The configurable view ceiling is now 96. A 66-view, 11-column quilt with two real cameras and 16² tiles passed format, nonempty output, on-demand freezing and clamped-float comparison checks on Godot 4.8 Vulkan/MoltenVK and native Metal with `GODOT_MTL_SYNC_MODE=none`. This is not a 66-real-camera benchmark, a full-resolution device preset test or real Bridge scene output. See [test evidence](benchmarks/hardware/godot-rgba8.json). Run `tests/test_quilt_rgba8.gd` through the latest engine with `--path . --script tests/test_quilt_rgba8.gd`.
+
+### Bounded Bridge animation experiment
+
+`tests/test_real_bridge_sequence.gd` captures eight poses into separate SDK RGBA8 textures and plays them for 20 seconds. Every output allocation remains immutable through teardown. This is finite prerecorded playback, not continuous scene streaming. The adapter limits sequences to 16 frames / 128 MiB calculated texture payload; no render-FPS improvement is claimed. Real-SDK API execution and exact fixture pixel checks passed. See [outcomes](benchmarks/hardware/godot-real-sequence.json), [native setup](native/bridge_metal/README.md#bounded-immutable-animation-diagnostic) and [unsubmitted SDK lifetime questions](docs/bridge-consumer-lifetime-questions.md).

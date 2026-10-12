@@ -17,6 +17,8 @@ public:
         unsigned long columns, unsigned long rows, float aspect, float zoom = 1.0f);
     bool close();
     bool show_immutable(unsigned long columns, unsigned long rows, float aspect, double seconds);
+    bool append_immutable(id<MTLTexture> source, id<MTLCommandBuffer> producer,
+        unsigned long columns, unsigned long rows, float aspect);
     const std::string &error() const { return error_; }
     const std::string &version() const { return version_; }
 private:
@@ -32,6 +34,9 @@ private:
     id<MTLDevice> device_ = nil;
     id<MTLCommandQueue> queue_ = nil;
     id<MTLTexture> output_ = nil;
+    NSMutableArray<id<MTLTexture>> *previous_outputs_ = nil;
+    NSUInteger previous_released_ = 0;
+    uint64_t sequence_bytes_ = 0;
     bool initialized_ = false;
     bool owns_session_ = false;
     bool submitted_ = false;

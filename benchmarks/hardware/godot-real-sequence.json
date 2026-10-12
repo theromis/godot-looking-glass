@@ -1,0 +1,40 @@
+{
+  "date": "2026-10-11",
+  "engine": "4.8.dev.custom_build.c61fc0118",
+  "driver": "native Metal",
+  "hardware": "Apple M4 / connected Looking Glass",
+  "sdk": "2.6.3",
+  "environment": {
+    "GODOT_MTL_SYNC_MODE": "none"
+  },
+  "poses": 8,
+  "views_per_pose": 66,
+  "real_views": 66,
+  "quilt_size": [
+    704,
+    684
+  ],
+  "calculated_sdk_texture_payload_bytes": 15409152,
+  "duration_seconds": 20,
+  "requested_pose_cadence_hz": 5,
+  "measured_render_fps": null,
+  "cpu_pixel_readback_in_hardware_path": false,
+  "api_success": true,
+  "exit_code": 0,
+  "user_observation": "Pending",
+  "log": "godot-real-sequence.log",
+  "fixture_checks": [
+    "16 changing RGBA8 GPU copies match exact expected bytes",
+    "17th frame rejected by budget",
+    "Release failure retry and idempotent close PASS",
+    "Existing RGBA16Float adapter regressions PASS",
+    "Godot RGBA8 quilt-to-fixture exact byte equality PASS"
+  ],
+  "limitations": [
+    "Pre-rendered finite clip, not continuous streaming",
+    "Textures never overwritten or recycled before session teardown",
+    "No verified consumer completion fence",
+    "SDK initialization still logs GL_INVALID_ENUM",
+    "No optical or latency instrumentation"
+  ]
+}

@@ -58,3 +58,7 @@ This establishes that a separate float-to-RGBA8 conversion pass is not intrinsic
 ## Frozen Godot scene submission
 
 The optional native extension copied a frozen Godot 4.8 RGBA8 quilt into a real SDK IOSurface using a GPU blit, then showed it for 20 seconds with event processing and immutable resubmission. No CPU pixel readback occurs in this path. Both the two-anchor and 66-real-camera runs returned success and exited zero. The user confirmed that the first scene appeared but looked incorrect. The user reported that the all-real baseline looked correct. This is qualitative physical confirmation, not an optical view-order, color-accuracy or depth measurement. See [outcomes](godot-real-static.json) and the [diagnostic instructions](../../native/bridge_metal/README.md).
+
+## Immutable clip playback
+
+An eight-pose Godot clip was copied on GPU into eight distinct SDK RGBA8 textures and played for 20 seconds. The API path and teardown returned success. Hardware animation observation is pending. This diagnostic retains all frame textures unchanged until teardown; no output slot is reused. See [results](godot-real-sequence.json) and [instructions and memory bound](../../native/bridge_metal/README.md#bounded-immutable-animation-diagnostic). It does not establish safe continuous streaming or a measured render FPS.
