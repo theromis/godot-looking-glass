@@ -1,0 +1,66 @@
+diff --git a/addons/looking_glass/capture.gd b/addons/looking_glass/capture.gd
+index 8f877d2..7010952 100644
+--- a/addons/looking_glass/capture.gd
++++ b/addons/looking_glass/capture.gd
+@@ -22,6 +22,9 @@ var dimensions := Vector2i.ZERO
+ var capture_count: int = 0
+ var frame: int = 0
+ var released: bool = false
++var retain_shader: RID
++var retain_pipeline: RID
++var retain_sink: RID
+ func _init(use_borrowed_color: bool = false, use_borrowed_depth: bool = false) -> void:
+     requested_borrow_depth = use_borrowed_depth
+     requested_borrow_color = use_borrowed_color or use_borrowed_depth
+@@ -41,6 +44,21 @@ func _initialize() -> void:
+     shader = rd.shader_create_from_spirv(load(path).get_spirv())
+     pipeline = rd.compute_pipeline_create(shader)
+     sampler = rd.sampler_create(RDSamplerState.new())
++    if requested_borrow_depth:
++        # Borrowed attachments are read after the producer graph has been
++        # submitted. Record an actual read now so discardable attachments
++        # acquire STORE operations in the producer graph.
++        var source := RDShaderSource.new()
++        source.source_compute = """#version 450
++layout(local_size_x=1,local_size_y=1,local_size_z=1) in;
++layout(set=0,binding=0) uniform sampler2D color_source;
++layout(set=0,binding=1) uniform sampler2D depth_source;
++layout(set=0,binding=2,std430) buffer Sink { vec4 value; } sink;
++void main() { sink.value=vec4(texelFetch(color_source,ivec2(0),0).rgb,texelFetch(depth_source,ivec2(0),0).r); }
++"""
++        retain_shader = rd.shader_create_from_spirv(rd.shader_compile_spirv_from_source(source))
++        retain_pipeline = rd.compute_pipeline_create(retain_shader)
++        retain_sink = rd.storage_buffer_create(16)
+     if requested_borrow_color and not requested_borrow_depth:
+         depth_shader = rd.shader_create_from_spirv(load("res://addons/looking_glass/shaders/capture_depth.glsl").get_spirv())
+         depth_pipeline = rd.compute_pipeline_create(depth_shader)
+@@ -100,6 +118,20 @@ func _render_callback(type: int, data: RenderData) -> void:
+         color = buffers.get_color_layer(0)
+     if borrow_depth:
+         depth = buffers.get_depth_layer(0)
++        var retain_uniforms: Array[RDUniform] = []
++        for binding in range(3):
++            var u := RDUniform.new()
++            u.binding = binding
++            u.uniform_type = RenderingDevice.UNIFORM_TYPE_SAMPLER_WITH_TEXTURE if binding < 2 else RenderingDevice.UNIFORM_TYPE_STORAGE_BUFFER
++            if binding < 2: u.add_id(sampler)
++            u.add_id([color,depth,retain_sink][binding])
++            retain_uniforms.append(u)
++        var retain_set := UniformSetCacheRD.get_cache(retain_shader,0,retain_uniforms)
++        var retain_list := rd.compute_list_begin()
++        rd.compute_list_bind_compute_pipeline(retain_list,retain_pipeline)
++        rd.compute_list_bind_uniform_set(retain_list,retain_set,0)
++        rd.compute_list_dispatch(retain_list,1,1,1)
++        rd.compute_list_end()
+         capture_count += 1
+         frame = int(rd.get_captured_timestamps_frame()) + 1
+         return
+@@ -136,7 +168,7 @@ func release() -> void:
+         rd.free_rid(color)
+     if depth.is_valid() and not borrow_depth:
+         rd.free_rid(depth)
+-    for rid in [pipeline, shader, depth_pipeline, depth_shader, sampler]:
++    for rid in [pipeline, shader, depth_pipeline, depth_shader, sampler, retain_pipeline, retain_shader, retain_sink]:
+         if rid.is_valid():
+             rd.free_rid(rid)
+     color = RID()

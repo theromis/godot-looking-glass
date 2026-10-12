@@ -1,0 +1,213 @@
+{
+  "date": "2026-10-11",
+  "engine_base_commit": "c61fc0118854f38d75474346a417db55e52d0ffd",
+  "platform": "macOS Apple M4, native Metal, default barriers",
+  "production_engine_restored": true,
+  "baseline_engine_sha256": "00b5a1fa801ba45fca3cebb291decdbe3a2a269a9b8f43e19f2d76cb072b9adf",
+  "production_addon_unchanged": true,
+  "buffer_ordering_control": {
+    "samples": 64,
+    "metal_default_barriers": "passed",
+    "metal_hazard_tracking": "passed",
+    "vulkan_moltenvk": "passed",
+    "test": "tests/test_buffer_ordering.gd",
+    "test_sha256": "51e36cb215bd580c4f6d2d0b66679c2d51e6745e42eebc33c576fefb9b657cc3",
+    "engines": {
+      "metal": {
+        "sha256": "00b5a1fa801ba45fca3cebb291decdbe3a2a269a9b8f43e19f2d76cb072b9adf",
+        "runtime_version_line": "Godot Engine v4.8.dev.custom_build.c61fc0118 (2026-10-11 16:37:54 UTC) - https://godotengine.org"
+      },
+      "vulkan": {
+        "sha256": "e3f0117c1da12d25f8ed25fe28ebae6595db1efff1960ee01360ed745e594ced",
+        "runtime_version_line": "Godot Engine v4.8.dev.custom_build.232e6b14a (2026-10-09 20:05:41 UTC) - https://godotengine.org"
+      }
+    }
+  },
+  "variants": [
+    {
+      "name": "fence-chain",
+      "engine_sha256": "b13094f34c51b13de8deb370cccbe8cbe3e9c0acec1bd0c3f7e51280257ca400",
+      "patch": "rejected-level-chain.patch",
+      "patch_sha256": "6dc7b729120f2f6c45f01586ec99e5c596bfed65ffc7113c6ab335e10232036a",
+      "addon": "unchanged",
+      "checks": {
+        "on-demand": {
+          "passed": false,
+          "failure_messages": [
+            "FAIL on-demand: continuous/on-demand pixels mode 0"
+          ]
+        },
+        "capture-lifetime": {
+          "passed": true,
+          "failure_messages": []
+        },
+        "buffer-compat": {
+          "passed": false,
+          "failure_messages": [
+            "ERROR: Compatibility policy mismatch: {\"borrow_color\":true,\"borrow_depth\":true,\"case\":\"baseline\",\"color_only_borrowed\":true,\"color_only_fallback_reason\":\"\",\"color_rid_changed\":false,\"dimensions\":\"(256, 256)\",\"dispatches\":41,\"exact\":false,\"fallback_reason\":\"\",\"observed_msaa\":0,\"observed_scaling_mode\":255}"
+          ]
+        }
+      }
+    },
+    {
+      "name": "single-fence",
+      "engine_sha256": "93c23fb55f4eeeca842865404afbda8cde3d711b6f077696de8f50a82a2183b2",
+      "patch": "rejected-single-fence.patch",
+      "patch_sha256": "fbaf933216b05fb502519f09267a7a90d9a747a0c178244d53b23008c16f1491",
+      "addon": "unchanged",
+      "checks": {
+        "on-demand": {
+          "passed": false,
+          "failure_messages": [
+            "FAIL on-demand: continuous/on-demand pixels mode 0"
+          ]
+        },
+        "capture-lifetime": {
+          "passed": true,
+          "failure_messages": []
+        },
+        "buffer-compat": {
+          "passed": false,
+          "failure_messages": [
+            "ERROR: Compatibility policy mismatch: {\"borrow_color\":true,\"borrow_depth\":true,\"case\":\"baseline\",\"color_only_borrowed\":true,\"color_only_fallback_reason\":\"\",\"color_rid_changed\":false,\"dimensions\":\"(256, 256)\",\"dispatches\":41,\"exact\":false,\"fallback_reason\":\"\",\"observed_msaa\":0,\"observed_scaling_mode\":255}"
+          ]
+        }
+      }
+    },
+    {
+      "name": "cpu-buffer-device",
+      "engine_sha256": "384abaec4b4f22b8110e2c66da972329d3419ad75ef9cb4be90c4c72b9248f5d",
+      "patch": "rejected-cpu-buffer-device.patch",
+      "patch_sha256": "b4cf6c545bf5cc82bf288e3ad044dbfead66ff79d3a84c1ce3c7b77fd09b1800",
+      "addon": "unchanged",
+      "checks": {
+        "on-demand": {
+          "passed": false,
+          "failure_messages": [
+            "FAIL on-demand: continuous/on-demand pixels mode 0"
+          ]
+        },
+        "capture-lifetime": {
+          "passed": true,
+          "failure_messages": []
+        },
+        "buffer-compat": {
+          "passed": false,
+          "failure_messages": [
+            "ERROR: Compatibility policy mismatch: {\"borrow_color\":true,\"borrow_depth\":true,\"case\":\"msaa2\",\"color_only_borrowed\":true,\"color_only_fallback_reason\":\"\",\"color_rid_changed\":true,\"dimensions\":\"(256, 256)\",\"dispatches\":82,\"exact\":false,\"fallback_reason\":\"\",\"observed_msaa\":1,\"observed_scaling_mode\":255}"
+          ]
+        }
+      }
+    },
+    {
+      "name": "unique-ubo",
+      "engine_sha256": "df62b012ddf95cd43da4b94d4cab9419b8677ae3bd07ca26f1d1448db72e99b1",
+      "patch": "partial-unique-ubo.patch",
+      "patch_sha256": "9331a63a5013f89f7faf89a27ecc30bd7078c16159eddc2a7e6598f41a1859a2",
+      "addon": "unchanged",
+      "checks": {
+        "on-demand": {
+          "passed": false,
+          "failure_messages": [
+            "FAIL on-demand: continuous/on-demand pixels mode 2"
+          ]
+        },
+        "capture-lifetime": {
+          "passed": true,
+          "failure_messages": []
+        },
+        "buffer-compat": {
+          "passed": true,
+          "failure_messages": []
+        }
+      }
+    },
+    {
+      "name": "explicit-resources",
+      "engine_sha256": "bfd1727637256fc441c736938e45caaaaf20b54fd73a188ec9d1df499ee97d2a",
+      "patch": "rejected-explicit-resources.patch",
+      "patch_sha256": "1630e01133e334d26a2a80af4477f9a45288ed45e5310421e92c705a156f2b06",
+      "addon": "unchanged",
+      "checks": {
+        "on-demand": {
+          "passed": false,
+          "failure_messages": [
+            "FAIL on-demand: continuous/on-demand pixels mode 0"
+          ]
+        },
+        "capture-lifetime": {
+          "passed": true,
+          "failure_messages": []
+        },
+        "buffer-compat": {
+          "passed": false,
+          "failure_messages": [
+            "ERROR: Compatibility policy mismatch: {\"borrow_color\":true,\"borrow_depth\":true,\"case\":\"msaa2\",\"color_only_borrowed\":true,\"color_only_fallback_reason\":\"\",\"color_rid_changed\":true,\"dimensions\":\"(256, 256)\",\"dispatches\":82,\"exact\":false,\"fallback_reason\":\"\",\"observed_msaa\":1,\"observed_scaling_mode\":255}"
+          ]
+        }
+      }
+    },
+    {
+      "name": "retain-marker",
+      "engine_sha256": "00b5a1fa801ba45fca3cebb291decdbe3a2a269a9b8f43e19f2d76cb072b9adf",
+      "patch": "experimental-producer-read.patch",
+      "patch_sha256": "d6d2320461cec8b257caff0570851af7b2653fd2d22755ad26936f20d176621d",
+      "addon": "experimental-producer-read.patch",
+      "checks": {
+        "on-demand": {
+          "passed": false,
+          "failure_messages": [
+            "FAIL on-demand: continuous/on-demand pixels mode 2"
+          ]
+        },
+        "capture-lifetime": {
+          "passed": true,
+          "failure_messages": []
+        },
+        "buffer-compat": {
+          "passed": true,
+          "failure_messages": []
+        }
+      },
+      "addon_patch_sha256": "d6d2320461cec8b257caff0570851af7b2653fd2d22755ad26936f20d176621d"
+    },
+    {
+      "name": "unique-ubo-retain",
+      "engine_sha256": "df62b012ddf95cd43da4b94d4cab9419b8677ae3bd07ca26f1d1448db72e99b1",
+      "patch": "partial-unique-ubo.patch",
+      "patch_sha256": "9331a63a5013f89f7faf89a27ecc30bd7078c16159eddc2a7e6598f41a1859a2",
+      "addon": "experimental-producer-read.patch",
+      "checks": {
+        "on-demand": {
+          "passed": false,
+          "failure_messages": [
+            "FAIL on-demand: continuous/on-demand pixels mode 2"
+          ]
+        },
+        "capture-lifetime": {
+          "passed": true,
+          "failure_messages": []
+        },
+        "buffer-compat": {
+          "passed": true,
+          "failure_messages": []
+        }
+      },
+      "addon_patch_sha256": "d6d2320461cec8b257caff0570851af7b2653fd2d22755ad26936f20d176621d"
+    }
+  ],
+  "unique_ubo_snapshot_comparisons": {
+    "exact": 80,
+    "total": 80,
+    "first_left_matches_opposite": false
+  },
+  "upstream_ready": false,
+  "performance_measured": false,
+  "limits": [
+    "Only three selected regression checks executed for each variant; no full-suite acceptance for prototypes.",
+    "Single-pass successes do not establish that a change caused the improvement.",
+    "Patch source and binary SHA-256 are recorded because runtime version strings do not include these uncommitted experiments.",
+    "No MetalFX-specific coverage for experimental single-fence behavior.",
+    "No engine/addon experiment adopted; default production rendering remains unchanged."
+  ]
+}

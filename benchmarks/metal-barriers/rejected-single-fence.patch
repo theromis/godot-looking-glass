@@ -1,0 +1,22 @@
+diff --git a/drivers/metal/metal_objects_shared.cpp b/drivers/metal/metal_objects_shared.cpp
+index 305c404b12..7044a45d6b 100644
+--- a/drivers/metal/metal_objects_shared.cpp
++++ b/drivers/metal/metal_objects_shared.cpp
+@@ -441,7 +441,7 @@ MTL::Fence *MDCommandBufferBase::_fence_to_wait() {
+ 	if (!_fences[0]) {
+ 		return nullptr;
+ 	}
+-	uint32_t i = _fence_wait_current_level ? (_fence_level & 1) : ((_fence_level + 1) & 1);
++	uint32_t i = 0;
+ 	_fence_wait_current_level = false;
+ #ifdef DEV_ENABLED
+ 	_fence_wait_issued = true;
+@@ -457,7 +457,7 @@ MTL::Fence *MDCommandBufferBase::_fence_to_update() {
+ 	DEV_ASSERT(_fence_wait_issued);
+ 	_fence_wait_issued = false;
+ #endif
+-	uint32_t i = _fence_level & 1;
++	uint32_t i = 0;
+ 	_fence_updated[i] = true;
+ 	_fence_level_dirty = true;
+ 	return _fences[i].get();

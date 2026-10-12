@@ -1,0 +1,51 @@
+scons: Reading SConscript files ...
+gcc: warning: confstr() failed with code 5: couldn't get path of DARWIN_USER_TEMP_DIR; using temporary-directory instead
+xcrun: warning: confstr() failed with code 5: couldn't get path of DARWIN_USER_TEMP_DIR; using temporary-directory instead
+g++: warning: confstr() failed with code 5: couldn't get path of DARWIN_USER_TEMP_DIR; using temporary-directory instead
+xcrun: warning: confstr() failed with code 5: couldn't get path of DARWIN_USER_TEMP_DIR; using temporary-directory instead
+gcc: warning: confstr() failed with code 5: couldn't get path of DARWIN_USER_TEMP_DIR; using temporary-directory instead
+xcrun: warning: confstr() failed with code 5: couldn't get path of DARWIN_USER_TEMP_DIR; using temporary-directory instead
+g++: warning: confstr() failed with code 5: couldn't get path of DARWIN_USER_TEMP_DIR; using temporary-directory instead
+xcrun: warning: confstr() failed with code 5: couldn't get path of DARWIN_USER_TEMP_DIR; using temporary-directory instead
+gcc: warning: confstr() failed with code 5: couldn't get path of DARWIN_USER_TEMP_DIR; using temporary-directory instead
+xcrun: warning: confstr() failed with code 5: couldn't get path of DARWIN_USER_TEMP_DIR; using temporary-directory instead
+g++: warning: confstr() failed with code 5: couldn't get path of DARWIN_USER_TEMP_DIR; using temporary-directory instead
+xcrun: warning: confstr() failed with code 5: couldn't get path of DARWIN_USER_TEMP_DIR; using temporary-directory instead
+gcc: warning: confstr() failed with code 5: couldn't get path of DARWIN_USER_TEMP_DIR; using temporary-directory instead
+xcrun: warning: confstr() failed with code 5: couldn't get path of DARWIN_USER_TEMP_DIR; using temporary-directory instead
+g++: warning: confstr() failed with code 5: couldn't get path of DARWIN_USER_TEMP_DIR; using temporary-directory instead
+xcrun: warning: confstr() failed with code 5: couldn't get path of DARWIN_USER_TEMP_DIR; using temporary-directory instead
+Building for macOS 13.0+.
+WARNING: The screen reader support driver requires dependencies to be installed.
+You can install them by running `python3 misc/scripts/install_accesskit.py`.
+See the documentation for more information:
+	https://docs.godotengine.org/en/latest/engine_details/development/compiling/compiling_for_macos.html#compiling-with-accesskit-support
+Alternatively, disable this driver by compiling with `accesskit=no` explicitly.
+WARNING: The ANGLE rendering driver requires dependencies to be installed.
+You can install them by running `python3 misc/scripts/install_angle.py`.
+See the documentation for more information:
+	https://docs.godotengine.org/en/latest/engine_details/development/compiling/compiling_for_macos.html#compiling-with-angle-support
+Alternatively, disable this driver by compiling with `angle=no` explicitly.
+Building for platform "macos", architecture "arm64", target "template_release".
+scons: done reading SConscript files.
+scons: Building targets ...
+Compiling drivers/metal/rendering_device_driver_metal.cpp ...
+clang++: warning: confstr() failed with code 5: couldn't get path of DARWIN_USER_TEMP_DIR; using temporary-directory instead
+Compiling servers/rendering/renderer_rd/renderer_compositor_rd.cpp ...
+clang++: warning: confstr() failed with code 5: couldn't get path of DARWIN_USER_TEMP_DIR; using temporary-directory instead
+Compiling servers/rendering/renderer_rd/forward_clustered/render_forward_clustered.cpp ...
+Compiling servers/rendering/renderer_rd/forward_clustered/scene_shader_forward_clustered.cpp ...
+clang++: warning: confstr() failed with code 5: couldn't get path of DARWIN_USER_TEMP_DIR; using temporary-directory instead
+clang++: warning: confstr() failed with code 5: couldn't get path of DARWIN_USER_TEMP_DIR; using temporary-directory instead
+Linking Static Library bin/obj/drivers/libdrivers.macos.template_release.arm64.native-metal.a ...
+ar: warning: confstr() failed with code 5: couldn't get path of DARWIN_USER_TEMP_DIR; using temporary-directory instead
+Ranlib Library bin/obj/drivers/libdrivers.macos.template_release.arm64.native-metal.a ...
+ranlib: warning: confstr() failed with code 5: couldn't get path of DARWIN_USER_TEMP_DIR; using temporary-directory instead
+Linking Static Library bin/obj/servers/libservers.macos.template_release.arm64.native-metal.a ...
+ar: warning: confstr() failed with code 5: couldn't get path of DARWIN_USER_TEMP_DIR; using temporary-directory instead
+Ranlib Library bin/obj/servers/libservers.macos.template_release.arm64.native-metal.a ...
+ranlib: warning: confstr() failed with code 5: couldn't get path of DARWIN_USER_TEMP_DIR; using temporary-directory instead
+Linking Program bin/godot.macos.template_release.arm64.native-metal ...
+clang++: warning: confstr() failed with code 5: couldn't get path of DARWIN_USER_TEMP_DIR; using temporary-directory instead
+scons: done building targets.
+INFO: Time elapsed: 00:00:04.50

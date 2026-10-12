@@ -29,7 +29,7 @@ Checked items are implemented or completed experiments, with their limits record
 - [ ] Validate a connected Looking Glass: calibration/device matching, view order, optical output, latency, disconnect/reconnect and shutdown.
 - [ ] Test animated geometry, camera cuts, thin occluders, transparent objects and particles against all-real references.
 - [ ] Resolve production color/tonemapping and temporal-jitter behavior; current compute preview is not final Godot postprocessed output.
-- [ ] Resolve the native Metal default-barrier defect, validate other GPUs/platforms, and verify physical output before claiming general support.
+- [ ] Resolve the native Metal default-barrier defect ([controlled experiments](benchmarks/metal-barriers/README.md) improve camera equivalence but still fail on-demand), validate other GPUs/platforms, and verify physical output before claiming general support.
 - [ ] Package a reproducible addon release and test shader import, exported projects and a fresh clone; define quality/performance presets from measured results.
 
 ### Ideally add, if benchmarks justify the cost

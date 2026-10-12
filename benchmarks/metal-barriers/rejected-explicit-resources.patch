@@ -1,0 +1,50 @@
+diff --git a/drivers/metal/metal3_objects.cpp b/drivers/metal/metal3_objects.cpp
+index 2eb60cbd8a..26508e6df2 100644
+--- a/drivers/metal/metal3_objects.cpp
++++ b/drivers/metal/metal3_objects.cpp
+@@ -1092,9 +1092,7 @@ void MDCommandBuffer::_render_set_dirty_state() {
+ 		}
+ 	}
+ 
+-	if (sync_mode == RDM::SyncMode::HazardTracking) {
+-		render.resource_tracker.encode(render.encoder.get());
+-	}
++	render.resource_tracker.encode(render.encoder.get());
+ 
+ 	render.dirty.clear();
+ }
+@@ -1634,9 +1632,7 @@ void MDCommandBuffer::_compute_set_dirty_state() {
+ 		}
+ 	}
+ 
+-	if (sync_mode == RDM::SyncMode::HazardTracking) {
+-		compute.resource_tracker.encode(compute.encoder.get());
+-	}
++	compute.resource_tracker.encode(compute.encoder.get());
+ 
+ 	compute.dirty.clear();
+ }
+diff --git a/drivers/metal/rendering_device_driver_metal.cpp b/drivers/metal/rendering_device_driver_metal.cpp
+index d70cec816b..0bedadc80c 100644
+--- a/drivers/metal/rendering_device_driver_metal.cpp
++++ b/drivers/metal/rendering_device_driver_metal.cpp
+@@ -1393,9 +1393,7 @@ RDD::UniformSetID RenderingDeviceDriverMetal::uniform_set_create(VectorView<Boun
+ 			}
+ 		};
+ #define ADD_USAGE(res, stage, usage) \
+-	if (sync_mode == HazardTracking) { \
+-		add_usage(res, stage, usage); \
+-	}
++	add_usage(res, stage, usage);
+ 
+ 		// Ensure the argument buffer exists for this set as some shader pipelines may
+ 		// have been generated with argument buffers enabled.
+@@ -1490,7 +1488,7 @@ RDD::UniformSetID RenderingDeviceDriverMetal::uniform_set_create(VectorView<Boun
+ 
+ #undef ADD_USAGE
+ 
+-		if (sync_mode == HazardTracking) {
++		{
+ 			for (const KeyValue<MTL::Resource *, StageResourceUsage> &keyval : bound_resources) {
+ 				ResourceVector *resources = set->usage_to_resources.getptr(keyval.value);
+ 				if (resources == nullptr) {

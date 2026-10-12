@@ -29,3 +29,8 @@ A new 4.8-dev native Metal runtime and optional test-fixture-only GDExtension no
 ## Native Metal correctness gate: optional hazard tracking
 
 The latest native Metal 4.8-dev addon suite passes 16/16 with `GODOT_MTL_SYNC_MODE=none`; the static Godot-to-fixture copy also passes. Repeating default barriers still fails the three prior image-equivalence checks. Diagnostics isolate source/final-viewport mismatches and an opposite-camera image substitution; the exact driver cause remains open. The smaller standalone reproduction is intermittent. No production rendering code was changed and no performance gain is claimed. Default-barrier engine correctness, other GPUs/versions, real Bridge output and safe consumer-side texture reuse remain open. See [findings and launch instructions](../native/bridge_metal/README.md#native-metal-synchronization-diagnosis) and [unpublished engine issue draft](native-metal-issue-draft.md).
+
+
+## Controlled Metal engine experiments
+
+Seven selected-check variants tested stronger encoder ordering, CPU staging allocation, per-frame camera UBO allocation, explicit resource declarations, producer attachment reads, and a combined variant. None passed all three previously failing checks. The per-frame UBO variant matched 80/80 source/viewport/quilt comparisons and passed resize/capture plus buffer compatibility, but still failed on-demand after an explicit settled refresh. A separate 64-update uniform-buffer compute control passed on both Metal modes and Vulkan, so it does not reproduce the raster failure. Production engine/addon changes were restored; no upstream-ready fix or speedup is claimed. See [experiment matrix, patches and provenance](../benchmarks/metal-barriers/README.md).

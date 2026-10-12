@@ -1,0 +1,36 @@
+diff --git a/servers/rendering/renderer_rd/forward_clustered/render_forward_clustered.cpp b/servers/rendering/renderer_rd/forward_clustered/render_forward_clustered.cpp
+index eb11f1fb9f..0bf5cf4213 100644
+--- a/servers/rendering/renderer_rd/forward_clustered/render_forward_clustered.cpp
++++ b/servers/rendering/renderer_rd/forward_clustered/render_forward_clustered.cpp
+@@ -706,6 +706,11 @@ uint32_t RenderForwardClustered::_setup_environment(const RenderDataRD *p_render
+ 	RID reflection_probe_instance = p_render_data->reflection_probe.is_valid() ? light_storage->reflection_probe_instance_get_probe(p_render_data->reflection_probe) : RID();
+ 
+ 	// May do this earlier in RenderSceneRenderRD::render_scene
++	const uint64_t frame = RD::get_singleton()->get_frames_drawn();
++	if (scene_state.uniform_buffer_frame != frame) {
++		scene_state.uniform_buffer_frame = frame;
++		scene_state.used_uniform_buffer_count = 0;
++	}
+ 	uint32_t uniform_buffer_index = scene_state.used_uniform_buffer_count;
+ 	++scene_state.used_uniform_buffer_count;
+ 
+@@ -1780,7 +1785,6 @@ void RenderForwardClustered::_process_sss(Ref<RenderSceneBuffersRD> p_render_buf
+ }
+ 
+ void RenderForwardClustered::_render_scene(RenderDataRD *p_render_data, const Color &p_default_bg_color) {
+-	scene_state.used_uniform_buffer_count = 0;
+ 
+ 	RendererRD::LightStorage *light_storage = RendererRD::LightStorage::get_singleton();
+ 
+diff --git a/servers/rendering/renderer_rd/forward_clustered/render_forward_clustered.h b/servers/rendering/renderer_rd/forward_clustered/render_forward_clustered.h
+index abe82f416b..0539dabebc 100644
+--- a/servers/rendering/renderer_rd/forward_clustered/render_forward_clustered.h
++++ b/servers/rendering/renderer_rd/forward_clustered/render_forward_clustered.h
+@@ -411,6 +411,7 @@ private:
+ 		LocalVector<RID> uniform_buffers;
+ 		LocalVector<RID> implementation_uniform_buffers;
+ 		uint32_t used_uniform_buffer_count = 0;
++		uint64_t uniform_buffer_frame = UINT64_MAX;
+ 
+ 		LightmapData lightmaps[MAX_LIGHTMAPS];
+ 		RID lightmap_ids[MAX_LIGHTMAPS];

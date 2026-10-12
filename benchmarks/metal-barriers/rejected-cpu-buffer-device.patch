@@ -1,0 +1,18 @@
+diff --git a/drivers/metal/rendering_device_driver_metal.cpp b/drivers/metal/rendering_device_driver_metal.cpp
+index d70cec816b..45c4b7b716 100644
+--- a/drivers/metal/rendering_device_driver_metal.cpp
++++ b/drivers/metal/rendering_device_driver_metal.cpp
+@@ -132,7 +132,12 @@ RDD::BufferID RenderingDeviceDriverMetal::buffer_create(uint64_t p_size, BitFiel
+ 			break;
+ 	}
+ 
+-	MetalBuffer buffer = allocator->new_buffer(p_size, options);
++	MetalBuffer buffer;
++	if (p_allocation_type == MEMORY_ALLOCATION_TYPE_CPU) {
++		buffer.buffer = NS::TransferPtr(device->newBuffer(p_size, options));
++	} else {
++		buffer = allocator->new_buffer(p_size, options);
++	}
+ 	ERR_FAIL_NULL_V_MSG(buffer.buffer.get(), BufferID(), "Can't create buffer of size: " + itos(p_size));
+ 
+ 	BufferInfo *buf_info;

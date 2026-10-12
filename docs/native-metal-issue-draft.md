@@ -47,3 +47,8 @@ Paths refer to engine commit `c61fc0118854f38d75474346a417db55e52d0ffd`:
 - `servers/rendering/renderer_rd/storage_rd/render_scene_data_rd.cpp:307`: `update_ubo()` updates the selected buffer.
 
 No engine patch is proposed here. No performance benefit, other hardware compatibility or physical Looking Glass output is established. See [structured outcomes](../benchmarks/native-bridge/metal-sync-results.json), [snapshot analysis](../benchmarks/native-bridge/equivalence-metal.json), and [hazard-tracking regression log](../benchmarks/native-bridge/regression-metal-hazard.log).
+
+
+## Follow-up investigation
+
+Seven controlled variants did not satisfy all three targeted regressions. A per-frame camera/implementation UBO pool matched 80/80 cross-rig snapshots and passed resize/capture plus buffer compatibility, but on-demand still failed after a settled refresh. Basic interleaved uniform-buffer compute writes/reads passed in both Metal modes and Vulkan. These results narrow the investigation but do not establish the driver cause or an acceptable patch. The normal engine and addon were restored; no report or PR was posted. See [patches, hashes, logs and limitations](../benchmarks/metal-barriers/README.md).
