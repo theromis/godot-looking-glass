@@ -1,6 +1,6 @@
-# Quilt по запросу для статичных сцен
+# On-demand quilts for static scenes
 
-`Rig.update_on_demand = true` устанавливается **до добавления rig в дерево сцены**. Первый кадр рендерится автоматически. Затем SubViewport переходят из `UPDATE_ONCE` в отключённое состояние, а готовая GPU-текстура quilt сохраняется. Повторные захваты источников и compute-сборка не выполняются до нового запроса. Основное окно продолжает показывать сохранённую текстуру; видеопамять не освобождается.
+Set `Rig.update_on_demand = true` **before adding the rig to the scene tree**. The initial frame renders automatically. SubViewports then move from `UPDATE_ONCE` to disabled, retaining the GPU quilt texture. No repeated source captures or compute assembly occur until another request. The main window continues showing the cached texture; VRAM stays allocated.
 
 ```gdscript
 var rig = preload("res://addons/looking_glass/rig.gd").new()
@@ -9,46 +9,46 @@ rig.real_views = 24
 rig.synthesis = true
 rig.update_on_demand = true
 add_child(rig)
-# После изменения объектов, материалов, света или окружения:
+# After changing objects, materials, lights or environment:
 rig.request_update()
 ```
 
-Перемещение самого rig автоматически обновляет камеры и запрашивает новый quilt. Изменения отдельных Camera3D, размеров viewport, проекции, геометрии, материалов, света, частиц, shader TIME и окружения требуют явного запроса. Несколько запросов до следующего рендера объединяются. Код ждёт свежего успешного захвата **каждого** источника, затем собирает quilt один раз. Версии захватов и состояние сборки обслуживаются rendering thread; завершение сообщается main thread через deferred callback. Счётчик завершений подтверждает отправку compute-команд, а не GPU fence; обычный порядок RenderingDevice обеспечивает использование результата последующим preview.
+Rig motion automatically updates cameras and requests a quilt. Individual Camera3D, viewport size, projection, geometry, material, light, particle, shader TIME and environment changes need explicit requests. Requests before the next render coalesce. Code waits for a fresh successful capture of **every** source, then assembles once. Capture versions and assembly state belong to the rendering thread; deferred callbacks notify the main thread. Completion counts command submission, not a GPU fence; RenderingDevice ordering makes the result available to subsequent preview.
 
-Это явное управление обновлениями, а не автоматическое обнаружение изменений World3D. Для непрерывной анимации оставьте `update_on_demand=false` (по умолчанию). Режим требует compute synthesis; при raster fallback rig сохраняет непрерывный рендеринг. Переключение режима после `_ready` не поддерживается: пересоздайте rig. Изменение параметров, для которых обычный rig требует пересоздания, по-прежнему требует пересоздания; `request_update()` не перестраивает конфигурацию камер или push constants.
+This is explicit update control, not automatic World3D change detection. Keep `update_on_demand=false` (default) for continuous animation. Compute synthesis is required; raster fallback stays continuous. Switching after `_ready` is unsupported: recreate the rig. Parameters normally requiring recreation still do; `request_update()` does not rebuild camera configuration or push constants.
 
-Не проверены накопительные эффекты TAA/FSR2, temporal GI, shader TIME и частицы. Один запрос не прогревает историю этих эффектов. Приложение отвечает за необходимые последовательные обновления или использует непрерывный режим. Физический Looking Glass и энергопотребление не измерялись.
+Accumulating TAA/FSR2, temporal GI, shader TIME and particles are untested. One request does not warm their histories. The application must issue sufficient sequential updates or use continuous mode. Physical Looking Glass and power consumption were not measured.
 
-## Проверка
+## Validation
 
-`tests/test_on_demand.gd` сравнивает raw GPU quilt с непрерывным рендерингом для copy, borrowed color и borrowed color+depth. Проверяются первоначальный кадр, отсутствие захватов/compute в idle, объединение запросов, изменения объекта/материала/света, движение rig, пересоздание исходных буферов после resize и освобождение ресурсов. Quilt имеет нечётные размеры тайла 65×67. Во всех проверках требуется точное совпадение пикселей.
+`tests/test_on_demand.gd` compares raw GPU quilts with continuous rendering for copy, borrowed color and borrowed color+depth. Tests cover initial output, no idle captures/compute, request coalescing, object/material/light changes, rig motion, source-buffer resize and release. Odd tile size 65×67; exact pixel equality required throughout.
 
 ```sh
 python3 tests/run_checks.py --godot /absolute/path/to/latest/godot
 python3 benchmarks/on-demand/run.py --godot /absolute/path/to/latest/godot --results-dir benchmarks/on-demand/static1024
 ```
 
-Для demo: `--views=48 --real=24 --tile=1024 --borrow-depth --static --opaque --on-demand`. Demo отклоняет on-demand вместе с анимацией или `--rendered-benchmark`: количество обновлений quilt в idle не растёт, поэтому такой benchmark не завершился бы.
+Demo: `--views=48 --real=24 --tile=1024 --borrow-depth --static --opaque --on-demand`. Animation and `--rendered-benchmark` are rejected with on-demand: idle quilt updates do not advance, so that benchmark would never finish.
 
-Benchmark выполняет три последовательные пары с чередованием порядка, 90 кадров прогрева и 240 измеряемых **process/presentation кадров**, 48 выходных ракурсов / 24 настоящих, 1024² тайлы, 512 статичных объектов в MultiMesh, четыре SpotLight с общим atlas. Viewport/quilt timestamps выключены в обоих вариантах. Первые captures сравниваются по SHA-256. Проверяются реальные захваты и compute dispatches: on-demand по два (первоначальный кадр и явный refresh на process кадре 86, до измеряемого idle), continuous минимум 300 за весь запуск. Несколько process кадров при старте предшествуют первому захвату; первоначальная проверка минимум 330 была слишком строгой и отклонила корректные 326 захватов. Этот запуск сохранён в `rejected-startup-check/` и не входит в принятую серию.
+Three sequential alternating pairs, 90 warmup and 240 measured **process/presentation frames**, 48 output / 24 real views, 1024² tiles, 512 static MultiMesh objects, four shared-atlas SpotLights. Both modes disable viewport/quilt timestamps. First captures compared by SHA-256. Actual work checks require two captures/dispatches for on-demand (initial plus explicit refresh at process frame 86, before measured idle) and at least 300 for continuous. Startup process calls can precede capture; the initial minimum of 330 incorrectly rejected 326 valid captures. That run remains in `rejected-startup-check/`, excluded from accepted results.
 
-Ускорение idle preview нельзя интерпретировать как ускорение генерации новых ракурсов движущейся сцены. GPU kernel time и ватт-часы здесь не измеряются.
+Faster idle preview does not mean faster generation of new views for moving scenes. GPU kernel time and watt-hours are not measured here.
 
-## Первоначальный кадр и прогрев
+## Initial frame and warmup
 
-Первая полная серия (`initial-frame1024/`) не прошла строгую проверку картинки: 76 из 201,326,592 RGBA-компонентов отличаются на один уровень из 255 между самым первым сохранённым quilt и поздним continuous reference. Причина этой небольшой стартовой разницы не установлена. Результат не объявляется побитно одинаковым и не входит в принятую серию. Для основной серии benchmark выполняет **явный** `request_update()` на process кадре 86, до 90 кадров прогрева. Это сравнение сохранённого установившегося состояния, а не гарантия, что одного начального рендера достаточно для любого эффекта. Production API автоматически не прогревает сцену.
+The first full series (`initial-frame1024/`) failed strict image equality: 76 of 201,326,592 RGBA components differed by one level out of 255 between the first cached quilt and late continuous reference. Cause unknown. It is not described as bit-identical or included in accepted results. The main benchmark **explicitly** calls `request_update()` at process frame 86, before 90-frame warmup ends. This compares cached settled output, not a guarantee that one initial render suffices for every effect. The production API does not automatically warm the scene.
 
-## Принятая серия: Apple M4, Godot 4.8-dev
+## Accepted series: Apple M4, Godot 4.8-dev
 
-| Показатель | Continuous | On-demand после прогрева |
+| Metric | Continuous | On-demand after warmup |
 |---|---:|---:|
-| Process/presentation interval, mean ± stddev средних трёх прогонов | 47.408 ± 0.296 мс | 16.535 ± 0.121 мс |
-| Compute dispatches за каждый запуск | 330 / 330 / 328 | 2 / 2 / 2 |
-| Захваты каждого source viewport за запуск | 330 / 330 / 328 | 2 / 2 / 2 |
-| Повторные рендеры в измеряемом idle | Каждый кадр | 0 |
+| Process/presentation interval, mean ± standard deviation of three run means | 47.408 ± 0.296 ms | 16.535 ± 0.121 ms |
+| Compute dispatches per run | 330 / 330 / 328 | 2 / 2 / 2 |
+| Captures per source viewport per run | 330 / 330 / 328 | 2 / 2 / 2 |
+| Repeated renders during measured idle | Every frame | 0 |
 
-После явного обновления перед idle PNG совпадают побитно: SHA-256 `0adf86c51333aea46d72e0cef05a1d21f71ba568e949653936b9d3a9ccc2e0ba`. Это примерно 65.1% меньший интервал обновления **окна с сохранённым изображением**, не прирост throughput новых light-field кадров. Изображение в idle не обновляется, его память остаётся занятой. Нет измерений энергии, физического дисплея или другого GPU.
+After the explicit pre-idle refresh, PNGs match bit-for-bit: SHA-256 `0adf86c51333aea46d72e0cef05a1d21f71ba568e949653936b9d3a9ccc2e0ba`. This is ~65.1% lower update interval for **a window displaying a cached image**, not higher new-light-field-frame throughput. Idle image is unchanged and memory remains allocated. No power, physical-display or other-GPU measurements.
 
-Принятые данные: `static1024/summary.json`, JSON и логи отдельных запусков; объединённые результаты и ограничения: `verified-results.json`. Код опыта и API сохранён в `source-snapshot/`. Все проверки выполнялись только на последнем локальном Godot 4.8-dev.
+Accepted data: `static1024/summary.json` and individual JSON/logs; combined results/limitations: `verified-results.json`. Experiment/API snapshot: `source-snapshot/`. All tests used only the latest local Godot 4.8-dev.
 
-Все **16 regression checks** прошли: `regression48.log`, включая новый тест изменений сцены/света, движения rig и resize в режиме по запросу.
+All **16 regression checks** passed: `regression48.log`, including on-demand scene/light changes, rig motion and resize.

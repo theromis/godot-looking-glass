@@ -1,24 +1,24 @@
-# Эксперимент: общий atlas позиционных теней
+# Experiment: shared positional shadow atlas
 
-Патч к MIT-исходникам Godot, база `232e6b14abf6e590b41d60f11704e42de22bff72` (4.8-dev). Код Looking Glass/Unity не использован. Исходный checkout: `/Users/roman/work/godot`; patch сохранён отдельно для review и переноса.
+Patch to MIT Godot sources, base `232e6b14abf6e590b41d60f11704e42de22bff72` (4.8-dev). No Looking Glass/Unity code used. Original checkout `/Users/roman/work/godot`; separate patch for review/porting.
 
-Добавлен `RenderingServer.viewport_set_positional_shadow_atlas_shared_from(viewport, source)`. По умолчанию off. Пустой RID отключает sharing. Каждый viewport сохраняет владение собственным atlas; owner не передаётся. Источник всегда использует собственный atlas, цепочки и циклы не допускаются. Удалённый source RID автоматически вызывает fallback.
+Added `RenderingServer.viewport_set_positional_shadow_atlas_shared_from(viewport, source)`, default off. Empty RID disables sharing. Each viewport retains its own atlas ownership; source always uses its own. Chains/cycles disallowed; removed source RID automatically falls back.
 
-Условия фактического sharing проверяются каждый render:
+Sharing eligibility checked every render:
 
-- одинаковый, валидный scenario;
-- у обеих камер `cull_mask == 0xFFFFF` (все 20 слоёв);
-- `mesh_lod_threshold == 0` у обоих viewport;
-- одинаковые atlas size и depth precision;
-- tighter shadow caster culling отключён **при старте renderer**: `rendering/lights_and_shadows/tighter_shadow_caster_culling=false`.
+- Same valid scenario;
+- Both cameras use `cull_mask == 0xFFFFF` (all 20 layers);
+- Both viewports use `mesh_lod_threshold == 0`;
+- Equal atlas size and depth precision;
+- Tighter caster culling disabled **at renderer startup**: `rendering/lights_and_shadows/tighter_shadow_caster_culling=false`.
 
-Directional shadows, culling основной геометрии, Forward+ clusters и draw calls основных видов этим не объединяются. Atlas allocations зависят от camera coverage и настроек subdivision источника; качество и разрешение теней необходимо сравнивать. Сохранение отдельных fallback atlases означает, что освобождение их GPU памяти ещё не реализовано. Патч не обещает одинаковый shadow resolution для произвольных камер и конфигураций. Не является общим production API для любых SubViewport.
+Does not share directional shadows, primary geometry culling, Forward+ clusters or main-view draws. Atlas allocation depends on source camera coverage/subdivisions; compare quality/resolution. Independent fallback atlases remain allocated. No universal equal-resolution guarantee or production API for arbitrary SubViewports.
 
-Исходники: `RendererViewport::_draw_3d`, `servers/rendering/renderer_viewport.cpp:334–350`; setter там же `:1391`; eligibility `RendererSceneCull::camera_can_share_positional_shadows`, `servers/rendering/renderer_scene_cull.cpp:157`; read-only `RenderingLightCuller::uses_full_shadow_casters`, `servers/rendering/rendering_light_culler.h:164`. Существующий механизм `shadow_atlas_update_light` и `InstanceLightData::last_version` предотвращает повторный draw неизменившейся shadow map внутри общего atlas; новая камера по-прежнему может вызвать allocation/reallocation.
+Sources: `RendererViewport::_draw_3d`, `servers/rendering/renderer_viewport.cpp:334–350`, setter `:1391`; eligibility `RendererSceneCull::camera_can_share_positional_shadows`, `servers/rendering/renderer_scene_cull.cpp:157`; read-only `RenderingLightCuller::uses_full_shadow_casters`, `servers/rendering/rendering_light_culler.h:164`. Existing `shadow_atlas_update_light` / `InstanceLightData::last_version` avoid unchanged-map redraws in the shared atlas; new cameras can still allocate/reallocate.
 
-## Сборка в этой среде
+## Build in this environment
 
-SCons установлен в отдельный venv `/Users/roman/work/tools/godot-build-venv`. Homebrew `/opt/homebrew/lib/libMoltenVK.a` подключён через symlink SDK-layout `/Users/roman/work/tools/mvk-sdk/macos-arm64/libMoltenVK.a`.
+SCons in `/Users/roman/work/tools/godot-build-venv`; Homebrew `/opt/homebrew/lib/libMoltenVK.a` linked through SDK layout `/Users/roman/work/tools/mvk-sdk/macos-arm64/libMoltenVK.a`.
 
 ```sh
 cd /Users/roman/work/godot
@@ -30,9 +30,9 @@ cd /Users/roman/work/godot
   module_godot_physics_3d_enabled=yes module_glslang_enabled=yes -j8
 ```
 
-Это минимальный runtime, не editor. Shader resources проекта предварительно импортированы официальным Godot 4.5.1. Native Metal backend исключён; тестируется Vulkan/MoltenVK.
+Minimal runtime, not editor. Shaders were pre-imported with official 4.5.1. Native Metal excluded; Vulkan/MoltenVK tested.
 
-## Сравнение
+## Comparison
 
 ```sh
 cd /Users/roman/work/godot-looking-glass
@@ -43,15 +43,15 @@ python3 benchmarks/engine-shadows/summarize.py
   --script res://tests/test_shared_shadows.gd
 ```
 
-Runner создаёт отдельный project.godot с full caster culling; ресурсы addon/demo/tests linked, import cache copied. Три пары baseline/shared чередуются на одном бинарнике, одинаковые lighting/LOD/frame motion. Метрики: wall frame delta, сумма per-viewport GPU durations, сумма shadow draw calls. GPU sum не равна критическому пути всего кадра. PNG readback выполняется после измерений. Стандартный addon сохраняет отдельные atlases и tighter culling; для opt-in backend задайте `rig.shared_positional_shadows=true` до `_ready()` и startup setting выше.
+Runner isolates project.godot with full caster culling, linked addon/demo/tests and copied imports. Three alternating baseline/shared pairs on one binary, matched lights/LOD/motion. Metrics: wall delta, viewport GPU sum, shadow draws; GPU sum is not critical path. PNG readback after timing. Normal addon retains separate atlases/tighter culling. Enable `rig.shared_positional_shadows=true` before `_ready()` plus the startup setting above.
 
 
-## Результат исполнения
+## Execution result
 
-Сборка завершилась успешно (`benchmarks/optimization/engine-build-path.log`). Для 48 real views: 32.964 → 21.983 ms/frame (−33.3%), GPU viewport sum 31.890 → 18.913 ms (−40.7%), shadow draw calls 2112 → 44. Три пары прогонов на M4; PNG baseline/shared byte-identical. Для 12 views frame time не улучшился. Подробная методика и ограничения — `docs/performance-optimization.md`, JSON — `benchmarks/engine-shadows/v48-summary.json`.
+Build succeeded (`benchmarks/optimization/engine-build-path.log`). 48 real: 32.964 → 21.983 ms/frame (−33.3%); viewport GPU sum 31.890 → 18.913 (−40.7%); shadows 2112 → 44. Three M4 pairs, exact PNGs. No 12-view frame gain. Method/limits: `docs/performance-optimization.md`; JSON: `benchmarks/engine-shadows/v48-summary.json`.
 
-GPU test с Omni/Spot, LOD/mask/chain fallback и освобождением owner прошёл. Projection/GPU synthesis/Bridge tests прошли на stock 4.5.1 и patched 4.8. Для 48-view сравнения runner принимает дополнительный аргумент `48`, summarize — аргумент `48`. Release templates не выполняют GDScript assert; тесты используют явные проверки с ненулевым exit code.
+Omni/Spot, LOD/mask/chain/owner-release tests passed; projection/GPU/Bridge on stock 4.5.1 and patched 4.8 passed. For the 48-view comparison, runner accepts `48` and summarize accepts `48`. Release templates omit GDScript assert; explicit checks exit nonzero.
 
-Stock 4.5.1 с `--shared-shadows` проверен отдельным запуском: API unavailable warning, корректный independent atlas fallback, benchmark завершён без errors (`stock-fallback.log/json`).
+Stock 4.5.1 separately tested with `--shared-shadows`: unavailable-API warning, correct independent-atlas fallback, successful benchmark (`stock-fallback.log/json`).
 
-Лицензия исходников Godot и copyright notice: [GODOT-LICENSE.txt](GODOT-LICENSE.txt).
+Godot source license and copyright notice: [GODOT-LICENSE.txt](GODOT-LICENSE.txt).

@@ -1,100 +1,100 @@
 # Looking Glass Godot Lab
 
-Самостоятельный исследовательский Godot 4 addon и демо: off-axis камеры, GPU quilt preview, экспериментальный GPU depth synthesis и Bridge detection. Код Unity/Looking Glass и SDK binaries в проект не перенесены.
+Standalone research addon and demo for Godot 4: off-axis cameras, GPU quilt preview, experimental GPU depth synthesis, and Bridge detection. Unity/Looking Glass code and SDK binaries are not included in the project.
 
-Проверено исполнением на Godot 4.5.1, Apple M4, Vulkan Forward+ через MoltenVK. Проект находится в `/Users/roman/work/godot-looking-glass`; исходники движка пользователя `/Users/roman/work/godot` (4.8-dev) исследованы; добавлен отключаемый экспериментальный patch общих позиционных теней (см. `engine-patches/README.md`). Запуск на физическом Looking Glass не подтверждён: Bridge возвращает 0 калиброванных LKG устройств. Native GPU texture submit в Bridge ещё не реализован.
+Executed on Godot 4.5.1, Apple M4, Vulkan Forward+ through MoltenVK. The project is at `/Users/roman/work/godot-looking-glass`; the user's engine sources at `/Users/roman/work/godot` (4.8-dev) were inspected, and an optional experimental shared positional shadow patch was added (see `engine-patches/README.md`). Physical Looking Glass output is unverified: Bridge reports 0 calibrated LKG devices. Native GPU texture submission to Bridge is not implemented yet.
 
-## Запуск
+## Running
 
-Откройте `project.godot` в Godot 4.5+ и нажмите F6/F5. По умолчанию 12 настоящих видов и quilt preview, оборудование не нужно. Первый import шейдеров обязателен перед command-line запуском.
+Open `project.godot` in Godot 4.5+ and press F6/F5. The default is 12 real views and a quilt preview; no hardware is required. Import shaders before the first command-line run.
 
 ```sh
 GODOT_LG_BIN="/Users/roman/work/tools/Godot.app/Contents/MacOS/Godot"
 "$GODOT_LG_BIN" --headless --path /Users/roman/work/godot-looking-glass --editor --import --quit
 "$GODOT_LG_BIN" --path /Users/roman/work/godot-looking-glass --rendering-driver vulkan
-# 12 output views, 4 real: экспериментальный compute
+# 12 output views, 4 real: experimental compute
 "$GODOT_LG_BIN" --path /Users/roman/work/godot-looking-glass --rendering-driver vulkan -- --views=12 --real=4 --tile=128
-# Bridge device detection, без native optical output
+# Bridge device detection, without native optical output
 "$GODOT_LG_BIN" --path /Users/roman/work/godot-looking-glass --rendering-driver vulkan -- --bridge
 ```
 
-Аргументы после `--`: `--borrow-color` (экспериментально читать исходный HDR color без копии), `--rendered-benchmark` (samples по quilt updates; для сопоставимых captures используйте --static), `--objects=N` (0–4096 дополнительных одинаковых объектов), `--batch-objects` (объединить их в MultiMesh), `--no-viewport-timing` (benchmark без viewport timestamps), `--profile-passes` (подробные интервалы; нужен engine flag `--gpu-profile` перед `--`), `--views=N` (1–48), `--real=N` (включает synthesis; endpoints всегда real), `--tile=N` (square tile), `--static`, `--opaque`, `--positional-lights=N`, `--no-positional-shadows`, `--fixed-motion`, `--no-mesh-lod`, `--shared-shadows`, `--bridge`, `--calibration=/absolute/path/visual.json`, `--benchmark=res://benchmarks/run.json`, `--capture=res://benchmarks/run.png`. Без `--tile` тайлы 192×256. CLI сначала применяет views, затем real; используйте этот порядок. Перед запуском arbitrary scenes сконфигурируйте exports в `rig.gd`: cone/FOV/focus/near/far/grid/resolution. Для runtime смены конфигурации пересоздайте rig.
+Arguments after `--`: `--borrow-color` (experimental direct HDR color access), `--rendered-benchmark` (samples quilt updates; use --static for comparable captures), `--objects=N` (0–4096 additional identical objects), `--batch-objects` (combine them into a MultiMesh), `--no-viewport-timing` (benchmark without viewport timestamps), `--profile-passes` (detailed intervals; requires engine flag `--gpu-profile` before `--`), `--views=N` (1–48), `--real=N` (enables synthesis; endpoints are always real), `--tile=N` (square tile), `--static`, `--opaque`, `--positional-lights=N`, `--no-positional-shadows`, `--fixed-motion`, `--no-mesh-lod`, `--shared-shadows`, `--bridge`, `--calibration=/absolute/path/visual.json`, `--benchmark=res://benchmarks/run.json`, `--capture=res://benchmarks/run.png`. Without `--tile`, tiles are 192×256. CLI applies views before real; use this argument order. Before running arbitrary scenes, configure cone/FOV/focus/near/far/grid/resolution exports in `rig.gd`. Recreate the rig to change configuration at runtime.
 
-## Встраивание addon
+## Addon integration
 
-Скопируйте только `addons/looking_glass` в свой Godot 4.5+ проект. Включение editor plugin в Project Settings → Plugins даёт тип LookingGlassRig. Можно создать rig из скрипта, установить параметры до add_child, расположить локальную ось -Z в сторону сцены. Фокусная плоскость находится на `focus_distance` впереди rig. Назначьте `rig.quilt_texture` своему TextureRect. Rig поддерживает перемещение/поворот; scale и нестандартные projection modes отдельно не поддержаны. Храните WorldEnvironment/scene в shared World3D.
+Copy only `addons/looking_glass` into your Godot 4.5+ project. Enabling the editor plugin in Project Settings → Plugins adds LookingGlassRig. Alternatively, create a rig from a script, set its parameters before add_child, and point its local -Z axis toward the scene. The focal plane is `focus_distance` ahead of the rig. Assign `rig.quilt_texture` to a TextureRect. Rig translation and rotation are supported; scale and nonstandard projection modes are not separately supported. Keep WorldEnvironment and the scene in the shared World3D.
 
-All-real quilt собирается GPU Canvas draws. Compute использует CompositorEffect и main RenderingDevice. Compatibility renderer переключается на все настоящие виды. Постоянных CPU readbacks нет; сохранение PNG и GPU unit test делают разовое считывание.
+The all-real quilt uses GPU Canvas draws. Compute uses CompositorEffect and the main RenderingDevice. The Compatibility renderer falls back to all-real views. There are no continuous CPU readbacks; PNG saving and GPU unit tests perform one-time reads.
 
-## Статус функций
+## Feature status
 
-| Функция | Статус |
+| Feature | Status |
 |---|---|
-| Off-axis 1–48 views, non-square projection | Реализована, тест прошёл |
-| GPU raster quilt, preview без LKG | Выполнено на Vulkan и Compatibility |
-| GPU color/depth capture и two-source compute synthesis | Выполнено на Vulkan; экспериментально, есть occlusion/alpha artifacts |
-| GPU timestamps / wall frame benchmarks / PNG captures | Выполнено; исходные результаты в benchmarks |
-| Bridge orchestration, device detection, calibration geometry | Fixture и реальный Bridge проверены; 0 calibrated devices |
-| Native Bridge GPU texture handoff / lenticular display output | Не реализовано |
-| Adaptive anchors / temporal motion vectors / depth-aware hole fill | Архитектура и roadmap; не реализовано |
-| Shared positional shadows (optional engine patch) | Исполнено на 4.8-dev; Omni/Spot, safe fallback; условия в engine-patches |
-| Engine multiview backend | Исследован 4.8-dev source; не реализован |
-| Native Metal demo | Инициализировался, затем не завершился; поддержка не подтверждена |
+| Off-axis 1–48 views, nonsquare projection | Implemented; test passed |
+| GPU raster quilt, preview without LKG | Executed on Vulkan and Compatibility |
+| GPU color/depth capture and two-source compute synthesis | Executed on Vulkan; experimental, with occlusion/alpha artifacts |
+| GPU timestamps / wall frame benchmarks / PNG captures | Executed; raw results in benchmarks |
+| Bridge orchestration, device detection, calibration geometry | Fixture and actual Bridge tested; 0 calibrated devices |
+| Native Bridge GPU texture handoff / lenticular display output | Not implemented |
+| Adaptive anchors / temporal motion vectors / depth-aware hole fill | Architecture and roadmap; not implemented |
+| Shared positional shadows (optional engine patch) | Executed on 4.8-dev; Omni/Spot, safe fallback; requirements in engine-patches |
+| Engine multiview backend | 4.8-dev sources inspected; not implemented |
+| Native Metal demo | Initialized, then failed to finish; support unverified |
 
-В качестве reference используйте all-real. Synthesis не восстанавливает hidden geometry; прозрачные поверхности не представлены в opaque depth, поэтому RGB/depth mismatch даёт ошибки. В compute-preview простая gamma, не полный Godot tone mapping. Оптическую калибровку native backend должен применить отдельно.
+Use all-real rendering as the reference. Synthesis cannot recover hidden geometry; transparent surfaces are absent from opaque depth, so RGB/depth mismatch causes errors. Compute preview uses simple gamma rather than complete Godot tone mapping. The native backend must apply optical calibration separately.
 
-## Проверки и измерения
+## Tests and measurements
 
 ```sh
 python3 /Users/roman/work/godot-looking-glass/tests/run_checks.py --godot /Users/roman/work/tools/Godot.app/Contents/MacOS/Godot
 ```
 
-Suite проверяет focal plane, FOV, near/far disparity, 1/2/12/47/48 quilt dimensions, GPU analytic planar synthesis с двумя знаками смещения и Bridge HTTP fixture на порту 33335. Fixture автоматически останавливается; этот порт должен быть свободен. GPU test требует оконного Vulkan renderer. Логи содержат PASS; runner отклоняет ошибки даже если Godot вернул код 0.
+The suite checks the focal plane, FOV, near/far disparity, 1/2/12/47/48-view quilt dimensions, analytical GPU planar synthesis with both displacement signs, and a Bridge HTTP fixture on port 33335. The fixture stops automatically; the port must be available. GPU tests require the windowed Vulkan renderer. Logs contain PASS; the runner rejects errors even when Godot exits with code 0.
 
-На одной opaque static сцене 48 output/48 real: 35.817 ms/frame; 48 output/12 real: 16.420 ms/frame, quilt compute 0.631 ms GPU. Тайлы 128×128, 90 warmup + 240 frame samples. Это один локальный тест с потерей качества, не универсальный speedup. PSNR synthesized tiles против all-real 16.94 dB; includes transfer-function difference. См. [методику и ограничения](docs/performance-optimization.md).
+One opaque static scene: 48 output/48 real views took 35.817 ms/frame; 48 output/12 real took 16.420 ms/frame, with 0.631 ms GPU quilt compute. Tiles: 128×128; 90 warmup + 240 frame samples. This is one local test with quality loss, not a universal speedup. Synthesized-tile PSNR against all-real: 16.94 dB, including the transfer-function difference. See [method and limitations](docs/performance-optimization.md).
 
-## Документы
+## Documents
 
-- [unity-plugin-analysis.md](docs/unity-plugin-analysis.md): download provenance, инвентарь, лицензии, source paths/classes/functions/lines, verified findings и hypotheses.
-- [godot-architecture.md](docs/godot-architecture.md): варианты A–D, текущий pipeline, multiview ограничения движка и native interop.
-- [performance-optimization.md](docs/performance-optimization.md): измеренные данные, tradeoffs и план benchmark campaign.
-- [implementation-roadmap.md](docs/implementation-roadmap.md): выполненное, следующие этапы и критерии готовности.
+- [unity-plugin-analysis.md](docs/unity-plugin-analysis.md): download provenance, inventory, licensing, source paths/classes/functions/lines, verified findings and hypotheses.
+- [godot-architecture.md](docs/godot-architecture.md): options A–D, current pipeline, engine multiview limitations and native interop.
+- [performance-optimization.md](docs/performance-optimization.md): measurements, tradeoffs and benchmark campaign plan.
+- [implementation-roadmap.md](docs/implementation-roadmap.md): completed work, next steps and readiness criteria.
 
-Официальный архив/reference находится отдельно в `/Users/roman/work/looking-glass-reference`. Не включайте его в open-source release этого addon. Новый код лицензирован MIT; external reference implementations и установленные runtime libraries остаются под своими лицензиями. Исследование не является разрешением на копирование proprietary source.
+The official archive/reference is stored separately in `/Users/roman/work/looking-glass-reference`. Do not include it in an open-source addon release. New code is MIT-licensed; external reference implementations and installed runtime libraries retain their own licenses. Research is not permission to copy proprietary source.
 
-После CPU-оптимизации (3 прогона до/после) отправка compute-команд занимает 0.0225 вместо 0.327 ms; контрольный quilt побайтно совпал. Существенное ускорение всей сцены этим изменением не установлено. Данные: `benchmarks/optimization/summary.json`.
+After CPU optimization (3 before/after runs), compute submission takes 0.0225 rather than 0.327 ms; the reference quilt matches byte-for-byte. A significant whole-scene speedup is not established. Data: `benchmarks/optimization/summary.json`.
 
-GPU-проход synthesis+quilt дополнительно ускорен с 4.058 до 3.189 ms (−21.4%) на тайлах 512×512, 48 output/12 real views; три прогона до и после, PNG побайтно одинаковы. Рост FPS не подтверждён из-за нестабильного frame pacing. Сводка: `benchmarks/optimization/summary-gpu.json`.
-
-
-Опциональный engine backend проверен на Godot 4.8-dev: общий atlas теней Omni/Spot. В сцене с 48 настоящими видами и четырьмя SpotLight время кадра снизилось с 32.964 до 21.983 ms (−33.3%, три пары прогонов, Apple M4); контрольный PNG идентичен. При 12 видах ускорение всей сцены не подтверждено. По умолчанию backend выключен; условия, сборка и fallback описаны в [engine-patches/README.md](engine-patches/README.md). Native multiview и общие directional shadows ещё не реализованы.
-
-Дополнительная проверка scene preparation: 512 одинаковых объектов, 48 настоящих ракурсов, общий atlas. MultiMesh снизил сумму CPU-времени ракурсов с 2.480 до 1.332 ms (−46.3%), но время кадра осталось около 22.5 ms; ускорение FPS не подтверждено. PNG двух вариантов совпали побайтно. Методика и исходные данные: [benchmarks/scene-preparation/README.md](benchmarks/scene-preparation/README.md).
-
-Измерение времени отдельных viewport теперь отключено по умолчанию в addon (`measure_render_time=false`) и включается демо для benchmark. Подробный GPU profiler — опциональный: [benchmarks/gpu-passes/README.md](benchmarks/gpu-passes/README.md). Timestamps заметно меняют нагрузку на Apple M4/MoltenVK; результаты профилирования нужно сравнивать с контрольным режимом.
-
-На Apple M4/Vulkan в stress scene с 48 real views отключение viewport timestamps уменьшило wall frame time с 22.533 до 20.145 ms (−10.6%, три прогона каждого режима); PNG одинаковы. Подробные engine GPU markers оказались дорогими (~64 ms/frame), поэтому они предназначены для диагностики с обязательным control. Общие тени без viewport timings также проверены: 28.795 → 20.145 ms в этой stress scene.
-
-Новый экспериментальный путь `--borrow-color` устраняет промежуточную HDR color copy, сохраняя собственную linear depth texture. На Apple M4, 24 real → 48 output, тайлы 1024², время обновления quilt снизилось с 52.205 до 49.656 ms (−4.88%, три прогона), PNG совпали побайтно; устранён 192 MiB texture payload. На 512² FPS-выигрыш не подтверждён, устранён 48 MiB payload. Это изменение addon, новый engine patch не требуется. Default copy path сохранён; TAA/FSR2/MSAA/post effects с borrowed input не проверены. [Методика и ограничения](benchmarks/borrow-color/README.md).
+The synthesis+quilt GPU pass improved from 4.058 to 3.189 ms (−21.4%) with 512×512 tiles, 48 output/12 real views; three before/after runs, byte-identical PNGs. FPS improvement is unconfirmed because of unstable frame pacing. Summary: `benchmarks/optimization/summary-gpu.json`.
 
 
-Экспериментальный `--borrow-depth` включает также direct HDR color и исключает отдельный захват/линеаризацию depth. `borrow_source_depth=false` по умолчанию. Raw reverse-Z преобразуется в linear depth внутри gather; для 24 источников 1024² устраняется 96 MiB собственной R32F texture allocation. Это calculated payload, не total VRAM. Тесты resize/ownership/exact quilt прошли на Godot 4.5.1 и экспериментальном 4.8. TAA/FSR2/MSAA/post effects не проверены; семантика использования engine-owned буферов после callback требует подтверждения. Команды и результаты: [benchmarks/borrow-depth/README.md](benchmarks/borrow-depth/README.md).
+Optional engine backend executed on Godot 4.8-dev: shared Omni/Spot shadow atlas. With 48 real views and four SpotLights, frame time fell from 32.964 to 21.983 ms (−33.3%, three paired runs, Apple M4); reference PNG identical. No whole-scene speedup is confirmed at 12 views. Backend is disabled by default; requirements, build and fallback are documented in [engine-patches/README.md](engine-patches/README.md). Native multiview and shared directional shadows remain unimplemented.
 
-В повторной серии 24 real → 48 output, 1024²: direct depth снизил наблюдаемый update interval 50.90 → 48.69 ms (-4.35%, три пары). GPU synthesis+quilt 12.54 → 11.09 ms; PNG одинаковы. [Результаты и нестабильная первая серия](benchmarks/borrow-depth/README.md).
+Additional scene-preparation test: 512 identical objects, 48 real views, shared atlas. MultiMesh reduced summed viewport CPU time from 2.480 to 1.332 ms (−46.3%), but frame time remained around 22.5 ms; no FPS gain confirmed. Both PNGs match byte-for-byte. Method and raw data: [benchmarks/scene-preparation/README.md](benchmarks/scene-preparation/README.md).
 
-Проверены compute workgroups 8×8 / 16×8 / 16×16: GPU quilt 11.179 / 11.470 / 11.270 ms на M4, три повтора. Ускорение не подтверждено; default 8×8 сохранён. Selector `--workgroup=16x8` или `--workgroup=16x16` доступен для других GPU. [Данные и ограничения](benchmarks/workgroups/README.md).
+Per-viewport timing is now disabled by default in the addon (`measure_render_time=false`) and enabled by the demo for benchmarks. The detailed GPU profiler is optional: [benchmarks/gpu-passes/README.md](benchmarks/gpu-passes/README.md). Timestamps substantially alter the Apple M4/MoltenVK workload; compare profiled results against a control mode.
 
-Опциональный `--iterations=4` сокращает GPU synthesis+quilt 11.005 → 10.775 ms (−2.09%) в M4 benchmark; update interval 48.029 → 47.770 ms (−0.54%). Изменились 0.01197% synthesized pixels vs 8; exact equivalence нет. Default 8 сохранён, `--iterations=2` экспериментален. [Скорость и сравнение с 48 настоящими видами](benchmarks/iterations/README.md).
+On Apple M4/Vulkan, disabling viewport timestamps in the 48-real-view stress scene reduced wall frame time from 22.533 to 20.145 ms (−10.6%, three runs per mode); PNGs identical. Detailed engine GPU markers were expensive (~64 ms/frame), so they are diagnostic and require a control. Shared shadows without viewport timings were also tested: 28.795 → 20.145 ms in this stress scene.
 
-Экспериментальный `--rescue` восстанавливает часть невалидных depth correspondences, проверяя ±1/±2/±4 source texel гипотезы для того же target pixel. На M4 восстановлено 2.03% invalid mask, synthesized PSNR 22.757 → 22.843 dB; GPU quilt 10.997 → 11.364 ms. Ускорения нет, default off. [Результаты и ограничения](benchmarks/disocclusion/README.md).
+The experimental `--borrow-color` path removes the intermediate HDR color copy while retaining an owned linear-depth texture. On Apple M4, 24 real → 48 output views, 1024² tiles, quilt update interval fell from 52.205 to 49.656 ms (−4.88%, three runs), with byte-identical PNGs and 192 MiB of texture payload removed. At 512², FPS gain is unconfirmed; 48 MiB removed. This is an addon change requiring no new engine patch. Default copy path retained; TAA/FSR2/MSAA/post effects with borrowed input were not yet tested at this stage. [Method and limitations](benchmarks/borrow-color/README.md).
 
-Borrowed-buffer policy теперь автоматически возвращается к snapshot copy при TAA и дополнительных enabled compositor effects. 15 configurations × 3 capture modes проверены на 4.5.1 и 4.8; exact quilt с policy, включая reset и render scale transitions. MSAA/FXAA/FSR1/FSR2/glow/tonemap совпали в статической матрице. Quilt остаётся pre-postprocessing HDR; dynamic/jitter quality не подтверждено. [Матрица и ограничения](benchmarks/buffer-compat/README.md).
 
-Quilt profiling выключено по умолчанию (`profile_synthesis=false`); benchmark включает его явно. --no-quilt-timing отключает measurement в benchmark. GPU/CPU buffers ограничены 480 samples по умолчанию. On/off M4 A/B: 47.6166 / 47.6215 ms, FPS выигрыш не подтверждён, PNG exact. [Измерения и тесты](benchmarks/quilt-profiling/README.md).
+Experimental `--borrow-depth` also enables direct HDR color and removes separate depth capture/linearization. `borrow_source_depth=false` by default. Raw reverse-Z is converted to linear depth inside gather; 24 sources at 1024² avoid 96 MiB of owned R32F allocation. This is calculated payload, not total VRAM. Resize/ownership/exact-quilt tests passed on Godot 4.5.1 and experimental 4.8. TAA/FSR2/MSAA/post effects were not yet tested at this stage; using engine-owned buffers after the callback required confirmation. Commands and results: [benchmarks/borrow-depth/README.md](benchmarks/borrow-depth/README.md).
 
-Опциональный `--inverse-depth` использует reverse-Z affine inverse depth и запрашивает raw capture. M4 A/B GPU quilt 11.346 / 11.316 ms; speedup не установлен относительно run variability. Изменились 0.017% synthesized pixels, PSNR vs baseline 88.875 dB. Default ordinary math сохранён. [Эксперимент и качество](benchmarks/inverse-depth/README.md).
+Repeated 24-real → 48-output series, 1024²: direct depth reduced the observed update interval 50.90 → 48.69 ms (−4.35%, three pairs). Synthesis+quilt GPU time: 12.54 → 11.09 ms; identical PNGs. [Results and unstable first series](benchmarks/borrow-depth/README.md).
 
-Измерен real-view budget для 48 outputs / 1024²: 12/16/24/32 sources дали 33.310/37.999/47.782/58.813 ms и whole-quilt PSNR 18.521/21.782/25.768/27.778 dB. В этой сцене `--real=16` уменьшает interval на 20.47% vs 24, с потерей качества. Defaults не изменены; adaptive controller пока не реализован. [Speed/quality curve и rejected timing](benchmarks/view-budget/README.md).
+Compute workgroups 8×8 / 16×8 / 16×16 tested: GPU quilt 11.179 / 11.470 / 11.270 ms on M4, three repeats. Speedup unconfirmed; default 8×8 retained. Selectors `--workgroup=16x8` and `--workgroup=16x16` are available for other GPUs. [Data and limitations](benchmarks/workgroups/README.md).
+
+Optional `--iterations=4` reduces synthesis+quilt GPU time 11.005 → 10.775 ms (−2.09%) in the M4 benchmark; update interval 48.029 → 47.770 ms (−0.54%). 0.01197% of synthesized pixels differ from 8 iterations; equivalence is not exact. Default 8 retained; `--iterations=2` experimental. [Speed and comparison against 48 real views](benchmarks/iterations/README.md).
+
+Experimental `--rescue` recovers some invalid depth correspondences by testing ±1/±2/±4 source-texel hypotheses for the same target pixel. On M4, 2.03% of the invalid mask recovered, synthesized PSNR 22.757 → 22.843 dB; GPU quilt 10.997 → 11.364 ms. No speedup; default off. [Results and limitations](benchmarks/disocclusion/README.md).
+
+Borrowed-buffer policy now automatically falls back to snapshot copies for TAA and additional enabled compositor effects. 15 configurations × 3 capture modes tested on 4.5.1 and 4.8; exact quilts with policy, including reset and render-scale transitions. MSAA/FXAA/FSR1/FSR2/glow/tonemap matched in the static matrix. Quilt remains pre-postprocessing HDR; dynamic/jitter quality unverified. [Matrix and limitations](benchmarks/buffer-compat/README.md).
+
+Quilt profiling is disabled by default (`profile_synthesis=false`); benchmarks enable it explicitly. --no-quilt-timing disables benchmark measurement. GPU/CPU buffers default to 480 samples maximum. M4 on/off A/B: 47.6166 / 47.6215 ms; no FPS gain confirmed, PNG exact. [Measurements and tests](benchmarks/quilt-profiling/README.md).
+
+Optional `--inverse-depth` uses affine reverse-Z inverse depth and requests raw capture. M4 A/B GPU quilt: 11.346 / 11.316 ms; speedup not established against run variation. 0.017% of synthesized pixels changed, PSNR against baseline 88.875 dB. Default ordinary math retained. [Experiment and quality](benchmarks/inverse-depth/README.md).
+
+Real-view budget measured for 48 outputs / 1024²: 12/16/24/32 sources produced 33.310/37.999/47.782/58.813 ms and whole-quilt PSNR 18.521/21.782/25.768/27.778 dB. In this scene, `--real=16` reduces interval by 20.47% versus 24, with quality loss. Defaults unchanged; no adaptive controller implemented. [Speed/quality curve and rejected timing](benchmarks/view-budget/README.md).
 
 
 ## Nonuniform anchors: measured negative result
@@ -127,6 +127,6 @@ Persistent probe resources and async diagnostic feedback are measured only on th
 GPU reduction of the optional depth diagnostic now returns 768 bytes instead of 786,432 bytes for 48 views at 256². On current Godot 4.8-dev / Apple M4, three repeated async experiments reduced CPU decoding from 20.499±1.021 to 0.306±0.009 ms per callback (about 67×). Isolated GPU scopes 1.371±0.021 versus 1.365±0.043 ms show no measurable extra GPU cost; quilt update intervals remain 48.27 ms and callback latency about 97 ms. GPU totals match CPU sums exactly, all output PNGs match byte-for-byte, and all 15 regression checks pass. This reduces diagnostic CPU work, with no established FPS gain. Uniform view selection and addon defaults remain unchanged. See [implementation, measurements and reproduction](benchmarks/depth-reduction/README.md).
 
 
-## Статичный quilt по запросу
+## Static quilt updates on demand
 
-Добавлен опциональный `update_on_demand` для compute quilt: ракурсы рендерятся и quilt собирается только при `request_update()`. Движение rig запрашивает обновление автоматически; изменения объектов, света, материалов и окружения приложение сообщает явно. На последнем Godot 4.8-dev / Apple M4, в трёх парах статичной сцены 24→48 с 1024² тайлами, интервал между process/presentation кадрами снизился с 47.408±0.296 до 16.535±0.121 мс. После прогрева сохранившийся quilt побитно совпал с continuous reference. В idle повторных source captures и compute dispatches нет; окно продолжает показывать сохранённую текстуру. Это экономия статичного режима, а не ускорение генерации новых ракурсов анимации. Самый первый кадр большой сцены отличался на 76 RGBA-компонентов с максимальной разницей 1/255; benchmark поэтому явно обновляет quilt перед измеряемым idle. Причина стартовой разницы не установлена, автоматический прогрев не реализован. Режим выключен по умолчанию и не меняет engine fork. См. [API, ограничения и измерения](benchmarks/on-demand/README.md).
+Optional `update_on_demand` renders source views and assembles the compute quilt only when `request_update()` is called. Rig motion requests updates automatically; the application explicitly reports object, light, material and environment changes. On current Godot 4.8-dev / Apple M4, three pairs of the static 24→48 scene with 1024² tiles reduced process/presentation interval from 47.408±0.296 to 16.535±0.121 ms. After warmup, the cached quilt matches the continuous reference bit-for-bit. Idle performs no repeated source captures or compute dispatches; the window keeps presenting the cached texture. This saves static-scene work rather than accelerating new animated views. The first large-scene frame differed in 76 RGBA components by at most 1/255, so the benchmark explicitly refreshes the quilt before measured idle. The startup difference has no established cause; no automatic warmup is implemented. Mode is off by default and does not modify the engine fork. See [API, limitations and measurements](benchmarks/on-demand/README.md).

@@ -1,20 +1,20 @@
-# Прямое чтение depth: A/B benchmark
+# Direct depth access: A/B benchmark
 
-Экспериментальный `--borrow-depth` также включает `--borrow-color`. Capture сохраняет ссылки на RenderSceneBuffersRD и исходные color/depth RID, обновляет их каждый callback и не освобождает engine-owned текстуры. Отдельный capture compute pass отсутствует. Synthesis преобразует reverse-Z depth в linear depth при каждом чтении; обычный shader и default copy path сохранены.
+Experimental `--borrow-depth` also enables `--borrow-color`. Capture retains RenderSceneBuffersRD and source color/depth RIDs, refreshes them each callback, and never frees engine-owned textures. There is no separate capture compute pass. Synthesis converts reverse-Z to linear depth on each read; the ordinary shader and default copy path are retained.
 
 ```sh
 python3 benchmarks/borrow-depth/run.py --godot /Users/roman/work/godot-theromis-shadow-atlas-pr/bin/godot.macos.template_release.arm64 --tile 1024 --rendered --results-dir benchmarks/borrow-depth/rendered1024
 ```
 
-Оба режима читают borrowed HDR color. `linear` копирует depth в собственную R32F texture; `raw` читает исходную depth. Статическая сцена: 512 MultiMesh boxes, четыре SpotLight, общий shadow atlas, 24 real → 48 output. Три пары с чередованием порядка. 90 warmup + 240 observed quilt update intervals. Проверяются dispatch count, timestamp samples, runtime errors и PNG SHA256.
+Both modes read borrowed HDR color. `linear` copies depth into an owned R32F texture; `raw` reads source depth. Static scene: 512 MultiMesh boxes, four SpotLights, shared shadow atlas, 24 real → 48 output. Three pairs with alternating order. 90 warmup + 240 observed quilt-update intervals. Dispatch counts, timestamp samples, runtime errors and PNG SHA256 are checked.
 
-Для 24 источников 1024² устраняется 96 MiB собственного R32F payload; это расчёт выделения текстур, не измерение общего VRAM. Цена — повторное преобразование глубины в iterative gather. Quilt GPU time не включает capture; по нему отдельно нельзя заключить об общей скорости.
+24 sources at 1024² avoid 96 MiB of owned R32F payload; this is calculated allocation, not measured total VRAM. The cost is repeated depth conversion in iterative gather. Quilt GPU time excludes capture and cannot independently establish overall speed.
 
-Ограничения: Forward+ Vulkan/MoltenVK; TAA/FSR2/MSAA/post effects и физическое устройство не проверены. Тест lifetime проверяет exact raw quilt при размерах источников 64/48/80, продолжающиеся dispatches, отсутствие пустого изображения и сохранность обоих borrowed RID после двойного release. Прямая depth имеет те же открытые вопросы lifetime и последующих изменений буферов, что direct color (#15633).
+Limitations: Forward+ Vulkan/MoltenVK; TAA/FSR2/MSAA/post effects and physical hardware untested at this stage. Lifetime tests check exact raw quilts at source sizes 64/48/80, continuing dispatches, nonempty output and survival of both borrowed RIDs after double release. Direct depth has the same open lifetime and subsequent-buffer-modification questions as direct color (#15633).
 
 
-## Измеренные результаты
+## Measured results
 
-Apple M4 / Godot 4.8-dev / Vulkan-MoltenVK, повторная серия `recheck1024/summary.json`: три пары, 240 наблюдаемых интервалов после 90 warmup на прогон. Linear-depth copy: 50.903 ± 0.997 ms; direct depth: 48.688 ± 0.934 ms (stddev между средними прогонов), изменение -4.35%. GPU synthesis+quilt: 12.539 → 11.094 ms (-11.52%). GPU среднее включает startup samples и не измеряет capture отдельно. CPU submission ~0.070 ms в обоих режимах. Каждая из шести записей имеет не менее 330 dispatches; saved PNG первой пары совпали побайтно, SHA256 `0adf86c51333aea46d72e0cef05a1d21f71ba568e949653936b9d3a9ccc2e0ba`.
+Apple M4 / Godot 4.8-dev / Vulkan-MoltenVK, repeated series `recheck1024/summary.json`: three pairs, each with 240 observed intervals after 90 warmup. Linear-depth copy: 50.903 ± 0.997 ms; direct depth: 48.688 ± 0.934 ms (standard deviation of run means), −4.35%. Synthesis+quilt GPU time: 12.539 → 11.094 ms (−11.52%). GPU means include startup, not isolated capture. CPU submission ~0.070 ms in both modes. All six records contain at least 330 dispatches; first-pair PNGs match byte-for-byte, SHA256 `0adf86c51333aea46d72e0cef05a1d21f71ba568e949653936b9d3a9ccc2e0ba`.
 
-Начальная серия `rendered1024/` сохранена для аудита: linear-3 дал wall 155.75 ms при engine delta 51.70 ms. Причина не установлена; wall mean этой серии не используется для speedup claim. Повторная серия использует неизменённый код и настройки. Значения нельзя складывать с выигрышем color-copy из отдельной серии. На 512² новый depth path пока не измерен.
+Initial series `rendered1024/` retained for audit: linear-3 reported wall 155.75 ms against engine delta 51.70 ms. Cause unknown; that series' wall mean is not used for speedup claims. The repeat used unchanged code/settings. Do not add this gain to the color-copy gain from another series. The new depth path has not yet been measured at 512².

@@ -1,30 +1,30 @@
-# Измерения подготовки сцены и бюджета ракурсов
+# Scene preparation and view-budget measurements
 
-Apple M4, patched Godot 4.8-dev, Vulkan/MoltenVK. 512 дополнительных статичных кубов, один общий BoxMesh и материал, одинаковые transforms; исходный движущийся caster, четыре SpotLight. Общие позиционные тени включены во всех режимах. Native Metal, другие GPU и физический Looking Glass здесь не проверены.
+Apple M4, patched 4.8-dev, Vulkan/MoltenVK. 512 additional static cubes, one shared BoxMesh/material, identical transforms; original moving caster and four SpotLights. Shared positional shadows enabled throughout. Native Metal, other GPUs and physical Looking Glass untested.
 
 ```sh
 python3 /Users/roman/work/godot-looking-glass/benchmarks/scene-preparation/run.py --godot /Users/roman/work/godot-theromis-shadow-atlas-pr/bin/godot.macos.template_release.arm64
 python3 /Users/roman/work/godot-looking-glass/benchmarks/scene-preparation/run.py --godot /Users/roman/work/godot-theromis-shadow-atlas-pr/bin/godot.macos.template_release.arm64 --suite synthesis
 ```
 
-Runner создаёт изолированный project с отключённым tighter caster culling и требует runtime с экспериментальным shared-shadow API. Перед запуском должны быть выполнены импорты основного проекта, как описано в основном README. Не запускайте параллельную GPU-нагрузку. Три повтора каждого режима, 90 warmup + 240 samples. Повторный запуск перезаписывает результаты соответствующего suite.
+Runner creates an isolated project with tighter caster culling disabled and requires experimental shared-shadow API. Import the main project first as documented in README. No concurrent GPU load. Three repeats per mode, 90 warmup + 240 samples; reruns overwrite that suite.
 
-| Режим | Frame mean, ms | CPU anchor sum, ms | GPU anchor sum, ms |
+| Mode | Frame mean, ms | CPU anchor sum, ms | GPU anchor sum, ms |
 |---|---:|---:|---:|
-| 48 real, отдельные объекты, 128² | 22.447 | 2.480 | 19.767 |
+| 48 real, separate objects, 128² | 22.447 | 2.480 | 19.767 |
 | 48 real, MultiMesh, 128² | 22.594 | 1.332 | 19.916 |
-| 48 real, отдельные объекты, 64² | 22.468 | 2.472 | 19.879 |
+| 48 real, separate objects, 64² | 22.468 | 2.472 | 19.879 |
 | 12 real → 48, MultiMesh, 128² | 16.173 | 0.750 | 6.252 |
 | 24 real → 48, MultiMesh, 128² | 16.554 | 1.060 | 9.195 |
 
-MultiMesh снижает CPU-подготовку на 46.3%, но FPS-выигрыш не подтверждён. Уменьшение тайла в четыре раза по площади также не даёт ускорения. Godot Forward+ уже применяет automatic instancing для совместимых отдельных поверхностей. Один большой MultiMesh может ухудшить frustum culling; для произвольных сцен нужны пространственные группы.
+MultiMesh reduces CPU preparation 46.3% without confirmed FPS gain. Fourfold tile-area reduction also yields no speedup. Forward+ already automatically instances compatible surfaces. A single large MultiMesh can weaken frustum culling; arbitrary scenes need spatial groups.
 
-48-real separate/MultiMesh PNG совпали побайтно. Синтез намеренно меняет изображение: относительно all-real MultiMesh PSNR 16.902 dB для 12 anchors и 21.268 dB для 24. MAE соответственно 0.04414 и 0.02477 (нормированный RGB). Это full-quilt сравнение, которое включает отличие compute gamma от Godot tonemapping, и не доказывает оптическое качество на дисплее.
+48-real separate/MultiMesh PNGs match byte-for-byte. Synthesis intentionally changes output: all-real MultiMesh PSNR 16.902 dB with 12 anchors, 21.268 dB with 24; normalized RGB MAE 0.04414/0.02477. Full-quilt comparison includes compute-gamma versus Godot-tonemap differences and does not prove optical display quality.
 
-В этом тесте практический кандидат — 24 реальных ракурса с синтезом: время кадра около 16.55 вместо 22.59 ms (−26.7%), качество выше 12-anchor варианта. Это конфигурация существующего compute pipeline, а не новый алгоритм. Разницу скорости 12/24 не следует считать устойчивой: scheduling и frame pacing могут ограничивать результат.
+The practical candidate here is 24 real views with synthesis: ~16.55 versus 22.59 ms (−26.7%), better quality than 12 anchors. This configures existing compute, not a new algorithm. The 12/24 speed difference is not necessarily sustained; scheduling/frame pacing can limit it.
 
-Суммы CPU/GPU ракурсов не являются critical path всего кадра. Global CPU frame setup записан отдельно; main viewport и quilt исключены из anchor сумм. Frame metric использует engine process delta, не независимый OS wall-clock timer. Данные GPU compute лежат отдельно в individual synthesis JSON и synthesis-summary.json. Все инструментированные режимы опрашивают одинаковые типы счётчиков, но абсолютная стоимость опроса зависит от количества ракурсов.
+Viewport CPU/GPU sums are not full-frame critical-path time. Global CPU setup is separate; anchor sums exclude main/quilt. Frame metric is engine process delta, not independent OS wall-clock timing. Compute data appear in individual synthesis JSON and synthesis-summary.json. Instrumented modes query identical counter types, but total query cost depends on view count.
 
-`summary.json` и `synthesis-summary.json` содержат средние и межпрогонные sample standard deviations. JSON/log/PNG отдельных прогонов сохранены рядом. `quality-12.log` и `quality-24.log` — executed image comparison. `discarded/` содержит первые отклонённые прогоны: параллельная GPU-проверка и лишние samples при ожидании frame_post_draw. Они не входят в итоговые сводки.
+`summary.json` and `synthesis-summary.json` store means and between-run sample standard deviations. Individual JSON/log/PNG retained nearby. `quality-12.log` and `quality-24.log` are executed image comparisons. `discarded/` retains rejected initial runs with concurrent GPU tests or extra samples while awaiting frame_post_draw; excluded from final summaries.
 
-Исправления benchmark: `_finish()` отключает `_process` перед ожиданием GPU-кадра; сбор статистики ограничен 240 samples и включается только при наличии `--benchmark`. Обычный preview больше не накапливает arrays со статистикой.
+Benchmark fixes: `_finish()` disables `_process` before waiting for GPU draw; collection is bounded to 240 samples and enabled only with `--benchmark`. Ordinary preview no longer accumulates statistics arrays.

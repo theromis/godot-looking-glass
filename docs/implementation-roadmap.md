@@ -1,85 +1,85 @@
-# План реализации и статус
+# Implementation roadmap and status
 
-## Этап 0 — provenance и licensing: выполнен
+## Phase 0 — provenance and licensing: complete
 
-Публичный официальный ZIP скачан, headers и SHA-256 сохранены, все 5217 файлов совпали. Unitypackage безопасно распакован отдельно. Инвентарь и line-level анализ готовы. Новый Godot addon не включает proprietary source, Unity Companion code или SDK binaries.
+Public official ZIP downloaded; headers/SHA-256 recorded; all 5217 files matched. Unitypackage safely extracted separately. Inventory/line-level analysis complete. New addon excludes proprietary source, Unity Companion code and SDK binaries.
 
-## Этап 1 — исполняемый baseline: выполнен на Godot 4.5.1
+## Phase 1 — executable baseline: completed on Godot 4.5.1
 
-Shared World3D, 1–48 off-axis cameras, configurable grid/resolution/cone/focus, GPU raster quilt, preview без LKG, сцена с несколькими глубинами, тонкими перекрытиями, directional shadows и alpha panel. Автотест подтверждает focal registration, знак near/far disparity, вертикальный FOV для non-square tiles, размеры quilt для 1/2/12/47/48 views. Vulkan Apple M4 запуск и PNG capture выполнены.
+Shared World3D, 1–48 off-axis cameras, configurable grid/resolution/cone/focus, GPU raster quilt, hardware-free preview, multiple depths/thin occluders/directional shadows/alpha panel. Tests verify focus, disparity signs, nonsquare vertical FOV, 1/2/12/47/48-view dimensions. Apple M4 Vulkan execution/PNG capture completed.
 
-## Этап 2 — экспериментальный synthesis: выполнен с ограничениями
+## Phase 2 — experimental synthesis: complete with limitations
 
-POST_TRANSPARENT HDR/depth capture, два соседних источника, bounded inverse warp, visibility by minimum eye depth, GPU quilt и timestamp instrumentation. GPU-тест синтетической плоскости проверяет нулевое/положительное/отрицательное смещение против аналитической формулы. Demo capture выполнен. На сложной сцене есть видимые occlusion/transparent artifacts; режим выключен по умолчанию. Это экспериментальный MVP, не завершённый алгоритм disocclusion.
+POST_TRANSPARENT HDR/depth capture, two neighbors, bounded inverse warp, minimum-eye-depth visibility, GPU quilt/timestamps. Synthetic planar tests compare zero/positive/negative shifts analytically. Demo captured; complex occlusion/transparency artifacts remain. Disabled by default: experimental MVP, not finished disocclusion reconstruction.
 
-## Этап 3 — Bridge control plane: выполнен
+## Phase 3 — Bridge control plane: complete
 
-HTTP client, automatic detection при `--bridge`, calibration unwrap/geometry, ручной visual.json, фильтрация обычных мониторов, session close. Протокольный fixture выполнен; live Bridge 2.6.3 отвечает и сообщает 0 calibrated LKG devices. В окружении установлен native SDK; библиотека не копировалась.
+HTTP client, automatic `--bridge` detection, calibration unwrap/geometry, manual visual.json, ordinary-monitor filtering and session close. Fixture passed; live Bridge 2.6.3 reports 0 calibrated LKG devices. Installed native SDK not copied.
 
-## Этап 4 — качество и native output: не выполнен
+## Phase 4 — quality and native output: incomplete
 
-1. Depth-aware hole fill с validity map, GPU coverage statistics, quality comparisons с all-real в opaque сценах.
-2. Захват opaque color отдельно от прозрачности, production transparency preset и диагностика view-dependent shading.
-3. Objective-C++ Metal Bridge GDExtension: SDK dynamic loading, SDK-created IOSurface output, GPU copy и явная queue synchronization, version checks, ownership teardown.
-4. Подключённый Looking Glass: calibration match по serial/device id, defaults quilt, view orientation, lenticular quality, frame pacing/latency, reconnect и multi-display selection.
+1. Depth-aware fill with validity map, GPU coverage statistics and opaque all-real comparisons.
+2. Separate opaque capture, production transparency preset and view-dependent shading diagnostics.
+3. Objective-C++ Metal Bridge GDExtension: dynamic SDK loading, SDK-created IOSurface output, GPU copy, explicit queue synchronization, version checks and ownership teardown.
+4. Connected Looking Glass: serial/device calibration matching, default quilts, orientation, lenticular quality, pacing/latency, reconnect and multi-display selection.
 
-Критерий готовности native output: калиброванный реальный дисплей показывает известный тест ракурсов, нет stale/tearing frames, подтверждены GPU copies/fences, процесс корректно переживает disconnect и shutdown. Сейчас это не проверено.
+Native-output readiness: calibrated hardware displays a known view test without stale/tearing frames; copies/fences verified, disconnect/shutdown handled. Currently unverified.
 
-## Этап 5 — адаптивность и temporal: не выполнен
+## Phase 5 — adaptation and temporal reuse: incomplete
 
-GPU tile disparity/edge/holes statistics, budgeted anchors с hysteresis, motion vectors с rejection, history remap. Нужны motion-vector capture и тесты animated geometry/particles/camera cuts. Нельзя принимать уменьшение числа real views за доказательство ускорения или качества.
+GPU disparity/edge/hole statistics, budgeted anchors with hysteresis, motion-vector rejection and history remapping. Requires motion capture and animated geometry/particles/cut tests. Fewer real views alone prove neither speed nor quality.
 
-## Этап 6 — опциональный engine backend: эксперимент позиционных теней
+## Phase 6 — optional engine backend: positional-shadow experiment
 
-В Godot 4.8-dev checkout уже есть Vulkan driver multiview, но scene renderer ограничен 2 views. Сначала module прототип для групп 2/4/8 и union culling, затем расширение scene UBO/shaders/effects. Измерить против одинакового addon baseline. Engine fork только при подтверждённом выигрыше и принятой стоимости сопровождения. В checkout добавлен opt-in API shared positional shadow atlas; patch и условия применения: `engine-patches/README.md`. Union culling и native batch views пока не реализованы.
+4.8-dev has driver multiview but limits scene rendering to 2 views. Prototype grouped 2/4/8 module/union culling, then extend UBO/shaders/effects; compare identical addon baseline. Fork only with verified gains/accepted maintenance. Opt-in shared positional atlas added; `engine-patches/README.md` describes requirements. Union culling/native batches remain absent.
 
-## Оставшиеся ограничения
+## Remaining limitations
 
-Нет физического calibrated LKG по ответу Bridge; optical/native output не тестировался. Нет редактора Unity и сравнения Unity/Godot на одинаковой сцене. Минимальный runtime Godot 4.8-dev собран для Vulkan/MoltenVK; native Metal этим бинарником не проверяется. Нет Windows/Linux GPU и драйверного capture RenderDoc/Xcode. All-real обходной путь для отсутствующего RD выполнен и проверен в Compatibility renderer. Нет adaptive scheduler, temporal history, depth-aware fill, экспортного native backend и per-view transparent overlay. GPU timestamps доступны для compositor quilt; engine per-viewport times суммируются и не равны total GPU critical path.
+Bridge reports no calibrated physical LKG; optical/native output untested. No Unity editor or matched Unity/Godot scene comparison. Minimal 4.8-dev built for Vulkan/MoltenVK, not native Metal. No Windows/Linux GPU or RenderDoc/Xcode capture. All-real no-RD Compatibility fallback passed. No adaptive scheduler, temporal history, depth-aware fill, export native backend or transparent overlay. Quilt timestamps available; summed viewport times are not total critical path.
 
-## Выполненные оптимизации addon
+## Completed addon optimizations
 
-Кэширование RD uniform sets, push constants и camera offsets; invalidation при смене source texture RIDs; обновление camera transforms только при движении rig. Дополнительно shader gather прекращает iterations при точном depth fixed point, сохраняя максимум 8 для несошедшихся пикселей. Сравнительные прогоны CPU и GPU, побайтная проверка quilt и regression suite сохранены в `benchmarks/optimization`; результаты описаны в performance-optimization.md. Addon-оптимизации не реализуют union culling/native engine multiview. Отдельный эксперимент shared positional shadows находится в engine-patches.
-
-
-## Проверенный результат engine эксперимента
-
-Runtime 4.8-dev собран и исполнен. Для 48 real views с четырьмя SpotLight shared atlas дал −33.3% wall frame time и −40.7% viewport GPU sum, при идентичных контрольных PNG; три пары прогонов. Omni/Spot runtime tests проверили LOD/mask/chain/owner-free fallback. Stock/patched regression suites прошли. До production применения требуются allocation/coverage stress tests, изменяющиеся masks/worlds, crowded lights, transparency, XR и несколько разных GPU; directional shadow reuse и native multiview требуют отдельной архитектуры.
-
-Дополнительный этап измерений выполнен: stress scene с 512 одинаковыми объектами, отдельные instances/MultiMesh, pixel-cost control и 12/24-anchor synthesis. CPU-подготовка с MultiMesh ниже, общий FPS не ускоряется; уменьшение числа настоящих ракурсов помогает в этом workload с измеримой потерей качества. Общий engine culling не реализован: текущие измерения не показывают, что он снимет основной bottleneck. Следующий шаг — GPU pass profiling для 48-real сцены и устранение различий tonemapping перед оценкой/adaptive synthesis. См. benchmarks/scene-preparation/README.md.
-
-GPU pass diagnostic выполнен. Обнаружено сильное влияние timestamps на M4/MoltenVK; они отключены в обычном addon по умолчанию. Измерено −10.6% wall frame time от отключения viewport timings в новой stress scene; shared shadows без timings также проверены (28.795 → 20.145 ms). Новый engine patch не нужен для этой оптимизации. Подробный marker profiler реализован как optional diagnostic, не использован для утверждения unprofiled shader bottleneck. Следующий исследовательский этап — capture без массовых timestamp queries.
-
-Реализован и измерен opt-in direct HDR color input в addon: source color RID вместо собственной color copy, linear depth capture сохранён. 1024²/24 real → 48 output: −4.88% quilt-update wall interval в static stress scene, 192 MiB calculated texture payload устранено, PNG exact. 512²: FPS gain не подтверждён, 48 MiB payload устранено. Важные lifetime/resize/непустой-synthesis проверки добавлены к suite; пройдены 4.5.1 и 4.8. TAA/FSR2/MSAA/другие post effects требуют отдельной проверки и возможного автоматического snapshot fallback; default copy path сохранён. Новый engine patch не нужен.
+Cached uniforms/constants/camera offsets; source-RID invalidation; transforms updated only on rig motion. Gather exits at exact depth fixed points, retaining up to 8 steps otherwise. CPU/GPU A/B, byte-identical quilts and regressions in `benchmarks/optimization`, detailed in performance-optimization.md. No union culling/native multiview; shadow experiment separate in engine-patches.
 
 
-Borrowed-depth MVP реализован через существующий RenderingDevice API без engine patch. Следующие проверки: MSAA depth resolve, TAA/FSR2, изменение render scale и near/far во время работы, lifetime при пересоздании буферов без изменения размера. До этих проверок direct color/depth остаётся opt-in; automated renderer-feature fallback не реализован.
+## Verified engine experiment
+
+4.8-dev built/executed. 48 real views/four SpotLights: shared atlas reduced wall 33.3%, viewport GPU sum 40.7%, exact PNGs, three pairs. Omni/Spot tests cover LOD/mask/chain/owner-free fallback; stock/patched regressions passed. Production needs allocation/coverage, changing masks/worlds, crowded lights, transparency, XR and other GPUs. Directional reuse/native multiview need separate architecture.
+
+Additional 512-object separate/MultiMesh, pixel-cost and 12/24-anchor experiments completed. MultiMesh lowers CPU preparation without FPS gain; fewer views help with measured quality loss. Shared engine culling unimplemented; data do not identify it as the principal bottleneck. Next: 48-real GPU profiling and transfer-function alignment before adaptive quality work. See benchmarks/scene-preparation/README.md.
+
+GPU diagnostic completed: timestamps strongly affect M4/MoltenVK and now default off. Viewport timing removal reduced wall 10.6%; uninstrumented shared shadows verified at 28.795 → 20.145 ms. No new engine patch needed. Detailed markers remain optional and do not identify an unprofiled shader bottleneck. Next: capture without mass queries.
+
+Opt-in direct HDR RID implemented/measured, retaining linear depth. Static 1024²/24→48: interval −4.88%, 192 MiB payload removed, exact PNGs. 512²: no confirmed FPS gain, 48 MiB removed. Lifetime/resize/nonempty checks passed on 4.5.1/4.8. TAA/FSR2/MSAA/post effects need further tests/possible snapshots; default copy retained. No engine patch.
 
 
-Iteration-limit эксперимент завершён: 4 даёт около 2.09% GPU quilt / 0.54% update interval в одной сцене, default 8 сохранён. Следующие quality checks: curved surfaces, тонкие перекрытия, motion/temporal flicker, частицы/transparency. All-real reference показал PSNR 22.757 dB для synthesized baseline; приоритет дальнейшего исследования — visibility/disocclusion reconstruction, не автоматическое переключение всех сцен на 2 iterations.
+Borrowed depth MVP uses existing RD APIs, no engine patch. Next: MSAA resolve, TAA/FSR2, runtime scale/near/far changes, same-size buffer recreation. Direct sources remain opt-in; automated feature fallback not implemented at this stage.
 
 
-Depth-hypothesis rescue MVP реализован и выполнен: восстановлено 2.03% failed two-source correspondences в одном static benchmark, GPU +3.34%, default off. До рекомендации для production нужны curved/moving/transparency scenes, качество на boundaries, широкий диапазон camera baseline, проверка false-positive visibility и temporal flicker. Дальнейшие варианты: дополнительные anchor sources, forward depth visibility buffer или depth hierarchy; они не реализованы и их выигрыш не доказан.
+Iteration experiment: 4 saves ~2.09% GPU quilt / 0.54% update interval in one scene; default 8. Next: curves, thin occlusions, motion/flicker, particles/transparency. All-real baseline PSNR 22.757 dB prioritizes visibility/disocclusions over switching all scenes to 2 steps.
+
+
+Rescue MVP recovered 2.03% failed correspondences in one static test, GPU +3.34%, default off. Production needs curved/moving/transparency scenes, boundary quality, wider baselines, false-visibility/flicker checks. Additional sources, forward visibility or hierarchy are proposals without proven gains.
 
 
 ## Borrowed-buffer compatibility fallback
 
-Проверены 15 renderer configurations на Apple M4/Vulkan, Godot 4.5.1 и 4.8: baseline, MSAA 2/4/8, TAA, FXAA, FSR1 0.5, FSR2 0.5/1, bilinear scale 0.5/1.25, glow, filmic tonemap, дополнительный compositor, reset. Финальная матрица сравнивает три capture modes и raw RGBAH quilt: default copy, borrowed color, borrowed color+depth. Все результаты exact с production policy, все девять regression checks прошли на обеих версиях.
+15 renderer configurations tested on Apple M4/Vulkan, 4.5.1/4.8: baseline, MSAA 2/4/8, TAA, FXAA, FSR1 0.5, FSR2 0.5/1, bilinear scale 0.5/1.25, glow, filmic tonemap, additional compositor, reset. Final raw RGBAH matrix compares default copy, borrowed color, borrowed color+depth. Production policy yields exact results; all nine regressions passed on both versions.
 
-Direct color без fallback отличается при TAA и другом color-modifying POST_TRANSPARENT effect после capture. Capture автоматически переключает color/depth на собственный snapshot при TAA или любом дополнительном enabled compositor effect и возвращает direct access после снятия blocker. Raw-depth fallback копирует reverse-Z в R32F, сохраняя interpretation synthesis shader. Descriptor cache обновляется по RID; освобождаются только собственные textures. WeakRef на compositor не создаёт ownership cycle.
+Direct color without fallback differs with TAA or a later color-modifying POST_TRANSPARENT effect. Capture snapshots color/depth for TAA or any additional enabled compositor, then returns to direct access when removed. Raw fallback preserves reverse-Z in R32F and synthesis interpretation. RID changes refresh descriptors; only owned textures freed. Compositor WeakRef avoids cycles.
 
-MSAA, FXAA, FSR1/FSR2, scaling, glow и tonemap сохранили equivalence в проверенных configurations. Это equivalence POST_TRANSPARENT snapshot: финальная TAA/FSR2/glow/tonemap output не включается в quilt, jitter compensation и dynamic quality ещё не проверены. Тест использует manual draw и sync только для проверки, не benchmark. Скорость новой policy отдельно не измерялась. Demo report теперь содержит effective borrow counts, fallback reasons и owned payload по фактическим dimensions.
+MSAA/FXAA/FSR1/FSR2/scaling/glow/tonemap retained tested equivalence, specifically to POST_TRANSPARENT snapshots. Final temporal/postprocessing output is not in quilts; jitter/dynamic quality untested. Manual draw/sync are correctness tools, not timing benchmarks. New policy speed unmeasured; reports expose effective borrowing, fallback reasons and actual-dimension payload.
 
-Первый FSR2 probe на internal 48² вызвал engine uavMip errors, результат rejected. На internal 128² повтор выполнен без errors; engine issue не исправлен и minimum supported size не установлен. Native Metal, другие GPU, physical Looking Glass и motion/particles/transparency остаются непроверенными. Подробные команды и JSON/log: benchmarks/buffer-compat/README.md.
-
-
-Quilt instrumentation вынесена в opt-in; samples bounded. A/B 24→48 1024²: 47.6166 ms on / 47.6215 off, FPS gain не подтверждён, PNG exact. Следующие оптимизации следует выбирать по новой измеренной нагрузке; только удалением оставшихся двух markers заметного ускорения в этой сцене не получено. Resize/profiling tests теперь ждут actual quilt updates вместо фиксированных process-call counts.
+Initial internal-48² FSR2 probe produced uavMip errors and was rejected; internal 128² repeat passed. Engine bug/minimum size unresolved. Native Metal, other GPUs, physical Looking Glass, motion/particles/transparency untested. Commands/JSON/log: benchmarks/buffer-compat/README.md.
 
 
-Inverse-depth math эксперимент выполнен: GPU 11.346 → 11.316 ms при stddev 0.238/0.290; speedup не подтверждён. Image PSNR vs baseline 88.875 dB; default ordinary оставлен. Further tuning этой формулы без профиля не является приоритетом. Следующие крупные кандидаты: real-view count/placement и GPU pixel workload; нужны quality/performance measurements, прежде чем автоматизировать выбор.
+Quilt instrumentation is opt-in with bounded arrays. 24→48/1024² A/B: 47.6166 ms on / 47.6215 off; no FPS gain, exact PNGs. Choose further optimizations from measured workloads; removing the last two markers yielded no meaningful speedup here. Resize/profiling tests await actual quilt updates rather than fixed process-call counts.
 
 
-Real-count curve получена для 12/16/24/32 → 48: явный speed/quality tradeoff. Per-view SSE/MAE сохранены для следующего fixed-budget anchor-placement эксперимента. Перед adaptive runtime нужны proxy-quality без полного GT, стабильность при motion и hysteresis/rebuild strategy. Current --real setting уже позволяет применить измеренный бюджет; automatic controller не реализован.
+Inverse-depth experiment completed: GPU 11.346 → 11.316 ms, standard deviations 0.238/0.290; speedup unconfirmed. Baseline PSNR 88.875 dB; ordinary default retained. Further formula tuning lacks profiling justification. Larger candidates: real count/placement and pixel workload, requiring quality/performance tests before automation.
+
+
+12/16/24/32 → 48 real-count curve establishes a speed/quality tradeoff; per-view SSE/MAE retained for placement. Runtime adaptation needs reference-free proxy validation, motion stability and hysteresis/rebuild strategy. `--real` already applies measured budgets; no automatic controller.
 
 
 ## Nonuniform anchors: measured negative result
@@ -112,6 +112,6 @@ Persistent probe resources and async diagnostic feedback are measured only on th
 GPU reduction of the optional depth diagnostic now returns 768 bytes instead of 786,432 bytes for 48 views at 256². On current Godot 4.8-dev / Apple M4, three repeated async experiments reduced CPU decoding from 20.499±1.021 to 0.306±0.009 ms per callback (about 67×). Isolated GPU scopes 1.371±0.021 versus 1.365±0.043 ms show no measurable extra GPU cost; quilt update intervals remain 48.27 ms and callback latency about 97 ms. GPU totals match CPU sums exactly, all output PNGs match byte-for-byte, and all 15 regression checks pass. This reduces diagnostic CPU work, with no established FPS gain. Uniform view selection and addon defaults remain unchanged. See [implementation, measurements and reproduction](../benchmarks/depth-reduction/README.md).
 
 
-## Статичный quilt по запросу
+## Static quilt updates on demand
 
-Добавлен опциональный `update_on_demand` для compute quilt: ракурсы рендерятся и quilt собирается только при `request_update()`. Движение rig запрашивает обновление автоматически; изменения объектов, света, материалов и окружения приложение сообщает явно. На последнем Godot 4.8-dev / Apple M4, в трёх парах статичной сцены 24→48 с 1024² тайлами, интервал между process/presentation кадрами снизился с 47.408±0.296 до 16.535±0.121 мс. После прогрева сохранившийся quilt побитно совпал с continuous reference. В idle повторных source captures и compute dispatches нет; окно продолжает показывать сохранённую текстуру. Это экономия статичного режима, а не ускорение генерации новых ракурсов анимации. Самый первый кадр большой сцены отличался на 76 RGBA-компонентов с максимальной разницей 1/255; benchmark поэтому явно обновляет quilt перед измеряемым idle. Причина стартовой разницы не установлена, автоматический прогрев не реализован. Режим выключен по умолчанию и не меняет engine fork. См. [API, ограничения и измерения](../benchmarks/on-demand/README.md).
+Optional `update_on_demand` renders source views and assembles the compute quilt only when `request_update()` is called. Rig motion requests updates automatically; the application explicitly reports object, light, material and environment changes. On current Godot 4.8-dev / Apple M4, three pairs of the static 24→48 scene with 1024² tiles reduced process/presentation interval from 47.408±0.296 to 16.535±0.121 ms. After warmup, the cached quilt matches the continuous reference bit-for-bit. Idle performs no repeated source captures or compute dispatches; the window keeps presenting the cached texture. This saves static-scene work rather than accelerating new animated views. The first large-scene frame differed in 76 RGBA components by at most 1/255, so the benchmark explicitly refreshes the quilt before measured idle. The startup difference has no established cause; no automatic warmup is implemented. Mode is off by default and does not modify the engine fork. See [API, limitations and measurements](../benchmarks/on-demand/README.md).

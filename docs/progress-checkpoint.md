@@ -1,16 +1,16 @@
-# Сохранённый прогресс — 2026-10-11
+# Progress checkpoint — 2026-10-11
 
-Репозиторий содержит самостоятельный Godot-проект, MIT-аддон, demo, тесты, исследовательские документы, optional patch общего positional shadow atlas и результаты экспериментов. Проприетарный Unity Plugin использовался только как доступный для исследования материал; его исходники и native libraries в этот репозиторий не включены.
+Standalone Godot project, MIT addon, demo/tests, research documentation, optional shared-shadow patch and measured experiments. Proprietary Unity Plugin used only as research reference; its sources/native libraries are not included.
 
-Последние завершённые этапы:
+Latest completed steps:
 
-- GPU-редукция диагностики глубины: feedback 786432 → 768 байт, CPU-декодирование 20.499 → 0.306 мс на Apple M4. Прирост FPS не подтверждён. См. `benchmarks/depth-reduction/`.
-- Опциональный quilt по запросу: в статичной сцене process/presentation interval 47.408 → 16.535 мс после прогрева, без повторных captures/compute в idle. Это показ сохранённого изображения, а не ускорение новых кадров анимации. См. `benchmarks/on-demand/`.
-- Все 16 регрессионных проверок прошли на последнем локальном Godot 4.8-dev. Лог: `benchmarks/on-demand/regression48.log`.
-- Depth-only adaptive selection не улучшила качество; uniform anchors остаются default. См. `benchmarks/depth-selection/`.
+- Depth-diagnostic GPU reduction: feedback 786432 → 768 bytes; CPU decoding 20.499 → 0.306 ms on M4. No confirmed FPS gain. See `benchmarks/depth-reduction/`.
+- On-demand quilt: static process/presentation 47.408 → 16.535 ms after warmup, no repeated idle captures/compute. Cached-image presentation, not faster new animated frames. See `benchmarks/on-demand/`.
+- All 16 regressions passed latest local 4.8-dev. Log: `benchmarks/on-demand/regression48.log`.
+- Depth-only selection did not improve quality; uniform anchors remain default. See `benchmarks/depth-selection/`.
 
-Код, протоколы, raw JSON, логи, агрегаты, source snapshots и контрольные суммы сохранены в Git. Большие PNG, кэши Godot и временные проекты исключены из Git, но остаются в исходной рабочей папке. Их пути, размеры и SHA-256 перечислены в `benchmarks/local-artifacts-manifest.json`. Для воспроизведения нужен editor import compute shaders и запуск соответствующих benchmark scripts; сами исключённые captures после clone отсутствуют. Скрипты анализа изображений могут требовать сначала повторно выполнить renders.
+Code/protocols/raw JSON/logs/aggregates/snapshots/hashes are in Git. Large PNGs, Godot caches and temporary projects remain local, excluded from Git. Paths/sizes/SHA-256 in `benchmarks/local-artifacts-manifest.json`. Reproduction needs editor shader import and benchmark scripts; excluded captures are absent after clone. Image analysis may require rerendering first.
 
-Главные оставшиеся ограничения: нет проверки физического Looking Glass / GPU interop с Bridge, нет данных другого GPU; динамические сцены, прозрачность и temporal reconstruction требуют дальнейшей проверки. В on-demand приложение явно сообщает изменения сцены; первый кадр большой сцены имел небольшую стартовую разницу, учтённую в протоколе. Данные экспериментов не означают универсального ускорения.
+Remaining: physical Looking Glass/Bridge GPU interop, other GPUs, dynamic/transparency/temporal quality. On-demand needs explicit scene invalidation; initial large-scene differences are documented. Results are not universal acceleration.
 
-Исследовательская история и дальнейшие задачи: `docs/implementation-roadmap.md`. Upstream patch и build provenance: `engine-patches/`. Изменения engine fork сохраняются отдельно в его существующей ветке; данный репозиторий не содержит checkout движка или его бинарник.
+History/tasks: `docs/implementation-roadmap.md`; upstream patch/provenance: `engine-patches/`. Engine fork changes remain in its separate branch; no engine checkout/binary included here.

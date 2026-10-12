@@ -1,10 +1,10 @@
 # Borrowed-buffer compatibility and snapshot fallback
 
-Проверяется эквивалентность snapshot в POST_TRANSPARENT, а не финальному viewport после TAA/upscaling/glow/tonemapping. Quilt по-прежнему использует pre-postprocessing HDR и simple gamma transfer. Эти тесты не подтверждают применение TAA/FSR2 к самому quilt или качество temporal reprojection.
+The test checks POST_TRANSPARENT snapshot equivalence, not final viewport output after TAA/upscaling/glow/tonemapping. Quilt still uses pre-postprocessing HDR with simple gamma. These tests establish neither TAA/FSR2 on the quilt nor temporal reprojection quality.
 
-## Выполненная матрица
+## Executed matrix
 
-Apple M4 / Forward+ Vulkan-MoltenVK; official 4.5.1 и custom 4.8-dev. Три rig с общим World3D, 5 output / 2 real, 256², spheres и boxes на разных глубинах. Сравнение raw RGBAH quilt, не только PNG. Все 15 конфигураций переключаются на существующих viewport, включая reconfiguration при неизменном размере и render scale 0.5/1.25.
+Apple M4 / Forward+ Vulkan-MoltenVK; official 4.5.1 and custom 4.8-dev. Three rigs sharing World3D, 5 output / 2 real views, 256², spheres and boxes at multiple depths. Compare raw RGBAH quilts rather than PNG alone. All 15 configurations switch on existing viewports, including same-size reconfiguration and render scale 0.5/1.25.
 
 | Configuration | Direct access without policy | With automatic policy |
 |---|---|---|
@@ -20,15 +20,15 @@ Apple M4 / Forward+ Vulkan-MoltenVK; official 4.5.1 и custom 4.8-dev. Три ri
 | Extra POST_TRANSPARENT color modifier after capture | Differs | Copied snapshot, exact |
 | Reset | Exact | Returns to borrowed, exact |
 
-Final matrix проверяет default copy, borrowed color + linear-depth copy и borrowed color/depth. Проверяются nonempty output, advancing synthesis dispatches, exact equality, expected effective borrow flags, fallback reasons, buffer dimensions, RID changes и фактический FSR2 mode через RenderSceneBuffersRD. Initial probes сравнивали default copy и raw-depth borrowed path. All 9 regression checks прошли на обеих версиях. Файлы: validated-4.5/4.8.json/.log, checks-4.5/4.8.log; initial probe-4.5.json/.log и probe-4.8.json/probe-4.8-manual.log.
+The final matrix tests default copy, borrowed color + linear-depth copy, and borrowed color/depth. Checks cover nonempty output, advancing dispatches, exact equality, effective borrow flags, fallback reasons, dimensions, RID changes and actual FSR2 mode via RenderSceneBuffersRD. Initial probes compared default copy and raw-depth borrowing. All 9 regressions passed on both versions. Files: validated-4.5/4.8.json/.log, checks-4.5/4.8.log; initial probe-4.5.json/.log and probe-4.8.json/probe-4.8-manual.log.
 
 ## Implementation
 
-Capture хранит requested и effective borrow modes раздельно. На render callback `get_use_taa()` блокирует direct access; любой другой enabled effect в camera compositor также включает консервативный fallback (в том числе effect, который мог бы быть безопасен). WeakRef на compositor исключает ownership cycle. При переключении освобождаются только собственные textures, обновляются RID и пересобираются cached synthesis descriptor sets. После снятия blocker direct mode возвращается автоматически.
+Capture separates requested and effective borrow modes. Callback `get_use_taa()` blocks direct access; any other enabled camera compositor effect also triggers conservative fallback, even if potentially safe. WeakRef avoids a compositor ownership cycle. Switching frees only owned textures, refreshes RIDs and rebuilds cached synthesis descriptors. Direct mode returns automatically when blockers are removed.
 
-Если synthesis выбран для raw reverse-Z depth, fallback пишет raw depth в собственную R32F через capture_raw_depth.glsl. Shader interpretation остаётся постоянной при смене режима. Linear-depth mode использует прежний capture shader. Fallback pipeline подготавливается заранее, но fallback color/depth textures выделяются только когда нужны. Capture.release остаётся idempotent; borrowed RID не освобождаются.
+When synthesis expects raw reverse-Z, fallback writes raw depth to owned R32F through capture_raw_depth.glsl, preserving interpretation across mode changes. Linear-depth mode uses the previous capture shader. Fallback pipelines are prepared beforehand; color/depth textures are allocated only when needed. Capture.release remains idempotent and never frees borrowed RIDs.
 
-Demo JSON различает запросы borrow_source_color/depth, effective_borrowed_color/depth_views, capture_fallback_reasons и calculated owned texture payload на основе фактических capture dimensions. Это не измерение total VRAM. Скорость после новой policy отдельно не измерялась; предыдущие benchmark цифры не переоценены.
+Demo JSON separates requested borrow_source_color/depth, effective_borrowed_color/depth_views, capture_fallback_reasons and calculated owned payload using actual dimensions. This is not total VRAM. Speed after this policy was not measured separately; earlier benchmark numbers were not reinterpreted.
 
 ## Reproduction
 
@@ -38,12 +38,12 @@ python3 tests/run_checks.py --godot /path/to/godot --driver vulkan
 /path/to/godot --path . --rendering-driver vulkan --quit-after 3000 --script res://tests/test_buffer_compat.gd -- --probe --output=res://benchmarks/buffer-compat/probe.json
 ```
 
-`--probe` отключает policy только в тестовых Capture instances и регистрирует differences; это не проверка корректности production fallback. Matrix test отключает обычный render loop и вызывает force_draw(false, 1/60) + force_sync для устойчивости вне foreground macOS window. Sync и GPU readbacks используются только в тесте; время матрицы не является benchmark.
+`--probe` disables policy only in test Capture instances and records differences; it does not validate production fallback. Matrix tests disable the ordinary render loop and use force_draw(false, 1/60) + force_sync for stability outside the foreground macOS window. Synchronization and GPU readbacks are test-only; matrix runtime is not a benchmark.
 
 ## Limitations and rejected probes
 
-Initial test при viewport 96² / internal FSR2 48² на 4.5 вызвал errors в execute_gpu_job_compute_rd (uavMip >= mip_slice_rids.size()). FSR2 result этого probe не принят. Пробу повторили с 256² / internal 128² без errors; минимальный безопасный размер FSR2 не установлен, engine bug не исправлялся. probe-small.json сохранён.
+Initial 4.5 test at viewport 96² / internal FSR2 48² produced execute_gpu_job_compute_rd errors (uavMip >= mip_slice_rids.size()). That probe's FSR2 result was rejected. Repeated at 256² / internal 128² without errors; minimum safe FSR2 size remains unknown and the engine bug was not fixed. probe-small.json retained.
 
-Initial 4.8 run не завершился; sample показывает main loop/nanosleep и не доказывает GPU deadlock. После исправления typed-array test setup ограниченная retry дошла до FSR1 и остановилась по quit-after во время ожидания следующего draw. Эти логи не считаются passed matrix; final manual-draw tests завершились полностью без RID leak warnings.
+Initial 4.8 run did not finish; its main-loop/nanosleep stack sample does not establish a GPU deadlock. After fixing typed-array setup, a bounded retry reached FSR1 and stopped at quit-after while awaiting another draw. These logs are not a passed matrix; final manual-draw tests completed without RID leak warnings.
 
-Статическая матрица на одном GPU не гарантирует lifetime contract для всех renderer configurations. Moving objects, temporal jitter compensation, частицы/transparency, другие compositor callback combinations, Apple native Metal, другие GPU и физический Looking Glass остаются непроверенными. Engine-owned source всё ещё не является snapshot; policy закрывает подтверждённые hazards, а не предоставляет официальный API lifetime guarantee. Дискуссия: https://github.com/godotengine/godot-proposals/discussions/15633.
+One static matrix on one GPU does not guarantee lifetime across all renderer configurations. Moving objects, temporal jitter compensation, particles/transparency, other callback combinations, native Metal, other GPUs and physical Looking Glass remain untested. Engine-owned sources are still not snapshots; policy covers verified hazards without providing an official lifetime guarantee. Discussion: https://github.com/godotengine/godot-proposals/discussions/15633.

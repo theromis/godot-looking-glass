@@ -5,22 +5,22 @@ python3 benchmarks/iterations/run.py --godot /Users/roman/work/godot-theromis-sh
 python3 benchmarks/iterations/quality.py benchmarks/iterations/rendered1024
 ```
 
-Для quality.py нужны NumPy и Pillow; локально использован bundled Python `/Users/roman/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/bin/python3`. Bench runner использует стандартную библиотеку.
+quality.py requires NumPy/Pillow; locally used bundled Python `/Users/roman/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/bin/python3`. Benchmark runner uses the standard library.
 
-Варианты отличаются только константой предела gather loop 2/4/8; точный fixed-point early exit, residual validity threshold и hole fallback сохранены. Canonical 8 shader не меняется. Selector `--iterations=2|4|8`, addon `reprojection_iterations`. Default 8 сохранён; export enum и runtime CLI принимают 2/4/8; некорректное программное значение откатывается в synthesizer к 8. Shader variants генерируются `shaders/generate_workgroups.py` для сочетаний local size и iteration limit и импортируются Godot заранее.
+Variants change only gather-loop limits 2/4/8; exact fixed-point early exit, residual threshold and hole fallback are unchanged. Canonical 8 shader retained. Selector `--iterations=2|4|8`, addon `reprojection_iterations`. Default 8; export enum/CLI accept 2/4/8, and invalid programmatic values fall back to 8. `shaders/generate_workgroups.py` generates group/iteration variants for advance Godot import.
 
-Сцена скорости: Apple M4/Vulkan-MoltenVK, Godot 4.8-dev, 24 real → 48 output, 1024², 512 static MultiMesh boxes, foreground bars и объекты на разных глубинах, четыре SpotLight, shared atlas, borrowed color/depth, workgroup 8×8. Три повтора каждого режима, порядок 8/4/2, 4/2/8, 2/8/4. 90 warmup + 240 observed update intervals. Quilt GPU interval включает два timestamp markers; mean включает startup samples и не означает whole-frame GPU time. Wall/engine mismatches сохраняются и отмечаются, не фильтруются без объяснения.
+Timing scene: Apple M4/Vulkan-MoltenVK, 4.8-dev, 24 real → 48 output, 1024², 512 static MultiMesh boxes, foreground bars/multiple depths, four shared-atlas SpotLights, borrowed color/depth, 8×8. Three repeats in 8/4/2, 4/2/8, 2/8/4 order; 90 warmup + 240 observed intervals. GPU quilt scope includes two markers and startup, not full-frame GPU time. Wall/engine mismatches are retained and flagged, not silently filtered.
 
-Качество: saved PNG первой тройки сравниваются с 8 iterations и отдельным 48-real quilt. Все варианты и reference используют тот же linear HDR → simple gamma shader transfer; сравнение не включает native Godot tonemapping mismatch. Metrics RGB MAE в 8-bit units, PSNR, fraction changed pixels считаются отдельно по 24 synthesized tiles и 24 real anchors. Anchors определены равномерным выбором round(i*47/23); quilt имеет 4 columns и перевёрнутые rows. PNG compression/alpha не используются в numerical RGB quality metric. PSNR null при точном совпадении (бесконечный PSNR).
+Quality: first three PNGs compared with 8 iterations and separate 48-real output, all using identical linear-HDR→simple-gamma transfer without native tonemap mismatch. RGB MAE in 8-bit units, PSNR and changed fractions separately cover 24 synthesized tiles/24 anchors. Uniform round(i*47/23), 4 columns, inverted rows. PNG compression/alpha are excluded from RGB metrics. Exact matches yield null PSNR (infinite).
 
-Это не perceptual/temporal quality score: scene opaque/static, curved geometry, частицы, motion, TAA/FSR2/MSAA и другие сцены не проверены. Даже хороший aggregate PSNR может скрывать дефекты на небольших границах. Default 8 не меняется на основе одной сцены.
+Not a perceptual/temporal score: opaque/static scene only; curved geometry, particles, motion, TAA/FSR2/MSAA and other scenes untested. Aggregate PSNR can hide small boundary defects. Default 8 is not changed from one scene.
 
-Все шесть checks прошли на Godot 4.5.1 и 4.8: projection, analytic GPU для 8/2/4, capture lifetime/workgroup equivalence, Bridge fixture. GPU analytic check проверяет zero/positive/negative disparity на плоскости, где меньшее число итераций должно быть достаточно. Это не подтверждение сложных occlusion cases.
+All six checks passed on 4.5.1 and 4.8: projection, analytic GPU 8/2/4, capture/workgroup lifetime, Bridge fixture. Planar zero/positive/negative disparity should need few iterations; it does not validate complex occlusions.
 
 
-## Измеренный результат
+## Measured result
 
-Apple M4, три повтора:
+Apple M4, three repeats:
 
 | Iterations | GPU quilt ms (mean ± run stddev) | Update interval ms | Changed synthesized pixels vs 8 | PSNR vs 48 real views |
 |---|---:|---:|---:|---:|
@@ -28,8 +28,8 @@ Apple M4, три повтора:
 | 4 | 10.775 ± 0.069 | 47.770 | 0.01197% | 22.757 dB |
 | 2 | 10.726 ± 0.032 | 47.723 | 0.34439% | 22.619 dB |
 
-4 уменьшает GPU interval на 2.09%, update interval на 0.54%. 2 уменьшает GPU interval на 2.54%, update interval на 0.64%. Это малый выигрыш в конкретной сцене, не существенное универсальное FPS ускорение. 4 не является exact replacement: saved PNG отличаются, хотя aggregate error мал. PSNR vs 8: 52.920 dB для 4 и 36.971 dB для 2. Пиксели всех настоящих anchors совпали точно между вариантами и independent 48-real reference. Wall/engine ratio >1.5 в этой серии не обнаружен.
+4 reduces GPU interval 2.09% and update interval 0.54%; 2 reduces them 2.54% and 0.64%. Small scene-specific savings, not a substantial universal FPS gain. 4 is not exact: PNGs differ despite low aggregate error. PSNR versus 8: 52.920 dB for 4, 36.971 dB for 2. Real anchors exactly match across variants and independent 48-real reference. No wall/engine ratio>1.5 anomalies.
 
-8 baseline также отличается от all-real: synthesized PSNR 22.757 dB; дальнейшее улучшение качества должно работать с visibility/disocclusions, а не считать 8-loop output ground truth. Причины всех конкретных ошибок отдельно не локализованы.
+8 also differs from all-real: synthesized PSNR 22.757 dB. Quality improvements should address visibility/disocclusions rather than treat 8-loop output as ground truth. Individual error causes were not fully localized.
 
-Default 8 сохранён. `--iterations=4` — optional quality/performance tradeoff; `--iterations=2` — более агрессивный эксперимент. Скорость других сцен, temporal stability и curved geometry не измерены. Данные: rendered1024/summary.json, quality.json и reference JSON/PNG. Ничего не пушилось; engine code не изменён.
+Default 8 retained. `--iterations=4` is an optional quality/performance tradeoff; `--iterations=2` a more aggressive experiment. Other-scene speed, temporal stability and curved geometry not measured. Data: rendered1024/summary.json, quality.json, reference JSON/PNG. Nothing was pushed at this stage; engine code unchanged.
