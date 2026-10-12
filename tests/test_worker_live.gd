@@ -6,12 +6,14 @@ func run() -> void:
     var large: bool="--large" in OS.get_cmdline_user_args()
     var dimensions: Vector2i=Vector2i(4092,4092) if large else Vector2i(704,684)
     var frame_count: int=8 if large else 24
+    var duration_seconds: float=0
     var directory: String="res://benchmarks/hardware/live-transport"
     var surface_name: String=""
     var verify_surface: bool="--verify" in OS.get_cmdline_user_args()
     var shared_name: String=""
     var pipe_path: String=""
     for argument in OS.get_cmdline_user_args():
+        if argument.begins_with("--duration="): duration_seconds=argument.trim_prefix("--duration=").to_float()-15.0
         if argument.begins_with("--surface-name="): surface_name=argument.trim_prefix("--surface-name=")
         if argument.begins_with("--shm-name="): shared_name=argument.trim_prefix("--shm-name=")
         if argument.begins_with("--pipe-path="): pipe_path=argument.trim_prefix("--pipe-path=")
@@ -56,7 +58,11 @@ func run() -> void:
     scene.add_child(rig)
     var readback_us: int=0
     var pipe_us: int=0
+    var animation_started: int=Time.get_ticks_msec()
+    var produced: int=0
+    if duration_seconds>0: frame_count=10000
     for frame in range(frame_count):
+        if duration_seconds>0 and float(Time.get_ticks_msec()-animation_started)/1000.0>=duration_seconds: break
         box.rotation.y=float(frame)*0.15
         material.albedo_color=Color(0.95,0.3,0.05) if frame%2==0 else Color(0.05,0.9,0.95)
         rig.request_update()
@@ -107,8 +113,11 @@ func run() -> void:
                 if DirAccess.rename_absolute(directory+"/pending.tmp",directory+"/latest.bin")!=OK:
                     quit(1)
                     return
+        produced+=1
         print("PRODUCER sequence=",frame+1)
         await create_timer(0.4).timeout
+    frame_count=produced
+    print("PRODUCER animation_elapsed_seconds=",float(Time.get_ticks_msec()-animation_started)/1000.0)
     if not surface_name.is_empty():
         var deadline: int=Time.get_ticks_msec()+2000
         while not pipe_writer.surface_ready() and Time.get_ticks_msec()<deadline:

@@ -1,3 +1,4 @@
+#include <cmath>
 // Explicit bounded experiment. Current GL-context completion is not a public
 // SDK consumer-completion contract; do not reuse this as production streaming.
 #include <bridge.h>
@@ -16,11 +17,13 @@
 #include <cerrno>
 #define LOAD(name) auto name##_fn=reinterpret_cast<decltype(&name)>(dlsym(library,#name)); if(!name##_fn) return 2
 int main(int argc,char **argv) { @autoreleasepool {
-    if((argc<4 || argc>7) || std::string(argv[3])!="--experimental-reuse") return 2;
+    if((argc<4 || argc>8) || std::string(argv[3])!="--experimental-reuse") return 2;
     bool large=false, verify_surface=false;
+    double duration=20.0;
     for(int arg=5;arg<argc;++arg) {
         if(std::string(argv[arg])=="--large") large=true;
         else if(std::string(argv[arg])=="--verify") verify_surface=true;
+        else if(std::string(argv[arg]).rfind("--duration=",0)==0) { duration=std::stod(std::string(argv[arg]).substr(11)); if(!std::isfinite(duration) || duration<20 || duration>600) return 2; }
         else return 2;
     }
     const unsigned width=large?4092:704,height=large?4092:684;
@@ -87,7 +90,8 @@ int main(int argc,char **argv) { @autoreleasepool {
     bool stable_context=true,exact=true;
     NSDate *started=[NSDate date];
     int previous=-1;
-    while(ok && -[started timeIntervalSinceNow]<20.0) {
+    double first_update=-1,last_update=0;
+    while(ok && -[started timeIntervalSinceNow]<duration) {
         int frame=int(-[started timeIntervalSinceNow]*2.0);
         if(frame!=previous) {
             std::vector<unsigned char> incoming;
@@ -197,12 +201,14 @@ int main(int argc,char **argv) { @autoreleasepool {
             if(!observed) observed=current;
             stable_context=stable_context && current && current==observed;
             ++updates; previous=frame;
+            last_update=-[started timeIntervalSinceNow]; if(first_update<0) first_update=last_update;
             if(live_input) { last_sequence=sequence; std::cout<<"live_sequence="<<sequence<<std::endl; }
         }
         if(pump) pump();
         if(ok && updates) ok=draw_interop_quilt_texture_metal_fn(window,native,11,6,0.5625,1);
         [[NSRunLoop currentRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:0.02]];
     }
+    std::cout<<"worker_update_span_seconds="<<(last_update-first_update)<<" worker_update_rate_hz="<<((updates>1 && last_update>first_update)?(updates-1)/(last_update-first_update):0)<<std::endl;
     if(CGLGetCurrentContext()) glFinish();
     imported_texture=nil;
     if(imported_surface) CFRelease(imported_surface);

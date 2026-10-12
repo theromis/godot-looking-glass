@@ -1,0 +1,843 @@
+{
+  "execution_passed": true,
+  "producer_exit": 0,
+  "worker_exit": 0,
+  "transport": "IOSurface GPU sharing; 32-byte control mailbox with copy acknowledgment",
+  "quilt_size": [
+    4092,
+    4092
+  ],
+  "producer_frames_requested": null,
+  "worker_duration_seconds": 120,
+  "diagnostic_readback": false,
+  "gpu_only_frame_transport": true,
+  "user_observation": "User confirmed that visible updates continue without freezing or disappearing during the extended run.",
+  "consumer_completion_contract_verified": false,
+  "production_ready": false,
+  "rss_samples": [
+    {
+      "elapsed_seconds": 0.0,
+      "producer_rss_kib": 208,
+      "worker_rss_kib": 6080
+    },
+    {
+      "elapsed_seconds": 1.014,
+      "producer_rss_kib": 242912,
+      "worker_rss_kib": 91152
+    },
+    {
+      "elapsed_seconds": 2.021,
+      "producer_rss_kib": 243968,
+      "worker_rss_kib": 91776
+    },
+    {
+      "elapsed_seconds": 3.032,
+      "producer_rss_kib": 241760,
+      "worker_rss_kib": 91024
+    },
+    {
+      "elapsed_seconds": 4.037,
+      "producer_rss_kib": 241968,
+      "worker_rss_kib": 91184
+    },
+    {
+      "elapsed_seconds": 5.044,
+      "producer_rss_kib": 242848,
+      "worker_rss_kib": 91216
+    },
+    {
+      "elapsed_seconds": 6.054,
+      "producer_rss_kib": 242688,
+      "worker_rss_kib": 91200
+    },
+    {
+      "elapsed_seconds": 7.064,
+      "producer_rss_kib": 242752,
+      "worker_rss_kib": 91216
+    },
+    {
+      "elapsed_seconds": 8.074,
+      "producer_rss_kib": 242128,
+      "worker_rss_kib": 91312
+    },
+    {
+      "elapsed_seconds": 9.084,
+      "producer_rss_kib": 242112,
+      "worker_rss_kib": 91392
+    },
+    {
+      "elapsed_seconds": 10.094,
+      "producer_rss_kib": 242128,
+      "worker_rss_kib": 91440
+    },
+    {
+      "elapsed_seconds": 11.104,
+      "producer_rss_kib": 242048,
+      "worker_rss_kib": 91408
+    },
+    {
+      "elapsed_seconds": 12.114,
+      "producer_rss_kib": 242128,
+      "worker_rss_kib": 91408
+    },
+    {
+      "elapsed_seconds": 13.12,
+      "producer_rss_kib": 242256,
+      "worker_rss_kib": 91408
+    },
+    {
+      "elapsed_seconds": 14.131,
+      "producer_rss_kib": 242256,
+      "worker_rss_kib": 91408
+    },
+    {
+      "elapsed_seconds": 15.137,
+      "producer_rss_kib": 242256,
+      "worker_rss_kib": 91424
+    },
+    {
+      "elapsed_seconds": 16.148,
+      "producer_rss_kib": 242256,
+      "worker_rss_kib": 91424
+    },
+    {
+      "elapsed_seconds": 17.158,
+      "producer_rss_kib": 242256,
+      "worker_rss_kib": 91472
+    },
+    {
+      "elapsed_seconds": 18.169,
+      "producer_rss_kib": 242256,
+      "worker_rss_kib": 91472
+    },
+    {
+      "elapsed_seconds": 19.179,
+      "producer_rss_kib": 242256,
+      "worker_rss_kib": 91472
+    },
+    {
+      "elapsed_seconds": 20.187,
+      "producer_rss_kib": 242256,
+      "worker_rss_kib": 91472
+    },
+    {
+      "elapsed_seconds": 21.198,
+      "producer_rss_kib": 242256,
+      "worker_rss_kib": 91488
+    },
+    {
+      "elapsed_seconds": 22.208,
+      "producer_rss_kib": 242256,
+      "worker_rss_kib": 91488
+    },
+    {
+      "elapsed_seconds": 23.218,
+      "producer_rss_kib": 242256,
+      "worker_rss_kib": 91488
+    },
+    {
+      "elapsed_seconds": 24.229,
+      "producer_rss_kib": 242256,
+      "worker_rss_kib": 91536
+    },
+    {
+      "elapsed_seconds": 25.24,
+      "producer_rss_kib": 242256,
+      "worker_rss_kib": 91536
+    },
+    {
+      "elapsed_seconds": 26.251,
+      "producer_rss_kib": 242256,
+      "worker_rss_kib": 91536
+    },
+    {
+      "elapsed_seconds": 27.262,
+      "producer_rss_kib": 242256,
+      "worker_rss_kib": 91536
+    },
+    {
+      "elapsed_seconds": 28.272,
+      "producer_rss_kib": 242256,
+      "worker_rss_kib": 91536
+    },
+    {
+      "elapsed_seconds": 29.282,
+      "producer_rss_kib": 242256,
+      "worker_rss_kib": 91536
+    },
+    {
+      "elapsed_seconds": 30.292,
+      "producer_rss_kib": 242256,
+      "worker_rss_kib": 91536
+    },
+    {
+      "elapsed_seconds": 31.302,
+      "producer_rss_kib": 242256,
+      "worker_rss_kib": 91536
+    },
+    {
+      "elapsed_seconds": 32.312,
+      "producer_rss_kib": 242256,
+      "worker_rss_kib": 91568
+    },
+    {
+      "elapsed_seconds": 33.32,
+      "producer_rss_kib": 242256,
+      "worker_rss_kib": 91536
+    },
+    {
+      "elapsed_seconds": 34.33,
+      "producer_rss_kib": 242256,
+      "worker_rss_kib": 91568
+    },
+    {
+      "elapsed_seconds": 35.337,
+      "producer_rss_kib": 242256,
+      "worker_rss_kib": 91568
+    },
+    {
+      "elapsed_seconds": 36.348,
+      "producer_rss_kib": 242256,
+      "worker_rss_kib": 91568
+    },
+    {
+      "elapsed_seconds": 37.358,
+      "producer_rss_kib": 242256,
+      "worker_rss_kib": 91568
+    },
+    {
+      "elapsed_seconds": 38.367,
+      "producer_rss_kib": 242256,
+      "worker_rss_kib": 91568
+    },
+    {
+      "elapsed_seconds": 39.378,
+      "producer_rss_kib": 242256,
+      "worker_rss_kib": 91568
+    },
+    {
+      "elapsed_seconds": 40.388,
+      "producer_rss_kib": 242256,
+      "worker_rss_kib": 91568
+    },
+    {
+      "elapsed_seconds": 41.398,
+      "producer_rss_kib": 242256,
+      "worker_rss_kib": 91568
+    },
+    {
+      "elapsed_seconds": 42.408,
+      "producer_rss_kib": 242256,
+      "worker_rss_kib": 91568
+    },
+    {
+      "elapsed_seconds": 43.417,
+      "producer_rss_kib": 242256,
+      "worker_rss_kib": 91584
+    },
+    {
+      "elapsed_seconds": 44.428,
+      "producer_rss_kib": 242256,
+      "worker_rss_kib": 91584
+    },
+    {
+      "elapsed_seconds": 45.437,
+      "producer_rss_kib": 242256,
+      "worker_rss_kib": 91616
+    },
+    {
+      "elapsed_seconds": 46.447,
+      "producer_rss_kib": 242256,
+      "worker_rss_kib": 91632
+    },
+    {
+      "elapsed_seconds": 47.454,
+      "producer_rss_kib": 242256,
+      "worker_rss_kib": 91632
+    },
+    {
+      "elapsed_seconds": 48.464,
+      "producer_rss_kib": 242240,
+      "worker_rss_kib": 91632
+    },
+    {
+      "elapsed_seconds": 49.47,
+      "producer_rss_kib": 242240,
+      "worker_rss_kib": 91632
+    },
+    {
+      "elapsed_seconds": 50.481,
+      "producer_rss_kib": 242240,
+      "worker_rss_kib": 91632
+    },
+    {
+      "elapsed_seconds": 51.487,
+      "producer_rss_kib": 242240,
+      "worker_rss_kib": 91632
+    },
+    {
+      "elapsed_seconds": 52.497,
+      "producer_rss_kib": 242240,
+      "worker_rss_kib": 91648
+    },
+    {
+      "elapsed_seconds": 53.504,
+      "producer_rss_kib": 242240,
+      "worker_rss_kib": 91648
+    },
+    {
+      "elapsed_seconds": 54.514,
+      "producer_rss_kib": 242240,
+      "worker_rss_kib": 91664
+    },
+    {
+      "elapsed_seconds": 55.524,
+      "producer_rss_kib": 242256,
+      "worker_rss_kib": 91664
+    },
+    {
+      "elapsed_seconds": 56.534,
+      "producer_rss_kib": 239136,
+      "worker_rss_kib": 91664
+    },
+    {
+      "elapsed_seconds": 57.544,
+      "producer_rss_kib": 239136,
+      "worker_rss_kib": 91664
+    },
+    {
+      "elapsed_seconds": 58.554,
+      "producer_rss_kib": 240016,
+      "worker_rss_kib": 91664
+    },
+    {
+      "elapsed_seconds": 59.564,
+      "producer_rss_kib": 240016,
+      "worker_rss_kib": 91680
+    },
+    {
+      "elapsed_seconds": 60.574,
+      "producer_rss_kib": 240016,
+      "worker_rss_kib": 91680
+    },
+    {
+      "elapsed_seconds": 61.583,
+      "producer_rss_kib": 240016,
+      "worker_rss_kib": 91696
+    },
+    {
+      "elapsed_seconds": 62.594,
+      "producer_rss_kib": 240016,
+      "worker_rss_kib": 91728
+    },
+    {
+      "elapsed_seconds": 63.603,
+      "producer_rss_kib": 237424,
+      "worker_rss_kib": 91696
+    },
+    {
+      "elapsed_seconds": 64.613,
+      "producer_rss_kib": 237424,
+      "worker_rss_kib": 91696
+    },
+    {
+      "elapsed_seconds": 65.62,
+      "producer_rss_kib": 237424,
+      "worker_rss_kib": 91696
+    },
+    {
+      "elapsed_seconds": 66.63,
+      "producer_rss_kib": 237440,
+      "worker_rss_kib": 91712
+    },
+    {
+      "elapsed_seconds": 67.64,
+      "producer_rss_kib": 237536,
+      "worker_rss_kib": 91712
+    },
+    {
+      "elapsed_seconds": 68.65,
+      "producer_rss_kib": 234016,
+      "worker_rss_kib": 91712
+    },
+    {
+      "elapsed_seconds": 69.66,
+      "producer_rss_kib": 234016,
+      "worker_rss_kib": 91712
+    },
+    {
+      "elapsed_seconds": 70.671,
+      "producer_rss_kib": 234016,
+      "worker_rss_kib": 91728
+    },
+    {
+      "elapsed_seconds": 71.681,
+      "producer_rss_kib": 234016,
+      "worker_rss_kib": 91744
+    },
+    {
+      "elapsed_seconds": 72.687,
+      "producer_rss_kib": 233904,
+      "worker_rss_kib": 91744
+    },
+    {
+      "elapsed_seconds": 73.698,
+      "producer_rss_kib": 233872,
+      "worker_rss_kib": 91744
+    },
+    {
+      "elapsed_seconds": 74.704,
+      "producer_rss_kib": 233872,
+      "worker_rss_kib": 91744
+    },
+    {
+      "elapsed_seconds": 75.715,
+      "producer_rss_kib": 233872,
+      "worker_rss_kib": 91744
+    },
+    {
+      "elapsed_seconds": 76.725,
+      "producer_rss_kib": 233792,
+      "worker_rss_kib": 91744
+    },
+    {
+      "elapsed_seconds": 77.734,
+      "producer_rss_kib": 233792,
+      "worker_rss_kib": 91744
+    },
+    {
+      "elapsed_seconds": 78.746,
+      "producer_rss_kib": 233792,
+      "worker_rss_kib": 91744
+    },
+    {
+      "elapsed_seconds": 79.753,
+      "producer_rss_kib": 233792,
+      "worker_rss_kib": 91744
+    },
+    {
+      "elapsed_seconds": 80.763,
+      "producer_rss_kib": 233792,
+      "worker_rss_kib": 91760
+    },
+    {
+      "elapsed_seconds": 81.77,
+      "producer_rss_kib": 233792,
+      "worker_rss_kib": 91760
+    },
+    {
+      "elapsed_seconds": 82.781,
+      "producer_rss_kib": 233792,
+      "worker_rss_kib": 91760
+    },
+    {
+      "elapsed_seconds": 83.791,
+      "producer_rss_kib": 233792,
+      "worker_rss_kib": 91776
+    },
+    {
+      "elapsed_seconds": 84.8,
+      "producer_rss_kib": 233792,
+      "worker_rss_kib": 91776
+    },
+    {
+      "elapsed_seconds": 85.811,
+      "producer_rss_kib": 233792,
+      "worker_rss_kib": 91776
+    },
+    {
+      "elapsed_seconds": 86.82,
+      "producer_rss_kib": 233792,
+      "worker_rss_kib": 91776
+    },
+    {
+      "elapsed_seconds": 87.83,
+      "producer_rss_kib": 233792,
+      "worker_rss_kib": 91776
+    },
+    {
+      "elapsed_seconds": 88.839,
+      "producer_rss_kib": 233792,
+      "worker_rss_kib": 91792
+    },
+    {
+      "elapsed_seconds": 89.849,
+      "producer_rss_kib": 233792,
+      "worker_rss_kib": 91792
+    },
+    {
+      "elapsed_seconds": 90.859,
+      "producer_rss_kib": 233792,
+      "worker_rss_kib": 91792
+    },
+    {
+      "elapsed_seconds": 91.869,
+      "producer_rss_kib": 233792,
+      "worker_rss_kib": 91792
+    },
+    {
+      "elapsed_seconds": 92.879,
+      "producer_rss_kib": 228784,
+      "worker_rss_kib": 91792
+    },
+    {
+      "elapsed_seconds": 93.901,
+      "producer_rss_kib": 228784,
+      "worker_rss_kib": 91856
+    },
+    {
+      "elapsed_seconds": 94.92,
+      "producer_rss_kib": 228784,
+      "worker_rss_kib": 91840
+    },
+    {
+      "elapsed_seconds": 95.941,
+      "producer_rss_kib": 194320,
+      "worker_rss_kib": 90656
+    },
+    {
+      "elapsed_seconds": 96.948,
+      "producer_rss_kib": 189008,
+      "worker_rss_kib": 90672
+    },
+    {
+      "elapsed_seconds": 97.97,
+      "producer_rss_kib": 189008,
+      "worker_rss_kib": 90688
+    },
+    {
+      "elapsed_seconds": 98.986,
+      "producer_rss_kib": 189008,
+      "worker_rss_kib": 90688
+    },
+    {
+      "elapsed_seconds": 99.995,
+      "producer_rss_kib": 189008,
+      "worker_rss_kib": 90688
+    },
+    {
+      "elapsed_seconds": 101.005,
+      "producer_rss_kib": 189008,
+      "worker_rss_kib": 90688
+    },
+    {
+      "elapsed_seconds": 102.015,
+      "producer_rss_kib": 189008,
+      "worker_rss_kib": 90688
+    },
+    {
+      "elapsed_seconds": 103.025,
+      "producer_rss_kib": 189008,
+      "worker_rss_kib": 90688
+    },
+    {
+      "elapsed_seconds": 104.035,
+      "producer_rss_kib": 189008,
+      "worker_rss_kib": 90720
+    },
+    {
+      "elapsed_seconds": 105.045,
+      "producer_rss_kib": 189008,
+      "worker_rss_kib": 90688
+    },
+    {
+      "elapsed_seconds": 106.056,
+      "worker_rss_kib": 90704
+    },
+    {
+      "elapsed_seconds": 107.076,
+      "worker_rss_kib": 90704
+    },
+    {
+      "elapsed_seconds": 108.092,
+      "worker_rss_kib": 90704
+    },
+    {
+      "elapsed_seconds": 109.106,
+      "worker_rss_kib": 90704
+    },
+    {
+      "elapsed_seconds": 110.127,
+      "worker_rss_kib": 90704
+    },
+    {
+      "elapsed_seconds": 111.144,
+      "worker_rss_kib": 90704
+    },
+    {
+      "elapsed_seconds": 112.163,
+      "worker_rss_kib": 90704
+    },
+    {
+      "elapsed_seconds": 113.182,
+      "worker_rss_kib": 90704
+    },
+    {
+      "elapsed_seconds": 114.197,
+      "worker_rss_kib": 90704
+    },
+    {
+      "elapsed_seconds": 115.213,
+      "worker_rss_kib": 90752
+    },
+    {
+      "elapsed_seconds": 116.232,
+      "worker_rss_kib": 90784
+    },
+    {
+      "elapsed_seconds": 117.253,
+      "worker_rss_kib": 90752
+    },
+    {
+      "elapsed_seconds": 118.271,
+      "worker_rss_kib": 90752
+    },
+    {
+      "elapsed_seconds": 119.29,
+      "worker_rss_kib": 90752
+    },
+    {
+      "elapsed_seconds": 120.312,
+      "worker_rss_kib": 90752
+    }
+  ],
+  "rss_scope": "Process resident memory sampled with ps; not GPU allocations or a leak proof.",
+  "received_sequences": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12,
+    13,
+    14,
+    15,
+    16,
+    17,
+    18,
+    19,
+    20,
+    21,
+    22,
+    23,
+    24,
+    25,
+    26,
+    27,
+    28,
+    29,
+    30,
+    31,
+    32,
+    33,
+    34,
+    35,
+    36,
+    37,
+    38,
+    39,
+    40,
+    41,
+    42,
+    43,
+    44,
+    45,
+    46,
+    47,
+    48,
+    49,
+    50,
+    51,
+    52,
+    53,
+    54,
+    55,
+    56,
+    57,
+    58,
+    59,
+    60,
+    61,
+    62,
+    63,
+    64,
+    65,
+    66,
+    67,
+    68,
+    69,
+    70,
+    71,
+    72,
+    73,
+    74,
+    75,
+    76,
+    77,
+    78,
+    79,
+    80,
+    81,
+    82,
+    83,
+    84,
+    85,
+    86,
+    87,
+    88,
+    89,
+    90,
+    91,
+    92,
+    93,
+    94,
+    95,
+    96,
+    97,
+    98,
+    99,
+    100,
+    101,
+    102,
+    103,
+    104,
+    105,
+    106,
+    107,
+    108,
+    109,
+    110,
+    111,
+    112,
+    113,
+    114,
+    115,
+    116,
+    117,
+    118,
+    119,
+    120,
+    121,
+    122,
+    123,
+    124,
+    125,
+    126,
+    127,
+    128,
+    129,
+    130,
+    131,
+    132,
+    133,
+    134,
+    135,
+    136,
+    137,
+    138,
+    139,
+    140,
+    141,
+    142,
+    143,
+    144,
+    145,
+    146,
+    147,
+    148,
+    149,
+    150,
+    151,
+    152,
+    153,
+    154,
+    155,
+    156,
+    157,
+    158,
+    159,
+    160,
+    161,
+    162,
+    163,
+    164,
+    165,
+    166,
+    167,
+    168,
+    169,
+    170,
+    171,
+    172,
+    173,
+    174,
+    175,
+    176,
+    177,
+    178,
+    179,
+    180,
+    181,
+    182,
+    183,
+    184,
+    185,
+    186,
+    187,
+    188,
+    189,
+    190,
+    191,
+    192,
+    193,
+    194,
+    195,
+    196,
+    197,
+    198,
+    199,
+    200,
+    201,
+    202,
+    203,
+    204,
+    205,
+    206,
+    207,
+    208,
+    209,
+    210,
+    211,
+    212
+  ],
+  "worker_update_span_seconds": 105.037,
+  "worker_update_rate_hz": 2.00881,
+  "producer_frames_completed": 212,
+  "worker_updates_completed": 212,
+  "rate_scope": "Worker SDK update submissions, not measured physical display FPS; producer intentionally paced and revisions flushed synchronously.",
+  "mean_get_image_elapsed_ms": 0.0,
+  "mean_surface_publish_elapsed_ms": 3.32935377358491,
+  "date": "2026-10-12",
+  "all_frames_received_in_order": true,
+  "sdk_cleanup_passed": true,
+  "rss_summary": {
+    "producer": {
+      "after_warmup_first_kib": 242128,
+      "last_kib": 189008,
+      "maximum_kib": 242256,
+      "scope": "Samples at or after 10 seconds; CPU process RSS only."
+    },
+    "worker": {
+      "after_warmup_first_kib": 91440,
+      "last_kib": 90752,
+      "maximum_kib": 91856,
+      "scope": "Samples at or after 10 seconds; CPU process RSS only."
+    }
+  }
+}

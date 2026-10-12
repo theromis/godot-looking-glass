@@ -39,3 +39,15 @@ The temporary standalone rendezvous uses deprecated `bootstrap_register`; modern
 ## Hardware-confirmed repeat
 
 On 2026-10-12, the 20-second 4092×4092 repeat delivered all eight sequences without producer/worker pixel readback, completed SDK release/shutdown, and the user confirmed that it works on the physical display. Mean producer publication/copy-wait elapsed time was 2.361 ms with the exclusions above. See the [repeat record](../benchmarks/hardware/live-surface-4k-gpu-repeat.json). This confirms the bounded visual update test; continuous full-rate operation and the SDK consumer-completion contract remain unverified.
+
+## Extended animation test
+
+Add `--duration 120` to the GPU-only command to keep the worker alive for two minutes and generate fresh Godot revisions for approximately 105 seconds. The remaining time allows startup/final acknowledgment and holds the last frame. The duration is bounded to 20–600 seconds; the default 20-second eight-frame 4K test remains unchanged. Longer runs write distinct `-duration-120` result files.
+
+The worker still checks for updates at approximately 2 Hz, and the producer intentionally waits 0.4 seconds after each synchronously flushed revision. This tests sustained ownership and visual updates, not maximum throughput. `worker_update_rate_hz` counts new-frame SDK submissions between the first and last update, not physical display refresh. Process RSS is sampled once per second with `ps`; it excludes GPU allocation accounting and is not a leak proof. Producer publication timing excludes rendering, previous-copy acknowledgment wait and worker/display work.
+
+### Two-minute result (2026-10-12)
+
+The 4092×4092 run produced and received all 212 frames in order during 105.086 seconds of animation, then held the last frame until worker shutdown. The user confirmed ongoing visible updates. The SDK-submission rate between first and last new frame was 2.009 Hz under the approximately 2 Hz cap. Mean producer publication/copy-wait elapsed time was 3.329 ms. No diagnostic pixel readback was performed. Both processes exited successfully and SDK release/shutdown passed.
+
+After ten seconds of warmup, producer RSS was 242,128 KiB initially and 189,008 KiB at its final sample; worker RSS was 91,440 KiB initially and 90,752 KiB at its final sample. Memory samples are recorded below; these values do not establish absence of GPU leaks. The known SDK initialization GL_INVALID_ENUM was still logged despite successful visible output. See the [full measurements](../benchmarks/hardware/live-surface-4k-gpu-duration-120.json) and [sanitized log](../benchmarks/hardware/live-surface-4k-gpu-duration-120.log). SDK consumer-completion guarantees and higher-rate stability remain unresolved.
