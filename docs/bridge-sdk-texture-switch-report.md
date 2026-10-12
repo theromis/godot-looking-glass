@@ -48,3 +48,7 @@ The current prototype retains immutable outputs and enforces 16-frame/128-MiB pa
 - `benchmarks/hardware/direct-output-recheck.json`: direct static Godot output visible.
 
 Device serials, lens calibration and absolute installation paths are excluded from the tracked report/logs.
+
+## Subsequent persistent-input control
+
+A standalone worker updating the same SDK Metal texture completed 40 exact blue/red GPU writes, with user-confirmed color changes. It waits for the Metal producer and uses glFinish on the observed current GL context before subsequent writes. This is an experimental workaround/control, not a verified all-consumer completion guarantee. Questions about changing input texture identity and supported synchronization remain relevant. See persistent-metal-worker.md.

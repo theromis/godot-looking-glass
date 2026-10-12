@@ -258,3 +258,7 @@ The user accepted the compact lit scene with 48 real views (8×6, 4096×4092), s
 ### Bounded live Bridge diagnostic
 
 The native Metal diagnostic can produce new poses during presentation. It retains distinct immutable SDK textures and stops after eight updates; it does not enable indefinite streaming or reuse output slots. The missing verified consumer-completion contract remains the blocker for a bounded-memory continuous path. See [ownership, limits and commands](docs/bridge-live-output.md).
+
+### Persistent Metal worker checkpoint
+
+A separate bounded worker updated one SDK-created Metal texture 40 times; exact diagnostic pixel checks and teardown passed, and the user confirmed changing blue/red colors on Looking Glass. This demonstrates visible persistent-input updating, unlike the distinct-texture switching controls. Observed-context GL completion is experimental, and Godot cross-process transport and indefinite safe streaming remain unfinished. See [protocol and results](docs/persistent-metal-worker.md).
