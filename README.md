@@ -17,6 +17,7 @@ Checked items are implemented or completed experiments, with their limits record
 
 ### In progress: prototypes and research
 
+- [ ] **Native Bridge output:** a standalone Metal adapter passes real GPU/IOSurface fixture tests and loads the installed SDK; Godot handle/fence integration and physical-display output remain unimplemented. See [native boundary](native/bridge_metal/README.md).
 - [ ] **Synthesis quality:** the inverse-warp MVP and bounded rescue exist; robust visibility, disocclusion handling and motion/transparency quality remain unfinished.
 - [ ] **Adaptive view selection:** fixed budgets and offline placement are evaluated; depth-only selectors worsened quality, so a reliable runtime controller is still missing.
 - [ ] **Shared-shadow production readiness:** the optional patch is tested; atlas overflow, coverage/subdivision changes, changing worlds/masks and broader upstream validation remain pending.

@@ -1,0 +1,27 @@
+{
+  "platform": "macOS arm64",
+  "gpu": "Apple M4",
+  "compiler": "Apple clang 21.0.0",
+  "sdk_header_version": "2.6.2",
+  "installed_sdk_version": "2.6.3",
+  "fixture_pass": true,
+  "real_metal_copy_pass": true,
+  "real_iosurface_pass": true,
+  "exact_half_float_components": 128,
+  "installed_sdk_symbols_and_version_pass": true,
+  "godot_native_integration_tested": false,
+  "real_sdk_texture_draw_tested": false,
+  "physical_display_tested": false,
+  "performance_measured": false,
+  "source_sha256": {
+    "native/bridge_metal/adapter.hpp": "81a26dc47b57a5be94b90473e325a843fb4d4d34b6e1d6166fe0853bdcfa06fa",
+    "native/bridge_metal/adapter.mm": "adb8a8b1befbcc08965691d6a965d69ab20e5fa745e4262d6a855fb0bbf476ee",
+    "native/bridge_metal/fixture.mm": "b3a77aee98791287ea074df51755a03e3c798995f50f4355d4808ce371218181",
+    "native/bridge_metal/test.mm": "f52e69a0c934d364a8b177297f1987f0ef07995e4c86792ff13985bec93066d2",
+    "native/bridge_metal/build.py": "a5a0a63581ed223c16c83e9bb25a62234df78ff072a736335a9d27518509f710"
+  },
+  "build_sha256": {
+    "native/bridge_metal/build/fixture.dylib": "4a7c6affefa1cef6b52b113643056f01ef226e50b5d53a84031595afd9e3d87a",
+    "native/bridge_metal/build/test-adapter": "a05bfc26fc122b9dede9306d699f7d43f2053e49140ff4b3ac307ba4fb01b6d0"
+  }
+}

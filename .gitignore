@@ -11,3 +11,6 @@
 # Large generated captures remain local; hashes are versioned separately.
 /benchmarks/**/*.png
 /benchmarks/**/*.import
+
+# Locally compiled optional native diagnostics.
+/native/bridge_metal/build/

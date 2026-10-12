@@ -1,0 +1,7 @@
+"""Build own adapter and tests; do not copy SDK headers or runtime binaries."""
+import argparse,pathlib,subprocess
+p=argparse.ArgumentParser();p.add_argument('--sdk-headers',type=pathlib.Path,required=True);p.add_argument('--output',type=pathlib.Path,default=pathlib.Path('native/bridge_metal/build'));a=p.parse_args()
+root=pathlib.Path(__file__).resolve().parent;a.output.mkdir(parents=True,exist_ok=True)
+common=['clang++','-std=c++17','-fobjc-arc','-Wall','-Wextra','-I'+str(a.sdk_headers),'-I'+str(root),'-framework','Metal','-framework','Foundation','-framework','IOSurface']
+subprocess.run(common+['-dynamiclib',str(root/'fixture.mm'),'-o',str(a.output/'fixture.dylib')],check=True)
+subprocess.run(common+[str(root/'adapter.mm'),str(root/'test.mm'),'-o',str(a.output/'test-adapter')],check=True)
