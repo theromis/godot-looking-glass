@@ -1,5 +1,7 @@
 # Bounded live Bridge output
 
+The failure discussed below is specific to the tested distinct-texture Metal path. Working GL video/game examples update a persistent texture in an isolated process. See the [source audit and revised output plan](bridge-working-stream-reference.md); Bridge streaming in general is not blocked by this result.
+
 The native Metal diagnostic produces new poses while the Bridge window is visible. It uses distinct immutable SDK textures and stops after eight updates. It is not indefinite streaming.
 
 ## Ordering and ownership

@@ -2,6 +2,8 @@
 
 This report is prepared for Looking Glass SDK support. It has not been sent.
 
+Scope: this concerns switching distinct Metal input textures, not Bridge streaming in general. Official GL video examples and the user-supplied Genesis-Plus-GX PR update persistent GL textures; see `bridge-working-stream-reference.md` for the separate fallback plan.
+
 ## Environment and symptom
 
 Apple M4, native Metal, Looking Glass Bridge 2.6.3. SDK enumeration returns one display at index 1, quilt 4092×4092, 11×6, aspect 0.5625. Diagnostic input textures are 704×684 RGBA8Unorm, Shared storage, SDK-created IOSurfaces.
