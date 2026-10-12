@@ -1,0 +1,30 @@
+{
+  "date": "2026-10-12",
+  "engine": "Godot 4.8 c61fc0118 native Metal",
+  "sdk": "2.6.3",
+  "environment": {
+    "GODOT_MTL_SYNC_MODE": "none"
+  },
+  "real_views": 66,
+  "quilt_size": [
+    4092,
+    4092
+  ],
+  "virtual_camera_cone_degrees": 20,
+  "focus_distance": 5.6,
+  "camera_span_reference_distance": 6,
+  "grid_world_z": 0.4,
+  "red_marker_z": 0.9,
+  "blue_marker_z": -0.1,
+  "duration_seconds": 20,
+  "api_success": true,
+  "exit_code": 0,
+  "user_observation": "User confirmed stable sharp grid and correct near/far marker depth",
+  "geometry_api_checks": "PASS focus registration, opposite near/far disparity and moving-rig registration including 66-view fixed-baseline case",
+  "limitations": [
+    "Unshaded diagnostic, no temporal or optical error measurement",
+    "Equal depth offsets do not imply equal screen-space displacement under perspective",
+    "SDK optical orientation still requires physical observation"
+  ],
+  "assessment": "Qualitative focal registration and depth direction passed"
+}

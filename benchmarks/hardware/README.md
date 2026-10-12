@@ -106,3 +106,7 @@ This confirms that the perceived clarity distribution changes with convergence i
 The lit 4092² all-real scene was shown at convergence 5.6 and virtual cone 30°, then at the same convergence with cone 20°. Both SDK runs passed and shut down cleanly. The user withdrew the initial negative report and explicitly clarified that the latest 20° test reduced double images, with slight residual doubling. The 30° midpoint test therefore has no confirmed replacement visual assessment.
 
 At 20°, the camera span reference remains 6.0, convergence is 5.6, lighting and resolution are unchanged and device calibration is not edited. This is a qualitative improvement, not elimination of ghosting, instrumented optical validation or an accepted universal preset. See [30° test](lit66-focus56.json) and [confirmed 20° observation](lit66-focus56-cone20.json).
+
+## Convergence-grid and depth-direction validation
+
+On 2026-10-12 the 4092², 66-real diagnostic displayed a grid on the convergence plane and red/blue markers on opposite sides of it. The user confirmed a stable sharp grid and correct marker depth. API geometry checks also passed, including the fixed-baseline 66-view case. This helps exclude gross focus-registration and simple reversed-depth errors, but does not validate exact calibration or eliminate residual ghosting. See [physical record](projection-grid.json) and [official-source audit](../../docs/projection-and-quilt-audit.md).

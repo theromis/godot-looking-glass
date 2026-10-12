@@ -227,3 +227,7 @@ The physical diagnostic supports `--lit` for per-pixel shading, ambient fill, a 
 ### Fixed-baseline convergence assessment
 
 For the lit 66-real, 4092², 30° scene, moving convergence from 6.0 to 5.2 at fixed camera spacing made the foreground sharper and the rear worse, according to the user. This distinguishes the current foreground/rear clarity issue from sparse-view synthesis. No universally sharp focus setting or calibration fix is established. The diagnostic accepts `--focus=5.2`; [method and observation](benchmarks/hardware/README.md#foreground-convergence-control).
+
+### Projection and ordering checkpoint
+
+A full-resolution 66-real grid on the convergence plane was user-confirmed stable/sharp, with correct foreground/background markers. Godot API projection checks passed, including the fixed-baseline 66-view case. The official reference audit found matching off-axis convergence principles and conceptual tile order, with remaining differences in interior angular sampling and tile-versus-display aspect. These are candidate investigations, not proven causes. See [source paths, lines and limitations](docs/projection-and-quilt-audit.md).

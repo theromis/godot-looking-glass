@@ -124,6 +124,8 @@ func run() -> void:
     rig.focus_distance=focus
     rig.camera_span_reference_distance=6.0 # Isolate convergence from camera spacing.
     rig.position.z=6
+    if "--projection-grid" in OS.get_cmdline_user_args():
+        populate_projection_grid(scene,6.0-focus)
     scene.add_child(rig)
     # Frozen output. Finish subsequent Godot frames so synthesis recorded by
     # frame_post_draw has been committed by RenderingDevice::swap_buffers.
@@ -181,3 +183,33 @@ func run() -> void:
     if fixture: OS.unset_environment("LG_FIXTURE_ACCEPT_QUILT")
     print("PASS direct Bridge target: Godot compute writes imported SDK RGBA8 texture, no quilt blit, clean teardown; fixture="+str(fixture)+"")
     quit()
+
+func populate_projection_grid(scene: Node3D, plane_z: float) -> void:
+    # Grid geometry lies exactly on the convergence plane. No source blur/DOF.
+    for child in scene.get_children():
+        if child is MeshInstance3D or child is Light3D:
+            child.free()
+    var white := StandardMaterial3D.new()
+    white.shading_mode=BaseMaterial3D.SHADING_MODE_UNSHADED
+    white.albedo_color=Color(0.85,0.85,0.85)
+    for i in range(-5,6):
+        for vertical in [true,false]:
+            var line := MeshInstance3D.new()
+            var quad := QuadMesh.new()
+            quad.size=Vector2(0.012,2.0) if vertical else Vector2(2.0,0.012)
+            line.mesh=quad
+            line.material_override=white
+            line.position=Vector3(i*0.2,0,plane_z) if vertical else Vector3(0,i*0.2,plane_z)
+            scene.add_child(line)
+    for i in range(2):
+        var marker := MeshInstance3D.new()
+        var sphere := SphereMesh.new()
+        sphere.radius=0.18
+        sphere.height=0.36
+        marker.mesh=sphere
+        marker.position=Vector3(-0.55 if i==0 else 0.55,0,plane_z+(0.5 if i==0 else -0.5))
+        var material := StandardMaterial3D.new()
+        material.shading_mode=BaseMaterial3D.SHADING_MODE_UNSHADED
+        material.albedo_color=Color.RED if i==0 else Color.BLUE
+        marker.material_override=material
+        scene.add_child(marker)

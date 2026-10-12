@@ -5,10 +5,14 @@ func _initialize() -> void:
 func run() -> void:
     var world := Node3D.new()
     root.add_child(world)
-    for count in [1, 2, 12, 47, 48]:
+    for count in [1, 2, 12, 47, 48, 66]:
         var rig = Rig.new()
         rig.total_views = count
         rig.real_views = count
+        if count == 66:
+            rig.focus_distance = 5.6
+            rig.camera_span_reference_distance = 6.0
+            rig.view_cone_degrees = 20.0
         rig.tile_size = Vector2i(160, 200)
         world.add_child(rig)
         if not check(rig.views.size() == count):
@@ -56,7 +60,7 @@ func run() -> void:
         if not check(not custom.custom_anchors_valid(), "Reject invalid anchors"):
             return
     custom.free()
-    print("PASS projection: 1/2/12/47/48 views; focus registration, opposite near/far disparity, quilt sizes")
+    print("PASS projection: 1/2/12/47/48/66 views; fixed-baseline focus registration, opposite near/far disparity, quilt sizes")
     quit()
 
 func check(condition: bool, message: String = "Test condition failed") -> bool:
