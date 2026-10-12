@@ -1,0 +1,36 @@
+{
+  "date": "2026-10-12",
+  "cli_arguments": [
+    "--large",
+    "--views=48",
+    "--real-views=48",
+    "--lit",
+    "--view-cone=54",
+    "--focus=5.6",
+    "--display-aspect",
+    "--angular-sampling",
+    "--compact-objects",
+    "--depth-scale=0.35",
+    "--neutral-spheres",
+    "--no-shadows",
+    "--diagnostic-stages"
+  ],
+  "comparison": "quilt48-depth035-cone54.json",
+  "changed_parameters": [
+    "All sphere albedos set to neutral gray (0.5,0.5,0.5)",
+    "Shadow maps disabled; per-pixel shading and lights retained"
+  ],
+  "checks": {
+    "fixture": true,
+    "hardware": true
+  },
+  "user_observation": "Pending",
+  "display_duration_seconds_requested": 20,
+  "device_calibration_modified": false,
+  "limitations": [
+    "Two settings changed together; cannot isolate shadow-map contribution independently",
+    "Rear/front positions differ in depth and screen location",
+    "Same albedo does not guarantee equal displayed luminance under lighting",
+    "No synthesized views or optical measurement"
+  ]
+}

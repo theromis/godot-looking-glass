@@ -30,6 +30,7 @@ func run() -> void:
     scene.add_child(box)
     subjects.append(box)
     var swap_depth_colors: bool="--swap-depth-colors" in OS.get_cmdline_user_args()
+    var neutral_spheres: bool="--neutral-spheres" in OS.get_cmdline_user_args()
     for i in range(3):
         var sphere := MeshInstance3D.new()
         sphere.mesh=SphereMesh.new()
@@ -38,6 +39,8 @@ func run() -> void:
         sphere_material.shading_mode=BaseMaterial3D.SHADING_MODE_PER_PIXEL if lit else BaseMaterial3D.SHADING_MODE_UNSHADED
         var color_index: int=2-i if swap_depth_colors else i
         sphere_material.albedo_color=[Color.RED,Color.GREEN,Color.BLUE][color_index]
+        if neutral_spheres:
+            sphere_material.albedo_color=Color(0.5,0.5,0.5)
         sphere.material_override=sphere_material
         scene.add_child(sphere)
         subjects.append(sphere)
