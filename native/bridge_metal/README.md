@@ -91,3 +91,8 @@ GODOT_MTL_SYNC_MODE=none python3 tests/run_checks.py --godot "$GODOT" \
 Set `GODOT` to your latest native Metal engine executable. This switch means native hazard tracking, not disabled synchronization (`rendering_device_driver_metal.cpp:2873`). It is opt-in at process launch; no addon rendering defaults or engine sources were changed. The switch also changes resource allocation/heap policy, so an exact driver cause is not established. No performance comparison was made. A smaller standalone camera test failed once, then passed later controls and six further default-barrier runs; its failure is intermittent. Six hazard-tracking repeats passed. General support on other engines/GPUs, producer streaming and real Bridge output remain unvalidated.
 
 See [outcomes](../../benchmarks/native-bridge/metal-sync-results.json) and [unpublished upstream issue draft](../../docs/native-metal-issue-draft.md).
+
+
+## Connected hardware and format boundary
+
+The no-device blocker is superseded for the connected display. `build.py` now also builds `probe-hardware`: a separate native SDK diagnostic supporting offscreen RGBA8, explicit physical window visibility and a 30-second immutable-color presentation. The user confirmed physical blue output. The probe dynamically resolves the optional SDL pump; it does not mutate the texture during consumption or establish an animated consumer fence. The existing Godot GDExtension remains fixture-only. Both tested shared RGBA16Float SDK descriptors failed allocation; RGBA8 worked, so Godot preview conversion is the next integration step. The connected preset has 66 views, while the addon caps views at 48. See [device, format, GL warning, user observation and reproduction](../../benchmarks/hardware/README.md).

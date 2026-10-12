@@ -64,7 +64,8 @@ func detect() -> Array[Dictionary]:
                 var parser := JSON.new()
                 if parser.parse(calibration) != OK:
                     continue
-                calibration = parser.data
+                # Calibration JSON can itself contain Bridge value wrappers.
+                calibration = unwrap(parser.data)
             if not calibration is Dictionary or float(calibration.get("screenW", 0)) <= 0 or float(calibration.get("screenH", 0)) <= 0:
                 continue
             device["calibration"] = calibration

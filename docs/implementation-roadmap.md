@@ -140,3 +140,8 @@ The latest native Metal 4.8-dev addon suite passes 16/16 with `GODOT_MTL_SYNC_MO
 ## Controlled Metal engine experiments
 
 Seven selected-check variants tested stronger encoder ordering, CPU staging allocation, per-frame camera UBO allocation, explicit resource declarations, producer attachment reads, and a combined variant. None passed all three previously failing checks. The per-frame UBO variant matched 80/80 source/viewport/quilt comparisons and passed resize/capture plus buffer compatibility, but still failed on-demand after an explicit settled refresh. A separate 64-update uniform-buffer compute control passed on both Metal modes and Vulkan, so it does not reproduce the raster failure. Production engine/addon changes were restored; no upstream-ready fix or speedup is claimed. See [experiment matrix, patches and provenance](../benchmarks/metal-barriers/README.md).
+
+
+## Connected hardware checkpoint
+
+A connected 1440×2560 / 60 Hz Looking Glass is now detected by native Bridge 2.6.3 and the corrected HTTP client. The SDK preset is 4092², 11×6 / 66 views, aspect 0.5625, cone 54°. Serialized calibration required a second recursive unwrap after JSON parsing; fixture and real detection pass. Real SDK RGBA8 allocation/draw succeeds, and the user confirmed a solid blue image after explicit window visibility plus an event-loop/repeated immutable-submission test. Both tested RGBA16Float allocation descriptors fail. SDK initialization logs an OpenGL error even in the visually successful test. Godot scene conversion/delivery, the current 48-view cap, optical validation and animated consumer lifetime remain open. See [hardware evidence](../benchmarks/hardware/README.md).

@@ -1,0 +1,16 @@
+{
+  "detected_calibrated_outputs": 1,
+  "index": 1,
+  "width": 1440.0,
+  "height": 2560.0,
+  "view_cone": 54.0,
+  "default_quilt": {
+    "quiltAspect": 0.5625,
+    "quiltX": 4092,
+    "quiltY": 4092,
+    "tileX": 11,
+    "tileY": 6
+  },
+  "error": "",
+  "serial_omitted": true
+}

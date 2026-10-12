@@ -1,0 +1,42 @@
+devices=1 index=1 preset=4092x4092 grid=11x6 aspect=0.5625 cone=54
+window_created=1 kind=offscreen window=1
+sdk_texture=0 requested_format=115
+allocation_only=true no_draw_attempted=true
+2026-10-11 22:46:44 [Info] Loaded Bridge Settings:
+	enable_utilization_telemetry: true
+
+
+2026-10-11 22:46:44 [Info] Calibration State Changed:
+	Calibration loaded by file: [local calibration file]
+	Serial: LKG-[redacted]
+	ScreenW: 1440
+	ScreenH: 2560
+	Center: [redacted calibration value]
+	Slope: [redacted calibration value]
+	Pitch: [redacted calibration value]
+	Shader Pitch: [redacted calibration value]
+	Firmware Version: 
+	Subpixel Cell Count: 0
+
+2026-10-11 22:46:44 [Info] Looking Glass Bridge Service Loaded
+2026-10-11 22:46:44 [Info] Bridge Window Instanced:
+	head_index = -2
+	x = 0
+	y = 0
+	w = 1440
+	h = 2560
+	lenticular = yes
+		center = 0.574513
+		pitch = 234.155
+		slope = -0.268425
+		w = 1440
+		h = 2560
+2026-10-11 22:46:44 [Error] 0x500 GL_INVALID_ENUM - invalid enumerant | prog=0 | activeTex=0 | boundTex2D=0 @ [SDK internal source path]
+
+2026-10-11 22:46:44 [Info] GL_RENDERER Apple M4
+2026-10-11 22:46:44 [Info] GL_VENDOR Apple
+2026-10-11 22:46:44 [Info] GL_VERSION 4.1 Metal - 91.7
+release=1 shutdown=1
+[GL] Debug message callbacks unsupported on this context.
+
+exit_code=1

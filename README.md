@@ -9,7 +9,8 @@ Checked items are implemented or completed experiments, with their limits record
 - [x] Inspect the official Unity 6.1 plugin, record download provenance, inventory sources and document licensing boundaries.
 - [x] Build a standalone Godot addon and demo with shared World3D, configurable off-axis cameras and hardware-free quilt preview.
 - [x] Compose quilts entirely on GPU and implement experimental two-source depth reprojection with configurable real-view budgets.
-- [x] Implement Bridge HTTP device detection, calibration parsing and session management; validate the protocol with a fixture and the installed service.
+- [x] Implement Bridge HTTP device detection, calibration parsing and session management; validate serialized/wrapped calibration with a fixture and the connected display.
+- [x] Detect a 1440×2560 Looking Glass and display a user-confirmed solid color through real Bridge RGBA8/Metal interop; record the 66-view preset and format limitations.
 - [x] Add cached GPU bindings, borrowed color/depth with tested snapshot fallback, optional profiling and resource-lifetime checks.
 - [x] Execute the shared positional-shadow-atlas engine experiment and document scene-specific gains and compatibility restrictions.
 - [x] Reduce depth-diagnostic feedback on GPU and support explicit on-demand quilt updates for static scenes.
@@ -18,14 +19,14 @@ Checked items are implemented or completed experiments, with their limits record
 
 ### In progress: prototypes and research
 
-- [ ] **Native Bridge output:** an optional GDExtension now copies a frozen Godot 4.8 Metal quilt into a real IOSurface SDK fixture with exact data; real SDK display output and streaming remain unimplemented. See [native boundary](native/bridge_metal/README.md).
+- [ ] **Native Bridge output:** an optional GDExtension copies a frozen Godot 4.8 Metal quilt into a real IOSurface SDK fixture; a separate real-SDK RGBA8 color probe displayed on hardware. Godot scene output, 66-view support and animated streaming remain unfinished. See [native boundary](native/bridge_metal/README.md).
 - [ ] **Synthesis quality:** the inverse-warp MVP and bounded rescue exist; robust visibility, disocclusion handling and motion/transparency quality remain unfinished.
 - [ ] **Adaptive view selection:** fixed budgets and offline placement are evaluated; depth-only selectors worsened quality, so a reliable runtime controller is still missing.
 - [ ] **Shared-shadow production readiness:** the optional patch is tested; atlas overflow, coverage/subdivision changes, changing worlds/masks and broader upstream validation remain pending.
 
 ### Required next steps
 
-- [ ] Implement native GPU texture delivery to Bridge, with explicit texture ownership, format agreement and queue synchronization; HTTP detection alone is not display output.
+- [ ] Connect Godot quilts to the validated RGBA8 SDK output path with GPU format conversion, 66-view support, explicit ownership and queue synchronization.
 - [ ] Validate a connected Looking Glass: calibration/device matching, view order, optical output, latency, disconnect/reconnect and shutdown.
 - [ ] Test animated geometry, camera cuts, thin occluders, transparent objects and particles against all-real references.
 - [ ] Resolve production color/tonemapping and temporal-jitter behavior; current compute preview is not final Godot postprocessed output.
@@ -44,11 +45,11 @@ Detailed implementation history and readiness criteria: [implementation roadmap]
 
 Standalone research addon and demo for Godot 4: off-axis cameras, GPU quilt preview, experimental GPU depth synthesis, and Bridge detection. Unity/Looking Glass code and SDK binaries are not included in the project.
 
-Executed on Godot 4.5.1, Apple M4, Vulkan Forward+ through MoltenVK. The project runs from the repository root (`.`); engine sources in the optional sibling checkout `../godot` (4.8-dev) were inspected, and an optional experimental shared positional shadow patch was added (see `engine-patches/README.md`). Physical Looking Glass output is unverified: Bridge reports 0 calibrated LKG devices. Native GPU texture submission to Bridge is not implemented yet.
+Executed on Godot 4.5.1, Apple M4, Vulkan Forward+ through MoltenVK. The project runs from the repository root (`.`); engine sources in the optional sibling checkout `../godot` (4.8-dev) were inspected, and an optional experimental shared positional shadow patch was added (see `engine-patches/README.md`). The connected 1440×2560 display is detected, and real Bridge RGBA8 solid-color output is user-confirmed. End-to-end Godot scene submission, 66-view preset support and streaming are unfinished. See [hardware results](benchmarks/hardware/README.md).
 
 ## Development disclosure
 
-Codex/LLM tools are used to generate and edit code, tests and documentation in this project. Reported measurements come from executed experiments, with raw results and limitations recorded. This is an independent experimental project; physical Looking Glass output is not yet validated. Proprietary Unity implementations and Bridge runtime binaries are not included.
+Codex/LLM tools are used to generate and edit code, tests and documentation in this project. Reported measurements come from executed experiments, with raw results and limitations recorded. This is an independent experimental project; a standalone SDK color test is visually confirmed, while Godot scene output and optical quality remain unvalidated. Proprietary Unity implementations and Bridge runtime binaries are not included.
 
 ## Running
 

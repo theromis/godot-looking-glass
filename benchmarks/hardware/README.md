@@ -1,0 +1,47 @@
+# Connected Looking Glass: real Bridge tests
+
+On 2026-10-11 the connected display was detected by macOS, native Bridge 2.6.3, and the corrected addon HTTP client on Apple M4. The device serial, device-specific lens values and calibration file path are redacted in published logs.
+
+## Observed device configuration
+
+| Property | Observed value |
+| --- | --- |
+| Native/HTTP device index | 1 |
+| Display | 1440 × 2560, 60 Hz |
+| View cone | 54° |
+| SDK default quilt | 4092 × 4092 |
+| Default grid | 11 × 6, 66 views |
+| View aspect | 0.5625 |
+
+No product model is inferred solely from resolution. This is one connected device, not compatibility coverage for the Looking Glass product range.
+
+## Executed SDK boundary
+
+The native SDK now creates Metal offscreen windows. `create_metal_texture_with_iosurface()` succeeds with a shared RGBA8Unorm texture using shader-read/render-target usage; the test source is 704×384 (64² tiles, a uniform color rather than a rendered 4092² scene), a GPU render-pass clear completes, quilt submission returns true, and the SDK exposes an offscreen RGBA8 texture sized 1440×2560. Offscreen pixel values were not verified and output retrieval is not treated as a completion fence.
+
+RGBA16Float allocation failed with both shader-read/render-target usage and the shader-read-only descriptor matching the existing adapter. This establishes a failure for the tested descriptors, not a universal statement about all SDK formats or versions. The existing RGBA16Float adapter remains fixture-validated; it is not silently switched to RGBA8.
+
+The initial onscreen test returned success but the user reported no visible change. A second test explicitly called `show_window()`, ran an event loop with an optional SDL pump and resubmitted the same unchanged RGBA8 texture for 30 seconds. **The user confirmed that the blue color appeared on the physical Looking Glass.** No texture contents were overwritten during consumption. Release and SDK shutdown returned true. The independent native probe uses no Godot runtime; this is not end-to-end Godot scene output or animated quilt streaming.
+
+SDK logs include `GL_INVALID_ENUM` during renderer initialization even in the visually successful run. Its cause and impact remain unknown. OpenGL renderer/version messages occur while the public Metal input APIs are used; no purely Metal consumer pipeline or cross-API synchronization contract is assumed.
+
+See [structured outcomes](results.json), [offscreen RGBA8](real-sdk-offscreen-rgba8.log), [RGBA16Float shader-read-only failure](real-sdk-rgba16-read-only.log), [initial invisible attempt](real-sdk-onscreen-rgba8.log), and [visually confirmed attempt](real-sdk-onscreen-shown-rgba8.log).
+
+## HTTP calibration fix
+
+`addons/looking_glass/bridge_client.gd:68` parses serialized calibration JSON. The parsed object also needs recursive `unwrap()` because its numeric values contain nested Bridge `value` wrappers. Previously the real device was filtered out; after the fix, index 1 and its 1440×2560 / 54° geometry are detected. The fixture now uses this serialized/wrapped form, and the test separately checks direct dictionary wrappers. Session close and geometry checks passed on the latest native Metal 4.8-dev engine. See [fixture log](http-string-calibration-fixture.log).
+
+## Reproduction
+
+Build our own probes using externally installed SDK headers:
+
+```sh
+python3 native/bridge_metal/build.py --sdk-headers "$BRIDGE_HEADERS"
+native/bridge_metal/build/probe-hardware "$BRIDGE_LIBRARY" --rgba8
+native/bridge_metal/build/probe-hardware "$BRIDGE_LIBRARY" --rgba8 --onscreen
+native/bridge_metal/build/probe-hardware "$BRIDGE_LIBRARY" --allocation-only
+```
+
+Set `BRIDGE_HEADERS` and `BRIDGE_LIBRARY` to your external SDK header directory and runtime library. The default format is RGBA16Float; `--rgba8` selects RGBA8Unorm. `--allocation-only` uses shader-read-only usage and makes no draw attempt. `--onscreen` opens a temporary output window on the first SDK-listed calibrated display. Device choice must become explicit before multi-display use. Keep probes in bounded subprocesses (40 seconds was used), and do not run another native adapter session concurrently. The SDL event pump is dynamically resolved from the SDK's dependency; its availability is not assumed for other platforms/runtimes.
+
+Headers, SDK libraries, compiled probes, raw device serials and local calibration files are not vendored. Next steps are GPU conversion of Godot's preview quilt to RGBA8, support for the device's 66-view preset (the addon currently caps views at 48), actual Godot-to-display validation, optical view-order checks and a verified animated consumer lifetime contract. No FPS or latency result is claimed.

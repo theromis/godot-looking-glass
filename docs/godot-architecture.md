@@ -142,3 +142,8 @@ A new 4.8-dev native Metal runtime and optional test-fixture-only GDExtension no
 ## Native Metal correctness gate: optional hazard tracking
 
 The latest native Metal 4.8-dev addon suite passes 16/16 with `GODOT_MTL_SYNC_MODE=none`; the static Godot-to-fixture copy also passes. Repeating default barriers still fails the three prior image-equivalence checks. Diagnostics isolate source/final-viewport mismatches and an opposite-camera image substitution; the exact driver cause remains open. The smaller standalone reproduction is intermittent. No production rendering code was changed and no performance gain is claimed. Default-barrier engine correctness, other GPUs/versions, real Bridge output and safe consumer-side texture reuse remain open. See [findings and launch instructions](../native/bridge_metal/README.md#native-metal-synchronization-diagnosis) and [unpublished engine issue draft](native-metal-issue-draft.md).
+
+
+## Connected hardware checkpoint
+
+A connected 1440×2560 / 60 Hz Looking Glass is now detected by native Bridge 2.6.3 and the corrected HTTP client. The SDK preset is 4092², 11×6 / 66 views, aspect 0.5625, cone 54°. Serialized calibration required a second recursive unwrap after JSON parsing; fixture and real detection pass. Real SDK RGBA8 allocation/draw succeeds, and the user confirmed a solid blue image after explicit window visibility plus an event-loop/repeated immutable-submission test. Both tested RGBA16Float allocation descriptors fail. SDK initialization logs an OpenGL error even in the visually successful test. Godot scene conversion/delivery, the current 48-view cap, optical validation and animated consumer lifetime remain open. See [hardware evidence](../benchmarks/hardware/README.md).

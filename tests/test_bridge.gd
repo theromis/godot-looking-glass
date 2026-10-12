@@ -11,6 +11,9 @@ func run() -> void:
     var devices: Array[Dictionary] = await client.detect()
     print(JSON.stringify({"devices": devices, "error": client.last_error}))
     if client.base_url.ends_with(":33335"):
+        var direct: Dictionary = Client.unwrap({"value":{"screenW":{"value":1536},"screenH":{"value":2048}}})
+        if not check(direct.screenW==1536 and direct.screenH==2048,"Dictionary calibration wrappers"):
+            return
         if not check(devices.size() == 1):
             return
         var rig = preload("res://addons/looking_glass/rig.gd").new()

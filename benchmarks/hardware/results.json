@@ -1,0 +1,58 @@
+{
+  "date": "2026-10-11",
+  "runtime": "Looking Glass Bridge 2.6.3",
+  "hardware_host": "Apple M4",
+  "display": {
+    "index": 1,
+    "width": 1440,
+    "height": 2560,
+    "refresh_hz": 60,
+    "view_cone_degrees": 54,
+    "quilt_width": 4092,
+    "quilt_height": 4092,
+    "columns": 11,
+    "rows": 6,
+    "views": 66,
+    "view_aspect": 0.5625
+  },
+  "http_detection": {
+    "before_fix": 0,
+    "after_fix": 1,
+    "cause": "Calibration is serialized JSON containing nested value wrappers; decoded object needed recursive unwrap.",
+    "fixture": "passed with serialized wrapped calibration"
+  },
+  "sdk_offscreen": {
+    "window_created": true,
+    "rgba16float_allocation": false,
+    "rgba8_allocation": true,
+    "rgba8_producer_completed": true,
+    "draw_returned_true": true,
+    "output_texture_width": 1440,
+    "output_texture_height": 2560,
+    "output_pixel_format": "RGBA8Unorm",
+    "output_pixels_verified": false,
+    "rgba16float_shader_read_only_allocation": false,
+    "rgba16float_shader_read_and_render_target_allocation": false,
+    "test_source_width": 704,
+    "test_source_height": 384,
+    "test_tile_size": 64
+  },
+  "physical_output": {
+    "first_attempt_api_success": true,
+    "first_attempt_user_observed_color": false,
+    "explicit_show_and_event_pump_api_success": true,
+    "explicit_show_and_event_pump_user_observed_blue": true,
+    "source": "Immutable solid-color quilt; repeated submission of same unchanged texture, not animated streaming",
+    "hold_seconds": 30,
+    "release_and_shutdown": true
+  },
+  "sdk_warning": "GL_INVALID_ENUM was logged during renderer initialization, including visually successful test; exact cause and impact unknown.",
+  "not_validated": [
+    "Godot quilt physical output",
+    "3D optics/view order",
+    "animated texture reuse or consumer completion",
+    "RGBA16Float hardware output",
+    "production color transfer or frame latency"
+  ],
+  "probe_source_sha256": "7f60955bd1bab278518b66c30294f875ff6f4b0c1c945dc02233d3393438d9e5"
+}

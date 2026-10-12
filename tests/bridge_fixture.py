@@ -9,7 +9,8 @@ class Handler(BaseHTTPRequestHandler):
         elif body.get('orchestration')!='fixture-token':
             self.send_error(403); return
         elif self.path=='/available_output_devices':
-            data={'payload':{'value':{'0':{'value':{'calibration':{'value':{'screenW':{'value':1536},'screenH':{'value':2048},'viewCone':{'value':40}}}}}}}}
+            calibration={'screenW':{'value':1536},'screenH':{'value':2048},'viewCone':{'value':40}}
+            data={'payload':{'value':{'0':{'value':{'calibration':{'value':json.dumps(calibration)}}}}}}
         else: data={'payload':{'value':True}}
         encoded=json.dumps(data).encode();self.send_response(200);self.send_header('Content-Type','application/json');self.send_header('Content-Length',str(len(encoded)));self.end_headers();self.wfile.write(encoded)
 HTTPServer(('127.0.0.1',33335),Handler).serve_forever()
