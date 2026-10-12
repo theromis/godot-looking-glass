@@ -1,0 +1,5 @@
+INSPECT frame=0 exact_source_copy=true dimensions=(704, 684) pixel_bytes=1926144
+INSPECT frame=1 exact_source_copy=true dimensions=(704, 684) pixel_bytes=1926144
+2026-10-12 12:22:33 [Error] 0x500 GL_INVALID_ENUM - invalid enumerant | prog=0 | activeTex=0 | boundTex2D=0 @ [SDK source location redacted]
+PASS real Bridge sequence API: 2 immutable GPU-only quilt copies, bounded playback and release; live=false fixture=false; no continuous-streaming claim
+process_exit=0

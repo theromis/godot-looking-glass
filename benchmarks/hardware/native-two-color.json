@@ -1,0 +1,9 @@
+{
+  "date": "2026-10-12",
+  "exit_code": 0,
+  "execution_passed": true,
+  "user_observation": "Pending",
+  "scope": "Native adapter switches distinct immutable blue/red SDK targets; no Godot",
+  "duration_seconds": 20,
+  "switch_rate_hz": 1
+}

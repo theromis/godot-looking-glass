@@ -126,8 +126,8 @@ bool MetalAdapter::pump_latest_immutable(unsigned long columns, unsigned long ro
     if (!draw_(window_,(__bridge void *)output_,columns,rows,aspect,1)) return fail("Immutable pump draw failed");
     return true; // No overwrite, texture reuse or consumer-fence assertion.
 }
-bool MetalAdapter::show_immutable(unsigned long columns, unsigned long rows, float aspect, double seconds) {
-    if (![NSThread isMainThread] || !output_ || !submitted_ || !std::isfinite(seconds) || seconds<=0 || seconds>30) return fail("Immutable display requires main thread, submitted quilt and bounded duration");
+bool MetalAdapter::show_immutable(unsigned long columns, unsigned long rows, float aspect, double seconds, double frames_per_second) {
+    if (![NSThread isMainThread] || !output_ || !submitted_ || !std::isfinite(seconds) || seconds<=0 || seconds>30 || !std::isfinite(frames_per_second) || frames_per_second<=0 || frames_per_second>60) return fail("Immutable display requires main thread, submitted quilt and bounded duration/rate");
     auto show=reinterpret_cast<decltype(&show_window)>(dlsym(library_,"show_window"));
     auto pump=reinterpret_cast<void(*)()>(dlsym(library_,"SDL_PumpEvents"));
     if (!show || !show(window_,true)) return fail("Cannot show Bridge window");
@@ -135,7 +135,7 @@ bool MetalAdapter::show_immutable(unsigned long columns, unsigned long rows, flo
     NSDate *started=[NSDate date];
     while ([deadline timeIntervalSinceNow]>0) {
         if (pump) pump();
-        NSUInteger frame=static_cast<NSUInteger>(-[started timeIntervalSinceNow]*5.0)%(previous_outputs_.count+1);
+        NSUInteger frame=static_cast<NSUInteger>(-[started timeIntervalSinceNow]*frames_per_second)%(previous_outputs_.count+1);
         id<MTLTexture> selected=frame<previous_outputs_.count?previous_outputs_[frame]:output_;
         if (!draw_(window_,(__bridge void *)selected,columns,rows,aspect,1)) return fail("Immutable resubmission failed");
         [[NSRunLoop currentRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:0.05]];

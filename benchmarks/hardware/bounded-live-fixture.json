@@ -8,5 +8,7 @@
     2
   ],
   "consumer_output_reuse": false,
-  "continuous_streaming": false
+  "continuous_streaming": false,
+  "two_frame_live_fixture_after_order_change_passed": true,
+  "native_adapter_regression_after_rate_change_passed": true
 }

@@ -1,0 +1,20 @@
+{
+  "date": "2026-10-12",
+  "execution_passed": true,
+  "exit_code": 0,
+  "frames": 2,
+  "frame_colors": [
+    "orange",
+    "cyan"
+  ],
+  "playback_rate_hz": 1,
+  "duration_seconds": 20,
+  "event_processing": "Existing blocking NSRunLoop playback",
+  "user_observation": "User answered no to combined image visibility/color-switching question",
+  "continuous_streaming": false,
+  "purpose": "Compare known playback event path with failed nonblocking pump",
+  "physical_validation_passed": false,
+  "assessment": "Previously used blocking event path also failed physical validation; nonblocking pump alone is not isolated as the cause",
+  "user_observation_clarification": "New scene with orange cube appeared, but cube color did not change during the two-frame tests",
+  "observation_limits": "User clarification applies to the two-frame tests collectively"
+}

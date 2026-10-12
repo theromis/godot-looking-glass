@@ -24,7 +24,9 @@ protected:
         ClassDB::bind_method(D_METHOD("begin_sequence", "runtime", "display_index", "columns", "rows", "aspect"), &LookingGlassMetalDiagnostic::begin_sequence);
         ClassDB::bind_method(D_METHOD("capture_sequence_frame", "quilt"), &LookingGlassMetalDiagnostic::capture_sequence_frame);
         ClassDB::bind_method(D_METHOD("play_sequence", "seconds"), &LookingGlassMetalDiagnostic::play_sequence);
+        ClassDB::bind_method(D_METHOD("play_sequence_at_rate", "seconds", "frames_per_second"), &LookingGlassMetalDiagnostic::play_sequence_at_rate);
         ClassDB::bind_method(D_METHOD("pump_latest_frame"), &LookingGlassMetalDiagnostic::pump_latest_frame);
+        ClassDB::bind_method(D_METHOD("read_sequence_output_diagnostic"), &LookingGlassMetalDiagnostic::read_sequence_output_diagnostic);
         ClassDB::bind_method(D_METHOD("close_sequence"), &LookingGlassMetalDiagnostic::close_sequence);
         ClassDB::bind_method(D_METHOD("prepare_direct_target", "width", "height"), &LookingGlassMetalDiagnostic::prepare_direct_target);
         ClassDB::bind_method(D_METHOD("import_direct_target"), &LookingGlassMetalDiagnostic::import_direct_target);
@@ -134,10 +136,27 @@ public:
         if (!ok) result["error"]=sequence?String(sequence->error().c_str()):String("No sequence");
         return result;
     }
+    PackedByteArray read_sequence_output_diagnostic() {
+        PackedByteArray bytes;
+        if (!sequence || ![NSThread isMainThread]) return bytes;
+        id<MTLTexture> texture=sequence->direct_texture();
+        if (!texture || texture.pixelFormat!=MTLPixelFormatRGBA8Unorm || texture.storageMode!=MTLStorageModeShared || texture.width*texture.height>16*1024*1024/4) return bytes;
+        // Explicit diagnostic only, after capture_sequence_frame waited for copy.
+        bytes.resize(texture.width*texture.height*4);
+        [texture getBytes:bytes.ptrw() bytesPerRow:texture.width*4 fromRegion:MTLRegionMake2D(0,0,texture.width,texture.height) mipmapLevel:0];
+        return bytes;
+    }
     Dictionary play_sequence(double seconds) {
         Dictionary result;
         bool ok=sequence && sequence->show_immutable(sequence_columns,sequence_rows,sequence_aspect,seconds);
         result["ok"]=ok; if (!ok) result["error"]=sequence?String(sequence->error().c_str()):String("No sequence");
+        return result;
+    }
+    Dictionary play_sequence_at_rate(double seconds, double frames_per_second) {
+        Dictionary result;
+        bool ok=sequence && sequence->show_immutable(sequence_columns,sequence_rows,sequence_aspect,seconds,frames_per_second);
+        result["ok"]=ok;
+        if (!ok) result["error"]=sequence?String(sequence->error().c_str()):String("No sequence");
         return result;
     }
     Dictionary close_sequence() {

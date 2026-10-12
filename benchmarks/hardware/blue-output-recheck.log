@@ -1,0 +1,9 @@
+devices=1 index=1 preset=4092x4092 grid=11x6 aspect=0.5625 cone=54
+window_created=1 kind=onscreen window=1
+show_window=1
+sdk_texture=1 requested_format=70
+gpu_producer_and_draw=1
+Holding immutable blue test image for 30 seconds; no completion-fence claim
+2026-10-12 12:17:54 [Error] 0x500 GL_INVALID_ENUM - invalid enumerant | prog=0 | activeTex=0 | boundTex2D=0 @ [SDK source location redacted]
+release=1 shutdown=1
+process_exit=0

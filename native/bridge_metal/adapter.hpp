@@ -16,7 +16,7 @@ public:
     bool submit_once(id<MTLTexture> source, id<MTLCommandBuffer> producer,
         unsigned long columns, unsigned long rows, float aspect, float zoom = 1.0f);
     bool close();
-    bool show_immutable(unsigned long columns, unsigned long rows, float aspect, double seconds);
+    bool show_immutable(unsigned long columns, unsigned long rows, float aspect, double seconds, double frames_per_second = 5.0);
     bool pump_latest_immutable(unsigned long columns, unsigned long rows, float aspect);
     bool append_immutable(id<MTLTexture> source, id<MTLCommandBuffer> producer,
         unsigned long columns, unsigned long rows, float aspect);

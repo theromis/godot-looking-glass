@@ -8,3 +8,4 @@ subprocess.run(common+[str(root/'adapter.mm'),str(root/'test.mm'),'-o',str(a.out
 subprocess.run(common+[str(root/'probe_offscreen.mm'),'-o',str(a.output/'probe-offscreen')],check=True)
 subprocess.run(common+[str(root/'probe_hardware.mm'),'-o',str(a.output/'probe-hardware')],check=True)
 subprocess.run(common+[str(root/'adapter.mm'),str(root/'benchmark_target.mm'),'-o',str(a.output/'benchmark-target')],check=True)
+subprocess.run(common+[str(root/'adapter.mm'),str(root/'probe_copy.mm'),'-o',str(a.output/'probe-copy')],check=True)

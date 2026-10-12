@@ -1,0 +1,18 @@
+{
+  "date": "2026-10-12",
+  "execution_passed": true,
+  "exit_code": 0,
+  "diagnostic_readback": true,
+  "presentation_attempted": false,
+  "frames": 2,
+  "purpose": "Compare frozen Godot quilt pixels against real SDK copied target",
+  "captures": [
+    "sequence-inspect/frame-0.png",
+    "sequence-inspect/frame-1.png"
+  ],
+  "visual_inspection": "Both quilts are nonempty; frame 0 has orange cube, frame 1 cyan cube; spheres/background visible",
+  "capture_sha256": {
+    "sequence-inspect/frame-0.png": "b14977a6474d00bf509e2bfe61a22384568dae3a4acd541cfa103e2332fde88c",
+    "sequence-inspect/frame-1.png": "e0a5d06465fa4f232c5b6fd57ad23f054163115b911cc4d50ca6ad4ec89aac77"
+  }
+}

@@ -1,0 +1,4 @@
+copied_rgba8_exact=1
+2026-10-12 12:21:26 [Error] 0x500 GL_INVALID_ENUM - invalid enumerant | prog=0 | activeTex=0 | boundTex2D=0 @ [SDK source location redacted]
+copy_show=1 clean_close=1
+process_exit=0

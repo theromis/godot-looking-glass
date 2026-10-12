@@ -1,0 +1,9 @@
+{
+  "date": "2026-10-12",
+  "exit_code": 0,
+  "execution_passed": true,
+  "user_observation": "User confirmed blue image appeared",
+  "scope": "Native adapter GPU-copy blue image; exact diagnostic readback; no Godot",
+  "duration_seconds": 20,
+  "physical_validation_passed": true
+}

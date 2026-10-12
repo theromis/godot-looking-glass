@@ -1,0 +1,15 @@
+{
+  "date": "2026-10-12",
+  "execution_passed": true,
+  "exit_code": 0,
+  "comparison": "two-frame-runloop.json",
+  "changed_parameter": "SDK copy-target texture usage ShaderRead to ShaderRead|ShaderWrite",
+  "frames": 2,
+  "duration_seconds": 20,
+  "user_observation": "User answered no to visible image/color switching",
+  "continuous_streaming": false,
+  "physical_validation_passed": false,
+  "assessment": "Adding ShaderWrite did not restore visible sequence output; descriptor change reverted",
+  "user_observation_clarification": "New scene with orange cube appeared, but cube color did not change during the two-frame tests",
+  "observation_limits": "User clarification applies to the two-frame tests collectively"
+}

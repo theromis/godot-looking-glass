@@ -1,0 +1,14 @@
+{
+  "date": "2026-10-12",
+  "execution_passed": true,
+  "exit_code": 0,
+  "comparison": "two-frame-runloop.json",
+  "changed_parameter": "SDK session/window opened before rig creation and warmup instead of after warmup",
+  "frames": 2,
+  "duration_seconds": 20,
+  "user_observation": "User answered no and noted not seeing a cyan cube in the static control either",
+  "continuous_streaming": false,
+  "physical_validation_passed": false,
+  "observation_limits": "User clarification applies to the two-frame tests collectively",
+  "user_observation_clarification": "New scene with orange cube appeared, but cube color did not change during the two-frame tests"
+}
