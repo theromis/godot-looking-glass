@@ -1,6 +1,6 @@
 extends RefCounted
 ## Small lit occlusion/transparency fixture shared by the live transport test.
-static func add_details(scene: Node3D, environment: Environment, box: MeshInstance3D, material: StandardMaterial3D) -> void:
+static func add_details(scene: Node3D, environment: Environment, box: MeshInstance3D, material: StandardMaterial3D, shadows: bool=true, alpha_panel: bool=true) -> void:
     environment.ambient_light_source=Environment.AMBIENT_SOURCE_COLOR
     environment.ambient_light_color=Color(0.55,0.62,0.75)
     environment.ambient_light_energy=0.35
@@ -11,7 +11,7 @@ static func add_details(scene: Node3D, environment: Environment, box: MeshInstan
     light.position=Vector3(-1.8,2,2.5)
     light.omni_range=8
     light.light_energy=3
-    light.shadow_enabled=true
+    light.shadow_enabled=shadows
     scene.add_child(light)
     var colors: Array[Color]=[Color(0.8,0.08,0.05),Color(0.08,0.7,0.12),Color(0.05,0.2,0.85)]
     for i in range(3):
@@ -46,4 +46,5 @@ static func add_details(scene: Node3D, environment: Environment, box: MeshInstan
     glass.cull_mode=BaseMaterial3D.CULL_DISABLED
     glass.roughness=0.25
     panel.material_override=glass
+    panel.visible=alpha_panel
     scene.add_child(panel)

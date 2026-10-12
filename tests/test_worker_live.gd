@@ -61,7 +61,7 @@ func run() -> void:
     box.material_override=material
     scene.add_child(box)
     if complex_scene:
-        preload("res://tests/worker_scene_fixture.gd").add_details(scene,world.environment,box,material)
+        preload("res://tests/worker_scene_fixture.gd").add_details(scene,world.environment,box,material,"--no-shadows" not in OS.get_cmdline_user_args(),"--no-alpha-panel" not in OS.get_cmdline_user_args())
     var rig:=Rig.new()
     rig.total_views=66
     rig.real_views=real_views

@@ -163,3 +163,20 @@ All eight copied IOSurfaces matched the original post-draw/eight-flush reference
 Revision preparation averaged 4.343 ms, previous-copy acknowledgment wait 5.599 ms, and producer copy/publication (including prior queue work) 23.529 ms. Worker copy/wait averaged 2.960 ms and its new-frame SDK call 3.422 ms. The earlier simple cube reached 58.314 Hz with the same 24-view budget, but these different scenes are not an isolated shadow, lighting or transparency A/B test. Further profiling should isolate those costs before attributing the loss to a particular feature.
 
 See [copy-first validation](../benchmarks/hardware/live-surface-4k-gpu-adaptive-copy-validation-capture-compose-real-24-complex.json) and [animated hardware result](../benchmarks/hardware/live-surface-4k-gpu-duration-36-uncapped-adaptive-capture-compose-real-24-complex.json). The known initialization GL_INVALID_ENUM remains in successful SDK logs. Long-term/full-rate SDK consumer synchronization is still experimental.
+
+## Shadow and alpha-panel cost controls (2026-10-12)
+
+The launcher supports `--no-shadows` (disables the fixture OmniLight's shadow maps while retaining its lighting) and `--no-alpha-panel` (hides the panel). Run the complex 24→66 command with `--duration 30 --uncapped` and a distinct `--run-label`, using neither flag, either flag alone, and both flags. All other scene parameters, output size and transport remain identical. The alpha control removes one mesh; it is not a same-geometry opaque-versus-transparent material comparison.
+
+| Shadow maps | Alpha panel | Frames received | New SDK submissions/s |
+| --- | --- | ---: | ---: |
+| On | Visible | 443 | 30.109 |
+| Off | Visible | 786 | 52.486 |
+| On | Hidden | 451 | 30.080 |
+| Off | Hidden | 799 | 53.369 |
+
+Each sequential run kept the worker alive for 30 seconds and animated for approximately 15 seconds. All sequences arrived in order, no diagnostic pixel readback was used, and SDK cleanup passed. There was one trial per mode; startup, scheduling/thermal variation and SDK behavior are not eliminated. No separate visual assessment was requested for these ablations; the earlier full fixture was user-confirmed.
+
+Disabling shadow maps produced the dominant throughput difference in this scene. Removing the alpha panel did not produce a detectable gain with shadows enabled; the small no-shadow difference is not statistically established. These results do not mean transparency is free in other scenes. Native copy/publication includes waiting for scene GPU work; its time cannot be interpreted as pure blit cost.
+
+The next candidate is the existing opt-in shared positional shadow atlas with this moving OmniLight scene. That requires separate correctness and throughput comparisons and does not follow automatically from earlier shadow benchmarks. See [matrix and per-run records](../benchmarks/hardware/live-surface-scene-cost-comparison.json).

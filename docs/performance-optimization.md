@@ -343,3 +343,9 @@ The frozen-quilt experimental path imports a Bridge RGBA8 IOSurface through publ
 ## Actual synthesis comparison on the real SDK allocation
 
 The actual Godot depth-reprojection shader now has a frozen-source comparison: twenty-four real cameras, sixty-six output views, RGBA8 and eight iterations. At 4092², direct SDK writes lowered synchronous submit/wait medians by 1.25–2.12 ms in three paired runs versus an owned RD texture plus RD copy, with exact full-quilt equality. This is not isolated GPU timing or complete scene FPS. RD GPU timestamps returned zero and were rejected; the adopted baseline includes Godot submission and native producer waits. The small quilt showed marginal differences, and large-run absolute times varied significantly. See [workload, raw distributions and limitations](../benchmarks/hardware/sdk-synthesis-benchmark.md).
+
+## Live 4K shadow/alpha ablation
+
+In a sequential 24-real-camera → 66-view native Metal fixture, SDK update submission throughput was 30.109 Hz with shadows/alpha panel enabled, 52.486 Hz without shadow maps, 30.080 Hz without the alpha panel, and 53.369 Hz without either. Every produced frame was received and teardown passed. These are one-run-per-mode scene-specific measurements, not physical panel FPS or isolated GPU timings. Lighting stays enabled when shadows are disabled; the alpha test hides the mesh.
+
+The shadow atlas is the next optimization candidate. These controls do not establish that transparency has zero cost, or that shared atlases will improve this scene without a new test. See [method and result matrix](live-iosurface-transport.md#shadow-and-alpha-panel-cost-controls-2026-10-12).

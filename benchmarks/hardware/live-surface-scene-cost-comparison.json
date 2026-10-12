@@ -1,0 +1,40 @@
+{
+  "date": "2026-10-12",
+  "configuration": "Native Metal, 4092\u00b2, 24 actual cameras \u2192 66 views, capture-stage composition, one draw, no diagnostic readback. Same moving scene/lighting; sequential one trial per mode.",
+  "modes": [
+    {
+      "mode": "full",
+      "record": "live-surface-4k-gpu-duration-30-uncapped-adaptive-capture-compose-real-24-cost-full-complex.json",
+      "shadows": true,
+      "alpha_panel": true,
+      "frames": 443,
+      "sdk_submission_hz": 30.1092
+    },
+    {
+      "mode": "no_shadows",
+      "record": "live-surface-4k-gpu-duration-30-uncapped-adaptive-capture-compose-real-24-cost-no-shadows-complex-no-shadows.json",
+      "shadows": false,
+      "alpha_panel": true,
+      "frames": 786,
+      "sdk_submission_hz": 52.4861
+    },
+    {
+      "mode": "no_alpha",
+      "record": "live-surface-4k-gpu-duration-30-uncapped-adaptive-capture-compose-real-24-cost-no-alpha-complex-no-alpha.json",
+      "shadows": true,
+      "alpha_panel": false,
+      "frames": 451,
+      "sdk_submission_hz": 30.0804
+    },
+    {
+      "mode": "neither",
+      "record": "live-surface-4k-gpu-duration-30-uncapped-adaptive-capture-compose-real-24-cost-neither-complex-no-shadows-no-alpha.json",
+      "shadows": false,
+      "alpha_panel": false,
+      "frames": 799,
+      "sdk_submission_hz": 53.3688
+    }
+  ],
+  "interpretation": "Shadow disabling raised throughput substantially in this fixture. Hiding the alpha panel made little difference with shadows on; repeat trials are needed to resolve small differences. No universal transparency-cost claim.",
+  "sdk_consumer_completion_verified": false
+}
