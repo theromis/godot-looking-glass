@@ -50,5 +50,6 @@
     "status": "PASS source bounds, source dimensions, exact nonempty RGBA8 output",
     "actual_fixture_views": 4,
     "minimum_source_pixel_margin": 5.34056854248047
-  }
+  },
+  "user_observation_on_repeat": "User reported reduced double images but scene is too flat"
 }

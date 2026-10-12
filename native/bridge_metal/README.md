@@ -259,10 +259,14 @@ The smaller four-view fixture also passed exact nonempty RGBA8 and source-bounds
 
 `--depth-scale=0.35` transforms subject Z coordinates around the convergence plane: `z_new = convergence_z + (z_old - convergence_z) * factor`, and scales their mesh Z extents by the same factor. Valid factors are (0,1]; default 1 preserves previous behavior. This is a diagnostic scene-geometry transformation, not an optical calibration or depth-of-field operation. It affects cube/spheres, not the floor or light.
 
-The 48-real 8×6 compact lit scene was shown with factor 0.35, keeping convergence 5.6, reference cone 20°, source aspect, camera spacing/sampling and output dimensions unchanged. Subjects passed the all-camera AABB-fit check with minimum margin 56.076 source pixels. API submission and teardown passed. Visual assessment is pending. Mesh normals/shape and cast shadows change with the transformation, so it is not a pure isolated crosstalk measurement.
+The 48-real 8×6 compact lit scene was shown with factor 0.35, keeping convergence 5.6, reference cone 20°, source aspect, camera spacing/sampling and output dimensions unchanged. Subjects passed the all-camera AABB-fit check with minimum margin 56.076 source pixels. API submission and teardown passed. On repeat, the user reported less doubling but insufficient volume. Mesh normals/shape and cast shadows change with the transformation, so it is not a pure isolated crosstalk measurement.
 
 ```sh
 GODOT_MTL_SYNC_MODE=none "$GODOT" --path . --rendering-driver metal --script tests/test_bridge_direct_target.gd -- --large --views=48 --real-views=48 --lit --view-cone=20 --focus=5.6 --display-aspect --angular-sampling --compact-objects --depth-scale=0.35
 ```
 
 See [settings and recorded result](../../benchmarks/hardware/quilt48-depth035-lit.json). No compressed-depth production preset is enabled automatically.
+
+### Depth 35% with cone 30 degrees
+
+The user requested the same compressed-depth setup with reference cone 30° instead of 20°. The 48-real 8×6 lit session passed with minimum source-bound margin 49.845 pixels. The user reported improved volume but stronger double images. The preceding 20° repeat was reported to have less doubling but to look too flat. This is a measured qualitative tradeoff, not a universally accepted calibration/preset or a quantitative optical diagnosis. See [20° repeat](../../benchmarks/hardware/quilt48-depth035-repeat.json) and [30° observation](../../benchmarks/hardware/quilt48-depth035-cone30.json).

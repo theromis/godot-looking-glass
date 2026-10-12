@@ -1,0 +1,10 @@
+{
+  "date": "2026-10-12",
+  "repeat_of": "quilt48-depth035-lit.json",
+  "settings_unchanged": true,
+  "duration_seconds": 20,
+  "api_success": true,
+  "exit_code": 0,
+  "user_observation": "User reported reduced double images but scene is too flat",
+  "assessment": "35-percent depth at 20-degree cone not accepted as final setting because volume is insufficient"
+}
