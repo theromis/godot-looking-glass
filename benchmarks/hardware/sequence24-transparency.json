@@ -1,0 +1,27 @@
+{
+  "date": "2026-10-12",
+  "real_views": 24,
+  "total_views": 66,
+  "poses": 8,
+  "quilt_size": [
+    704,
+    684
+  ],
+  "duration_seconds": 20,
+  "requested_pose_cadence_hz": 5,
+  "transparent_object": "Cyan alpha-blended quad at z=1.1 in front of moving opaque box",
+  "engine": "Godot 4.8 c61fc0118 native Metal",
+  "environment": {
+    "GODOT_MTL_SYNC_MODE": "none"
+  },
+  "sdk": "2.6.3",
+  "api_success": true,
+  "exit_code": 0,
+  "user_observation": "Pending",
+  "limitations": [
+    "Finite prerecorded poses, not continuous streaming",
+    "Transparency is color-only blending against opaque depth, not multilayer transparency reprojection",
+    "No motion vectors or temporal reconstruction",
+    "No measured FPS or latency"
+  ]
+}

@@ -147,3 +147,16 @@ GODOT_MTL_SYNC_MODE=none "$GODOT" --path . --rendering-driver metal --script tes
 ```
 
 This retains the 704×684, 20-second frozen-scene test. It is a physical qualitative check of sparse synthesis, not an animated performance preset or optical measurement. Compare object silhouettes and depth while moving within the display's viewing cone. The higher-resolution offline quality comparison is documented separately in [view-budget66](../../benchmarks/view-budget66/README.md).
+
+## Motion and transparency qualitative comparison
+
+The bounded clip test accepts `--real-views=N` and `--transparency`. The latter adds a stationary cyan alpha-blended quad (opacity 0.35) in front of a moving and rotating opaque box. Examples:
+
+```sh
+GODOT_MTL_SYNC_MODE=none "$GODOT" --path . --rendering-driver metal --script tests/test_real_bridge_sequence.gd -- --real-views=24 --transparency
+GODOT_MTL_SYNC_MODE=none "$GODOT" --path . --rendering-driver metal --script tests/test_real_bridge_sequence.gd -- --real-views=66 --transparency
+```
+
+Both commands prerecord eight distinct GPU-only quilts, then request five pose changes per second for twenty seconds. This discrete prerecorded animation is intentionally not a smooth-motion or continuous-streaming benchmark. The 66-real version provides a qualitative baseline to distinguish sparse-view artifacts from clip cadence. On 2026-10-12 both real-SDK runs passed API submission and teardown; physical visual observations are pending.
+
+Capture runs at `EFFECT_CALLBACK_TYPE_POST_TRANSPARENT` in `addons/looking_glass/capture.gd:30`, so alpha-blended color is included. The depth-reprojection shader still has only the resolved scene depth: it does not reconstruct separate transparent and opaque depth layers. Therefore adding the panel does not establish correct multilayer transparency, refraction or particles. No transparency-support default or quality claim is inferred from API success. See [24-anchor run](../../benchmarks/hardware/sequence24-transparency.json) and [66-real baseline](../../benchmarks/hardware/sequence66-transparency.json).

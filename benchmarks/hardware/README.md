@@ -70,3 +70,7 @@ On 2026-10-12, Godot compute wrote directly into an imported real Bridge RGBA8 I
 ## 24-anchor physical check
 
 On 2026-10-12 the frozen 24-real-camera scene reconstructed into 66 views was submitted directly to the real Bridge RGBA8 allocation and shown for 20 seconds. API execution and teardown passed. The user reported that the image looked approximately normal. This is qualitative confirmation for the tested static scene; no balanced preset is enabled automatically. See [record](godot-24-anchor-display.json) and [sanitized log](godot-24-anchor-display.log). The same new budget argument passed a smaller synthesized fixture test with exact, nonempty RGBA8 output.
+
+## Motion with an alpha-blended panel
+
+The 24-anchor synthesized clip and 66-real-camera baseline were executed sequentially on 2026-10-12 with a moving/rotating box behind a cyan alpha-blended quad. Both eight-pose, twenty-second SDK sessions passed submission and teardown. Visual comparison is pending, and no transparency correctness is claimed. The requested five-pose-per-second cadence is a deliberate discrete clip rate, not a measured render FPS. The synthesis depth buffer does not represent separate transparent depth layers. See [24-anchor outcome](sequence24-transparency.json), [all-real outcome](sequence66-transparency.json), and [commands and limits](../../native/bridge_metal/README.md#motion-and-transparency-qualitative-comparison).

@@ -30,9 +30,29 @@ func run() -> void:
         sphere_material.albedo_color=[Color.RED,Color.GREEN,Color.BLUE][i]
         sphere.material_override=sphere_material
         scene.add_child(sphere)
+    var translucent: bool="--transparency" in OS.get_cmdline_user_args()
+    if translucent:
+        var glass := MeshInstance3D.new()
+        var pane := QuadMesh.new()
+        pane.size=Vector2(1.4,1.5)
+        glass.mesh=pane
+        glass.position=Vector3(0,0.35,1.1)
+        var tint := StandardMaterial3D.new()
+        tint.shading_mode=BaseMaterial3D.SHADING_MODE_UNSHADED
+        tint.transparency=BaseMaterial3D.TRANSPARENCY_ALPHA
+        tint.albedo_color=Color(0.1,0.9,0.9,0.35)
+        glass.material_override=tint
+        scene.add_child(glass)
     var rig := Rig.new()
     rig.total_views=66
-    rig.real_views=66 # Optical baseline: no synthesized views.
+    var budget: int=66
+    for argument in OS.get_cmdline_user_args():
+        if argument.begins_with("--real-views="):
+            budget=int(argument.trim_prefix("--real-views="))
+    if budget<2 or budget>66:
+        fail("Invalid real-view budget")
+        return
+    rig.real_views=budget # Default remains the all-real optical baseline.
     rig.columns=11
     rig.tile_size=Vector2i(64,114)
     rig.synthesis=true
@@ -109,7 +129,7 @@ func run() -> void:
             diagnostic.close_sequence()
             fail(str(report.get("error","Capture failed")))
             return
-    print("Showing 8 immutable Godot poses for 20 seconds; orange box moves and rotates; no CPU quilt readback")
+    print("Showing 8 immutable Godot poses for 20 seconds; real_views=",budget," transparency=",translucent,"; orange box moves and rotates; no CPU quilt readback")
     report=diagnostic.play_sequence(20.0)
     var closed: Dictionary=diagnostic.close_sequence()
     if not report.get("ok",false) or not closed.get("ok",false):
