@@ -1,0 +1,85 @@
+{
+  "8": {
+    "synthesized_vs_8": {
+      "rgb_mae_8bit": 0.0,
+      "rgb_psnr_db": null,
+      "changed_pixel_fraction": 0.0,
+      "exact_rgb": true
+    },
+    "real_anchors_vs_8": {
+      "rgb_mae_8bit": 0.0,
+      "rgb_psnr_db": null,
+      "changed_pixel_fraction": 0.0,
+      "exact_rgb": true
+    },
+    "synthesized_vs_reference": {
+      "rgb_mae_8bit": 2.3321291870541043,
+      "rgb_psnr_db": 22.757208850313106,
+      "changed_pixel_fraction": 0.28145702679951984,
+      "exact_rgb": false
+    },
+    "real_anchors_vs_reference": {
+      "rgb_mae_8bit": 0.0,
+      "rgb_psnr_db": null,
+      "changed_pixel_fraction": 0.0,
+      "exact_rgb": true
+    }
+  },
+  "4": {
+    "synthesized_vs_8": {
+      "rgb_mae_8bit": 0.002692355049981011,
+      "rgb_psnr_db": 52.91967379031095,
+      "changed_pixel_fraction": 0.00011972586313883464,
+      "exact_rgb": false
+    },
+    "real_anchors_vs_8": {
+      "rgb_mae_8bit": 0.0,
+      "rgb_psnr_db": null,
+      "changed_pixel_fraction": 0.0,
+      "exact_rgb": true
+    },
+    "synthesized_vs_reference": {
+      "rgb_mae_8bit": 2.332041581471761,
+      "rgb_psnr_db": 22.75683576243077,
+      "changed_pixel_fraction": 0.2814555565516154,
+      "exact_rgb": false
+    },
+    "real_anchors_vs_reference": {
+      "rgb_mae_8bit": 0.0,
+      "rgb_psnr_db": null,
+      "changed_pixel_fraction": 0.0,
+      "exact_rgb": true
+    }
+  },
+  "2": {
+    "synthesized_vs_8": {
+      "rgb_mae_8bit": 0.09064564439985487,
+      "rgb_psnr_db": 36.9709887479064,
+      "changed_pixel_fraction": 0.00344391663869222,
+      "exact_rgb": false
+    },
+    "real_anchors_vs_8": {
+      "rgb_mae_8bit": 0.0,
+      "rgb_psnr_db": null,
+      "changed_pixel_fraction": 0.0,
+      "exact_rgb": true
+    },
+    "synthesized_vs_reference": {
+      "rgb_mae_8bit": 2.4062649806340537,
+      "rgb_psnr_db": 22.61895105249866,
+      "changed_pixel_fraction": 0.2818458477656047,
+      "exact_rgb": false
+    },
+    "real_anchors_vs_reference": {
+      "rgb_mae_8bit": 0.0,
+      "rgb_psnr_db": null,
+      "changed_pixel_fraction": 0.0,
+      "exact_rgb": true
+    }
+  },
+  "limitations": [
+    "PNG RGB after simple gamma transfer, not HDR/perceptual quality.",
+    "Static opaque scene only; temporal artifacts, transparency and other scenes untested.",
+    "The 8-iteration baseline is not ground truth; all-real reference shares shader transfer and lighting settings."
+  ]
+}

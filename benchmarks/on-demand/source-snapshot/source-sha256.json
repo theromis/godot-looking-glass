@@ -1,0 +1,11 @@
+{
+  "addons/looking_glass/rig.gd": "2f535144ddc162844392c341f2e0c640f64be67c4944ccf56fe20f2956e175e9",
+  "addons/looking_glass/capture.gd": "9f9ab8bc7e80130dc5f8d66576e58267d2f3dcd41634cc240121251b6df3c0fd",
+  "addons/looking_glass/synthesizer.gd": "7420a1c8e6dfd7304c49497d8a22614d37b5fefc6bd78ab068059fa8461cf780",
+  "demo/main.gd": "ba84884e111994b104457aeaba867e41d08029c4d5acc8481ec52b40840753ef",
+  "tests/test_on_demand.gd": "682a2548f43f6c3838f7105cc60559204b09a0b7525d931fcd5581d47eb1d3db",
+  "tests/benchmark_on_demand.gd": "1d28591cbfa4eddc0019b33618e2c211b57550a6de2c723b561191f90b1b5d5b",
+  "tests/benchmark_on_demand.tscn": "ff68c9f0ed9102044e0a9333f0166f051547da5f1282d5fdaf6ea8b12b3f5fc5",
+  "tests/run_checks.py": "8a9d81e4233a3eabe010215030d71761a03a322b5be0ca09c980dde5c566238a",
+  "benchmarks/on-demand/run.py": "55a73b040840627173d754d91b0d85562317a0f9362af17f149de2fe3c1f1ed9"
+}

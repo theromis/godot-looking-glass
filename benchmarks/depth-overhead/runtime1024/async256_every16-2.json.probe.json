@@ -1,0 +1,722 @@
+{
+  "asynchronous_feedback": true,
+  "configuration_error": "",
+  "dispatches": 20,
+  "feedback_callbacks": 20,
+  "feedback_latency_ms": [
+    115.881,
+    114.378,
+    107.658,
+    117.462,
+    120.354,
+    140.906,
+    176.143,
+    131.654,
+    121.248,
+    125.195,
+    117.714,
+    115.972,
+    117.999,
+    115.804,
+    118.679
+  ],
+  "feedback_ms": [
+    21.129,
+    22.617,
+    22.942,
+    23.035,
+    18.4,
+    19.587,
+    21.517,
+    19.874,
+    21.581,
+    20.02,
+    21.987,
+    21.008,
+    20.959,
+    21.055,
+    21.998
+  ],
+  "gpu_ms": [
+    1.521375,
+    1.738417,
+    1.284,
+    1.777583,
+    1.531,
+    1.729083,
+    2.070041,
+    1.515541,
+    1.520208,
+    1.52425,
+    1.533,
+    1.389417,
+    1.400458,
+    1.387041,
+    1.526625
+  ],
+  "grid": 256,
+  "isolated_timer": false,
+  "kernel_measured_dispatches": 15,
+  "measured_dispatches": 15,
+  "pending_feedback": false,
+  "period": 16,
+  "readback_bytes": 786432,
+  "submission_ms": [
+    0.068,
+    0.075,
+    0.069,
+    0.075,
+    0.082,
+    0.051,
+    0.067,
+    0.056,
+    0.073,
+    0.06,
+    0.054,
+    0.075,
+    0.071,
+    0.072,
+    0.073
+  ],
+  "synchronous_feedback": false,
+  "timestamp_status": "Requires isolated-timer validation on MoltenVK",
+  "validation_counts": {
+    "metrics": [
+      "both_invalid",
+      "one_invalid",
+      "source_horizontal_depth_edge",
+      "valid_depth_disagreement"
+    ],
+    "readback_bytes": 786432,
+    "rows": [
+      {
+        "a": 0,
+        "b": 2,
+        "counts": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "real": true,
+        "samples": 65536,
+        "view": 0
+      },
+      {
+        "a": 0,
+        "b": 2,
+        "counts": [
+          1794,
+          11349,
+          2804,
+          5890
+        ],
+        "real": false,
+        "samples": 65536,
+        "view": 1
+      },
+      {
+        "a": 2,
+        "b": 4,
+        "counts": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "real": true,
+        "samples": 65536,
+        "view": 2
+      },
+      {
+        "a": 2,
+        "b": 4,
+        "counts": [
+          1718,
+          13038,
+          2150,
+          5237
+        ],
+        "real": false,
+        "samples": 65536,
+        "view": 3
+      },
+      {
+        "a": 4,
+        "b": 6,
+        "counts": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "real": true,
+        "samples": 65536,
+        "view": 4
+      },
+      {
+        "a": 4,
+        "b": 6,
+        "counts": [
+          2158,
+          12064,
+          1930,
+          5486
+        ],
+        "real": false,
+        "samples": 65536,
+        "view": 5
+      },
+      {
+        "a": 6,
+        "b": 8,
+        "counts": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "real": true,
+        "samples": 65536,
+        "view": 6
+      },
+      {
+        "a": 6,
+        "b": 8,
+        "counts": [
+          1523,
+          12886,
+          3036,
+          5265
+        ],
+        "real": false,
+        "samples": 65536,
+        "view": 7
+      },
+      {
+        "a": 8,
+        "b": 10,
+        "counts": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "real": true,
+        "samples": 65536,
+        "view": 8
+      },
+      {
+        "a": 8,
+        "b": 10,
+        "counts": [
+          1391,
+          13010,
+          3642,
+          4695
+        ],
+        "real": false,
+        "samples": 65536,
+        "view": 9
+      },
+      {
+        "a": 10,
+        "b": 12,
+        "counts": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "real": true,
+        "samples": 65536,
+        "view": 10
+      },
+      {
+        "a": 10,
+        "b": 12,
+        "counts": [
+          1696,
+          11749,
+          2742,
+          6246
+        ],
+        "real": false,
+        "samples": 65536,
+        "view": 11
+      },
+      {
+        "a": 12,
+        "b": 14,
+        "counts": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "real": true,
+        "samples": 65536,
+        "view": 12
+      },
+      {
+        "a": 12,
+        "b": 14,
+        "counts": [
+          1443,
+          12441,
+          2022,
+          5047
+        ],
+        "real": false,
+        "samples": 65536,
+        "view": 13
+      },
+      {
+        "a": 14,
+        "b": 16,
+        "counts": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "real": true,
+        "samples": 65536,
+        "view": 14
+      },
+      {
+        "a": 14,
+        "b": 16,
+        "counts": [
+          1412,
+          13176,
+          1859,
+          5099
+        ],
+        "real": false,
+        "samples": 65536,
+        "view": 15
+      },
+      {
+        "a": 16,
+        "b": 18,
+        "counts": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "real": true,
+        "samples": 65536,
+        "view": 16
+      },
+      {
+        "a": 16,
+        "b": 18,
+        "counts": [
+          1672,
+          12329,
+          2893,
+          5007
+        ],
+        "real": false,
+        "samples": 65536,
+        "view": 17
+      },
+      {
+        "a": 18,
+        "b": 20,
+        "counts": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "real": true,
+        "samples": 65536,
+        "view": 18
+      },
+      {
+        "a": 18,
+        "b": 20,
+        "counts": [
+          2141,
+          12262,
+          2934,
+          5882
+        ],
+        "real": false,
+        "samples": 65536,
+        "view": 19
+      },
+      {
+        "a": 20,
+        "b": 22,
+        "counts": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "real": true,
+        "samples": 65536,
+        "view": 20
+      },
+      {
+        "a": 20,
+        "b": 22,
+        "counts": [
+          2138,
+          12242,
+          1763,
+          5943
+        ],
+        "real": false,
+        "samples": 65536,
+        "view": 21
+      },
+      {
+        "a": 22,
+        "b": 25,
+        "counts": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "real": true,
+        "samples": 65536,
+        "view": 22
+      },
+      {
+        "a": 22,
+        "b": 25,
+        "counts": [
+          3452,
+          14648,
+          2017,
+          7753
+        ],
+        "real": false,
+        "samples": 65536,
+        "view": 23
+      },
+      {
+        "a": 22,
+        "b": 25,
+        "counts": [
+          3386,
+          15007,
+          2017,
+          7896
+        ],
+        "real": false,
+        "samples": 65536,
+        "view": 24
+      },
+      {
+        "a": 25,
+        "b": 27,
+        "counts": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "real": true,
+        "samples": 65536,
+        "view": 25
+      },
+      {
+        "a": 25,
+        "b": 27,
+        "counts": [
+          1817,
+          12005,
+          1840,
+          5635
+        ],
+        "real": false,
+        "samples": 65536,
+        "view": 26
+      },
+      {
+        "a": 27,
+        "b": 29,
+        "counts": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "real": true,
+        "samples": 65536,
+        "view": 27
+      },
+      {
+        "a": 27,
+        "b": 29,
+        "counts": [
+          2020,
+          11569,
+          2089,
+          5095
+        ],
+        "real": false,
+        "samples": 65536,
+        "view": 28
+      },
+      {
+        "a": 29,
+        "b": 31,
+        "counts": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "real": true,
+        "samples": 65536,
+        "view": 29
+      },
+      {
+        "a": 29,
+        "b": 31,
+        "counts": [
+          1551,
+          11398,
+          1961,
+          5051
+        ],
+        "real": false,
+        "samples": 65536,
+        "view": 30
+      },
+      {
+        "a": 31,
+        "b": 33,
+        "counts": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "real": true,
+        "samples": 65536,
+        "view": 31
+      },
+      {
+        "a": 31,
+        "b": 33,
+        "counts": [
+          1117,
+          12794,
+          3332,
+          5029
+        ],
+        "real": false,
+        "samples": 65536,
+        "view": 32
+      },
+      {
+        "a": 33,
+        "b": 35,
+        "counts": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "real": true,
+        "samples": 65536,
+        "view": 33
+      },
+      {
+        "a": 33,
+        "b": 35,
+        "counts": [
+          1097,
+          12247,
+          3414,
+          5357
+        ],
+        "real": false,
+        "samples": 65536,
+        "view": 34
+      },
+      {
+        "a": 35,
+        "b": 37,
+        "counts": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "real": true,
+        "samples": 65536,
+        "view": 35
+      },
+      {
+        "a": 35,
+        "b": 37,
+        "counts": [
+          1258,
+          11465,
+          2047,
+          5735
+        ],
+        "real": false,
+        "samples": 65536,
+        "view": 36
+      },
+      {
+        "a": 37,
+        "b": 39,
+        "counts": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "real": true,
+        "samples": 65536,
+        "view": 37
+      },
+      {
+        "a": 37,
+        "b": 39,
+        "counts": [
+          1091,
+          12249,
+          1966,
+          4984
+        ],
+        "real": false,
+        "samples": 65536,
+        "view": 38
+      },
+      {
+        "a": 39,
+        "b": 41,
+        "counts": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "real": true,
+        "samples": 65536,
+        "view": 39
+      },
+      {
+        "a": 39,
+        "b": 41,
+        "counts": [
+          1454,
+          11734,
+          1786,
+          5562
+        ],
+        "real": false,
+        "samples": 65536,
+        "view": 40
+      },
+      {
+        "a": 41,
+        "b": 43,
+        "counts": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "real": true,
+        "samples": 65536,
+        "view": 41
+      },
+      {
+        "a": 41,
+        "b": 43,
+        "counts": [
+          1568,
+          11676,
+          2626,
+          5103
+        ],
+        "real": false,
+        "samples": 65536,
+        "view": 42
+      },
+      {
+        "a": 43,
+        "b": 45,
+        "counts": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "real": true,
+        "samples": 65536,
+        "view": 43
+      },
+      {
+        "a": 43,
+        "b": 45,
+        "counts": [
+          1480,
+          12093,
+          3116,
+          5668
+        ],
+        "real": false,
+        "samples": 65536,
+        "view": 44
+      },
+      {
+        "a": 45,
+        "b": 47,
+        "counts": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "real": true,
+        "samples": 65536,
+        "view": 45
+      },
+      {
+        "a": 45,
+        "b": 47,
+        "counts": [
+          1342,
+          11397,
+          1995,
+          6230
+        ],
+        "real": false,
+        "samples": 65536,
+        "view": 46
+      },
+      {
+        "a": 47,
+        "b": 47,
+        "counts": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "real": true,
+        "samples": 65536,
+        "view": 47
+      }
+    ],
+    "sample_grid": [
+      256,
+      256
+    ]
+  }
+}

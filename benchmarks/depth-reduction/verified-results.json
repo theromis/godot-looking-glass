@@ -1,0 +1,159 @@
+{
+  "gpu": {
+    "binary_sha256": "e3f0117c1da12d25f8ed25fe28ebae6595db1efff1960ee01360ed745e594ced",
+    "image_sha256": {
+      "timer_idle": "0adf86c51333aea46d72e0cef05a1d21f71ba568e949653936b9d3a9ccc2e0ba",
+      "gpu256": "0adf86c51333aea46d72e0cef05a1d21f71ba568e949653936b9d3a9ccc2e0ba",
+      "gpu_reduced256": "0adf86c51333aea46d72e0cef05a1d21f71ba568e949653936b9d3a9ccc2e0ba"
+    },
+    "exact_png": true,
+    "modes": {
+      "timer_idle": {
+        "wall_ms": {
+          "mean": 48.367466666666665,
+          "run_stddev": 0.5516614370346081
+        },
+        "probe_interval_ms": {
+          "mean": 0.0031697055555555556,
+          "run_stddev": 0.00017692957821728987
+        },
+        "submission_ms": {
+          "mean": 0.005055555555555555,
+          "run_stddev": 0.00016015039228221747
+        },
+        "feedback_latency_ms": null,
+        "feedback_ms": null
+      },
+      "gpu256": {
+        "wall_ms": {
+          "mean": 49.14105555555557,
+          "run_stddev": 0.40467602691445437
+        },
+        "probe_interval_ms": {
+          "mean": 1.37109535,
+          "run_stddev": 0.02130701974410865
+        },
+        "submission_ms": {
+          "mean": 0.06873888888888889,
+          "run_stddev": 0.006175676601108697
+        },
+        "feedback_latency_ms": null,
+        "feedback_ms": null
+      },
+      "gpu_reduced256": {
+        "wall_ms": {
+          "mean": 49.8141111111111,
+          "run_stddev": 0.3835750347908559
+        },
+        "probe_interval_ms": {
+          "mean": 1.3649717666666668,
+          "run_stddev": 0.0434651293879102
+        },
+        "submission_ms": {
+          "mean": 0.06847777777777778,
+          "run_stddev": 0.003364204270012502
+        },
+        "feedback_latency_ms": null,
+        "feedback_ms": null
+      }
+    },
+    "anomalies": [],
+    "isolated_timer": true,
+    "warmup": 30,
+    "samples_per_run": 60,
+    "gpu_timing_status": "Encoder-boundary isolation with empty timer calibration",
+    "scene": {
+      "output_views": 48,
+      "real_views": 24,
+      "tile": 1024,
+      "objects": 512,
+      "static": true,
+      "shared_spotlights": 4
+    },
+    "limitations": [
+      "Profiled experiment: quilt markers enabled in all runs, probe markers when active.",
+      "GPU timing excludes setup, buffer readback and CPU reduction; submission timer excludes initialization.",
+      "Feedback timer includes queued GPU waits, readback and GDScript block reduction; it is not pure transfer time.",
+      "Observed quilt update intervals include scheduling/presentation; no hardware-display FPS claim."
+    ]
+  },
+  "runtime": {
+    "binary_sha256": "e3f0117c1da12d25f8ed25fe28ebae6595db1efff1960ee01360ed745e594ced",
+    "image_sha256": {
+      "async256_every16": "0adf86c51333aea46d72e0cef05a1d21f71ba568e949653936b9d3a9ccc2e0ba",
+      "async_reduced256_every16": "0adf86c51333aea46d72e0cef05a1d21f71ba568e949653936b9d3a9ccc2e0ba"
+    },
+    "exact_png": true,
+    "modes": {
+      "async256_every16": {
+        "wall_ms": {
+          "mean": 48.26877083333336,
+          "run_stddev": 0.3051847054278502
+        },
+        "probe_interval_ms": {
+          "mean": 1.1860203777777778,
+          "run_stddev": 0.010917422686153935
+        },
+        "submission_ms": {
+          "mean": 0.05977777777777778,
+          "run_stddev": 0.00688261362931048
+        },
+        "feedback_latency_ms": {
+          "mean": 97.10704444444444,
+          "run_stddev": 0.918819857409692
+        },
+        "feedback_ms": {
+          "mean": 20.49891111111111,
+          "run_stddev": 1.0210357145420383
+        }
+      },
+      "async_reduced256_every16": {
+        "wall_ms": {
+          "mean": 48.27104166666663,
+          "run_stddev": 0.1785687368140593
+        },
+        "probe_interval_ms": {
+          "mean": 1.2524138222222223,
+          "run_stddev": 0.01708610675338729
+        },
+        "submission_ms": {
+          "mean": 0.06886666666666666,
+          "run_stddev": 0.0033651811904330574
+        },
+        "feedback_latency_ms": {
+          "mean": 96.99422222222222,
+          "run_stddev": 0.4369343827336301
+        },
+        "feedback_ms": {
+          "mean": 0.30573333333333336,
+          "run_stddev": 0.00929826746107993
+        }
+      }
+    },
+    "anomalies": [],
+    "isolated_timer": false,
+    "warmup": 90,
+    "samples_per_run": 240,
+    "gpu_timing_status": "Raw probe deltas invalid on MoltenVK: stage queries share an encoder",
+    "scene": {
+      "output_views": 48,
+      "real_views": 24,
+      "tile": 1024,
+      "objects": 512,
+      "static": true,
+      "shared_spotlights": 4
+    },
+    "limitations": [
+      "Profiled experiment: quilt markers enabled in all runs, probe markers when active.",
+      "GPU timing excludes setup, buffer readback and CPU reduction; submission timer excludes initialization.",
+      "Feedback timer includes queued GPU waits, readback and GDScript block reduction; it is not pure transfer time.",
+      "Observed quilt update intervals include scheduling/presentation; no hardware-display FPS claim."
+    ]
+  },
+  "cpu_decode_speed_ratio": 67.04833551388282,
+  "gpu_scope_delta_ms": -0.006123583333333293,
+  "feedback_size_old": 786432,
+  "feedback_size_reduced": 768,
+  "gpu_reduction_exact_all_runs": true,
+  "frame_speedup_established": false
+}

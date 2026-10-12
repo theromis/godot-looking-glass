@@ -1,0 +1,14 @@
+[remap]
+
+importer="glsl"
+type="RDShaderFile"
+uid="uid://cjhsqhjaeddl6"
+path="res://.godot/imported/synthesize_16x16.glsl-61709d936c03b78df28dbf540c8b86d7.res"
+
+[deps]
+
+source_file="res://addons/looking_glass/shaders/synthesize_16x16.glsl"
+dest_files=["res://.godot/imported/synthesize_16x16.glsl-61709d936c03b78df28dbf540c8b86d7.res"]
+
+[params]
+

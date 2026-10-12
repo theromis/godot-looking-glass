@@ -1,0 +1,13 @@
+{
+  "views": 48,
+  "real_views": 24,
+  "max_gap": 3,
+  "probe_grid": 256,
+  "depth_policies": ["both_invalid", "source_horizontal_depth_edge"],
+  "primary_cost": "Sum predefined depth counter over all intermediate views; no colors, reference, or fitted weights",
+  "tie_break": "Minimum sum squared distance to corresponding uniform anchor index; exact primary score ties only",
+  "reference_policy": "Oracle uses RGB SSE only as a separately labeled comparison",
+  "fixtures": ["smooth", "bars", "layers"],
+  "poses": [0, 1, 2],
+  "scope": "Offline per-pose selection from five candidate capture grids, not a runtime adaptive controller; no performance claim"
+}

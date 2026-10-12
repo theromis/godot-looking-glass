@@ -1,0 +1,4 @@
+PASS projection-test
+PASS gpu-test
+PASS capture-lifetime-test
+PASS bridge-fixture

@@ -1,0 +1,133 @@
+{
+  "baseline": "benchmarks/depth-proxy/custom48",
+  "other": "benchmarks/depth-proxy/official45",
+  "rows": [
+    {
+      "case": "smooth-0",
+      "depth_counters_exact": true,
+      "synth": {
+        "exact_decoded_rgba": false,
+        "rgb_mae_8bit": 0.7815377977159288,
+        "changed_pixel_fraction": 1.0
+      },
+      "reference": {
+        "exact_decoded_rgba": false,
+        "rgb_mae_8bit": 0.7809880574544271,
+        "changed_pixel_fraction": 1.0
+      }
+    },
+    {
+      "case": "smooth-1",
+      "depth_counters_exact": true,
+      "synth": {
+        "exact_decoded_rgba": false,
+        "rgb_mae_8bit": 0.7826449076334635,
+        "changed_pixel_fraction": 1.0
+      },
+      "reference": {
+        "exact_decoded_rgba": false,
+        "rgb_mae_8bit": 0.7817963494194878,
+        "changed_pixel_fraction": 1.0
+      }
+    },
+    {
+      "case": "smooth-2",
+      "depth_counters_exact": true,
+      "synth": {
+        "exact_decoded_rgba": false,
+        "rgb_mae_8bit": 0.7814530266655816,
+        "changed_pixel_fraction": 1.0
+      },
+      "reference": {
+        "exact_decoded_rgba": false,
+        "rgb_mae_8bit": 0.7809880574544271,
+        "changed_pixel_fraction": 1.0
+      }
+    },
+    {
+      "case": "bars-0",
+      "depth_counters_exact": true,
+      "synth": {
+        "exact_decoded_rgba": false,
+        "rgb_mae_8bit": 0.7377840677897135,
+        "changed_pixel_fraction": 1.0
+      },
+      "reference": {
+        "exact_decoded_rgba": false,
+        "rgb_mae_8bit": 0.7396553887261285,
+        "changed_pixel_fraction": 1.0
+      }
+    },
+    {
+      "case": "bars-1",
+      "depth_counters_exact": true,
+      "synth": {
+        "exact_decoded_rgba": false,
+        "rgb_mae_8bit": 0.7337222629123263,
+        "changed_pixel_fraction": 1.0
+      },
+      "reference": {
+        "exact_decoded_rgba": false,
+        "rgb_mae_8bit": 0.736487070719401,
+        "changed_pixel_fraction": 1.0
+      }
+    },
+    {
+      "case": "bars-2",
+      "depth_counters_exact": true,
+      "synth": {
+        "exact_decoded_rgba": false,
+        "rgb_mae_8bit": 0.7306391398111979,
+        "changed_pixel_fraction": 1.0
+      },
+      "reference": {
+        "exact_decoded_rgba": false,
+        "rgb_mae_8bit": 0.733587900797526,
+        "changed_pixel_fraction": 1.0
+      }
+    },
+    {
+      "case": "layers-0",
+      "depth_counters_exact": true,
+      "synth": {
+        "exact_decoded_rgba": false,
+        "rgb_mae_8bit": 0.765594482421875,
+        "changed_pixel_fraction": 1.0
+      },
+      "reference": {
+        "exact_decoded_rgba": false,
+        "rgb_mae_8bit": 0.7651498582628038,
+        "changed_pixel_fraction": 1.0
+      }
+    },
+    {
+      "case": "layers-1",
+      "depth_counters_exact": true,
+      "synth": {
+        "exact_decoded_rgba": false,
+        "rgb_mae_8bit": 0.7661729388766818,
+        "changed_pixel_fraction": 1.0
+      },
+      "reference": {
+        "exact_decoded_rgba": false,
+        "rgb_mae_8bit": 0.7658154169718424,
+        "changed_pixel_fraction": 1.0
+      }
+    },
+    {
+      "case": "layers-2",
+      "depth_counters_exact": true,
+      "synth": {
+        "exact_decoded_rgba": false,
+        "rgb_mae_8bit": 0.7627302805582682,
+        "changed_pixel_fraction": 1.0
+      },
+      "reference": {
+        "exact_decoded_rgba": false,
+        "rgb_mae_8bit": 0.7621006435818143,
+        "changed_pixel_fraction": 1.0
+      }
+    }
+  ],
+  "max_whole_quilt_psnr_difference_db": 0.03830261252337408
+}

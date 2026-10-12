@@ -1,0 +1,13 @@
+# Godot-generated caches and temporary benchmark projects.
+**/.godot/
+/benchmarks/**/project/
+
+# Python and operating-system caches.
+**/__pycache__/
+*.py[cod]
+.DS_Store
+*.tmp
+
+# Large generated captures remain local; hashes are versioned separately.
+/benchmarks/**/*.png
+/benchmarks/**/*.import

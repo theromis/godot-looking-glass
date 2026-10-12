@@ -1,0 +1,15 @@
+WARNING: Falling back to dummy PhysicsServer2D; 2D physics functionality will be disabled. If this is intended, set the physics/2d/physics_engine project setting to Dummy.
+     at: initialize_server (servers/physics_2d/physics_server_2d_manager.cpp:66)
+Godot Engine v4.8.dev.custom_build.232e6b14a (2026-10-09 20:05:41 UTC) - https://godotengine.org
+Vulkan 1.2.334 - Forward+ - Using Device #0: Apple - Apple M4
+
+SELECTION smooth-0
+SELECTION smooth-1
+SELECTION smooth-2
+SELECTION bars-0
+SELECTION bars-1
+SELECTION bars-2
+SELECTION layers-0
+SELECTION layers-1
+SELECTION layers-2
+PASS depth selection: nine poses with rendered quilts; costs

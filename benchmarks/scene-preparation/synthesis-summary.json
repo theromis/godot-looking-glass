@@ -1,0 +1,94 @@
+{
+  "synthesis-12": {
+    "frame_mean_ms": {
+      "mean": 16.172520987654266,
+      "run_stddev": 0.4094537061698319
+    },
+    "anchor_gpu_sum_mean_ms": {
+      "mean": 6.251894440036266,
+      "run_stddev": 0.35034854213241196
+    },
+    "anchor_cpu_sum_mean_ms": {
+      "mean": 0.750001390516344,
+      "run_stddev": 0.02675622859661947
+    },
+    "frame_setup_cpu_mean_ms": {
+      "mean": 0.010045833333333313,
+      "run_stddev": 0.0002564108573710903
+    },
+    "scene_draw_calls_sum_mean": {
+      "mean": 122.0,
+      "run_stddev": 0.0
+    },
+    "shadow_draw_calls_sum_mean": {
+      "mean": 48.0,
+      "run_stddev": 0.0
+    },
+    "quilt_compute_gpu_mean_ms": {
+      "mean": 0.826991178936606
+    }
+  },
+  "synthesis-24": {
+    "frame_mean_ms": {
+      "mean": 16.553569753086368,
+      "run_stddev": 0.17917103047926514
+    },
+    "anchor_gpu_sum_mean_ms": {
+      "mean": 9.19522916474347,
+      "run_stddev": 0.18363058812461322
+    },
+    "anchor_cpu_sum_mean_ms": {
+      "mean": 1.0602361162788132,
+      "run_stddev": 0.03682322518793075
+    },
+    "frame_setup_cpu_mean_ms": {
+      "mean": 0.00645138888888887,
+      "run_stddev": 0.00031347994501390873
+    },
+    "scene_draw_calls_sum_mean": {
+      "mean": 246.0,
+      "run_stddev": 0.0
+    },
+    "shadow_draw_calls_sum_mean": {
+      "mean": 48.0,
+      "run_stddev": 0.0
+    },
+    "quilt_compute_gpu_mean_ms": {
+      "mean": 0.39275857361963196
+    }
+  },
+  "image_sha256": {
+    "synthesis-12": "f08d8e1506faddac7c9e24a64569af80098cfbc20c87c1c46c9c9aefc8465203",
+    "synthesis-24": "aac79514ced0764b60b94237b7cf8c94546411ebb4c36e21e6dd4029b6024ce4"
+  },
+  "binary_sha256": "e3f0117c1da12d25f8ed25fe28ebae6595db1efff1960ee01360ed745e594ced",
+  "notes": [
+    "48 output views, 512 static boxes plus moving original caster, four spots, shared shadows",
+    "Synthesis suite uses 12 or 24 real views with MultiMesh; different quality and preview transfer function",
+    "Viewport CPU/GPU sums are not frame critical path; CPU excludes main/quilt viewport",
+    "Half-resolution changes image quality and pixel count; it is a bottleneck control"
+  ],
+  "quality_against_all_real": {
+    "12": {
+      "changed_rgb_channels": 1877100,
+      "exact": false,
+      "mae": 0.0441434008366117,
+      "psnr_db": 16.9017518863514,
+      "size": [
+        512,
+        1536
+      ]
+    },
+    "24": {
+      "changed_rgb_channels": 1839037,
+      "exact": false,
+      "mae": 0.0247711098529926,
+      "psnr_db": 21.2677716222417,
+      "size": [
+        512,
+        1536
+      ]
+    }
+  },
+  "quality_note": "Full quilt RGB error includes existing gamma/tonemapping mismatch; not isolated reprojection error"
+}

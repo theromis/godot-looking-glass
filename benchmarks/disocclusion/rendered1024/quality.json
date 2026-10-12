@@ -1,0 +1,73 @@
+{
+  "baseline": {
+    "synthesized_vs_baseline": {
+      "rgb_mae_8bit": 0.0,
+      "rgb_psnr_db": null,
+      "changed_pixel_fraction": 0.0,
+      "exact_rgb": true
+    },
+    "real_anchors_vs_baseline": {
+      "rgb_mae_8bit": 0.0,
+      "rgb_psnr_db": null,
+      "changed_pixel_fraction": 0.0,
+      "exact_rgb": true
+    },
+    "synthesized_vs_reference": {
+      "rgb_mae_8bit": 2.3321291870541043,
+      "rgb_psnr_db": 22.757208850313106,
+      "changed_pixel_fraction": 0.28145702679951984,
+      "exact_rgb": false
+    },
+    "real_anchors_vs_reference": {
+      "rgb_mae_8bit": 0.0,
+      "rgb_psnr_db": null,
+      "changed_pixel_fraction": 0.0,
+      "exact_rgb": true
+    }
+  },
+  "rescue": {
+    "synthesized_vs_baseline": {
+      "rgb_mae_8bit": 0.04345817036098904,
+      "rgb_psnr_db": 39.51165676634825,
+      "changed_pixel_fraction": 0.00045339266459147137,
+      "exact_rgb": false
+    },
+    "real_anchors_vs_baseline": {
+      "rgb_mae_8bit": 0.0,
+      "rgb_psnr_db": null,
+      "changed_pixel_fraction": 0.0,
+      "exact_rgb": true
+    },
+    "synthesized_vs_reference": {
+      "rgb_mae_8bit": 2.292061302396986,
+      "rgb_psnr_db": 22.843433538344712,
+      "changed_pixel_fraction": 0.28123966852823895,
+      "exact_rgb": false
+    },
+    "real_anchors_vs_reference": {
+      "rgb_mae_8bit": 0.0,
+      "rgb_psnr_db": null,
+      "changed_pixel_fraction": 0.0,
+      "exact_rgb": true
+    }
+  },
+  "hole_diagnostics": {
+    "baseline": 681614,
+    "rescue": 667752,
+    "resolved": 13862,
+    "new_holes": 0,
+    "pixels": 25165824,
+    "changed_outside_baseline_holes": 0,
+    "resolved_fraction_of_baseline_holes": 0.02033702359399895,
+    "resolved_pixel_rgb_psnr_vs_real": {
+      "baseline": 6.927630503175044,
+      "rescue": 18.62380455467501
+    }
+  },
+  "limitations": [
+    "PNG RGB after simple gamma transfer, not HDR/perceptual quality.",
+    "Static opaque scene only; temporal artifacts, transparency and other scenes untested.",
+    "Baseline is not ground truth; all-real reference shares shader transfer and lighting settings.",
+    "Magenta holes indicate two failed gathers, not all geometric disocclusions; diagnostics assume no exact-magenta material."
+  ]
+}

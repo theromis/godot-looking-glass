@@ -1,0 +1,272 @@
+{
+  "description": "Interleaved 3 baseline/3 shared runs on the same patched Godot binary; N real views, four SpotLight, deterministic moving caster, no shadow mesh LOD, full caster culling. Per-viewport GPU sum is not frame critical path.",
+  "baseline": {
+    "runs": [
+      {
+        "adapter": "Apple M4",
+        "anchor_gpu_metric": "sum of engine per-viewport GPU durations, not total frame critical path",
+        "anchor_gpu_sum_mean_ms": 32.0542666669974,
+        "compute_dispatches": 0,
+        "driver": "vulkan",
+        "fixed_motion": true,
+        "frame_mean_ms": 33.1734916666666,
+        "frame_p50_ms": 33.3333333333333,
+        "frame_p95_ms": 33.612,
+        "godot": {
+          "build": "custom_build",
+          "hash": "232e6b14abf6e590b41d60f11704e42de22bff72",
+          "hex": 264192,
+          "major": 4,
+          "minor": 8,
+          "patch": 0,
+          "status": "dev",
+          "string": "4.8-dev (custom_build)",
+          "timestamp": 1791576341
+        },
+        "metric": "wall frame delta; includes engine, preview, scheduling; not isolated GPU time",
+        "os": "macOS",
+        "positional_lights": 4,
+        "real_views": 48,
+        "renderer": "forward_plus",
+        "samples": 240,
+        "shadow_draw_calls_sum_mean": 2112.0,
+        "shared_positional_shadows_requested": false,
+        "shared_shadow_api_available": true,
+        "synthesis": false,
+        "tile": [
+          128,
+          128
+        ],
+        "transparency": false,
+        "views": 48,
+        "warmup": 90
+      },
+      {
+        "adapter": "Apple M4",
+        "anchor_gpu_metric": "sum of engine per-viewport GPU durations, not total frame critical path",
+        "anchor_gpu_sum_mean_ms": 31.7815625103889,
+        "compute_dispatches": 0,
+        "driver": "vulkan",
+        "fixed_motion": true,
+        "frame_mean_ms": 32.815687037037,
+        "frame_p50_ms": 33.075,
+        "frame_p95_ms": 34.7222222222222,
+        "godot": {
+          "build": "custom_build",
+          "hash": "232e6b14abf6e590b41d60f11704e42de22bff72",
+          "hex": 264192,
+          "major": 4,
+          "minor": 8,
+          "patch": 0,
+          "status": "dev",
+          "string": "4.8-dev (custom_build)",
+          "timestamp": 1791576341
+        },
+        "metric": "wall frame delta; includes engine, preview, scheduling; not isolated GPU time",
+        "os": "macOS",
+        "positional_lights": 4,
+        "real_views": 48,
+        "renderer": "forward_plus",
+        "samples": 240,
+        "shadow_draw_calls_sum_mean": 2112.0,
+        "shared_positional_shadows_requested": false,
+        "shared_shadow_api_available": true,
+        "synthesis": false,
+        "tile": [
+          128,
+          128
+        ],
+        "transparency": false,
+        "views": 48,
+        "warmup": 90
+      },
+      {
+        "adapter": "Apple M4",
+        "anchor_gpu_metric": "sum of engine per-viewport GPU durations, not total frame critical path",
+        "anchor_gpu_sum_mean_ms": 31.8347000091492,
+        "compute_dispatches": 0,
+        "driver": "vulkan",
+        "fixed_motion": true,
+        "frame_mean_ms": 32.9031124999999,
+        "frame_p50_ms": 33.3333333333333,
+        "frame_p95_ms": 33.3333333333333,
+        "godot": {
+          "build": "custom_build",
+          "hash": "232e6b14abf6e590b41d60f11704e42de22bff72",
+          "hex": 264192,
+          "major": 4,
+          "minor": 8,
+          "patch": 0,
+          "status": "dev",
+          "string": "4.8-dev (custom_build)",
+          "timestamp": 1791576341
+        },
+        "metric": "wall frame delta; includes engine, preview, scheduling; not isolated GPU time",
+        "os": "macOS",
+        "positional_lights": 4,
+        "real_views": 48,
+        "renderer": "forward_plus",
+        "samples": 240,
+        "shadow_draw_calls_sum_mean": 2112.0,
+        "shared_positional_shadows_requested": false,
+        "shared_shadow_api_available": true,
+        "synthesis": false,
+        "tile": [
+          128,
+          128
+        ],
+        "transparency": false,
+        "views": 48,
+        "warmup": 90
+      }
+    ],
+    "means": {
+      "frame_mean_ms": 32.964097067901164,
+      "anchor_gpu_sum_mean_ms": 31.890176395511833,
+      "shadow_draw_calls_sum_mean": 2112.0
+    },
+    "sample_stdev": {
+      "frame_mean_ms": 0.18653518806828828,
+      "anchor_gpu_sum_mean_ms": 0.14456870802763874
+    },
+    "png_sha256": "9df4ac0e3a7ef7a49371d34f1a5b132e08eb4d7a750e8f27b5b729b9dee4ecbf"
+  },
+  "shared": {
+    "runs": [
+      {
+        "adapter": "Apple M4",
+        "anchor_gpu_metric": "sum of engine per-viewport GPU durations, not total frame critical path",
+        "anchor_gpu_sum_mean_ms": 18.7850666564579,
+        "compute_dispatches": 0,
+        "driver": "vulkan",
+        "fixed_motion": true,
+        "frame_mean_ms": 22.172619047619,
+        "frame_p50_ms": 22.2222222222222,
+        "frame_p95_ms": 25.8566666666666,
+        "godot": {
+          "build": "custom_build",
+          "hash": "232e6b14abf6e590b41d60f11704e42de22bff72",
+          "hex": 264192,
+          "major": 4,
+          "minor": 8,
+          "patch": 0,
+          "status": "dev",
+          "string": "4.8-dev (custom_build)",
+          "timestamp": 1791576341
+        },
+        "metric": "wall frame delta; includes engine, preview, scheduling; not isolated GPU time",
+        "os": "macOS",
+        "positional_lights": 4,
+        "real_views": 48,
+        "renderer": "forward_plus",
+        "samples": 240,
+        "shadow_draw_calls_sum_mean": 44.0,
+        "shared_positional_shadows_requested": true,
+        "shared_shadow_api_available": true,
+        "synthesis": false,
+        "tile": [
+          128,
+          128
+        ],
+        "transparency": false,
+        "views": 48,
+        "warmup": 90
+      },
+      {
+        "adapter": "Apple M4",
+        "anchor_gpu_metric": "sum of engine per-viewport GPU durations, not total frame critical path",
+        "anchor_gpu_sum_mean_ms": 19.0163750030566,
+        "compute_dispatches": 0,
+        "driver": "vulkan",
+        "fixed_motion": true,
+        "frame_mean_ms": 21.6620286255412,
+        "frame_p50_ms": 21.4285714285714,
+        "frame_p95_ms": 22.7272727272727,
+        "godot": {
+          "build": "custom_build",
+          "hash": "232e6b14abf6e590b41d60f11704e42de22bff72",
+          "hex": 264192,
+          "major": 4,
+          "minor": 8,
+          "patch": 0,
+          "status": "dev",
+          "string": "4.8-dev (custom_build)",
+          "timestamp": 1791576341
+        },
+        "metric": "wall frame delta; includes engine, preview, scheduling; not isolated GPU time",
+        "os": "macOS",
+        "positional_lights": 4,
+        "real_views": 48,
+        "renderer": "forward_plus",
+        "samples": 240,
+        "shadow_draw_calls_sum_mean": 44.0,
+        "shared_positional_shadows_requested": true,
+        "shared_shadow_api_available": true,
+        "synthesis": false,
+        "tile": [
+          128,
+          128
+        ],
+        "transparency": false,
+        "views": 48,
+        "warmup": 90
+      },
+      {
+        "adapter": "Apple M4",
+        "anchor_gpu_metric": "sum of engine per-viewport GPU durations, not total frame critical path",
+        "anchor_gpu_sum_mean_ms": 18.9387749969959,
+        "compute_dispatches": 0,
+        "driver": "vulkan",
+        "fixed_motion": true,
+        "frame_mean_ms": 22.1136388888889,
+        "frame_p50_ms": 22.2222222222222,
+        "frame_p95_ms": 23.7799494949495,
+        "godot": {
+          "build": "custom_build",
+          "hash": "232e6b14abf6e590b41d60f11704e42de22bff72",
+          "hex": 264192,
+          "major": 4,
+          "minor": 8,
+          "patch": 0,
+          "status": "dev",
+          "string": "4.8-dev (custom_build)",
+          "timestamp": 1791576341
+        },
+        "metric": "wall frame delta; includes engine, preview, scheduling; not isolated GPU time",
+        "os": "macOS",
+        "positional_lights": 4,
+        "real_views": 48,
+        "renderer": "forward_plus",
+        "samples": 240,
+        "shadow_draw_calls_sum_mean": 44.0,
+        "shared_positional_shadows_requested": true,
+        "shared_shadow_api_available": true,
+        "synthesis": false,
+        "tile": [
+          128,
+          128
+        ],
+        "transparency": false,
+        "views": 48,
+        "warmup": 90
+      }
+    ],
+    "means": {
+      "frame_mean_ms": 21.9827621873497,
+      "anchor_gpu_sum_mean_ms": 18.913405552170133,
+      "shadow_draw_calls_sum_mean": 44.0
+    },
+    "sample_stdev": {
+      "frame_mean_ms": 0.27932450310298995,
+      "anchor_gpu_sum_mean_ms": 0.11772253118936761
+    },
+    "png_sha256": "9df4ac0e3a7ef7a49371d34f1a5b132e08eb4d7a750e8f27b5b729b9dee4ecbf"
+  },
+  "views": 48,
+  "reduction_percent": {
+    "frame_mean_ms": 33.3130158485201,
+    "anchor_gpu_sum_mean_ms": 40.692063544584315,
+    "shadow_draw_calls_sum_mean": 97.91666666666666
+  },
+  "png_byte_identical": true
+}

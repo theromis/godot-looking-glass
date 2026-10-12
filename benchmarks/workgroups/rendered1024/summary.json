@@ -1,0 +1,100 @@
+{
+  "8x8": {
+    "wall_frame_mean_ms": {
+      "mean": 49.15236527777777,
+      "run_stddev": 0.8317120629554108
+    },
+    "frame_mean_ms": {
+      "mean": 49.101894819224036,
+      "run_stddev": 0.9050340862633737
+    },
+    "quilt_compute_gpu_mean_ms": {
+      "mean": 11.1787251090724,
+      "run_stddev": 0.12676602002457257
+    },
+    "quilt_submission_cpu_mean_ms": {
+      "mean": 0.07122361111111114,
+      "run_stddev": 0.004015880657303386
+    },
+    "owned_capture_depth_bytes": {
+      "mean": 0,
+      "run_stddev": 0.0
+    }
+  },
+  "16x8": {
+    "wall_frame_mean_ms": {
+      "mean": 49.33070555555553,
+      "run_stddev": 0.3132941559155142
+    },
+    "frame_mean_ms": {
+      "mean": 49.350852138448,
+      "run_stddev": 0.2966563508865996
+    },
+    "quilt_compute_gpu_mean_ms": {
+      "mean": 11.4700099391944,
+      "run_stddev": 0.043131473582110405
+    },
+    "quilt_submission_cpu_mean_ms": {
+      "mean": 0.07456249999999999,
+      "run_stddev": 0.0015267464953656205
+    },
+    "owned_capture_depth_bytes": {
+      "mean": 0,
+      "run_stddev": 0.0
+    }
+  },
+  "16x16": {
+    "wall_frame_mean_ms": {
+      "mean": 64.9606875,
+      "run_stddev": 27.582605361549053
+    },
+    "frame_mean_ms": {
+      "mean": 48.4965473484849,
+      "run_stddev": 1.264101539090157
+    },
+    "quilt_compute_gpu_mean_ms": {
+      "mean": 11.270111232143867,
+      "run_stddev": 0.2567533317358212
+    },
+    "quilt_submission_cpu_mean_ms": {
+      "mean": 0.07215833333333337,
+      "run_stddev": 0.0029229812596807373
+    },
+    "owned_capture_depth_bytes": {
+      "mean": 0,
+      "run_stddev": 0.0
+    }
+  },
+  "image_sha256": {
+    "8x8": "0adf86c51333aea46d72e0cef05a1d21f71ba568e949653936b9d3a9ccc2e0ba",
+    "16x8": "0adf86c51333aea46d72e0cef05a1d21f71ba568e949653936b9d3a9ccc2e0ba",
+    "16x16": "0adf86c51333aea46d72e0cef05a1d21f71ba568e949653936b9d3a9ccc2e0ba"
+  },
+  "exact_png": true,
+  "binary_sha256": "e3f0117c1da12d25f8ed25fe28ebae6595db1efff1960ee01360ed745e594ced",
+  "scene": {
+    "output_views": 48,
+    "real_views": 24,
+    "tile": 1024,
+    "stress_objects": 512,
+    "transparent": false,
+    "rendered_sampling": true,
+    "static": true
+  },
+  "limitations": [
+    "No TAA, FSR2, MSAA or post-transparent effects enabled in this scene.",
+    "Workgroup variants differ only in local size; dispatch grid is adjusted to cover the tile.",
+    "Quilt GPU time excludes capture passes; its two timestamp commands remain enabled in both modes.",
+    "GPU timestamp mean includes startup samples; not isolated whole-frame GPU time."
+  ],
+  "wall_timing_anomalies": [
+    {
+      "variant": "16x16",
+      "repeat": 1,
+      "wall_ms": 96.7962125,
+      "engine_delta_ms": 47.3510019360271
+    }
+  ],
+  "timing_status": "Wall-clock anomaly in 16x16-1; wall means cannot establish a variant speedup.",
+  "decision": "Keep 8x8 default. Larger groups did not improve measured quilt GPU time in this scene."
+}

@@ -1,0 +1,8 @@
+{
+  "tests/depth_probe.gd": "cf41b2c627e18160fbb2f0827ac75bd8566dd0ffdce3b2fef486d77564b29c0b",
+  "tests/depth_reduce.glsl": "c99520cd4eeb461f1e1e8b1119ed48ebea4fc31851e9513be560b842f7356582",
+  "tests/depth_proxy.glsl": "89f471f41d19629e67c8a002067653bb61cd5d6af6383c3deded434321a347a3",
+  "tests/benchmark_depth_overhead.gd": "19c7075d1c2092ace03870f1e3d48ee2bf2b3628ae918fd1ef6779d9ada170f6",
+  "tests/test_depth_proxy_analytic.gd": "40314a0cf0c7a7df7ced19b8a35d6aa8cdb11bf9f538b24345b8cd812c5d2645",
+  "benchmarks/depth-reduction/run.py": "c5e5d9b39e6021d5af65a63a4e3f1f1c0ea5722579f62b287ba4904e7d79eafa"
+}

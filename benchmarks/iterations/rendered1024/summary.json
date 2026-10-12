@@ -1,0 +1,94 @@
+{
+  "8": {
+    "wall_frame_mean_ms": {
+      "mean": 48.029109722222195,
+      "run_stddev": 0.1529869103726713
+    },
+    "frame_mean_ms": {
+      "mean": 48.05767669753094,
+      "run_stddev": 0.13019475031398153
+    },
+    "quilt_compute_gpu_mean_ms": {
+      "mean": 11.004943889908267,
+      "run_stddev": 0.052951878550055245
+    },
+    "quilt_submission_cpu_mean_ms": {
+      "mean": 0.0754861111111111,
+      "run_stddev": 0.0017220805273251507
+    },
+    "owned_capture_depth_bytes": {
+      "mean": 0,
+      "run_stddev": 0.0
+    }
+  },
+  "4": {
+    "wall_frame_mean_ms": {
+      "mean": 47.7703458333333,
+      "run_stddev": 0.061964746781941506
+    },
+    "frame_mean_ms": {
+      "mean": 47.7641428872055,
+      "run_stddev": 0.05006437646409031
+    },
+    "quilt_compute_gpu_mean_ms": {
+      "mean": 10.775347982670732,
+      "run_stddev": 0.06949857439982629
+    },
+    "quilt_submission_cpu_mean_ms": {
+      "mean": 0.07529444444444443,
+      "run_stddev": 0.0016891058888369817
+    },
+    "owned_capture_depth_bytes": {
+      "mean": 0,
+      "run_stddev": 0.0
+    }
+  },
+  "2": {
+    "wall_frame_mean_ms": {
+      "mean": 47.722675,
+      "run_stddev": 0.1114669098725058
+    },
+    "frame_mean_ms": {
+      "mean": 47.7107294031586,
+      "run_stddev": 0.1393870593508391
+    },
+    "quilt_compute_gpu_mean_ms": {
+      "mean": 10.725827646279333,
+      "run_stddev": 0.03203267269746401
+    },
+    "quilt_submission_cpu_mean_ms": {
+      "mean": 0.07626805555555553,
+      "run_stddev": 0.0006854683786639373
+    },
+    "owned_capture_depth_bytes": {
+      "mean": 0,
+      "run_stddev": 0.0
+    }
+  },
+  "wall_timing_anomalies": [],
+  "timing_status": "No wall/engine ratio > 1.5 detected; this is not a universal stability guarantee",
+  "image_sha256": {
+    "8": "0adf86c51333aea46d72e0cef05a1d21f71ba568e949653936b9d3a9ccc2e0ba",
+    "4": "c1e6d2b03dbac28e7b5c9246e99b893bb14c77938f525c394b33ae7394bb6b86",
+    "2": "5c30fe3436941f7fd45d00963352fcf34a8871e1a2ac06855c6efe90a118355e"
+  },
+  "exact_png": false,
+  "binary_sha256": "e3f0117c1da12d25f8ed25fe28ebae6595db1efff1960ee01360ed745e594ced",
+  "scene": {
+    "output_views": 48,
+    "real_views": 24,
+    "tile": 1024,
+    "stress_objects": 512,
+    "transparent": false,
+    "rendered_sampling": true,
+    "static": true
+  },
+  "limitations": [
+    "No TAA, FSR2, MSAA or post-transparent effects enabled in this scene.",
+    "Iteration variants differ only in loop limit; quality may change.",
+    "Quilt GPU time excludes capture passes; its two timestamp commands remain enabled in both modes."
+  ],
+  "reference_sha256": "75d8137251d55d2ded291807697490e5c8a93209f73e340a32055961e5bc4712",
+  "decision": "Keep 8 default; 4 optional speed/quality tradeoff; 2 changes more pixels for little extra gain.",
+  "quality_metrics": "quality.json"
+}

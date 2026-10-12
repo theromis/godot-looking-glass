@@ -1,0 +1,20 @@
+{
+  "asynchronous_feedback": false,
+  "configuration_error": "",
+  "dispatches": 0,
+  "feedback_callbacks": 0,
+  "feedback_latency_ms": [],
+  "feedback_ms": [],
+  "gpu_ms": [],
+  "grid": 0,
+  "isolated_timer": false,
+  "kernel_measured_dispatches": 0,
+  "measured_dispatches": 0,
+  "pending_feedback": false,
+  "period": 1,
+  "readback_bytes": 0,
+  "submission_ms": [],
+  "synchronous_feedback": false,
+  "timestamp_status": "Requires isolated-timer validation on MoltenVK",
+  "validation_counts": {}
+}

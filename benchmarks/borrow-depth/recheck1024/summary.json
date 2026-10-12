@@ -1,0 +1,68 @@
+{
+  "linear": {
+    "wall_frame_mean_ms": {
+      "mean": 50.90349444444443,
+      "run_stddev": 0.9970973302257704
+    },
+    "frame_mean_ms": {
+      "mean": 50.91476003086413,
+      "run_stddev": 0.9882755725902654
+    },
+    "quilt_compute_gpu_mean_ms": {
+      "mean": 12.5391841025903,
+      "run_stddev": 0.18856484064692597
+    },
+    "quilt_submission_cpu_mean_ms": {
+      "mean": 0.07040555555555557,
+      "run_stddev": 0.008478535330031518
+    },
+    "owned_capture_depth_bytes": {
+      "mean": 100663296,
+      "run_stddev": 0.0
+    }
+  },
+  "raw": {
+    "wall_frame_mean_ms": {
+      "mean": 48.68800694444447,
+      "run_stddev": 0.9337516480754168
+    },
+    "frame_mean_ms": {
+      "mean": 48.67254979357067,
+      "run_stddev": 0.9223759368296848
+    },
+    "quilt_compute_gpu_mean_ms": {
+      "mean": 11.094259480122334,
+      "run_stddev": 0.1883752948869115
+    },
+    "quilt_submission_cpu_mean_ms": {
+      "mean": 0.0706027777777778,
+      "run_stddev": 0.0017856212608045028
+    },
+    "owned_capture_depth_bytes": {
+      "mean": 0,
+      "run_stddev": 0.0
+    }
+  },
+  "image_sha256": {
+    "linear": "0adf86c51333aea46d72e0cef05a1d21f71ba568e949653936b9d3a9ccc2e0ba",
+    "raw": "0adf86c51333aea46d72e0cef05a1d21f71ba568e949653936b9d3a9ccc2e0ba"
+  },
+  "exact_png": true,
+  "binary_sha256": "e3f0117c1da12d25f8ed25fe28ebae6595db1efff1960ee01360ed745e594ced",
+  "scene": {
+    "output_views": 48,
+    "real_views": 24,
+    "tile": 1024,
+    "stress_objects": 512,
+    "transparent": false,
+    "rendered_sampling": true,
+    "static": true
+  },
+  "limitations": [
+    "No TAA, FSR2, MSAA or post-transparent effects enabled in this scene.",
+    "Depth allocation saving is calculated texture payload, not measured total VRAM.",
+    "Quilt GPU time excludes capture passes; its two timestamp commands remain enabled in both modes.",
+    "GPU timestamp mean includes startup samples; not an isolated depth-capture GPU measurement."
+  ],
+  "timing_status": "Completed recheck: 3 paired repeats; earlier series retained separately with unstable wall timing."
+}

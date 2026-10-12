@@ -1,0 +1,59 @@
+{
+  "baseline": {
+    "synthesized_vs_baseline": {
+      "rgb_mae_8bit": 0.0,
+      "rgb_psnr_db": null,
+      "changed_pixel_fraction": 0.0,
+      "exact_rgb": true
+    },
+    "real_anchors_vs_baseline": {
+      "rgb_mae_8bit": 0.0,
+      "rgb_psnr_db": null,
+      "changed_pixel_fraction": 0.0,
+      "exact_rgb": true
+    },
+    "synthesized_vs_reference": {
+      "rgb_mae_8bit": 2.3321291870541043,
+      "rgb_psnr_db": 22.757208850313106,
+      "changed_pixel_fraction": 0.28145702679951984,
+      "exact_rgb": false
+    },
+    "real_anchors_vs_reference": {
+      "rgb_mae_8bit": 0.0,
+      "rgb_psnr_db": null,
+      "changed_pixel_fraction": 0.0,
+      "exact_rgb": true
+    }
+  },
+  "inverse": {
+    "synthesized_vs_baseline": {
+      "rgb_mae_8bit": 8.311536577012803e-05,
+      "rgb_psnr_db": 88.87487375002272,
+      "changed_pixel_fraction": 0.00017019112904866537,
+      "exact_rgb": false
+    },
+    "real_anchors_vs_baseline": {
+      "rgb_mae_8bit": 0.0,
+      "rgb_psnr_db": null,
+      "changed_pixel_fraction": 0.0,
+      "exact_rgb": true
+    },
+    "synthesized_vs_reference": {
+      "rgb_mae_8bit": 2.3321311606301203,
+      "rgb_psnr_db": 22.757208826110595,
+      "changed_pixel_fraction": 0.28146084149678546,
+      "exact_rgb": false
+    },
+    "real_anchors_vs_reference": {
+      "rgb_mae_8bit": 0.0,
+      "rgb_psnr_db": null,
+      "changed_pixel_fraction": 0.0,
+      "exact_rgb": true
+    }
+  },
+  "limitations": [
+    "PNG RGB after simple gamma transfer, not HDR/perceptual quality.",
+    "Static opaque scene only; temporal artifacts, transparency and other scenes untested.",
+    "The ordinary arithmetic baseline is not ground truth; all-real reference shares shader transfer and lighting settings."
+  ]
+}

@@ -1,0 +1,122 @@
+{
+  "smooth": {
+    "uniform": {
+      "sse_change_fraction_vs_uniform": 0.0,
+      "whole_quilt_psnr_db": 38.03078027761363,
+      "improved_poses": 0,
+      "worsened_poses": 0,
+      "poses": 3
+    },
+    "both_invalid": {
+      "sse_change_fraction_vs_uniform": -0.06220450535919708,
+      "whole_quilt_psnr_db": 38.30969885792035,
+      "improved_poses": 3,
+      "worsened_poses": 0,
+      "poses": 3
+    },
+    "source_horizontal_depth_edge": {
+      "sse_change_fraction_vs_uniform": 0.023737130325748312,
+      "whole_quilt_psnr_db": 37.92889572591074,
+      "improved_poses": 1,
+      "worsened_poses": 2,
+      "poses": 3
+    },
+    "oracle": {
+      "sse_change_fraction_vs_uniform": -0.3457693062872811,
+      "whole_quilt_psnr_db": 39.87347112250355,
+      "improved_poses": 3,
+      "worsened_poses": 0,
+      "poses": 3
+    }
+  },
+  "bars": {
+    "uniform": {
+      "sse_change_fraction_vs_uniform": 0.0,
+      "whole_quilt_psnr_db": 26.907763063777228,
+      "improved_poses": 0,
+      "worsened_poses": 0,
+      "poses": 3
+    },
+    "both_invalid": {
+      "sse_change_fraction_vs_uniform": 0.15435014897720967,
+      "whole_quilt_psnr_db": 26.284387430493798,
+      "improved_poses": 0,
+      "worsened_poses": 3,
+      "poses": 3
+    },
+    "source_horizontal_depth_edge": {
+      "sse_change_fraction_vs_uniform": 0.5894265534665799,
+      "whole_quilt_psnr_db": 24.895358421742095,
+      "improved_poses": 0,
+      "worsened_poses": 3,
+      "poses": 3
+    },
+    "oracle": {
+      "sse_change_fraction_vs_uniform": -0.18789259871339536,
+      "whole_quilt_psnr_db": 27.811628378487853,
+      "improved_poses": 3,
+      "worsened_poses": 0,
+      "poses": 3
+    }
+  },
+  "layers": {
+    "uniform": {
+      "sse_change_fraction_vs_uniform": 0.0,
+      "whole_quilt_psnr_db": 31.146632592461536,
+      "improved_poses": 0,
+      "worsened_poses": 0,
+      "poses": 3
+    },
+    "both_invalid": {
+      "sse_change_fraction_vs_uniform": 0.07153472292627128,
+      "whole_quilt_psnr_db": 30.84657010390994,
+      "improved_poses": 0,
+      "worsened_poses": 3,
+      "poses": 3
+    },
+    "source_horizontal_depth_edge": {
+      "sse_change_fraction_vs_uniform": 0.11805079875821711,
+      "whole_quilt_psnr_db": 30.66201723031002,
+      "improved_poses": 0,
+      "worsened_poses": 3,
+      "poses": 3
+    },
+    "oracle": {
+      "sse_change_fraction_vs_uniform": -0.09194753119712729,
+      "whole_quilt_psnr_db": 31.565523157325423,
+      "improved_poses": 3,
+      "worsened_poses": 0,
+      "poses": 3
+    }
+  },
+  "all": {
+    "uniform": {
+      "sse_change_fraction_vs_uniform": 0.0,
+      "whole_quilt_psnr_db": 30.053282967180543,
+      "improved_poses": 0,
+      "worsened_poses": 0,
+      "poses": 9
+    },
+    "both_invalid": {
+      "sse_change_fraction_vs_uniform": 0.12138893302804199,
+      "whole_quilt_psnr_db": 29.555720309806986,
+      "improved_poses": 3,
+      "worsened_poses": 6,
+      "poses": 9
+    },
+    "source_horizontal_depth_edge": {
+      "sse_change_fraction_vs_uniform": 0.4372311224298342,
+      "whole_quilt_psnr_db": 28.4780168368141,
+      "improved_poses": 1,
+      "worsened_poses": 8,
+      "poses": 9
+    },
+    "oracle": {
+      "sse_change_fraction_vs_uniform": -0.17141277889372697,
+      "whole_quilt_psnr_db": 30.86990065614609,
+      "improved_poses": 9,
+      "worsened_poses": 0,
+      "poses": 9
+    }
+  }
+}

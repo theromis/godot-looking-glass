@@ -1,0 +1,89 @@
+{
+  "scene": {
+    "output_views": 48,
+    "real_view_budgets": [
+      12,
+      16,
+      24,
+      32
+    ],
+    "tile": 1024,
+    "stress_objects": 512,
+    "transparent": false,
+    "rendered_sampling": true,
+    "static": true
+  },
+  "binary_sha256": "e3f0117c1da12d25f8ed25fe28ebae6595db1efff1960ee01360ed745e594ced",
+  "source_summary": "summary.json",
+  "quality_metrics": "quality.json",
+  "variants": {
+    "12": {
+      "files": [
+        "12-2.json",
+        "12-3.json",
+        "12-controlled.json"
+      ],
+      "wall_update_mean_ms": 33.3101083333333,
+      "wall_run_stddev_ms": 3.4902202579831703,
+      "gpu_quilt_mean_ms": 12.742096423235333,
+      "whole_quilt_psnr_db": 18.520575665861724,
+      "whole_quilt_rgb_mae_8bit": 5.570213503307766
+    },
+    "16": {
+      "files": [
+        "16-1.json",
+        "16-2.json",
+        "16-3.json"
+      ],
+      "wall_update_mean_ms": 37.998984722222204,
+      "wall_run_stddev_ms": 1.7645465618036895,
+      "gpu_quilt_mean_ms": 12.446738078491332,
+      "whole_quilt_psnr_db": 21.781934907724963,
+      "whole_quilt_rgb_mae_8bit": 2.7415232525931463
+    },
+    "24": {
+      "files": [
+        "24-1.json",
+        "24-2.json",
+        "24-3.json"
+      ],
+      "wall_update_mean_ms": 47.78164722222223,
+      "wall_run_stddev_ms": 0.12837406093005468,
+      "gpu_quilt_mean_ms": 10.974787003058067,
+      "whole_quilt_psnr_db": 25.767508806952918,
+      "whole_quilt_rgb_mae_8bit": 1.1660645935270522
+    },
+    "32": {
+      "files": [
+        "32-1.json",
+        "32-2.json",
+        "32-3.json"
+      ],
+      "wall_update_mean_ms": 58.8128027777778,
+      "wall_run_stddev_ms": 0.20662758074332557,
+      "gpu_quilt_mean_ms": 10.108191876656466,
+      "whole_quilt_psnr_db": 27.777961366449546,
+      "whole_quilt_rgb_mae_8bit": 0.7403228945202298
+    }
+  },
+  "rejected_timing": [
+    {
+      "file": "12-1.json",
+      "reason": "wall 131.544 ms vs engine 31.416 ms; ratio >1.5"
+    }
+  ],
+  "additional_checks": [
+    "12-recheck.json/PNG retained but not used in means (quality processing ran concurrently)."
+  ],
+  "reference": {
+    "wall_update_mean_ms": 81.2958583333333,
+    "repeats": 1,
+    "sha256": "75d8137251d55d2ded291807697490e5c8a93209f73e340a32055961e5bc4712"
+  },
+  "limitations": [
+    "Whole quilt compares the same 48 outputs; synthesized subsets differ between budgets.",
+    "8-bit gamma-mapped RGB; not perceptual/HDR/temporal quality.",
+    "One static opaque scene and one GPU; presets cannot be universal."
+  ],
+  "decision": "No universal preset or automatic controller. Existing --real=16 is a measured speed/quality option for this scene; 24 remains the comparison point."
+}

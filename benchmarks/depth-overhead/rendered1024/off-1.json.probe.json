@@ -1,0 +1,13 @@
+{
+  "configuration_error": "",
+  "dispatches": 0,
+  "feedback_ms": [],
+  "gpu_ms": [],
+  "grid": 0,
+  "measured_dispatches": 0,
+  "period": 1,
+  "readback_bytes": 0,
+  "submission_ms": [],
+  "synchronous_feedback": false,
+  "validation_counts": {}
+}

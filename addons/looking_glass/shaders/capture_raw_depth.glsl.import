@@ -1,0 +1,14 @@
+[remap]
+
+importer="glsl"
+type="RDShaderFile"
+uid="uid://dhojhm3wwhj4j"
+path="res://.godot/imported/capture_raw_depth.glsl-c210200a286d3fdaa1a2a9fda7af75e3.res"
+
+[deps]
+
+source_file="res://addons/looking_glass/shaders/capture_raw_depth.glsl"
+dest_files=["res://.godot/imported/capture_raw_depth.glsl-c210200a286d3fdaa1a2a9fda7af75e3.res"]
+
+[params]
+

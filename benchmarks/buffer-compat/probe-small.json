@@ -1,0 +1,93 @@
+{
+  "godot": {
+    "build": "official",
+    "hash": "f62fdbde15035c5576dad93e586201f4d41ef0cb",
+    "hex": 263425,
+    "major": 4,
+    "minor": 5,
+    "patch": 1,
+    "status": "stable",
+    "string": "4.5.1-stable (official)",
+    "timestamp": 0
+  },
+  "rows": [
+    {
+      "case": "baseline",
+      "dimensions": "(96, 96)",
+      "dispatches": 40,
+      "exact": true
+    },
+    {
+      "case": "msaa2",
+      "dimensions": "(96, 96)",
+      "dispatches": 80,
+      "exact": true
+    },
+    {
+      "case": "msaa4",
+      "dimensions": "(96, 96)",
+      "dispatches": 120,
+      "exact": true
+    },
+    {
+      "case": "msaa8",
+      "dimensions": "(96, 96)",
+      "dispatches": 160,
+      "exact": true
+    },
+    {
+      "case": "taa",
+      "dimensions": "(96, 96)",
+      "dispatches": 200,
+      "exact": false
+    },
+    {
+      "case": "fxaa",
+      "dimensions": "(96, 96)",
+      "dispatches": 240,
+      "exact": true
+    },
+    {
+      "case": "fsr1",
+      "dimensions": "(48, 48)",
+      "dispatches": 280,
+      "exact": true
+    },
+    {
+      "case": "fsr2",
+      "dimensions": "(48, 48)",
+      "dispatches": 320,
+      "exact": true
+    },
+    {
+      "case": "scale_half",
+      "dimensions": "(48, 48)",
+      "dispatches": 360,
+      "exact": true
+    },
+    {
+      "case": "scale_up",
+      "dimensions": "(120, 120)",
+      "dispatches": 400,
+      "exact": true
+    },
+    {
+      "case": "glow",
+      "dimensions": "(96, 96)",
+      "dispatches": 440,
+      "exact": true
+    },
+    {
+      "case": "tonemap",
+      "dimensions": "(96, 96)",
+      "dispatches": 480,
+      "exact": true
+    },
+    {
+      "case": "reset",
+      "dimensions": "(96, 96)",
+      "dispatches": 520,
+      "exact": true
+    }
+  ]
+}

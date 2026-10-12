@@ -1,0 +1,39 @@
+{
+  "adapter": "Apple M4",
+  "anchor_gpu_metric": "sum of engine per-viewport GPU durations, not total frame critical path",
+  "anchor_gpu_sum_mean_ms": 1.89267917200923,
+  "compute_dispatches": 0,
+  "driver": "vulkan",
+  "fixed_motion": false,
+  "frame_mean_ms": 4.19338985690235,
+  "frame_p50_ms": 3.33333333333333,
+  "frame_p95_ms": 9.82900000000001,
+  "godot": {
+    "build": "official",
+    "hash": "f62fdbde15035c5576dad93e586201f4d41ef0cb",
+    "hex": 263425,
+    "major": 4,
+    "minor": 5,
+    "patch": 1,
+    "status": "stable",
+    "string": "4.5.1-stable (official)",
+    "timestamp": 0
+  },
+  "metric": "wall frame delta; includes engine, preview, scheduling; not isolated GPU time",
+  "os": "macOS",
+  "positional_lights": 0,
+  "real_views": 2,
+  "renderer": "forward_plus",
+  "samples": 240,
+  "shadow_draw_calls_sum_mean": 44.0,
+  "shared_positional_shadows_requested": true,
+  "shared_shadow_api_available": false,
+  "synthesis": false,
+  "tile": [
+    64,
+    64
+  ],
+  "transparency": false,
+  "views": 2,
+  "warmup": 90
+}

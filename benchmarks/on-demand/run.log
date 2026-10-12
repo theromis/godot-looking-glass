@@ -1,0 +1,212 @@
+continuous 1 47.6352458333334 330
+on_demand 1 16.6044958333333 2
+on_demand 2 16.6051958333333 2
+continuous 2 47.5169916666666 330
+continuous 3 47.0729666666666 328
+on_demand 3 16.3960875 2
+{
+  "binary_sha256": "e3f0117c1da12d25f8ed25fe28ebae6595db1efff1960ee01360ed745e594ced",
+  "images": {
+    "continuous": "0adf86c51333aea46d72e0cef05a1d21f71ba568e949653936b9d3a9ccc2e0ba",
+    "on_demand": "0adf86c51333aea46d72e0cef05a1d21f71ba568e949653936b9d3a9ccc2e0ba"
+  },
+  "exact_png": true,
+  "modes": {
+    "continuous": {
+      "wall_ms_mean": 47.40840138888887,
+      "wall_ms_run_stddev": 0.29645126351183065,
+      "compute_dispatches": [
+        330,
+        330,
+        328
+      ],
+      "source_capture_counts": [
+        [
+          330,
+          330,
+          330,
+          330,
+          330,
+          330,
+          330,
+          330,
+          330,
+          330,
+          330,
+          330,
+          330,
+          330,
+          330,
+          330,
+          330,
+          330,
+          330,
+          330,
+          330,
+          330,
+          330,
+          330
+        ],
+        [
+          330,
+          330,
+          330,
+          330,
+          330,
+          330,
+          330,
+          330,
+          330,
+          330,
+          330,
+          330,
+          330,
+          330,
+          330,
+          330,
+          330,
+          330,
+          330,
+          330,
+          330,
+          330,
+          330,
+          330
+        ],
+        [
+          328,
+          328,
+          328,
+          328,
+          328,
+          328,
+          328,
+          328,
+          328,
+          328,
+          328,
+          328,
+          328,
+          328,
+          328,
+          328,
+          328,
+          328,
+          328,
+          328,
+          328,
+          328,
+          328,
+          328
+        ]
+      ]
+    },
+    "on_demand": {
+      "wall_ms_mean": 16.5352597222222,
+      "wall_ms_run_stddev": 0.12052718813072458,
+      "compute_dispatches": [
+        2,
+        2,
+        2
+      ],
+      "source_capture_counts": [
+        [
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2
+        ],
+        [
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2
+        ],
+        [
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2
+        ]
+      ]
+    }
+  },
+  "scene": {
+    "real": 24,
+    "output": 48,
+    "tile": 1024,
+    "static_opaque_objects": 512,
+    "shared_spotlights": 4
+  },
+  "metric": "Observed process/presentation interval during static idle; not new-quilt throughput",
+  "warmup": 90,
+  "explicit_refresh_process_frame": 86,
+  "samples_per_run": 240,
+  "repeats": 3,
+  "limitations": [
+    "No physical display, power measurement or dynamic-scene speedup.",
+    "UPDATE_ONCE removes repeated scene and compute work; cached quilt is still presented.",
+    "Object/light/material/shader/particle/environment changes require explicit request_update().",
+    "Main viewport and preview continue rendering; buffers remain allocated."
+  ]
+}

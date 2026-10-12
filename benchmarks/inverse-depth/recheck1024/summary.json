@@ -1,0 +1,72 @@
+{
+  "baseline": {
+    "wall_frame_mean_ms": {
+      "mean": 49.646025,
+      "run_stddev": 1.1314298364038242
+    },
+    "frame_mean_ms": {
+      "mean": 49.65370520482603,
+      "run_stddev": 1.154791276222205
+    },
+    "quilt_compute_gpu_mean_ms": {
+      "mean": 11.346357038736,
+      "run_stddev": 0.23766186559919297
+    },
+    "quilt_submission_cpu_mean_ms": {
+      "mean": 0.0732763888888889,
+      "run_stddev": 0.010024830572596224
+    },
+    "owned_capture_depth_bytes": {
+      "mean": 0,
+      "run_stddev": 0.0
+    }
+  },
+  "inverse": {
+    "wall_frame_mean_ms": {
+      "mean": 49.1730361111111,
+      "run_stddev": 1.0024330375974912
+    },
+    "frame_mean_ms": {
+      "mean": 49.06153697089953,
+      "run_stddev": 0.896962940048879
+    },
+    "quilt_compute_gpu_mean_ms": {
+      "mean": 11.31595127421,
+      "run_stddev": 0.2895702197021288
+    },
+    "quilt_submission_cpu_mean_ms": {
+      "mean": 0.07526388888888894,
+      "run_stddev": 0.006258128510481655
+    },
+    "owned_capture_depth_bytes": {
+      "mean": 0,
+      "run_stddev": 0.0
+    }
+  },
+  "wall_timing_anomalies": [],
+  "timing_status": "No wall/engine ratio > 1.5 detected; this is not a universal stability guarantee",
+  "image_sha256": {
+    "baseline": "0adf86c51333aea46d72e0cef05a1d21f71ba568e949653936b9d3a9ccc2e0ba",
+    "inverse": "5e679e975469617c72845bf1aa1548a8954234512e23fb46ff12ab57da2b9d5d"
+  },
+  "exact_png": false,
+  "binary_sha256": "e3f0117c1da12d25f8ed25fe28ebae6595db1efff1960ee01360ed745e594ced",
+  "scene": {
+    "output_views": 48,
+    "real_views": 24,
+    "tile": 1024,
+    "stress_objects": 512,
+    "transparent": false,
+    "rendered_sampling": true,
+    "static": true
+  },
+  "limitations": [
+    "No TAA, FSR2, MSAA or post-transparent effects enabled in this scene.",
+    "Inverse depth reformulation changes floating-point rounding; image equivalence is measured, not assumed.",
+    "Quilt GPU time excludes capture passes; its two timestamp commands remain enabled in both modes."
+  ],
+  "quality_metrics": "quality.json",
+  "decision": "Keep ordinary depth math default; inverse mode experimental; differences smaller than run variability, no reliable speedup established.",
+  "reference_sha256": "75d8137251d55d2ded291807697490e5c8a93209f73e340a32055961e5bc4712",
+  "initial_run": "rendered1024 baseline process timed out after 180 s before any valid JSON/PNG; not included in statistics."
+}

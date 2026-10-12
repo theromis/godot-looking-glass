@@ -1,0 +1,91 @@
+{
+  "timing-off": {
+    "frame_mean_ms": {
+      "mean": 20.172534469696966,
+      "run_stddev": 0.09910286581696225
+    },
+    "wall_frame_mean_ms": {
+      "mean": 20.144827777777767,
+      "run_stddev": 0.1273498357498015
+    },
+    "anchor_cpu_sum_mean_ms": {
+      "mean": 0.0,
+      "run_stddev": 0.0
+    },
+    "anchor_gpu_sum_mean_ms": {
+      "mean": 0.0,
+      "run_stddev": 0.0
+    },
+    "shadow_draw_calls_sum_mean": {
+      "mean": 48.0,
+      "run_stddev": 0.0
+    },
+    "scene_draw_calls_sum_mean": {
+      "mean": 490.0,
+      "run_stddev": 0.0
+    }
+  },
+  "timing-off-independent": {
+    "frame_mean_ms": {
+      "mean": 28.795195953583466,
+      "run_stddev": 0.2324097115521838
+    },
+    "wall_frame_mean_ms": {
+      "mean": 28.794805555555566,
+      "run_stddev": 0.2237162638414509
+    },
+    "anchor_cpu_sum_mean_ms": {
+      "mean": 0.0,
+      "run_stddev": 0.0
+    },
+    "anchor_gpu_sum_mean_ms": {
+      "mean": 0.0,
+      "run_stddev": 0.0
+    },
+    "shadow_draw_calls_sum_mean": {
+      "mean": 2304.0,
+      "run_stddev": 0.0
+    },
+    "scene_draw_calls_sum_mean": {
+      "mean": 490.0,
+      "run_stddev": 0.0
+    }
+  },
+  "markers-only": {
+    "frame_mean_ms": {
+      "mean": 64.14209057239057,
+      "run_stddev": 0.1587253549833991
+    },
+    "wall_frame_mean_ms": {
+      "mean": 64.1606763888889,
+      "run_stddev": 0.14055551470548341
+    },
+    "anchor_cpu_sum_mean_ms": {
+      "mean": 1.7743764013207233,
+      "run_stddev": 0.009461497360806112
+    },
+    "anchor_gpu_sum_mean_ms": {
+      "mean": 59.6900805566046,
+      "run_stddev": 0.17590221542556836
+    },
+    "shadow_draw_calls_sum_mean": {
+      "mean": 48.0,
+      "run_stddev": 0.0
+    },
+    "scene_draw_calls_sum_mean": {
+      "mean": 490.0,
+      "run_stddev": 0.0
+    }
+  },
+  "binary_sha256": "e3f0117c1da12d25f8ed25fe28ebae6595db1efff1960ee01360ed745e594ced",
+  "image_sha256": {
+    "timing-off": "5c6e10f50008008b5e3c28d9ad17747a2227a5980335166a5aad6b7e552f07ba",
+    "timing-off-independent": "5c6e10f50008008b5e3c28d9ad17747a2227a5980335166a5aad6b7e552f07ba",
+    "markers-only": "5c6e10f50008008b5e3c28d9ad17747a2227a5980335166a5aad6b7e552f07ba"
+  },
+  "limitations": [
+    "Profiling timestamps alter workload; use control for performance.",
+    "Adjacent markers can include transitions/barriers/idle, not just named shader work.",
+    "Marker span does not include presentation or all asynchronous activity."
+  ]
+}

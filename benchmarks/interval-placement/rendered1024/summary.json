@@ -1,0 +1,109 @@
+{
+  "uniform": {
+    "wall_frame_mean_ms": {
+      "mean": 48.2208444444444,
+      "run_stddev": 1.8133963801287758
+    },
+    "frame_mean_ms": {
+      "mean": 48.21923451178457,
+      "run_stddev": 1.8345580305286233
+    },
+    "quilt_compute_gpu_mean_ms": {
+      "mean": 11.0063076748216,
+      "run_stddev": 0.35429677336390375
+    },
+    "quilt_submission_cpu_mean_ms": {
+      "mean": 0.07215416666666667,
+      "run_stddev": 0.011719057218195248
+    },
+    "owned_capture_depth_bytes": {
+      "mean": 0,
+      "run_stddev": 0.0
+    }
+  },
+  "selected": {
+    "wall_frame_mean_ms": {
+      "mean": 47.30949444444447,
+      "run_stddev": 0.3240199794062147
+    },
+    "frame_mean_ms": {
+      "mean": 47.29632138447973,
+      "run_stddev": 0.2956304576485711
+    },
+    "quilt_compute_gpu_mean_ms": {
+      "mean": 10.843527134312666,
+      "run_stddev": 0.10841599467784788
+    },
+    "quilt_submission_cpu_mean_ms": {
+      "mean": 0.07814722222222223,
+      "run_stddev": 0.0041154884728754155
+    },
+    "owned_capture_depth_bytes": {
+      "mean": 0,
+      "run_stddev": 0.0
+    }
+  },
+  "wall_timing_anomalies": [],
+  "timing_status": "No wall/engine ratio > 1.5 detected; this is not a universal stability guarantee",
+  "image_sha256": {
+    "uniform": "0adf86c51333aea46d72e0cef05a1d21f71ba568e949653936b9d3a9ccc2e0ba",
+    "selected": "86199294998184e2f54f6ecfb6669f093096622a6753ea0001e05581056e4d5f"
+  },
+  "selection": {
+    "anchors": [
+      0,
+      2,
+      4,
+      6,
+      7,
+      9,
+      11,
+      13,
+      15,
+      17,
+      19,
+      21,
+      23,
+      25,
+      27,
+      29,
+      31,
+      34,
+      36,
+      38,
+      40,
+      42,
+      44,
+      47
+    ],
+    "method": "Exact dynamic programming over measured whole-interval RGB SSE, 24 anchors, maximum gap 3; offline static reference-assisted, in-sample optimization.",
+    "predicted_sse": 24403568184.0,
+    "uniform_predicted_sse": 26019076952.0,
+    "predicted_error_reduction_fraction": 0.06208939582984785,
+    "predicted_psnr_db": 26.045894346038466,
+    "uniform_predicted_psnr_db": 25.767508806952918,
+    "reference_sha256": "75d8137251d55d2ded291807697490e5c8a93209f73e340a32055961e5bc4712",
+    "capture_binary_sha256": "e3f0117c1da12d25f8ed25fe28ebae6595db1efff1960ee01360ed745e594ced",
+    "max_gap": 3,
+    "real_views": 24,
+    "cost_table": "costs1024/interval-costs.json"
+  },
+  "exact_png": false,
+  "binary_sha256": "e3f0117c1da12d25f8ed25fe28ebae6595db1efff1960ee01360ed745e594ced",
+  "scene": {
+    "output_views": 48,
+    "real_view_budgets": [
+      24
+    ],
+    "tile": 1024,
+    "stress_objects": 512,
+    "transparent": false,
+    "rendered_sampling": true,
+    "static": true
+  },
+  "limitations": [
+    "No TAA, FSR2, MSAA or post-transparent effects enabled in this scene.",
+    "Offline selected and uniform layouts both use 24 real cameras; selection uses ground truth.",
+    "Quilt GPU time excludes capture passes; its two timestamp commands remain enabled in both modes."
+  ]
+}

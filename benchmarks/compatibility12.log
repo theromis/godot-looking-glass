@@ -1,0 +1,10 @@
+Godot Engine v4.5.1.stable.official.f62fdbde1 - https://godotengine.org
+OpenGL API 4.1 Metal - 91.7 - Compatibility - Using Device: Apple - Apple M4
+
+WARNING: Compute unavailable; using all-real GPU raster quilt.
+     at: push_warning (core/variant/variant_utility.cpp:1034)
+     GDScript backtrace (most recent call first):
+         [0] _ready (res://addons/looking_glass/rig.gd:40)
+         [1] _ready (res://demo/main.gd:81)
+CAPTURE res://benchmarks/compatibility12.png (512, 384)
+{"adapter":"Apple M4","anchor_gpu_metric":"sum of engine per-viewport GPU durations, not total frame critical path","anchor_gpu_sum_mean_ms":0.0,"compute_dispatches":0,"driver":"opengl3","frame_mean_ms":4.18970835137085,"frame_p50_ms":4.16666666666667,"frame_p95_ms":4.84599999999997,"godot":{"build":"official","hash":"f62fdbde15035c5576dad93e586201f4d41ef0cb","hex":263425,"major":4,"minor":5,"patch":1,"status":"stable","string":"4.5.1-stable (official)","timestamp":0},"metric":"wall frame delta; includes engine, preview, scheduling; not isolated GPU time","os":"macOS","real_views":12,"renderer":"gl_compatibility","samples":240,"synthesis":false,"tile":[128,128],"transparency":true,"views":12,"warmup":90}

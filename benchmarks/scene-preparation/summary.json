@@ -1,0 +1,91 @@
+{
+  "instances": {
+    "frame_mean_ms": {
+      "mean": 22.447347685185132,
+      "run_stddev": 0.05665056576703049
+    },
+    "anchor_gpu_sum_mean_ms": {
+      "mean": 19.7668805545791,
+      "run_stddev": 0.0586123577102702
+    },
+    "anchor_cpu_sum_mean_ms": {
+      "mean": 2.48030556254089,
+      "run_stddev": 0.03456198719531382
+    },
+    "frame_setup_cpu_mean_ms": {
+      "mean": 0.009820833333333301,
+      "run_stddev": 6.705615391429687e-05
+    },
+    "scene_draw_calls_sum_mean": {
+      "mean": 586.0,
+      "run_stddev": 0.0
+    },
+    "shadow_draw_calls_sum_mean": {
+      "mean": 78.0,
+      "run_stddev": 0.0
+    }
+  },
+  "multimesh": {
+    "frame_mean_ms": {
+      "mean": 22.593843083613866,
+      "run_stddev": 0.12754429066415318
+    },
+    "anchor_gpu_sum_mean_ms": {
+      "mean": 19.916093054403433,
+      "run_stddev": 0.09964440707367116
+    },
+    "anchor_cpu_sum_mean_ms": {
+      "mean": 1.3324250231005466,
+      "run_stddev": 0.02083267698874032
+    },
+    "frame_setup_cpu_mean_ms": {
+      "mean": 0.0062083333333333235,
+      "run_stddev": 0.00031838895674595174
+    },
+    "scene_draw_calls_sum_mean": {
+      "mean": 490.0,
+      "run_stddev": 0.0
+    },
+    "shadow_draw_calls_sum_mean": {
+      "mean": 48.0,
+      "run_stddev": 0.0
+    }
+  },
+  "instances-half-resolution": {
+    "frame_mean_ms": {
+      "mean": 22.467765740740766,
+      "run_stddev": 0.2181516661215456
+    },
+    "anchor_gpu_sum_mean_ms": {
+      "mean": 19.8788986096676,
+      "run_stddev": 0.277646545626776
+    },
+    "anchor_cpu_sum_mean_ms": {
+      "mean": 2.4715097285263865,
+      "run_stddev": 0.07558373315015417
+    },
+    "frame_setup_cpu_mean_ms": {
+      "mean": 0.00990416666666665,
+      "run_stddev": 0.0004906592787034522
+    },
+    "scene_draw_calls_sum_mean": {
+      "mean": 586.0,
+      "run_stddev": 0.0
+    },
+    "shadow_draw_calls_sum_mean": {
+      "mean": 78.0,
+      "run_stddev": 0.0
+    }
+  },
+  "image_sha256": {
+    "instances": "5c6e10f50008008b5e3c28d9ad17747a2227a5980335166a5aad6b7e552f07ba",
+    "multimesh": "5c6e10f50008008b5e3c28d9ad17747a2227a5980335166a5aad6b7e552f07ba",
+    "instances-half-resolution": "ae2c9e25f72541254159312ba4bc72c65c11dc26fb492a9147626178ff14c915"
+  },
+  "binary_sha256": "e3f0117c1da12d25f8ed25fe28ebae6595db1efff1960ee01360ed745e594ced",
+  "notes": [
+    "48 real views, 512 static boxes plus moving original caster, four spots, shared shadows",
+    "Viewport CPU/GPU sums are not frame critical path; CPU excludes main/quilt viewport",
+    "Half-resolution changes image quality and pixel count; it is a bottleneck control"
+  ]
+}

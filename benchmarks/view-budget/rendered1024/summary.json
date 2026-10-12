@@ -1,0 +1,126 @@
+{
+  "12": {
+    "wall_frame_mean_ms": {
+      "mean": 64.71211249999986,
+      "run_stddev": 57.87802454813554
+    },
+    "frame_mean_ms": {
+      "mean": 31.3604926734273,
+      "run_stddev": 0.1356791723789882
+    },
+    "quilt_compute_gpu_mean_ms": {
+      "mean": 12.618590301184033,
+      "run_stddev": 0.05432868108961309
+    },
+    "quilt_submission_cpu_mean_ms": {
+      "mean": 0.061670833333333334,
+      "run_stddev": 0.0032973553165125133
+    },
+    "owned_capture_depth_bytes": {
+      "mean": 0,
+      "run_stddev": 0.0
+    }
+  },
+  "16": {
+    "wall_frame_mean_ms": {
+      "mean": 37.998984722222204,
+      "run_stddev": 1.7645465618036895
+    },
+    "frame_mean_ms": {
+      "mean": 37.97304987373733,
+      "run_stddev": 1.7601853556221017
+    },
+    "quilt_compute_gpu_mean_ms": {
+      "mean": 12.446738078491332,
+      "run_stddev": 0.6527470655467551
+    },
+    "quilt_submission_cpu_mean_ms": {
+      "mean": 0.06231666666666663,
+      "run_stddev": 0.0069510003776434345
+    },
+    "owned_capture_depth_bytes": {
+      "mean": 0,
+      "run_stddev": 0.0
+    }
+  },
+  "24": {
+    "wall_frame_mean_ms": {
+      "mean": 47.78164722222223,
+      "run_stddev": 0.12837406093005468
+    },
+    "frame_mean_ms": {
+      "mean": 47.81116940035283,
+      "run_stddev": 0.10784207651798433
+    },
+    "quilt_compute_gpu_mean_ms": {
+      "mean": 10.974787003058067,
+      "run_stddev": 0.0304767253033474
+    },
+    "quilt_submission_cpu_mean_ms": {
+      "mean": 0.08131944444444443,
+      "run_stddev": 0.001994699283471407
+    },
+    "owned_capture_depth_bytes": {
+      "mean": 0,
+      "run_stddev": 0.0
+    }
+  },
+  "32": {
+    "wall_frame_mean_ms": {
+      "mean": 58.8128027777778,
+      "run_stddev": 0.20662758074332557
+    },
+    "frame_mean_ms": {
+      "mean": 58.830508665357335,
+      "run_stddev": 0.2151355695263015
+    },
+    "quilt_compute_gpu_mean_ms": {
+      "mean": 10.108191876656466,
+      "run_stddev": 0.04153062374384282
+    },
+    "quilt_submission_cpu_mean_ms": {
+      "mean": 0.09259444444444456,
+      "run_stddev": 0.0025932013587527673
+    },
+    "owned_capture_depth_bytes": {
+      "mean": 0,
+      "run_stddev": 0.0
+    }
+  },
+  "wall_timing_anomalies": [
+    {
+      "variant": "12",
+      "repeat": 1,
+      "wall_ms": 131.543745833333,
+      "engine_delta_ms": 31.4157921737213
+    }
+  ],
+  "timing_status": "Wall-clock anomalies; do not use wall means for speedup claims",
+  "image_sha256": {
+    "12": "f8bf6f03da32828e4e48742dc1b0e38fbbf2e0fe69d95d41506ea686dbbed94a",
+    "16": "0e6c00e383990434ac18d03d46abb8ac22d35389ff27930d0cf8aa817d284dc2",
+    "24": "0adf86c51333aea46d72e0cef05a1d21f71ba568e949653936b9d3a9ccc2e0ba",
+    "32": "85b86f6460f81e1dafe68c78e1506b5014cf17b89a507cd144c4da74ff3bec28"
+  },
+  "exact_png": false,
+  "binary_sha256": "e3f0117c1da12d25f8ed25fe28ebae6595db1efff1960ee01360ed745e594ced",
+  "scene": {
+    "output_views": 48,
+    "real_view_budgets": [
+      12,
+      16,
+      24,
+      32
+    ],
+    "tile": 1024,
+    "stress_objects": 512,
+    "transparent": false,
+    "rendered_sampling": true,
+    "static": true
+  },
+  "limitations": [
+    "No TAA, FSR2, MSAA or post-transparent effects enabled in this scene.",
+    "Real-view budgets use different anchor sets; whole-quilt error is the common comparison metric.",
+    "Quilt GPU time excludes capture passes; its two timestamp commands remain enabled in both modes."
+  ]
+}

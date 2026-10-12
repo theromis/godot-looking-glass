@@ -1,0 +1,16 @@
+{
+  "command": [
+    "/Users/roman/work/godot-theromis-shadow-atlas-pr/bin/godot.macos.template_release.arm64",
+    "--path",
+    "/Users/roman/work/godot-looking-glass",
+    "--rendering-driver",
+    "vulkan",
+    "--script",
+    "res://tests/test_depth_selection.gd",
+    "--",
+    "--output=/Users/roman/work/godot-looking-glass/benchmarks/depth-selection/validation48-repeat",
+    "--selections=/Users/roman/work/godot-looking-glass/benchmarks/depth-selection/selections48.json"
+  ],
+  "binary_sha256": "e3f0117c1da12d25f8ed25fe28ebae6595db1efff1960ee01360ed745e594ced",
+  "timing_status": "Quality experiment only, with extra candidate renders and synchronous readbacks."
+}

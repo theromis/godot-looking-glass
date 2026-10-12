@@ -1,0 +1,964 @@
+{
+  "0,1": {
+    "sse": 0,
+    "source_layout": "gap3-phase1",
+    "views": {}
+  },
+  "1,2": {
+    "sse": 0.0,
+    "source_layout": null,
+    "views": {},
+    "reason": "Adjacent anchors have no synthesized output views"
+  },
+  "2,3": {
+    "sse": 0.0,
+    "source_layout": null,
+    "views": {},
+    "reason": "Adjacent anchors have no synthesized output views"
+  },
+  "3,4": {
+    "sse": 0.0,
+    "source_layout": null,
+    "views": {},
+    "reason": "Adjacent anchors have no synthesized output views"
+  },
+  "4,5": {
+    "sse": 0.0,
+    "source_layout": null,
+    "views": {},
+    "reason": "Adjacent anchors have no synthesized output views"
+  },
+  "5,6": {
+    "sse": 0.0,
+    "source_layout": null,
+    "views": {},
+    "reason": "Adjacent anchors have no synthesized output views"
+  },
+  "6,7": {
+    "sse": 0.0,
+    "source_layout": null,
+    "views": {},
+    "reason": "Adjacent anchors have no synthesized output views"
+  },
+  "7,8": {
+    "sse": 0.0,
+    "source_layout": null,
+    "views": {},
+    "reason": "Adjacent anchors have no synthesized output views"
+  },
+  "8,9": {
+    "sse": 0.0,
+    "source_layout": null,
+    "views": {},
+    "reason": "Adjacent anchors have no synthesized output views"
+  },
+  "9,10": {
+    "sse": 0.0,
+    "source_layout": null,
+    "views": {},
+    "reason": "Adjacent anchors have no synthesized output views"
+  },
+  "10,11": {
+    "sse": 0.0,
+    "source_layout": null,
+    "views": {},
+    "reason": "Adjacent anchors have no synthesized output views"
+  },
+  "11,12": {
+    "sse": 0.0,
+    "source_layout": null,
+    "views": {},
+    "reason": "Adjacent anchors have no synthesized output views"
+  },
+  "12,13": {
+    "sse": 0.0,
+    "source_layout": null,
+    "views": {},
+    "reason": "Adjacent anchors have no synthesized output views"
+  },
+  "13,14": {
+    "sse": 0.0,
+    "source_layout": null,
+    "views": {},
+    "reason": "Adjacent anchors have no synthesized output views"
+  },
+  "14,15": {
+    "sse": 0.0,
+    "source_layout": null,
+    "views": {},
+    "reason": "Adjacent anchors have no synthesized output views"
+  },
+  "15,16": {
+    "sse": 0.0,
+    "source_layout": null,
+    "views": {},
+    "reason": "Adjacent anchors have no synthesized output views"
+  },
+  "16,17": {
+    "sse": 0.0,
+    "source_layout": null,
+    "views": {},
+    "reason": "Adjacent anchors have no synthesized output views"
+  },
+  "17,18": {
+    "sse": 0.0,
+    "source_layout": null,
+    "views": {},
+    "reason": "Adjacent anchors have no synthesized output views"
+  },
+  "18,19": {
+    "sse": 0.0,
+    "source_layout": null,
+    "views": {},
+    "reason": "Adjacent anchors have no synthesized output views"
+  },
+  "19,20": {
+    "sse": 0.0,
+    "source_layout": null,
+    "views": {},
+    "reason": "Adjacent anchors have no synthesized output views"
+  },
+  "20,21": {
+    "sse": 0.0,
+    "source_layout": null,
+    "views": {},
+    "reason": "Adjacent anchors have no synthesized output views"
+  },
+  "21,22": {
+    "sse": 0.0,
+    "source_layout": null,
+    "views": {},
+    "reason": "Adjacent anchors have no synthesized output views"
+  },
+  "22,23": {
+    "sse": 0.0,
+    "source_layout": null,
+    "views": {},
+    "reason": "Adjacent anchors have no synthesized output views"
+  },
+  "23,24": {
+    "sse": 0.0,
+    "source_layout": null,
+    "views": {},
+    "reason": "Adjacent anchors have no synthesized output views"
+  },
+  "24,25": {
+    "sse": 0.0,
+    "source_layout": null,
+    "views": {},
+    "reason": "Adjacent anchors have no synthesized output views"
+  },
+  "25,26": {
+    "sse": 0.0,
+    "source_layout": null,
+    "views": {},
+    "reason": "Adjacent anchors have no synthesized output views"
+  },
+  "26,27": {
+    "sse": 0.0,
+    "source_layout": null,
+    "views": {},
+    "reason": "Adjacent anchors have no synthesized output views"
+  },
+  "27,28": {
+    "sse": 0.0,
+    "source_layout": null,
+    "views": {},
+    "reason": "Adjacent anchors have no synthesized output views"
+  },
+  "28,29": {
+    "sse": 0.0,
+    "source_layout": null,
+    "views": {},
+    "reason": "Adjacent anchors have no synthesized output views"
+  },
+  "29,30": {
+    "sse": 0.0,
+    "source_layout": null,
+    "views": {},
+    "reason": "Adjacent anchors have no synthesized output views"
+  },
+  "30,31": {
+    "sse": 0.0,
+    "source_layout": null,
+    "views": {},
+    "reason": "Adjacent anchors have no synthesized output views"
+  },
+  "31,32": {
+    "sse": 0.0,
+    "source_layout": null,
+    "views": {},
+    "reason": "Adjacent anchors have no synthesized output views"
+  },
+  "32,33": {
+    "sse": 0.0,
+    "source_layout": null,
+    "views": {},
+    "reason": "Adjacent anchors have no synthesized output views"
+  },
+  "33,34": {
+    "sse": 0.0,
+    "source_layout": null,
+    "views": {},
+    "reason": "Adjacent anchors have no synthesized output views"
+  },
+  "34,35": {
+    "sse": 0.0,
+    "source_layout": null,
+    "views": {},
+    "reason": "Adjacent anchors have no synthesized output views"
+  },
+  "35,36": {
+    "sse": 0.0,
+    "source_layout": null,
+    "views": {},
+    "reason": "Adjacent anchors have no synthesized output views"
+  },
+  "36,37": {
+    "sse": 0.0,
+    "source_layout": null,
+    "views": {},
+    "reason": "Adjacent anchors have no synthesized output views"
+  },
+  "37,38": {
+    "sse": 0.0,
+    "source_layout": null,
+    "views": {},
+    "reason": "Adjacent anchors have no synthesized output views"
+  },
+  "38,39": {
+    "sse": 0.0,
+    "source_layout": null,
+    "views": {},
+    "reason": "Adjacent anchors have no synthesized output views"
+  },
+  "39,40": {
+    "sse": 0.0,
+    "source_layout": null,
+    "views": {},
+    "reason": "Adjacent anchors have no synthesized output views"
+  },
+  "40,41": {
+    "sse": 0.0,
+    "source_layout": null,
+    "views": {},
+    "reason": "Adjacent anchors have no synthesized output views"
+  },
+  "41,42": {
+    "sse": 0.0,
+    "source_layout": null,
+    "views": {},
+    "reason": "Adjacent anchors have no synthesized output views"
+  },
+  "42,43": {
+    "sse": 0.0,
+    "source_layout": null,
+    "views": {},
+    "reason": "Adjacent anchors have no synthesized output views"
+  },
+  "43,44": {
+    "sse": 0.0,
+    "source_layout": null,
+    "views": {},
+    "reason": "Adjacent anchors have no synthesized output views"
+  },
+  "44,45": {
+    "sse": 0.0,
+    "source_layout": null,
+    "views": {},
+    "reason": "Adjacent anchors have no synthesized output views"
+  },
+  "45,46": {
+    "sse": 0.0,
+    "source_layout": null,
+    "views": {},
+    "reason": "Adjacent anchors have no synthesized output views"
+  },
+  "46,47": {
+    "sse": 0,
+    "source_layout": "gap3-phase1",
+    "views": {}
+  },
+  "0,2": {
+    "sse": 900352224.0,
+    "source_layout": "gap3-phase2",
+    "views": {
+      "1": 900352224.0
+    }
+  },
+  "2,4": {
+    "sse": 1232118892.0,
+    "source_layout": "gap2-phase0",
+    "views": {
+      "3": 1232118892.0
+    }
+  },
+  "4,6": {
+    "sse": 851503367.0,
+    "source_layout": "gap2-phase0",
+    "views": {
+      "5": 851503367.0
+    }
+  },
+  "6,8": {
+    "sse": 1178997607.0,
+    "source_layout": "gap2-phase0",
+    "views": {
+      "7": 1178997607.0
+    }
+  },
+  "8,10": {
+    "sse": 1256629402.0,
+    "source_layout": "gap2-phase0",
+    "views": {
+      "9": 1256629402.0
+    }
+  },
+  "10,12": {
+    "sse": 950145806.0,
+    "source_layout": "gap2-phase0",
+    "views": {
+      "11": 950145806.0
+    }
+  },
+  "12,14": {
+    "sse": 1363487162.0,
+    "source_layout": "gap2-phase0",
+    "views": {
+      "13": 1363487162.0
+    }
+  },
+  "14,16": {
+    "sse": 1111005412.0,
+    "source_layout": "gap2-phase0",
+    "views": {
+      "15": 1111005412.0
+    }
+  },
+  "16,18": {
+    "sse": 1273373308.0,
+    "source_layout": "gap2-phase0",
+    "views": {
+      "17": 1273373308.0
+    }
+  },
+  "18,20": {
+    "sse": 1075218797.0,
+    "source_layout": "gap2-phase0",
+    "views": {
+      "19": 1075218797.0
+    }
+  },
+  "20,22": {
+    "sse": 1075205003.0,
+    "source_layout": "gap2-phase0",
+    "views": {
+      "21": 1075205003.0
+    }
+  },
+  "22,24": {
+    "sse": 1328651737.0,
+    "source_layout": "gap2-phase0",
+    "views": {
+      "23": 1328651737.0
+    }
+  },
+  "24,26": {
+    "sse": 1055433748.0,
+    "source_layout": "gap2-phase0",
+    "views": {
+      "25": 1055433748.0
+    }
+  },
+  "26,28": {
+    "sse": 876560104.0,
+    "source_layout": "gap2-phase0",
+    "views": {
+      "27": 876560104.0
+    }
+  },
+  "28,30": {
+    "sse": 574993370.0,
+    "source_layout": "gap2-phase0",
+    "views": {
+      "29": 574993370.0
+    }
+  },
+  "30,32": {
+    "sse": 1588160232.0,
+    "source_layout": "gap2-phase0",
+    "views": {
+      "31": 1588160232.0
+    }
+  },
+  "32,34": {
+    "sse": 655647172.0,
+    "source_layout": "gap2-phase0",
+    "views": {
+      "33": 655647172.0
+    }
+  },
+  "34,36": {
+    "sse": 1029698883.0,
+    "source_layout": "gap2-phase0",
+    "views": {
+      "35": 1029698883.0
+    }
+  },
+  "36,38": {
+    "sse": 598368207.0,
+    "source_layout": "gap2-phase0",
+    "views": {
+      "37": 598368207.0
+    }
+  },
+  "38,40": {
+    "sse": 878514790.0,
+    "source_layout": "gap2-phase0",
+    "views": {
+      "39": 878514790.0
+    }
+  },
+  "40,42": {
+    "sse": 843548062.0,
+    "source_layout": "gap2-phase0",
+    "views": {
+      "41": 843548062.0
+    }
+  },
+  "42,44": {
+    "sse": 1264665719.0,
+    "source_layout": "gap2-phase0",
+    "views": {
+      "43": 1264665719.0
+    }
+  },
+  "44,46": {
+    "sse": 947689961.0,
+    "source_layout": "gap2-phase0",
+    "views": {
+      "45": 947689961.0
+    }
+  },
+  "1,3": {
+    "sse": 1145695175.0,
+    "source_layout": "gap2-phase1",
+    "views": {
+      "2": 1145695175.0
+    }
+  },
+  "3,5": {
+    "sse": 1383700876.0,
+    "source_layout": "gap2-phase1",
+    "views": {
+      "4": 1383700876.0
+    }
+  },
+  "5,7": {
+    "sse": 1088777856.0,
+    "source_layout": "gap2-phase1",
+    "views": {
+      "6": 1088777856.0
+    }
+  },
+  "7,9": {
+    "sse": 893157903.0,
+    "source_layout": "gap2-phase1",
+    "views": {
+      "8": 893157903.0
+    }
+  },
+  "9,11": {
+    "sse": 847837855.0,
+    "source_layout": "gap2-phase1",
+    "views": {
+      "10": 847837855.0
+    }
+  },
+  "11,13": {
+    "sse": 807276102.0,
+    "source_layout": "gap2-phase1",
+    "views": {
+      "12": 807276102.0
+    }
+  },
+  "13,15": {
+    "sse": 936060493.0,
+    "source_layout": "gap2-phase1",
+    "views": {
+      "14": 936060493.0
+    }
+  },
+  "15,17": {
+    "sse": 1072705215.0,
+    "source_layout": "gap2-phase1",
+    "views": {
+      "16": 1072705215.0
+    }
+  },
+  "17,19": {
+    "sse": 1559517757.0,
+    "source_layout": "gap2-phase1",
+    "views": {
+      "18": 1559517757.0
+    }
+  },
+  "19,21": {
+    "sse": 1302497527.0,
+    "source_layout": "gap2-phase1",
+    "views": {
+      "20": 1302497527.0
+    }
+  },
+  "21,23": {
+    "sse": 860918463.0,
+    "source_layout": "gap2-phase1",
+    "views": {
+      "22": 860918463.0
+    }
+  },
+  "23,25": {
+    "sse": 1198342833.0,
+    "source_layout": "gap2-phase1",
+    "views": {
+      "24": 1198342833.0
+    }
+  },
+  "25,27": {
+    "sse": 967734958.0,
+    "source_layout": "gap2-phase1",
+    "views": {
+      "26": 967734958.0
+    }
+  },
+  "27,29": {
+    "sse": 885446499.0,
+    "source_layout": "gap2-phase1",
+    "views": {
+      "28": 885446499.0
+    }
+  },
+  "29,31": {
+    "sse": 866135567.0,
+    "source_layout": "gap2-phase1",
+    "views": {
+      "30": 866135567.0
+    }
+  },
+  "31,33": {
+    "sse": 745717430.0,
+    "source_layout": "gap2-phase1",
+    "views": {
+      "32": 745717430.0
+    }
+  },
+  "33,35": {
+    "sse": 671413732.0,
+    "source_layout": "gap2-phase1",
+    "views": {
+      "34": 671413732.0
+    }
+  },
+  "35,37": {
+    "sse": 886321291.0,
+    "source_layout": "gap2-phase1",
+    "views": {
+      "36": 886321291.0
+    }
+  },
+  "37,39": {
+    "sse": 966915255.0,
+    "source_layout": "gap2-phase1",
+    "views": {
+      "38": 966915255.0
+    }
+  },
+  "39,41": {
+    "sse": 1018547666.0,
+    "source_layout": "gap2-phase1",
+    "views": {
+      "40": 1018547666.0
+    }
+  },
+  "41,43": {
+    "sse": 949711657.0,
+    "source_layout": "gap2-phase1",
+    "views": {
+      "42": 949711657.0
+    }
+  },
+  "43,45": {
+    "sse": 734059539.0,
+    "source_layout": "gap2-phase1",
+    "views": {
+      "44": 734059539.0
+    }
+  },
+  "45,47": {
+    "sse": 612209098.0,
+    "source_layout": "gap3-phase0",
+    "views": {
+      "46": 612209098.0
+    }
+  },
+  "0,3": {
+    "sse": 3580314982.0,
+    "source_layout": "gap3-phase0",
+    "views": {
+      "1": 2071911311.0,
+      "2": 1508403671.0
+    }
+  },
+  "3,6": {
+    "sse": 3866187051.0,
+    "source_layout": "gap3-phase0",
+    "views": {
+      "4": 2308879403.0,
+      "5": 1557307648.0
+    }
+  },
+  "6,9": {
+    "sse": 4076419835.0,
+    "source_layout": "gap3-phase0",
+    "views": {
+      "7": 2302206597.0,
+      "8": 1774213238.0
+    }
+  },
+  "9,12": {
+    "sse": 3857099772.0,
+    "source_layout": "gap3-phase0",
+    "views": {
+      "10": 1753494545.0,
+      "11": 2103605227.0
+    }
+  },
+  "12,15": {
+    "sse": 4159177843.0,
+    "source_layout": "gap3-phase0",
+    "views": {
+      "13": 2016329403.0,
+      "14": 2142848440.0
+    }
+  },
+  "15,18": {
+    "sse": 3665444334.0,
+    "source_layout": "gap3-phase0",
+    "views": {
+      "16": 1500248390.0,
+      "17": 2165195944.0
+    }
+  },
+  "18,21": {
+    "sse": 4017989824.0,
+    "source_layout": "gap3-phase0",
+    "views": {
+      "19": 1882842008.0,
+      "20": 2135147816.0
+    }
+  },
+  "21,24": {
+    "sse": 3589224708.0,
+    "source_layout": "gap3-phase0",
+    "views": {
+      "22": 1663266550.0,
+      "23": 1925958158.0
+    }
+  },
+  "24,27": {
+    "sse": 3975305752.0,
+    "source_layout": "gap3-phase0",
+    "views": {
+      "25": 2170634463.0,
+      "26": 1804671289.0
+    }
+  },
+  "27,30": {
+    "sse": 3094472269.0,
+    "source_layout": "gap3-phase0",
+    "views": {
+      "28": 1655565636.0,
+      "29": 1438906633.0
+    }
+  },
+  "30,33": {
+    "sse": 4576609170.0,
+    "source_layout": "gap3-phase0",
+    "views": {
+      "31": 2243146559.0,
+      "32": 2333462611.0
+    }
+  },
+  "33,36": {
+    "sse": 3256511628.0,
+    "source_layout": "gap3-phase0",
+    "views": {
+      "34": 1239329122.0,
+      "35": 2017182506.0
+    }
+  },
+  "36,39": {
+    "sse": 2840282404.0,
+    "source_layout": "gap3-phase0",
+    "views": {
+      "37": 1320561264.0,
+      "38": 1519721140.0
+    }
+  },
+  "39,42": {
+    "sse": 2602227358.0,
+    "source_layout": "gap3-phase0",
+    "views": {
+      "40": 1149667071.0,
+      "41": 1452560287.0
+    }
+  },
+  "42,45": {
+    "sse": 3061422631.0,
+    "source_layout": "gap3-phase0",
+    "views": {
+      "43": 1489237063.0,
+      "44": 1572185568.0
+    }
+  },
+  "1,4": {
+    "sse": 4220148954.0,
+    "source_layout": "gap3-phase1",
+    "views": {
+      "2": 2249276078.0,
+      "3": 1970872876.0
+    }
+  },
+  "4,7": {
+    "sse": 4174174745.0,
+    "source_layout": "gap3-phase1",
+    "views": {
+      "5": 2154952151.0,
+      "6": 2019222594.0
+    }
+  },
+  "7,10": {
+    "sse": 3944564750.0,
+    "source_layout": "gap3-phase1",
+    "views": {
+      "8": 1917643410.0,
+      "9": 2026921340.0
+    }
+  },
+  "10,13": {
+    "sse": 3034283097.0,
+    "source_layout": "gap3-phase1",
+    "views": {
+      "11": 1530684687.0,
+      "12": 1503598410.0
+    }
+  },
+  "13,16": {
+    "sse": 3283319322.0,
+    "source_layout": "gap3-phase1",
+    "views": {
+      "14": 1681175721.0,
+      "15": 1602143601.0
+    }
+  },
+  "16,19": {
+    "sse": 4556996866.0,
+    "source_layout": "gap3-phase1",
+    "views": {
+      "17": 1976160979.0,
+      "18": 2580835887.0
+    }
+  },
+  "19,22": {
+    "sse": 3948963168.0,
+    "source_layout": "gap3-phase1",
+    "views": {
+      "20": 2015526272.0,
+      "21": 1933436896.0
+    }
+  },
+  "22,25": {
+    "sse": 4446827280.0,
+    "source_layout": "gap3-phase1",
+    "views": {
+      "23": 2193561880.0,
+      "24": 2253265400.0
+    }
+  },
+  "25,28": {
+    "sse": 3233937704.0,
+    "source_layout": "gap3-phase1",
+    "views": {
+      "26": 1677247821.0,
+      "27": 1556689883.0
+    }
+  },
+  "28,31": {
+    "sse": 2429913161.0,
+    "source_layout": "gap3-phase1",
+    "views": {
+      "29": 1031556956.0,
+      "30": 1398356205.0
+    }
+  },
+  "31,34": {
+    "sse": 2451174409.0,
+    "source_layout": "gap3-phase1",
+    "views": {
+      "32": 1188442760.0,
+      "33": 1262731649.0
+    }
+  },
+  "34,37": {
+    "sse": 3289290783.0,
+    "source_layout": "gap3-phase1",
+    "views": {
+      "35": 1506429137.0,
+      "36": 1782861646.0
+    }
+  },
+  "37,40": {
+    "sse": 3305366072.0,
+    "source_layout": "gap3-phase1",
+    "views": {
+      "38": 1598276510.0,
+      "39": 1707089562.0
+    }
+  },
+  "40,43": {
+    "sse": 3031768208.0,
+    "source_layout": "gap3-phase1",
+    "views": {
+      "41": 1363173086.0,
+      "42": 1668595122.0
+    }
+  },
+  "43,46": {
+    "sse": 2899407397.0,
+    "source_layout": "gap3-phase1",
+    "views": {
+      "44": 1059927406.0,
+      "45": 1839479991.0
+    }
+  },
+  "2,5": {
+    "sse": 4373704476.0,
+    "source_layout": "gap3-phase2",
+    "views": {
+      "3": 2237337854.0,
+      "4": 2136366622.0
+    }
+  },
+  "5,8": {
+    "sse": 3583361549.0,
+    "source_layout": "gap3-phase2",
+    "views": {
+      "6": 1802346941.0,
+      "7": 1781014608.0
+    }
+  },
+  "8,11": {
+    "sse": 3743337757.0,
+    "source_layout": "gap3-phase2",
+    "views": {
+      "9": 1994480207.0,
+      "10": 1748857550.0
+    }
+  },
+  "11,14": {
+    "sse": 4425839036.0,
+    "source_layout": "gap3-phase2",
+    "views": {
+      "12": 2348896358.0,
+      "13": 2076942678.0
+    }
+  },
+  "14,17": {
+    "sse": 3911305914.0,
+    "source_layout": "gap3-phase2",
+    "views": {
+      "15": 2068470978.0,
+      "16": 1842834936.0
+    }
+  },
+  "17,20": {
+    "sse": 4460466791.0,
+    "source_layout": "gap3-phase2",
+    "views": {
+      "18": 2091452750.0,
+      "19": 2369014041.0
+    }
+  },
+  "20,23": {
+    "sse": 3624744582.0,
+    "source_layout": "gap3-phase2",
+    "views": {
+      "21": 1681389514.0,
+      "22": 1943355068.0
+    }
+  },
+  "23,26": {
+    "sse": 4079139515.0,
+    "source_layout": "gap3-phase2",
+    "views": {
+      "24": 2125129055.0,
+      "25": 1954010460.0
+    }
+  },
+  "26,29": {
+    "sse": 3035687026.0,
+    "source_layout": "gap3-phase2",
+    "views": {
+      "27": 1651227976.0,
+      "28": 1384459050.0
+    }
+  },
+  "29,32": {
+    "sse": 4263246839.0,
+    "source_layout": "gap3-phase2",
+    "views": {
+      "30": 1995272189.0,
+      "31": 2267974650.0
+    }
+  },
+  "32,35": {
+    "sse": 2473182226.0,
+    "source_layout": "gap3-phase2",
+    "views": {
+      "33": 1270562463.0,
+      "34": 1202619763.0
+    }
+  },
+  "35,38": {
+    "sse": 3268790240.0,
+    "source_layout": "gap3-phase2",
+    "views": {
+      "36": 1606909536.0,
+      "37": 1661880704.0
+    }
+  },
+  "38,41": {
+    "sse": 3290868459.0,
+    "source_layout": "gap3-phase2",
+    "views": {
+      "39": 1343856190.0,
+      "40": 1947012269.0
+    }
+  },
+  "41,44": {
+    "sse": 3279202651.0,
+    "source_layout": "gap3-phase2",
+    "views": {
+      "42": 1158005647.0,
+      "43": 2121197004.0
+    }
+  },
+  "44,47": {
+    "sse": 2155992459.0,
+    "source_layout": "gap3-phase2",
+    "views": {
+      "45": 887619380.0,
+      "46": 1268373079.0
+    }
+  }
+}

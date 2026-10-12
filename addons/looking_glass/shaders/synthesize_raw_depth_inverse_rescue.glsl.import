@@ -1,0 +1,14 @@
+[remap]
+
+importer="glsl"
+type="RDShaderFile"
+uid="uid://d2jibaj51d4kk"
+path="res://.godot/imported/synthesize_raw_depth_inverse_rescue.glsl-2ae6aa473825f70014927f8845694470.res"
+
+[deps]
+
+source_file="res://addons/looking_glass/shaders/synthesize_raw_depth_inverse_rescue.glsl"
+dest_files=["res://.godot/imported/synthesize_raw_depth_inverse_rescue.glsl-2ae6aa473825f70014927f8845694470.res"]
+
+[params]
+

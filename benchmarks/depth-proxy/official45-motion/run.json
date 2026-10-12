@@ -1,0 +1,17 @@
+{
+  "command": [
+    "/Users/roman/work/tools/Godot.app/Contents/MacOS/Godot",
+    "--path",
+    "/Users/roman/work/godot-looking-glass",
+    "--rendering-driver",
+    "vulkan",
+    "--script",
+    "res://tests/test_depth_proxy.gd",
+    "--",
+    "--output=/Users/roman/work/godot-looking-glass/benchmarks/depth-proxy/official45-motion",
+    "--grid=64",
+    "--continuous-motion"
+  ],
+  "binary_sha256": "0d214c6c85e47e7060ac13b035b404ce4dda653992503914963e149a45cd0dca",
+  "timing_status": "Diagnostic with synchronous readbacks, not a performance benchmark."
+}

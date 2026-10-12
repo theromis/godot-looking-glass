@@ -1,0 +1,16 @@
+config_version=5
+[application]
+config/name="Looking Glass Godot Lab"
+run/main_scene="res://demo/main.tscn"
+config/features=PackedStringArray("4.5", "Forward Plus")
+[display]
+window/size/viewport_width=1152
+window/size/viewport_height=720
+window/vsync/vsync_mode=0
+[rendering]
+renderer/rendering_method="forward_plus"
+renderer/rendering_method.mobile="mobile"
+environment/defaults/default_clear_color=Color(0.025,0.03,0.05,1)
+[debug]
+file_logging/enable_file_logging=false
+file_logging/enable_file_logging.pc=false

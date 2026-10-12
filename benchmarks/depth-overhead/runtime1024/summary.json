@@ -1,0 +1,159 @@
+{
+  "binary_sha256": "e3f0117c1da12d25f8ed25fe28ebae6595db1efff1960ee01360ed745e594ced",
+  "image_sha256": {
+    "off": "0adf86c51333aea46d72e0cef05a1d21f71ba568e949653936b9d3a9ccc2e0ba",
+    "gpu64": "0adf86c51333aea46d72e0cef05a1d21f71ba568e949653936b9d3a9ccc2e0ba",
+    "gpu128": "0adf86c51333aea46d72e0cef05a1d21f71ba568e949653936b9d3a9ccc2e0ba",
+    "gpu256": "0adf86c51333aea46d72e0cef05a1d21f71ba568e949653936b9d3a9ccc2e0ba",
+    "gpu256_every16": "0adf86c51333aea46d72e0cef05a1d21f71ba568e949653936b9d3a9ccc2e0ba",
+    "sync256_every16": "0adf86c51333aea46d72e0cef05a1d21f71ba568e949653936b9d3a9ccc2e0ba",
+    "async256_every16": "0adf86c51333aea46d72e0cef05a1d21f71ba568e949653936b9d3a9ccc2e0ba"
+  },
+  "exact_png": true,
+  "modes": {
+    "off": {
+      "wall_ms": {
+        "mean": 51.54506805555557,
+        "run_stddev": 4.961384249928609
+      },
+      "probe_interval_ms": null,
+      "submission_ms": null,
+      "feedback_latency_ms": null,
+      "feedback_ms": null
+    },
+    "gpu64": {
+      "wall_ms": {
+        "mean": 54.53425416666667,
+        "run_stddev": 10.351515556925845
+      },
+      "probe_interval_ms": {
+        "mean": 0.006577201388888889,
+        "run_stddev": 0.003256884577749658
+      },
+      "submission_ms": {
+        "mean": 0.058812500000000004,
+        "run_stddev": 0.006093688390001943
+      },
+      "feedback_latency_ms": null,
+      "feedback_ms": null
+    },
+    "gpu128": {
+      "wall_ms": {
+        "mean": 58.670019444444435,
+        "run_stddev": 9.685108424149941
+      },
+      "probe_interval_ms": {
+        "mean": 0.010387877777777778,
+        "run_stddev": 0.007045148322946424
+      },
+      "submission_ms": {
+        "mean": 0.05631527777777778,
+        "run_stddev": 0.007845798297555573
+      },
+      "feedback_latency_ms": null,
+      "feedback_ms": null
+    },
+    "gpu256": {
+      "wall_ms": {
+        "mean": 60.53832500000003,
+        "run_stddev": 8.967177543234648
+      },
+      "probe_interval_ms": {
+        "mean": 0.009285766666666667,
+        "run_stddev": 0.00453203639471686
+      },
+      "submission_ms": {
+        "mean": 0.060225,
+        "run_stddev": 0.008239864354668306
+      },
+      "feedback_latency_ms": null,
+      "feedback_ms": null
+    },
+    "gpu256_every16": {
+      "wall_ms": {
+        "mean": 335.66368472222234,
+        "run_stddev": 417.155691841112
+      },
+      "probe_interval_ms": {
+        "mean": 0.013637888888888889,
+        "run_stddev": 0.010691210738906222
+      },
+      "submission_ms": {
+        "mean": 0.0582,
+        "run_stddev": 0.007905272502155338
+      },
+      "feedback_latency_ms": null,
+      "feedback_ms": null
+    },
+    "sync256_every16": {
+      "wall_ms": {
+        "mean": 55.7923486111111,
+        "run_stddev": 6.864236783035787
+      },
+      "probe_interval_ms": null,
+      "submission_ms": {
+        "mean": 0.06191111111111111,
+        "run_stddev": 0.002745771159302843
+      },
+      "feedback_latency_ms": null,
+      "feedback_ms": {
+        "mean": 87.39097777777778,
+        "run_stddev": 7.8322652668541775
+      }
+    },
+    "async256_every16": {
+      "wall_ms": {
+        "mean": 54.9942902777778,
+        "run_stddev": 6.130418798355867
+      },
+      "probe_interval_ms": {
+        "mean": 1.3809185333333334,
+        "run_stddev": 0.16503970923145864
+      },
+      "submission_ms": {
+        "mean": 0.06431111111111111,
+        "run_stddev": 0.005936827934674031
+      },
+      "feedback_latency_ms": {
+        "mean": 110.92444444444445,
+        "run_stddev": 12.360874759108691
+      },
+      "feedback_ms": {
+        "mean": 19.937666666666665,
+        "run_stddev": 1.4170423470501263
+      }
+    }
+  },
+  "anomalies": [
+    {
+      "mode": "gpu256_every16",
+      "repeat": 1,
+      "wall_ms": 126.915575,
+      "engine_ms": 56.6027851851851
+    },
+    {
+      "mode": "gpu256_every16",
+      "repeat": 3,
+      "wall_ms": 815.985929166667,
+      "engine_ms": 60.014783531746
+    }
+  ],
+  "isolated_timer": false,
+  "warmup": 90,
+  "samples_per_run": 240,
+  "gpu_timing_status": "Raw probe deltas invalid on MoltenVK: stage queries share an encoder",
+  "scene": {
+    "output_views": 48,
+    "real_views": 24,
+    "tile": 1024,
+    "objects": 512,
+    "static": true,
+    "shared_spotlights": 4
+  },
+  "limitations": [
+    "Profiled experiment: quilt markers enabled in all runs, probe markers when active.",
+    "GPU timing excludes setup, buffer readback and CPU reduction; submission timer excludes initialization.",
+    "Feedback timer includes queued GPU waits, readback and GDScript block reduction; it is not pure transfer time.",
+    "Observed quilt update intervals include scheduling/presentation; no hardware-display FPS claim."
+  ]
+}

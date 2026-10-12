@@ -1,0 +1,12 @@
+{
+  "binary_sha256": "e3f0117c1da12d25f8ed25fe28ebae6595db1efff1960ee01360ed745e594ced",
+  "driver": "vulkan",
+  "motion": "Three prescribed static snapshots along a translated/rotated camera path; no temporal reconstruction or flicker test.",
+  "fixture_script": "tests/test_depth_proxy.gd",
+  "depth_probe_script": "tests/depth_probe.gd",
+  "sample_grid": [
+    64,
+    64
+  ],
+  "timing_status": "Quality diagnostic only; synchronous readbacks and shader creation not measured as runtime overhead."
+}

@@ -1,0 +1,10 @@
+{
+  "tests/depth_probe.gd": "e6f5da3fcfe4e1e7b3b47603ec0ea219023505075c2265ec9d6495ec3d5584dd",
+  "tests/depth_proxy.glsl": "89f471f41d19629e67c8a002067653bb61cd5d6af6383c3deded434321a347a3",
+  "tests/benchmark_depth_overhead.gd": "f2ded019fcfea3916923d79309b12c5ca66b7a2d9e727e172051c0e6158b5faa",
+  "tests/benchmark_depth_overhead.tscn": "8dde576a227789669da99a7564f00e903a0516b44814867198f4be07e9afd77d",
+  "demo/main.gd": "37bfe3a476bd0d4d23f1233ddb684fba6d1fc5825ead38cf04b87dea0636d531",
+  "addons/looking_glass/rig.gd": "d4e0a6583e05341b9a80302db39962f9e4853b6e18513ef13d1c10588eb57c3b",
+  "addons/looking_glass/capture.gd": "8d43531872cd8c502a9858e302c04f826ec96866ab7b48d2260c58386653f2e8",
+  "addons/looking_glass/synthesizer.gd": "7420a1c8e6dfd7304c49497d8a22614d37b5fefc6bd78ab068059fa8461cf780"
+}

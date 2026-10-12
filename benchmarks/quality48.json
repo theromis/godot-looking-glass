@@ -1,0 +1,7 @@
+{
+  "caveat": "static opaque scene; differences include gamma vs Godot output; not optical quality",
+  "compared_rgb_samples": 1769472,
+  "mae_0_1": 0.0432986816112043,
+  "psnr_db": 16.9408088582756,
+  "synthetic_tiles": 36
+}

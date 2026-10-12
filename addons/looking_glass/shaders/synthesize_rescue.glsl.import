@@ -1,0 +1,14 @@
+[remap]
+
+importer="glsl"
+type="RDShaderFile"
+uid="uid://dxkhf2i20mwse"
+path="res://.godot/imported/synthesize_rescue.glsl-76f14e7de875adf0eddee2019b92418e.res"
+
+[deps]
+
+source_file="res://addons/looking_glass/shaders/synthesize_rescue.glsl"
+dest_files=["res://.godot/imported/synthesize_rescue.glsl-76f14e7de875adf0eddee2019b92418e.res"]
+
+[params]
+

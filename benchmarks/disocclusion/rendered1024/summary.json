@@ -1,0 +1,71 @@
+{
+  "baseline": {
+    "wall_frame_mean_ms": {
+      "mean": 48.018868055555565,
+      "run_stddev": 0.183683532967937
+    },
+    "frame_mean_ms": {
+      "mean": 47.99789967732893,
+      "run_stddev": 0.16142055767770974
+    },
+    "quilt_compute_gpu_mean_ms": {
+      "mean": 10.9973486269113,
+      "run_stddev": 0.03338679929104799
+    },
+    "quilt_submission_cpu_mean_ms": {
+      "mean": 0.07372777777777777,
+      "run_stddev": 0.0017871179337859554
+    },
+    "owned_capture_depth_bytes": {
+      "mean": 0,
+      "run_stddev": 0.0
+    }
+  },
+  "rescue": {
+    "wall_frame_mean_ms": {
+      "mean": 48.18750555555553,
+      "run_stddev": 0.05733293503574501
+    },
+    "frame_mean_ms": {
+      "mean": 48.207295127866,
+      "run_stddev": 0.03773217015829389
+    },
+    "quilt_compute_gpu_mean_ms": {
+      "mean": 11.364482471967367,
+      "run_stddev": 0.020717330638565033
+    },
+    "quilt_submission_cpu_mean_ms": {
+      "mean": 0.07539444444444443,
+      "run_stddev": 0.001853999680370747
+    },
+    "owned_capture_depth_bytes": {
+      "mean": 0,
+      "run_stddev": 0.0
+    }
+  },
+  "wall_timing_anomalies": [],
+  "timing_status": "No wall/engine ratio > 1.5 detected; this is not a universal stability guarantee",
+  "image_sha256": {
+    "baseline": "0adf86c51333aea46d72e0cef05a1d21f71ba568e949653936b9d3a9ccc2e0ba",
+    "rescue": "604796a040da6bf68bd58e50caede15bcd4a9bf223d4adba2ec8c70a5cdc6529"
+  },
+  "exact_png": false,
+  "binary_sha256": "e3f0117c1da12d25f8ed25fe28ebae6595db1efff1960ee01360ed745e594ced",
+  "scene": {
+    "output_views": 48,
+    "real_views": 24,
+    "tile": 1024,
+    "stress_objects": 512,
+    "transparent": false,
+    "rendered_sampling": true,
+    "static": true
+  },
+  "limitations": [
+    "No TAA, FSR2, MSAA or post-transparent effects enabled in this scene.",
+    "Rescue runs only when both primary gathers fail; quality may change.",
+    "Quilt GPU time excludes capture passes; its two timestamp commands remain enabled in both modes."
+  ],
+  "quality_metrics": "quality.json",
+  "reference_sha256": "75d8137251d55d2ded291807697490e5c8a93209f73e340a32055961e5bc4712",
+  "decision": "Experimental opt-in only: small quality improvement, GPU cost increased. Default remains baseline."
+}

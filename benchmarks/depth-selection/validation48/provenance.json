@@ -1,0 +1,8 @@
+{
+  "binary_sha256": "e3f0117c1da12d25f8ed25fe28ebae6595db1efff1960ee01360ed745e594ced",
+  "driver": "vulkan",
+  "stage": "validation",
+  "tile": 256,
+  "fixtures_match_previous_proxy_experiment": true,
+  "timing_status": "Offline quality experiment; candidate capture and readback cost not amortized or profiled."
+}

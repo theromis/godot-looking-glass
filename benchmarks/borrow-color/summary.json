@@ -1,0 +1,64 @@
+{
+  "copy": {
+    "wall_frame_mean_ms": {
+      "mean": 16.7116,
+      "run_stddev": 0.07926792066487094
+    },
+    "frame_mean_ms": {
+      "mean": 16.7059231481481,
+      "run_stddev": 0.07406298108055256
+    },
+    "quilt_compute_gpu_mean_ms": {
+      "mean": 2.7508478108384433,
+      "run_stddev": 0.01563857121570715
+    },
+    "quilt_submission_cpu_mean_ms": {
+      "mean": 0.028859135285913533,
+      "run_stddev": 0.0021539029376382475
+    },
+    "owned_capture_color_bytes": {
+      "mean": 50331648,
+      "run_stddev": 0.0
+    }
+  },
+  "borrow": {
+    "wall_frame_mean_ms": {
+      "mean": 16.6425916666667,
+      "run_stddev": 0.03912622002890168
+    },
+    "frame_mean_ms": {
+      "mean": 16.634100925925868,
+      "run_stddev": 0.056351399626264786
+    },
+    "quilt_compute_gpu_mean_ms": {
+      "mean": 2.76537656646217,
+      "run_stddev": 0.03305813363991413
+    },
+    "quilt_submission_cpu_mean_ms": {
+      "mean": 0.0266359832635983,
+      "run_stddev": 0.0010224027240054111
+    },
+    "owned_capture_color_bytes": {
+      "mean": 0,
+      "run_stddev": 0.0
+    }
+  },
+  "image_sha256": {
+    "copy": "9be0a98db198e7910cd51fde2af71d7dbbd51e66a7782e2e3eb81cdac5b443bf",
+    "borrow": "9be0a98db198e7910cd51fde2af71d7dbbd51e66a7782e2e3eb81cdac5b443bf"
+  },
+  "exact_png": true,
+  "binary_sha256": "e3f0117c1da12d25f8ed25fe28ebae6595db1efff1960ee01360ed745e594ced",
+  "scene": {
+    "output_views": 48,
+    "real_views": 24,
+    "tile": 512,
+    "stress_objects": 512,
+    "transparent": false
+  },
+  "limitations": [
+    "No TAA, FSR2, MSAA or post-transparent effects enabled in this scene.",
+    "Color allocation saving is calculated texture payload, not measured total VRAM.",
+    "Quilt GPU time excludes capture passes; its two timestamp commands remain enabled in both modes."
+  ]
+}

@@ -1,0 +1,5 @@
+# Preserve raw diagnostic output, Godot import metadata and patch context.
+*.log -whitespace
+*.txt -whitespace
+*.import -whitespace
+*.patch -whitespace

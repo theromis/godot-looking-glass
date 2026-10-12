@@ -1,0 +1,170 @@
+diff --git a/doc/classes/RenderingServer.xml b/doc/classes/RenderingServer.xml
+index f373a64a7a..7d689c318f 100644
+--- a/doc/classes/RenderingServer.xml
++++ b/doc/classes/RenderingServer.xml
+@@ -4405,6 +4405,14 @@
+ 				Sets the number of subdivisions to use in the specified shadow atlas [param quadrant] for omni and spot shadows. See also [method Viewport.set_positional_shadow_atlas_quadrant_subdiv].
+ 			</description>
+ 		</method>
++		<method name="viewport_set_positional_shadow_atlas_shared_from">
++			<return type="void" />
++			<param index="0" name="viewport" type="RID" />
++			<param index="1" name="source" type="RID" />
++			<description>
++				Experimental: reuse the source viewport's positional shadow atlas without transferring ownership. An empty source RID disables sharing. Both cameras must render all 20 visibility layers in the same scenario, have zero mesh LOD threshold and matching atlas size and precision, and tighter shadow caster culling must be disabled at engine startup. Source viewports that themselves share an atlas are not eligible. Ineligible or freed sources fall back to the local atlas. Directional shadows are unaffected. Source atlas subdivision and camera-dependent allocation can affect shadow resolution; this is an opt-in rendering experiment.
++			</description>
++		</method>
+ 		<method name="viewport_set_positional_shadow_atlas_size">
+ 			<return type="void" />
+ 			<param index="0" name="viewport" type="RID" />
+diff --git a/servers/rendering/renderer_scene_cull.cpp b/servers/rendering/renderer_scene_cull.cpp
+index c8db5806a2..9a57345785 100644
+--- a/servers/rendering/renderer_scene_cull.cpp
++++ b/servers/rendering/renderer_scene_cull.cpp
+@@ -154,6 +154,12 @@ void RendererSceneCull::camera_set_cull_mask(RID p_camera, uint32_t p_layers) {
+ 	camera->visible_layers = p_layers;
+ }
+ 
++bool RendererSceneCull::camera_can_share_positional_shadows(RID p_camera) const {
++	const Camera *camera = camera_owner.get_or_null(p_camera);
++	// Restrict this experimental path to full-layer, full-caster shadows.
++	return camera && camera->visible_layers == 0xFFFFF && light_culler->uses_full_shadow_casters();
++}
++
+ void RendererSceneCull::camera_set_environment(RID p_camera, RID p_env) {
+ 	Camera *camera = camera_owner.get_or_null(p_camera);
+ 	ERR_FAIL_NULL(camera);
+diff --git a/servers/rendering/renderer_scene_cull.h b/servers/rendering/renderer_scene_cull.h
+index dd250fa6d1..14c1e9a7df 100644
+--- a/servers/rendering/renderer_scene_cull.h
++++ b/servers/rendering/renderer_scene_cull.h
+@@ -116,6 +116,7 @@ public:
+ 	virtual void camera_set_xr_projections(RID p_camera, TypedArray<Projection> p_projections, TypedArray<Transform3D> p_offsets = TypedArray<Transform3D>());
+ 	virtual void camera_set_transform(RID p_camera, const Transform3D &p_transform);
+ 	virtual void camera_set_cull_mask(RID p_camera, uint32_t p_layers);
++	virtual bool camera_can_share_positional_shadows(RID p_camera) const override;
+ 	virtual void camera_set_environment(RID p_camera, RID p_env);
+ 	virtual void camera_set_camera_attributes(RID p_camera, RID p_attributes);
+ 	virtual void camera_set_compositor(RID p_camera, RID p_compositor);
+diff --git a/servers/rendering/renderer_viewport.cpp b/servers/rendering/renderer_viewport.cpp
+index 11edd24179..1d92ffb8c8 100644
+--- a/servers/rendering/renderer_viewport.cpp
++++ b/servers/rendering/renderer_viewport.cpp
+@@ -331,8 +331,21 @@ void RendererViewport::_draw_3d(Viewport *p_viewport) {
+ 		}
+ 	}
+ 
++	RID positional_shadow_atlas = p_viewport->shadow_atlas;
++	Viewport *source = viewport_owner.get_or_null(p_viewport->positional_shadow_atlas_shared_from);
++	// Keep ownership local: freeing the source simply restores this viewport's atlas.
++	// No chains, camera-dependent caster culling, layer masks or shadow mesh LOD.
++	if (source && source != p_viewport && !source->positional_shadow_atlas_shared_from.is_valid() &&
++			source->scenario == p_viewport->scenario && source->scenario.is_valid() &&
++			source->mesh_lod_threshold == 0.0f && p_viewport->mesh_lod_threshold == 0.0f &&
++			source->shadow_atlas_size == p_viewport->shadow_atlas_size &&
++			source->shadow_atlas_16_bits == p_viewport->shadow_atlas_16_bits &&
++			RSG::scene->camera_can_share_positional_shadows(source->camera) &&
++			RSG::scene->camera_can_share_positional_shadows(p_viewport->camera)) {
++		positional_shadow_atlas = source->shadow_atlas;
++	}
+ 	float screen_mesh_lod_threshold = p_viewport->mesh_lod_threshold / float(p_viewport->size.width);
+-	RSG::scene->render_camera(p_viewport->render_buffers, p_viewport->camera, p_viewport->scenario, p_viewport->self, p_viewport->internal_size, p_viewport->jitter_phase_count, screen_mesh_lod_threshold, p_viewport->shadow_atlas, p_viewport->window_output_max_value, &p_viewport->render_info);
++	RSG::scene->render_camera(p_viewport->render_buffers, p_viewport->camera, p_viewport->scenario, p_viewport->self, p_viewport->internal_size, p_viewport->jitter_phase_count, screen_mesh_lod_threshold, positional_shadow_atlas, p_viewport->window_output_max_value, &p_viewport->render_info);
+ 
+ 	RENDER_TIMESTAMP("< Render 3D Scene");
+ #endif // _3D_DISABLED
+@@ -1375,6 +1388,14 @@ void RendererViewport::viewport_set_canvas_stacking(RID p_viewport, RID p_canvas
+ 	viewport->canvas_map[p_canvas].sublayer = p_sublayer;
+ }
+ 
++void RendererViewport::viewport_set_positional_shadow_atlas_shared_from(RID p_viewport, RID p_source) {
++	Viewport *viewport = viewport_owner.get_or_null(p_viewport);
++	ERR_FAIL_NULL(viewport);
++	ERR_FAIL_COND(p_source == p_viewport);
++	ERR_FAIL_COND(p_source.is_valid() && !viewport_owner.owns(p_source));
++	viewport->positional_shadow_atlas_shared_from = p_source;
++}
++
+ void RendererViewport::viewport_set_positional_shadow_atlas_size(RID p_viewport, int p_size, bool p_16_bits) {
+ 	Viewport *viewport = viewport_owner.get_or_null(p_viewport);
+ 	ERR_FAIL_NULL(viewport);
+diff --git a/servers/rendering/renderer_viewport.h b/servers/rendering/renderer_viewport.h
+index 2c70de5eb8..5f1464a670 100644
+--- a/servers/rendering/renderer_viewport.h
++++ b/servers/rendering/renderer_viewport.h
+@@ -99,6 +99,7 @@ public:
+ 		uint64_t time_gpu_end;
+ 
+ 		RID shadow_atlas;
++		RID positional_shadow_atlas_shared_from;
+ 		int shadow_atlas_size = 2048;
+ 		bool shadow_atlas_16_bits = true;
+ 
+@@ -272,6 +273,7 @@ public:
+ 
+ 	void viewport_set_canvas_cull_mask(RID p_viewport, uint32_t p_canvas_cull_mask);
+ 
++	void viewport_set_positional_shadow_atlas_shared_from(RID p_viewport, RID p_source);
+ 	void viewport_set_positional_shadow_atlas_size(RID p_viewport, int p_size, bool p_16_bits = true);
+ 	void viewport_set_positional_shadow_atlas_quadrant_subdivision(RID p_viewport, int p_quadrant, int p_subdiv);
+ 
+diff --git a/servers/rendering/rendering_light_culler.h b/servers/rendering/rendering_light_culler.h
+index 71e88cb671..d8deda671a 100644
+--- a/servers/rendering/rendering_light_culler.h
++++ b/servers/rendering/rendering_light_culler.h
+@@ -161,6 +161,7 @@ public:
+ 
+ 	// Can turn on and off from the engine if desired.
+ 	void set_caster_culling_active(bool p_active) { data.caster_culling_active = p_active; }
++	bool uses_full_shadow_casters() const { return !data.caster_culling_active; }
+ 	void set_light_culling_active(bool p_active) { data.light_culling_active = p_active; }
+ 
+ private:
+diff --git a/servers/rendering/rendering_method.h b/servers/rendering/rendering_method.h
+index a57ef21d2d..49f9b0678d 100644
+--- a/servers/rendering/rendering_method.h
++++ b/servers/rendering/rendering_method.h
+@@ -57,6 +57,7 @@ public:
+ 	virtual void camera_set_xr_projections(RID p_camera, TypedArray<Projection> p_projections, TypedArray<Transform3D> p_offsets = TypedArray<Transform3D>()) = 0;
+ 	virtual void camera_set_transform(RID p_camera, const Transform3D &p_transform) = 0;
+ 	virtual void camera_set_cull_mask(RID p_camera, uint32_t p_layers) = 0;
++	virtual bool camera_can_share_positional_shadows(RID p_camera) const = 0;
+ 	virtual void camera_set_environment(RID p_camera, RID p_env) = 0;
+ 	virtual void camera_set_camera_attributes(RID p_camera, RID p_attributes) = 0;
+ 	virtual void camera_set_compositor(RID p_camera, RID p_compositor) = 0;
+diff --git a/servers/rendering/rendering_server.cpp b/servers/rendering/rendering_server.cpp
+index 4ede9b266b..1c283e521a 100644
+--- a/servers/rendering/rendering_server.cpp
++++ b/servers/rendering/rendering_server.cpp
+@@ -2904,6 +2904,7 @@ void RenderingServer::_bind_methods() {
+ 
+ 	ClassDB::bind_method(D_METHOD("viewport_set_sdf_oversize_and_scale", "viewport", "oversize", "scale"), &RenderingServer::viewport_set_sdf_oversize_and_scale);
+ 
++	ClassDB::bind_method(D_METHOD("viewport_set_positional_shadow_atlas_shared_from", "viewport", "source"), &RenderingServer::viewport_set_positional_shadow_atlas_shared_from);
+ 	ClassDB::bind_method(D_METHOD("viewport_set_positional_shadow_atlas_size", "viewport", "size", "use_16_bits"), &RenderingServer::viewport_set_positional_shadow_atlas_size, DEFVAL(false));
+ 	ClassDB::bind_method(D_METHOD("viewport_set_positional_shadow_atlas_quadrant_subdivision", "viewport", "quadrant", "subdivision"), &RenderingServer::viewport_set_positional_shadow_atlas_quadrant_subdivision);
+ 	ClassDB::bind_method(D_METHOD("viewport_set_msaa_3d", "viewport", "msaa"), &RenderingServer::viewport_set_msaa_3d);
+diff --git a/servers/rendering/rendering_server.h b/servers/rendering/rendering_server.h
+index 07791137f1..f9b2c34bf3 100644
+--- a/servers/rendering/rendering_server.h
++++ b/servers/rendering/rendering_server.h
+@@ -599,6 +599,7 @@ public:
+ 
+ 	virtual void viewport_set_sdf_oversize_and_scale(RID p_viewport, RSE::ViewportSDFOversize p_oversize, RSE::ViewportSDFScale p_scale) = 0;
+ 
++	virtual void viewport_set_positional_shadow_atlas_shared_from(RID p_viewport, RID p_source) = 0;
+ 	virtual void viewport_set_positional_shadow_atlas_size(RID p_viewport, int p_size, bool p_16_bits = true) = 0;
+ 	virtual void viewport_set_positional_shadow_atlas_quadrant_subdivision(RID p_viewport, int p_quadrant, int p_subdiv) = 0;
+ 
+diff --git a/servers/rendering/rendering_server_default.h b/servers/rendering/rendering_server_default.h
+index 811858e47e..baab40d331 100644
+--- a/servers/rendering/rendering_server_default.h
++++ b/servers/rendering/rendering_server_default.h
+@@ -793,6 +793,7 @@ public:
+ 
+ 	FUNC2(viewport_set_global_canvas_transform, RID, const Transform2D &)
+ 	FUNC4(viewport_set_canvas_stacking, RID, RID, int, int)
++	FUNC2(viewport_set_positional_shadow_atlas_shared_from, RID, RID)
+ 	FUNC3(viewport_set_positional_shadow_atlas_size, RID, int, bool)
+ 	FUNC3(viewport_set_sdf_oversize_and_scale, RID, RSE::ViewportSDFOversize, RSE::ViewportSDFScale)
+ 	FUNC3(viewport_set_positional_shadow_atlas_quadrant_subdivision, RID, int, int)

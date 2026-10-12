@@ -1,0 +1,67 @@
+{
+  "linear": {
+    "wall_frame_mean_ms": {
+      "mean": 87.377201388889,
+      "run_stddev": 59.219510450344536
+    },
+    "frame_mean_ms": {
+      "mean": 52.61755293209867,
+      "run_stddev": 1.2565698680166397
+    },
+    "quilt_compute_gpu_mean_ms": {
+      "mean": 12.880013650182267,
+      "run_stddev": 0.2037748072185021
+    },
+    "quilt_submission_cpu_mean_ms": {
+      "mean": 0.06673194444444447,
+      "run_stddev": 0.0056030471826927705
+    },
+    "owned_capture_depth_bytes": {
+      "mean": 100663296,
+      "run_stddev": 0.0
+    }
+  },
+  "raw": {
+    "wall_frame_mean_ms": {
+      "mean": 49.444741666666665,
+      "run_stddev": 1.4333405049178294
+    },
+    "frame_mean_ms": {
+      "mean": 49.399058800972696,
+      "run_stddev": 1.4624798661333582
+    },
+    "quilt_compute_gpu_mean_ms": {
+      "mean": 11.238568025518566,
+      "run_stddev": 0.2500658554419368
+    },
+    "quilt_submission_cpu_mean_ms": {
+      "mean": 0.06827500000000003,
+      "run_stddev": 0.006058586938754339
+    },
+    "owned_capture_depth_bytes": {
+      "mean": 0,
+      "run_stddev": 0.0
+    }
+  },
+  "image_sha256": {
+    "linear": "0adf86c51333aea46d72e0cef05a1d21f71ba568e949653936b9d3a9ccc2e0ba",
+    "raw": "0adf86c51333aea46d72e0cef05a1d21f71ba568e949653936b9d3a9ccc2e0ba"
+  },
+  "exact_png": true,
+  "binary_sha256": "e3f0117c1da12d25f8ed25fe28ebae6595db1efff1960ee01360ed745e594ced",
+  "scene": {
+    "output_views": 48,
+    "real_views": 24,
+    "tile": 1024,
+    "stress_objects": 512,
+    "transparent": false,
+    "rendered_sampling": true,
+    "static": true
+  },
+  "limitations": [
+    "No TAA, FSR2, MSAA or post-transparent effects enabled in this scene.",
+    "Depth allocation saving is calculated texture payload, not measured total VRAM.",
+    "Quilt GPU time excludes capture passes; its two timestamp commands remain enabled in both modes."
+  ],
+  "timing_status": "UNSTABLE: linear-3 wall update interval 155.75 ms vs engine delta 51.70 ms; no wall speedup claim from this series. Retained for audit; cause unknown."
+}

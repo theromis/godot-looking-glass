@@ -1,0 +1,36 @@
+{
+  "isolated_profile_scope_minus_idle_ms": {
+    "gpu64": 0.5193296222222222,
+    "gpu128": 0.80887035,
+    "gpu256": 1.376452788888889
+  },
+  "runtime_frame_impact_status": "Inconclusive: large between-run variation; sparse GPU-only repeats 1/3 rejected by wall/engine ratio >1.5. No FPS gain claim.",
+  "rejected_wall_runs": [
+    {
+      "mode": "gpu256_every16",
+      "repeat": 1,
+      "wall_ms": 126.915575,
+      "engine_ms": 56.6027851851851
+    },
+    {
+      "mode": "gpu256_every16",
+      "repeat": 3,
+      "wall_ms": 815.985929166667,
+      "engine_ms": 60.014783531746
+    }
+  ],
+  "synchronous_feedback_per_request_ms": {
+    "mean": 87.39097777777778,
+    "run_stddev": 7.8322652668541775
+  },
+  "async_cpu_decode_per_callback_ms": {
+    "mean": 19.937666666666665,
+    "run_stddev": 1.4170423470501263
+  },
+  "async_delivery_latency_ms": {
+    "mean": 110.92444444444445,
+    "run_stddev": 12.360874759108691
+  },
+  "images_exact": true,
+  "every_frame_sync_status": "Timed out after 240 seconds; no valid complete mean. Diagnostic smaller scene produced progress; no deadlock proven."
+}

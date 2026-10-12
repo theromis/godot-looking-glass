@@ -1,0 +1,100 @@
+{
+  "uniform": {
+    "wall_frame_mean_ms": {
+      "mean": 48.31711805555557,
+      "run_stddev": 0.42491176147584125
+    },
+    "frame_mean_ms": {
+      "mean": 48.3157470899471,
+      "run_stddev": 0.43380228457174913
+    },
+    "quilt_compute_gpu_mean_ms": {
+      "mean": 11.106078404689066,
+      "run_stddev": 0.11520103036776128
+    },
+    "quilt_submission_cpu_mean_ms": {
+      "mean": 0.07346805555555556,
+      "run_stddev": 0.0032702503018939046
+    },
+    "owned_capture_depth_bytes": {
+      "mean": 0,
+      "run_stddev": 0.0
+    }
+  },
+  "selected": {
+    "wall_frame_mean_ms": {
+      "mean": 48.2039291666667,
+      "run_stddev": 0.0897774862159223
+    },
+    "frame_mean_ms": {
+      "mean": 48.18953780864204,
+      "run_stddev": 0.0857523086928024
+    },
+    "quilt_compute_gpu_mean_ms": {
+      "mean": 11.1317137359837,
+      "run_stddev": 0.017436524694443872
+    },
+    "quilt_submission_cpu_mean_ms": {
+      "mean": 0.0727888888888889,
+      "run_stddev": 0.003904000648669838
+    },
+    "owned_capture_depth_bytes": {
+      "mean": 0,
+      "run_stddev": 0.0
+    }
+  },
+  "wall_timing_anomalies": [],
+  "timing_status": "No wall/engine ratio > 1.5 detected; this is not a universal stability guarantee",
+  "image_sha256": {
+    "uniform": "0adf86c51333aea46d72e0cef05a1d21f71ba568e949653936b9d3a9ccc2e0ba",
+    "selected": "3cba08f4a383b98b6c74fafe95c3da3340bb1427873f58905321f1734fbc4b46"
+  },
+  "selection": {
+    "anchors": [
+      0,
+      3,
+      4,
+      6,
+      9,
+      10,
+      11,
+      12,
+      13,
+      16,
+      18,
+      19,
+      22,
+      25,
+      28,
+      31,
+      34,
+      35,
+      36,
+      37,
+      38,
+      41,
+      44,
+      47
+    ],
+    "method": "Keep 16 uniform anchors, add eight largest SSE views from static all-real reference. Offline ground-truth-assisted selection; not runtime adaptation.",
+    "source": "../view-budget/rendered1024/quality.json"
+  },
+  "exact_png": false,
+  "binary_sha256": "e3f0117c1da12d25f8ed25fe28ebae6595db1efff1960ee01360ed745e594ced",
+  "scene": {
+    "output_views": 48,
+    "real_view_budgets": [
+      24
+    ],
+    "tile": 1024,
+    "stress_objects": 512,
+    "transparent": false,
+    "rendered_sampling": true,
+    "static": true
+  },
+  "limitations": [
+    "No TAA, FSR2, MSAA or post-transparent effects enabled in this scene.",
+    "Real-view budgets use different anchor sets; whole-quilt error is the common comparison metric.",
+    "Quilt GPU time excludes capture passes; its two timestamp commands remain enabled in both modes."
+  ]
+}

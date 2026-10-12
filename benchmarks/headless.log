@@ -1,0 +1,21 @@
+ERROR: Could not create directory: '/Users/roman/Library/Application Support/Godot/app_userdata/Looking Glass Godot Lab'.
+   at: make_dir_recursive (core/io/dir_access.cpp:178)
+ERROR: Error attempting to create data dir: /Users/roman/Library/Application Support/Godot/app_userdata/Looking Glass Godot Lab.
+   at: ensure_user_data_dir (core/os/os.cpp:418)
+ERROR: Could not create directory: 'user://logs'.
+   at: make_dir_recursive (core/io/dir_access.cpp:178)
+
+================================================================
+handle_crash: Program crashed with signal 11
+Engine version: Godot Engine v4.5.1.stable.official (f62fdbde15035c5576dad93e586201f4d41ef0cb)
+Dumping the backtrace. Please include this when reporting the bug on: https://github.com/godotengine/godot/issues
+[1] 1   libsystem_platform.dylib            0x00000001859e4144 _sigtramp + 56
+[2] RotatedFileLogger::rotate_file() (in Godot) + 1116
+[3] RotatedFileLogger::rotate_file() (in Godot) + 1116
+[4] RotatedFileLogger::RotatedFileLogger(String const&, int) (in Godot) + 80
+[5] Main::setup(char const*, int, char**, bool) (in Godot) + 19276
+[6] OS_MacOS_Headless::run() (in Godot) + 68
+[7] main (in Godot) + 908
+[8] 8   dyld                                0x0000000185603e80 start + 6688
+-- END OF C++ BACKTRACE --
+================================================================

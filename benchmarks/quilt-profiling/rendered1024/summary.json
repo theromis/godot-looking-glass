@@ -1,0 +1,62 @@
+{
+  "on": {
+    "wall_frame_mean_ms": {
+      "mean": 47.6166111111111,
+      "run_stddev": 0.08350758909429222
+    },
+    "frame_mean_ms": {
+      "mean": 47.60251813973073,
+      "run_stddev": 0.10515543969003897
+    },
+    "quilt_compute_gpu_mean_ms": {
+      "mean": 10.8972031457696,
+      "run_stddev": 0.010356071473461468
+    },
+    "quilt_submission_cpu_mean_ms": {
+      "mean": 0.0788527777777778,
+      "run_stddev": 0.002501951784403791
+    },
+    "owned_capture_depth_bytes": {
+      "mean": 0,
+      "run_stddev": 0.0
+    }
+  },
+  "off": {
+    "wall_frame_mean_ms": {
+      "mean": 47.62149999999997,
+      "run_stddev": 0.04602214876647434
+    },
+    "frame_mean_ms": {
+      "mean": 47.64122882061367,
+      "run_stddev": 0.0678997183680895
+    },
+    "quilt_compute_gpu_mean_ms": null,
+    "quilt_submission_cpu_mean_ms": null,
+    "owned_capture_depth_bytes": {
+      "mean": 0,
+      "run_stddev": 0.0
+    }
+  },
+  "wall_timing_anomalies": [],
+  "image_sha256": {
+    "on": "0adf86c51333aea46d72e0cef05a1d21f71ba568e949653936b9d3a9ccc2e0ba",
+    "off": "0adf86c51333aea46d72e0cef05a1d21f71ba568e949653936b9d3a9ccc2e0ba"
+  },
+  "exact_png": true,
+  "binary_sha256": "e3f0117c1da12d25f8ed25fe28ebae6595db1efff1960ee01360ed745e594ced",
+  "scene": {
+    "output_views": 48,
+    "real_views": 24,
+    "tile": 1024,
+    "stress_objects": 512,
+    "transparent": false,
+    "rendered_sampling": true,
+    "static": true
+  },
+  "limitations": [
+    "No TAA, FSR2, MSAA or post-transparent effects enabled in this scene.",
+    "Off-mode GPU and compute submission durations are intentionally unavailable; compare wall update intervals.",
+    "GPU timestamps and CPU submission recording are enabled only in on mode; off durations are intentionally unavailable."
+  ],
+  "decision": "Profiling off by default; no update-time improvement measured; bounded sample storage when profiling enabled."
+}

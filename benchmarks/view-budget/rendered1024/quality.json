@@ -1,0 +1,1531 @@
+{
+  "12": {
+    "anchors": [
+      0,
+      4,
+      9,
+      13,
+      17,
+      21,
+      26,
+      30,
+      34,
+      38,
+      43,
+      47
+    ],
+    "per_view": [
+      {
+        "view": 0,
+        "real": true,
+        "sse": 0.0,
+        "sae": 0.0,
+        "changed": 0
+      },
+      {
+        "view": 1,
+        "real": false,
+        "sse": 2985597022.0,
+        "sae": 18105402.0,
+        "changed": 335443
+      },
+      {
+        "view": 2,
+        "real": false,
+        "sse": 3952050664.0,
+        "sae": 23282910.0,
+        "changed": 351965
+      },
+      {
+        "view": 3,
+        "real": false,
+        "sse": 3459770729.0,
+        "sae": 20341705.0,
+        "changed": 301132
+      },
+      {
+        "view": 4,
+        "real": true,
+        "sse": 0.0,
+        "sae": 0.0,
+        "changed": 0
+      },
+      {
+        "view": 5,
+        "real": false,
+        "sse": 3507891470.0,
+        "sae": 21104150.0,
+        "changed": 326876
+      },
+      {
+        "view": 6,
+        "real": false,
+        "sse": 5975534076.0,
+        "sae": 34382788.0,
+        "changed": 348345
+      },
+      {
+        "view": 7,
+        "real": false,
+        "sse": 6072321383.0,
+        "sae": 34532773.0,
+        "changed": 325790
+      },
+      {
+        "view": 8,
+        "real": false,
+        "sse": 3713266210.0,
+        "sae": 21690100.0,
+        "changed": 336706
+      },
+      {
+        "view": 9,
+        "real": true,
+        "sse": 0.0,
+        "sae": 0.0,
+        "changed": 0
+      },
+      {
+        "view": 10,
+        "real": false,
+        "sse": 2959766175.0,
+        "sae": 17997117.0,
+        "changed": 310462
+      },
+      {
+        "view": 11,
+        "real": false,
+        "sse": 4162460508.0,
+        "sae": 24669298.0,
+        "changed": 329019
+      },
+      {
+        "view": 12,
+        "real": false,
+        "sse": 3065229956.0,
+        "sae": 18539656.0,
+        "changed": 274422
+      },
+      {
+        "view": 13,
+        "real": true,
+        "sse": 0.0,
+        "sae": 0.0,
+        "changed": 0
+      },
+      {
+        "view": 14,
+        "real": false,
+        "sse": 2778874232.0,
+        "sae": 17599742.0,
+        "changed": 321009
+      },
+      {
+        "view": 15,
+        "real": false,
+        "sse": 3521816352.0,
+        "sae": 22115712.0,
+        "changed": 341390
+      },
+      {
+        "view": 16,
+        "real": false,
+        "sse": 2868962934.0,
+        "sae": 18020118.0,
+        "changed": 281828
+      },
+      {
+        "view": 17,
+        "real": true,
+        "sse": 0.0,
+        "sae": 0.0,
+        "changed": 0
+      },
+      {
+        "view": 18,
+        "real": false,
+        "sse": 3369500771.0,
+        "sae": 20137259.0,
+        "changed": 314661
+      },
+      {
+        "view": 19,
+        "real": false,
+        "sse": 4354519092.0,
+        "sae": 25752750.0,
+        "changed": 331587
+      },
+      {
+        "view": 20,
+        "real": false,
+        "sse": 4126982456.0,
+        "sae": 24324994.0,
+        "changed": 285547
+      },
+      {
+        "view": 21,
+        "real": true,
+        "sse": 0.0,
+        "sae": 0.0,
+        "changed": 0
+      },
+      {
+        "view": 22,
+        "real": false,
+        "sse": 3731243846.0,
+        "sae": 22539052.0,
+        "changed": 316727
+      },
+      {
+        "view": 23,
+        "real": false,
+        "sse": 6071577198.0,
+        "sae": 36607852.0,
+        "changed": 342731
+      },
+      {
+        "view": 24,
+        "real": false,
+        "sse": 7189161978.0,
+        "sae": 42065102.0,
+        "changed": 329222
+      },
+      {
+        "view": 25,
+        "real": false,
+        "sse": 4188578032.0,
+        "sae": 25478892.0,
+        "changed": 337689
+      },
+      {
+        "view": 26,
+        "real": true,
+        "sse": 0.0,
+        "sae": 0.0,
+        "changed": 0
+      },
+      {
+        "view": 27,
+        "real": false,
+        "sse": 2947264630.0,
+        "sae": 18632180.0,
+        "changed": 315140
+      },
+      {
+        "view": 28,
+        "real": false,
+        "sse": 3802458311.0,
+        "sae": 23233043.0,
+        "changed": 335479
+      },
+      {
+        "view": 29,
+        "real": false,
+        "sse": 3025276710.0,
+        "sae": 19030506.0,
+        "changed": 280933
+      },
+      {
+        "view": 30,
+        "real": true,
+        "sse": 0.0,
+        "sae": 0.0,
+        "changed": 0
+      },
+      {
+        "view": 31,
+        "real": false,
+        "sse": 3368723391.0,
+        "sae": 20105075.0,
+        "changed": 319737
+      },
+      {
+        "view": 32,
+        "real": false,
+        "sse": 3987025626.0,
+        "sae": 24271820.0,
+        "changed": 342166
+      },
+      {
+        "view": 33,
+        "real": false,
+        "sse": 3261051013.0,
+        "sae": 20359043.0,
+        "changed": 284401
+      },
+      {
+        "view": 34,
+        "real": true,
+        "sse": 0.0,
+        "sae": 0.0,
+        "changed": 0
+      },
+      {
+        "view": 35,
+        "real": false,
+        "sse": 2983501864.0,
+        "sae": 18635338.0,
+        "changed": 313193
+      },
+      {
+        "view": 36,
+        "real": false,
+        "sse": 3902534281.0,
+        "sae": 23719619.0,
+        "changed": 334276
+      },
+      {
+        "view": 37,
+        "real": false,
+        "sse": 3466618041.0,
+        "sae": 20939801.0,
+        "changed": 284476
+      },
+      {
+        "view": 38,
+        "real": true,
+        "sse": 0.0,
+        "sae": 0.0,
+        "changed": 0
+      },
+      {
+        "view": 39,
+        "real": false,
+        "sse": 3208107052.0,
+        "sae": 19639260.0,
+        "changed": 320510
+      },
+      {
+        "view": 40,
+        "real": false,
+        "sse": 5406237618.0,
+        "sae": 33426446.0,
+        "changed": 354056
+      },
+      {
+        "view": 41,
+        "real": false,
+        "sse": 5368601543.0,
+        "sae": 34180637.0,
+        "changed": 319669
+      },
+      {
+        "view": 42,
+        "real": false,
+        "sse": 3377947606.0,
+        "sae": 22704184.0,
+        "changed": 343773
+      },
+      {
+        "view": 43,
+        "real": true,
+        "sse": 0.0,
+        "sae": 0.0,
+        "changed": 0
+      },
+      {
+        "view": 44,
+        "real": false,
+        "sse": 2105453689.0,
+        "sae": 14440541.0,
+        "changed": 305449
+      },
+      {
+        "view": 45,
+        "real": false,
+        "sse": 2954895960.0,
+        "sae": 19829010.0,
+        "changed": 322385
+      },
+      {
+        "view": 46,
+        "real": false,
+        "sse": 2812919903.0,
+        "sae": 18640201.0,
+        "changed": 285156
+      },
+      {
+        "view": 47,
+        "real": true,
+        "sse": 0.0,
+        "sae": 0.0,
+        "changed": 0
+      }
+    ],
+    "whole_quilt": {
+      "rgb_mae_8bit": 5.570213503307766,
+      "rgb_psnr_db": 18.520575665861724,
+      "changed_pixel_fraction": 0.22855103015899658,
+      "exact_rgb": false
+    },
+    "synthesized": {
+      "rgb_mae_8bit": 7.426951337743689,
+      "rgb_psnr_db": 17.271188299778725,
+      "changed_pixel_fraction": 0.3047347068786621,
+      "exact_rgb": false
+    },
+    "real_anchors": {
+      "rgb_mae_8bit": 0.0,
+      "rgb_psnr_db": null,
+      "changed_pixel_fraction": 0.0,
+      "exact_rgb": true
+    }
+  },
+  "16": {
+    "anchors": [
+      0,
+      3,
+      6,
+      9,
+      13,
+      16,
+      19,
+      22,
+      25,
+      28,
+      31,
+      34,
+      38,
+      41,
+      44,
+      47
+    ],
+    "per_view": [
+      {
+        "view": 0,
+        "real": true,
+        "sse": 0.0,
+        "sae": 0.0,
+        "changed": 0
+      },
+      {
+        "view": 1,
+        "real": false,
+        "sse": 2071911311.0,
+        "sae": 12268967.0,
+        "changed": 325278
+      },
+      {
+        "view": 2,
+        "real": false,
+        "sse": 1508403671.0,
+        "sae": 9235499.0,
+        "changed": 315216
+      },
+      {
+        "view": 3,
+        "real": true,
+        "sse": 0.0,
+        "sae": 0.0,
+        "changed": 0
+      },
+      {
+        "view": 4,
+        "real": false,
+        "sse": 2308879403.0,
+        "sae": 14160863.0,
+        "changed": 320750
+      },
+      {
+        "view": 5,
+        "real": false,
+        "sse": 1557307648.0,
+        "sae": 9780736.0,
+        "changed": 311594
+      },
+      {
+        "view": 6,
+        "real": true,
+        "sse": 0.0,
+        "sae": 0.0,
+        "changed": 0
+      },
+      {
+        "view": 7,
+        "real": false,
+        "sse": 2302206597.0,
+        "sae": 14148963.0,
+        "changed": 314533
+      },
+      {
+        "view": 8,
+        "real": false,
+        "sse": 1774213238.0,
+        "sae": 11157834.0,
+        "changed": 304400
+      },
+      {
+        "view": 9,
+        "real": true,
+        "sse": 0.0,
+        "sae": 0.0,
+        "changed": 0
+      },
+      {
+        "view": 10,
+        "real": false,
+        "sse": 2959766175.0,
+        "sae": 17997117.0,
+        "changed": 310462
+      },
+      {
+        "view": 11,
+        "real": false,
+        "sse": 4162460508.0,
+        "sae": 24669298.0,
+        "changed": 329019
+      },
+      {
+        "view": 12,
+        "real": false,
+        "sse": 3065229956.0,
+        "sae": 18539656.0,
+        "changed": 274422
+      },
+      {
+        "view": 13,
+        "real": true,
+        "sse": 0.0,
+        "sae": 0.0,
+        "changed": 0
+      },
+      {
+        "view": 14,
+        "real": false,
+        "sse": 1681175721.0,
+        "sae": 11079885.0,
+        "changed": 314594
+      },
+      {
+        "view": 15,
+        "real": false,
+        "sse": 1602143601.0,
+        "sae": 10728163.0,
+        "changed": 311881
+      },
+      {
+        "view": 16,
+        "real": true,
+        "sse": 0.0,
+        "sae": 0.0,
+        "changed": 0
+      },
+      {
+        "view": 17,
+        "real": false,
+        "sse": 1976160979.0,
+        "sae": 12433015.0,
+        "changed": 305084
+      },
+      {
+        "view": 18,
+        "real": false,
+        "sse": 2580835887.0,
+        "sae": 15367323.0,
+        "changed": 312521
+      },
+      {
+        "view": 19,
+        "real": true,
+        "sse": 0.0,
+        "sae": 0.0,
+        "changed": 0
+      },
+      {
+        "view": 20,
+        "real": false,
+        "sse": 2015526272.0,
+        "sae": 12684020.0,
+        "changed": 299440
+      },
+      {
+        "view": 21,
+        "real": false,
+        "sse": 1933436896.0,
+        "sae": 12184672.0,
+        "changed": 300312
+      },
+      {
+        "view": 22,
+        "real": true,
+        "sse": 0.0,
+        "sae": 0.0,
+        "changed": 0
+      },
+      {
+        "view": 23,
+        "real": false,
+        "sse": 2193561880.0,
+        "sae": 13810336.0,
+        "changed": 310523
+      },
+      {
+        "view": 24,
+        "real": false,
+        "sse": 2253265400.0,
+        "sae": 14222378.0,
+        "changed": 313626
+      },
+      {
+        "view": 25,
+        "real": true,
+        "sse": 0.0,
+        "sae": 0.0,
+        "changed": 0
+      },
+      {
+        "view": 26,
+        "real": false,
+        "sse": 1677247821.0,
+        "sae": 10973237.0,
+        "changed": 296278
+      },
+      {
+        "view": 27,
+        "real": false,
+        "sse": 1556689883.0,
+        "sae": 10618057.0,
+        "changed": 307023
+      },
+      {
+        "view": 28,
+        "real": true,
+        "sse": 0.0,
+        "sae": 0.0,
+        "changed": 0
+      },
+      {
+        "view": 29,
+        "real": false,
+        "sse": 1031556956.0,
+        "sae": 7381794.0,
+        "changed": 299824
+      },
+      {
+        "view": 30,
+        "real": false,
+        "sse": 1398356205.0,
+        "sae": 9558243.0,
+        "changed": 304715
+      },
+      {
+        "view": 31,
+        "real": true,
+        "sse": 0.0,
+        "sae": 0.0,
+        "changed": 0
+      },
+      {
+        "view": 32,
+        "real": false,
+        "sse": 1188442760.0,
+        "sae": 8331834.0,
+        "changed": 299739
+      },
+      {
+        "view": 33,
+        "real": false,
+        "sse": 1262731649.0,
+        "sae": 8761927.0,
+        "changed": 306025
+      },
+      {
+        "view": 34,
+        "real": true,
+        "sse": 0.0,
+        "sae": 0.0,
+        "changed": 0
+      },
+      {
+        "view": 35,
+        "real": false,
+        "sse": 2983501864.0,
+        "sae": 18635338.0,
+        "changed": 313193
+      },
+      {
+        "view": 36,
+        "real": false,
+        "sse": 3902534281.0,
+        "sae": 23719619.0,
+        "changed": 334276
+      },
+      {
+        "view": 37,
+        "real": false,
+        "sse": 3466618041.0,
+        "sae": 20939801.0,
+        "changed": 284476
+      },
+      {
+        "view": 38,
+        "real": true,
+        "sse": 0.0,
+        "sae": 0.0,
+        "changed": 0
+      },
+      {
+        "view": 39,
+        "real": false,
+        "sse": 1343856190.0,
+        "sae": 9171564.0,
+        "changed": 291276
+      },
+      {
+        "view": 40,
+        "real": false,
+        "sse": 1947012269.0,
+        "sae": 13033271.0,
+        "changed": 302010
+      },
+      {
+        "view": 41,
+        "real": true,
+        "sse": 0.0,
+        "sae": 0.0,
+        "changed": 0
+      },
+      {
+        "view": 42,
+        "real": false,
+        "sse": 1158005647.0,
+        "sae": 8334823.0,
+        "changed": 292681
+      },
+      {
+        "view": 43,
+        "real": false,
+        "sse": 2121197004.0,
+        "sae": 13569758.0,
+        "changed": 309943
+      },
+      {
+        "view": 44,
+        "real": true,
+        "sse": 0.0,
+        "sae": 0.0,
+        "changed": 0
+      },
+      {
+        "view": 45,
+        "real": false,
+        "sse": 887619380.0,
+        "sae": 6798000.0,
+        "changed": 279710
+      },
+      {
+        "view": 46,
+        "real": false,
+        "sse": 1268373079.0,
+        "sae": 9660159.0,
+        "changed": 292120
+      },
+      {
+        "view": 47,
+        "real": true,
+        "sse": 0.0,
+        "sae": 0.0,
+        "changed": 0
+      }
+    ],
+    "whole_quilt": {
+      "rgb_mae_8bit": 2.7415232525931463,
+      "rgb_psnr_db": 21.781934907724963,
+      "changed_pixel_fraction": 0.19444910685221353,
+      "exact_rgb": false
+    },
+    "synthesized": {
+      "rgb_mae_8bit": 4.11228487888972,
+      "rgb_psnr_db": 20.02102231716815,
+      "changed_pixel_fraction": 0.2916736602783203,
+      "exact_rgb": false
+    },
+    "real_anchors": {
+      "rgb_mae_8bit": 0.0,
+      "rgb_psnr_db": null,
+      "changed_pixel_fraction": 0.0,
+      "exact_rgb": true
+    }
+  },
+  "24": {
+    "anchors": [
+      0,
+      2,
+      4,
+      6,
+      8,
+      10,
+      12,
+      14,
+      16,
+      18,
+      20,
+      22,
+      25,
+      27,
+      29,
+      31,
+      33,
+      35,
+      37,
+      39,
+      41,
+      43,
+      45,
+      47
+    ],
+    "per_view": [
+      {
+        "view": 0,
+        "real": true,
+        "sse": 0.0,
+        "sae": 0.0,
+        "changed": 0
+      },
+      {
+        "view": 1,
+        "real": false,
+        "sse": 900352224.0,
+        "sae": 5854874.0,
+        "changed": 304685
+      },
+      {
+        "view": 2,
+        "real": true,
+        "sse": 0.0,
+        "sae": 0.0,
+        "changed": 0
+      },
+      {
+        "view": 3,
+        "real": false,
+        "sse": 1232118892.0,
+        "sae": 7710002.0,
+        "changed": 305278
+      },
+      {
+        "view": 4,
+        "real": true,
+        "sse": 0.0,
+        "sae": 0.0,
+        "changed": 0
+      },
+      {
+        "view": 5,
+        "real": false,
+        "sse": 851503367.0,
+        "sae": 5700533.0,
+        "changed": 300587
+      },
+      {
+        "view": 6,
+        "real": true,
+        "sse": 0.0,
+        "sae": 0.0,
+        "changed": 0
+      },
+      {
+        "view": 7,
+        "real": false,
+        "sse": 1178997607.0,
+        "sae": 7953241.0,
+        "changed": 299004
+      },
+      {
+        "view": 8,
+        "real": true,
+        "sse": 0.0,
+        "sae": 0.0,
+        "changed": 0
+      },
+      {
+        "view": 9,
+        "real": false,
+        "sse": 1256629402.0,
+        "sae": 8331182.0,
+        "changed": 297238
+      },
+      {
+        "view": 10,
+        "real": true,
+        "sse": 0.0,
+        "sae": 0.0,
+        "changed": 0
+      },
+      {
+        "view": 11,
+        "real": false,
+        "sse": 950145806.0,
+        "sae": 6312266.0,
+        "changed": 289796
+      },
+      {
+        "view": 12,
+        "real": true,
+        "sse": 0.0,
+        "sae": 0.0,
+        "changed": 0
+      },
+      {
+        "view": 13,
+        "real": false,
+        "sse": 1363487162.0,
+        "sae": 8605090.0,
+        "changed": 305622
+      },
+      {
+        "view": 14,
+        "real": true,
+        "sse": 0.0,
+        "sae": 0.0,
+        "changed": 0
+      },
+      {
+        "view": 15,
+        "real": false,
+        "sse": 1111005412.0,
+        "sae": 7406604.0,
+        "changed": 303398
+      },
+      {
+        "view": 16,
+        "real": true,
+        "sse": 0.0,
+        "sae": 0.0,
+        "changed": 0
+      },
+      {
+        "view": 17,
+        "real": false,
+        "sse": 1273373308.0,
+        "sae": 8176162.0,
+        "changed": 300590
+      },
+      {
+        "view": 18,
+        "real": true,
+        "sse": 0.0,
+        "sae": 0.0,
+        "changed": 0
+      },
+      {
+        "view": 19,
+        "real": false,
+        "sse": 1075218797.0,
+        "sae": 7062827.0,
+        "changed": 296671
+      },
+      {
+        "view": 20,
+        "real": true,
+        "sse": 0.0,
+        "sae": 0.0,
+        "changed": 0
+      },
+      {
+        "view": 21,
+        "real": false,
+        "sse": 1075205003.0,
+        "sae": 7003915.0,
+        "changed": 290290
+      },
+      {
+        "view": 22,
+        "real": true,
+        "sse": 0.0,
+        "sae": 0.0,
+        "changed": 0
+      },
+      {
+        "view": 23,
+        "real": false,
+        "sse": 2193561880.0,
+        "sae": 13810336.0,
+        "changed": 310523
+      },
+      {
+        "view": 24,
+        "real": false,
+        "sse": 2253265400.0,
+        "sae": 14222378.0,
+        "changed": 313626
+      },
+      {
+        "view": 25,
+        "real": true,
+        "sse": 0.0,
+        "sae": 0.0,
+        "changed": 0
+      },
+      {
+        "view": 26,
+        "real": false,
+        "sse": 967734958.0,
+        "sae": 6823440.0,
+        "changed": 290173
+      },
+      {
+        "view": 27,
+        "real": true,
+        "sse": 0.0,
+        "sae": 0.0,
+        "changed": 0
+      },
+      {
+        "view": 28,
+        "real": false,
+        "sse": 885446499.0,
+        "sae": 6183891.0,
+        "changed": 293976
+      },
+      {
+        "view": 29,
+        "real": true,
+        "sse": 0.0,
+        "sae": 0.0,
+        "changed": 0
+      },
+      {
+        "view": 30,
+        "real": false,
+        "sse": 866135567.0,
+        "sae": 6384965.0,
+        "changed": 294473
+      },
+      {
+        "view": 31,
+        "real": true,
+        "sse": 0.0,
+        "sae": 0.0,
+        "changed": 0
+      },
+      {
+        "view": 32,
+        "real": false,
+        "sse": 745717430.0,
+        "sae": 5584630.0,
+        "changed": 295544
+      },
+      {
+        "view": 33,
+        "real": true,
+        "sse": 0.0,
+        "sae": 0.0,
+        "changed": 0
+      },
+      {
+        "view": 34,
+        "real": false,
+        "sse": 671413732.0,
+        "sae": 5256738.0,
+        "changed": 292193
+      },
+      {
+        "view": 35,
+        "real": true,
+        "sse": 0.0,
+        "sae": 0.0,
+        "changed": 0
+      },
+      {
+        "view": 36,
+        "real": false,
+        "sse": 886321291.0,
+        "sae": 6154287.0,
+        "changed": 291972
+      },
+      {
+        "view": 37,
+        "real": true,
+        "sse": 0.0,
+        "sae": 0.0,
+        "changed": 0
+      },
+      {
+        "view": 38,
+        "real": false,
+        "sse": 966915255.0,
+        "sae": 6921347.0,
+        "changed": 291523
+      },
+      {
+        "view": 39,
+        "real": true,
+        "sse": 0.0,
+        "sae": 0.0,
+        "changed": 0
+      },
+      {
+        "view": 40,
+        "real": false,
+        "sse": 1018547666.0,
+        "sae": 6984082.0,
+        "changed": 280188
+      },
+      {
+        "view": 41,
+        "real": true,
+        "sse": 0.0,
+        "sae": 0.0,
+        "changed": 0
+      },
+      {
+        "view": 42,
+        "real": false,
+        "sse": 949711657.0,
+        "sae": 6351583.0,
+        "changed": 284491
+      },
+      {
+        "view": 43,
+        "real": true,
+        "sse": 0.0,
+        "sae": 0.0,
+        "changed": 0
+      },
+      {
+        "view": 44,
+        "real": false,
+        "sse": 734059539.0,
+        "sae": 5764991.0,
+        "changed": 276500
+      },
+      {
+        "view": 45,
+        "real": true,
+        "sse": 0.0,
+        "sae": 0.0,
+        "changed": 0
+      },
+      {
+        "view": 46,
+        "real": false,
+        "sse": 612209098.0,
+        "sae": 5510494.0,
+        "changed": 274757
+      },
+      {
+        "view": 47,
+        "real": true,
+        "sse": 0.0,
+        "sae": 0.0,
+        "changed": 0
+      }
+    ],
+    "whole_quilt": {
+      "rgb_mae_8bit": 1.1660645935270522,
+      "rgb_psnr_db": 25.767508806952918,
+      "changed_pixel_fraction": 0.14072851339975992,
+      "exact_rgb": false
+    },
+    "synthesized": {
+      "rgb_mae_8bit": 2.3321291870541043,
+      "rgb_psnr_db": 22.757208850313106,
+      "changed_pixel_fraction": 0.28145702679951984,
+      "exact_rgb": false
+    },
+    "real_anchors": {
+      "rgb_mae_8bit": 0.0,
+      "rgb_psnr_db": null,
+      "changed_pixel_fraction": 0.0,
+      "exact_rgb": true
+    }
+  },
+  "32": {
+    "anchors": [
+      0,
+      2,
+      3,
+      5,
+      6,
+      8,
+      9,
+      11,
+      12,
+      14,
+      15,
+      17,
+      18,
+      20,
+      21,
+      23,
+      24,
+      26,
+      27,
+      29,
+      30,
+      32,
+      33,
+      35,
+      36,
+      38,
+      39,
+      41,
+      42,
+      44,
+      45,
+      47
+    ],
+    "per_view": [
+      {
+        "view": 0,
+        "real": true,
+        "sse": 0.0,
+        "sae": 0.0,
+        "changed": 0
+      },
+      {
+        "view": 1,
+        "real": false,
+        "sse": 900352224.0,
+        "sae": 5854874.0,
+        "changed": 304685
+      },
+      {
+        "view": 2,
+        "real": true,
+        "sse": 0.0,
+        "sae": 0.0,
+        "changed": 0
+      },
+      {
+        "view": 3,
+        "real": true,
+        "sse": 0.0,
+        "sae": 0.0,
+        "changed": 0
+      },
+      {
+        "view": 4,
+        "real": false,
+        "sse": 1383700876.0,
+        "sae": 8677328.0,
+        "changed": 306863
+      },
+      {
+        "view": 5,
+        "real": true,
+        "sse": 0.0,
+        "sae": 0.0,
+        "changed": 0
+      },
+      {
+        "view": 6,
+        "real": true,
+        "sse": 0.0,
+        "sae": 0.0,
+        "changed": 0
+      },
+      {
+        "view": 7,
+        "real": false,
+        "sse": 1178997607.0,
+        "sae": 7953241.0,
+        "changed": 299004
+      },
+      {
+        "view": 8,
+        "real": true,
+        "sse": 0.0,
+        "sae": 0.0,
+        "changed": 0
+      },
+      {
+        "view": 9,
+        "real": true,
+        "sse": 0.0,
+        "sae": 0.0,
+        "changed": 0
+      },
+      {
+        "view": 10,
+        "real": false,
+        "sse": 847837855.0,
+        "sae": 5885643.0,
+        "changed": 289329
+      },
+      {
+        "view": 11,
+        "real": true,
+        "sse": 0.0,
+        "sae": 0.0,
+        "changed": 0
+      },
+      {
+        "view": 12,
+        "real": true,
+        "sse": 0.0,
+        "sae": 0.0,
+        "changed": 0
+      },
+      {
+        "view": 13,
+        "real": false,
+        "sse": 1363487162.0,
+        "sae": 8605090.0,
+        "changed": 305622
+      },
+      {
+        "view": 14,
+        "real": true,
+        "sse": 0.0,
+        "sae": 0.0,
+        "changed": 0
+      },
+      {
+        "view": 15,
+        "real": true,
+        "sse": 0.0,
+        "sae": 0.0,
+        "changed": 0
+      },
+      {
+        "view": 16,
+        "real": false,
+        "sse": 1072705215.0,
+        "sae": 7391511.0,
+        "changed": 299416
+      },
+      {
+        "view": 17,
+        "real": true,
+        "sse": 0.0,
+        "sae": 0.0,
+        "changed": 0
+      },
+      {
+        "view": 18,
+        "real": true,
+        "sse": 0.0,
+        "sae": 0.0,
+        "changed": 0
+      },
+      {
+        "view": 19,
+        "real": false,
+        "sse": 1075218797.0,
+        "sae": 7062827.0,
+        "changed": 296671
+      },
+      {
+        "view": 20,
+        "real": true,
+        "sse": 0.0,
+        "sae": 0.0,
+        "changed": 0
+      },
+      {
+        "view": 21,
+        "real": true,
+        "sse": 0.0,
+        "sae": 0.0,
+        "changed": 0
+      },
+      {
+        "view": 22,
+        "real": false,
+        "sse": 860918463.0,
+        "sae": 6142919.0,
+        "changed": 292439
+      },
+      {
+        "view": 23,
+        "real": true,
+        "sse": 0.0,
+        "sae": 0.0,
+        "changed": 0
+      },
+      {
+        "view": 24,
+        "real": true,
+        "sse": 0.0,
+        "sae": 0.0,
+        "changed": 0
+      },
+      {
+        "view": 25,
+        "real": false,
+        "sse": 1055433748.0,
+        "sae": 7361680.0,
+        "changed": 294429
+      },
+      {
+        "view": 26,
+        "real": true,
+        "sse": 0.0,
+        "sae": 0.0,
+        "changed": 0
+      },
+      {
+        "view": 27,
+        "real": true,
+        "sse": 0.0,
+        "sae": 0.0,
+        "changed": 0
+      },
+      {
+        "view": 28,
+        "real": false,
+        "sse": 885446499.0,
+        "sae": 6183891.0,
+        "changed": 293976
+      },
+      {
+        "view": 29,
+        "real": true,
+        "sse": 0.0,
+        "sae": 0.0,
+        "changed": 0
+      },
+      {
+        "view": 30,
+        "real": true,
+        "sse": 0.0,
+        "sae": 0.0,
+        "changed": 0
+      },
+      {
+        "view": 31,
+        "real": false,
+        "sse": 1588160232.0,
+        "sae": 9864856.0,
+        "changed": 300932
+      },
+      {
+        "view": 32,
+        "real": true,
+        "sse": 0.0,
+        "sae": 0.0,
+        "changed": 0
+      },
+      {
+        "view": 33,
+        "real": true,
+        "sse": 0.0,
+        "sae": 0.0,
+        "changed": 0
+      },
+      {
+        "view": 34,
+        "real": false,
+        "sse": 671413732.0,
+        "sae": 5256738.0,
+        "changed": 292193
+      },
+      {
+        "view": 35,
+        "real": true,
+        "sse": 0.0,
+        "sae": 0.0,
+        "changed": 0
+      },
+      {
+        "view": 36,
+        "real": true,
+        "sse": 0.0,
+        "sae": 0.0,
+        "changed": 0
+      },
+      {
+        "view": 37,
+        "real": false,
+        "sse": 598368207.0,
+        "sae": 4391543.0,
+        "changed": 287774
+      },
+      {
+        "view": 38,
+        "real": true,
+        "sse": 0.0,
+        "sae": 0.0,
+        "changed": 0
+      },
+      {
+        "view": 39,
+        "real": true,
+        "sse": 0.0,
+        "sae": 0.0,
+        "changed": 0
+      },
+      {
+        "view": 40,
+        "real": false,
+        "sse": 1018547666.0,
+        "sae": 6984082.0,
+        "changed": 280188
+      },
+      {
+        "view": 41,
+        "real": true,
+        "sse": 0.0,
+        "sae": 0.0,
+        "changed": 0
+      },
+      {
+        "view": 42,
+        "real": true,
+        "sse": 0.0,
+        "sae": 0.0,
+        "changed": 0
+      },
+      {
+        "view": 43,
+        "real": false,
+        "sse": 1264665719.0,
+        "sae": 8658297.0,
+        "changed": 289378
+      },
+      {
+        "view": 44,
+        "real": true,
+        "sse": 0.0,
+        "sae": 0.0,
+        "changed": 0
+      },
+      {
+        "view": 45,
+        "real": true,
+        "sse": 0.0,
+        "sae": 0.0,
+        "changed": 0
+      },
+      {
+        "view": 46,
+        "real": false,
+        "sse": 612209098.0,
+        "sae": 5510494.0,
+        "changed": 274757
+      },
+      {
+        "view": 47,
+        "real": true,
+        "sse": 0.0,
+        "sae": 0.0,
+        "changed": 0
+      }
+    ],
+    "whole_quilt": {
+      "rgb_mae_8bit": 0.7403228945202298,
+      "rgb_psnr_db": 27.777961366449546,
+      "changed_pixel_fraction": 0.09353272120157878,
+      "exact_rgb": false
+    },
+    "synthesized": {
+      "rgb_mae_8bit": 2.2209686835606894,
+      "rgb_psnr_db": 23.00674881925292,
+      "changed_pixel_fraction": 0.28059816360473633,
+      "exact_rgb": false
+    },
+    "real_anchors": {
+      "rgb_mae_8bit": 0.0,
+      "rgb_psnr_db": null,
+      "changed_pixel_fraction": 0.0,
+      "exact_rgb": true
+    }
+  },
+  "limitations": [
+    "Whole quilt compares the same 48 outputs; synthesized subsets differ between budgets.",
+    "8-bit gamma-mapped RGB; not perceptual/HDR/temporal quality.",
+    "One static opaque scene and one GPU; presets cannot be universal."
+  ]
+}

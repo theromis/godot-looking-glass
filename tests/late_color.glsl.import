@@ -1,0 +1,14 @@
+[remap]
+
+importer="glsl"
+type="RDShaderFile"
+uid="uid://dfjfp38blf8g"
+path="res://.godot/imported/late_color.glsl-1fe4362373c1172dd546842550528a43.res"
+
+[deps]
+
+source_file="res://tests/late_color.glsl"
+dest_files=["res://.godot/imported/late_color.glsl-1fe4362373c1172dd546842550528a43.res"]
+
+[params]
+

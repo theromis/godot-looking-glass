@@ -1,0 +1,14 @@
+[remap]
+
+importer="glsl"
+type="RDShaderFile"
+uid="uid://b75ol58sbdy8j"
+path="res://.godot/imported/depth_proxy.glsl-2c4f3764ab01db5dacbd40c4de2abd68.res"
+
+[deps]
+
+source_file="res://tests/depth_proxy.glsl"
+dest_files=["res://.godot/imported/depth_proxy.glsl-2c4f3764ab01db5dacbd40c4de2abd68.res"]
+
+[params]
+
