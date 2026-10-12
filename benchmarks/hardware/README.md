@@ -138,3 +138,13 @@ The compact 48-real lit 8×6 scene was repeated with subject Z centers/extents c
 ## Depth/cone tradeoff at 35-percent geometry depth
 
 The 48-real compact lit setup was repeated unchanged at depth factor 0.35 and reference cone 20°; the user reported less doubling but excessive flatness. At the user's requested 30° cone, with depth factor still 0.35, the user reported better volume but stronger doubling. Both API sessions passed; objects remain fully in frame (30° minimum margin 49.845 pixels). No setting satisfying both volume and ghosting requirements has been established. See [repeat](quilt48-depth035-repeat.json) and [30° control](quilt48-depth035-cone30.json).
+
+## Accepted scene-specific 40-degree depth-compressed setup
+
+The user-requested 40° reference-cone test retained depth factor 0.35, focus 5.6, compact subjects, display-aspect source views, angular spacing, lighting and shadow maps. The 48-real 8×6 session passed, with all subject bounds inside every camera and minimum margin 43.3149 source pixels. The user reported better volume and acceptable doubling. This is the first explicit acceptance of this particular compressed-depth compromise, not complete ghosting elimination or a universally valid calibration/preset.
+
+The reproducible configuration is saved in [accepted scene profile](accepted-lit48-profile.json); it does not automatically alter addon defaults. [Executed result](quilt48-depth035-cone40.json) retains the actual observation. Movement, transparency, arbitrary scenes and performance are still unvalidated for this profile.
+
+```sh
+GODOT_MTL_SYNC_MODE=none "$GODOT" --path . --rendering-driver metal --script tests/test_bridge_direct_target.gd -- --large --views=48 --real-views=48 --lit --view-cone=40 --focus=5.6 --display-aspect --angular-sampling --compact-objects --depth-scale=0.35
+```

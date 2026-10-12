@@ -235,3 +235,7 @@ A full-resolution 66-real grid on the convergence plane was user-confirmed stabl
 ### Optional angular and device-aspect controls
 
 `angular_view_sampling` and `source_view_size` allow independent reference-style camera spacing and camera aspect experiments. Neither changes the default when unset. The angular-only physical test retained slight doubling on some objects; the device-aspect-only test was reported somewhat better. Source-aspect correction renders 378×672 views into the same 372×682 quilt tiles, so resampling also changes. Geometry and synthesized fixture checks passed, but full optical correction and a combined-option hardware benefit remain unconfirmed. See [method and observations](native/bridge_metal/README.md#official-style-camera-controls).
+
+### Accepted static lit hardware example
+
+The user accepted the compact lit scene with 48 real views (8×6, 4096×4092), source aspect 9:16, angular sampling, convergence 5.6, reference cone 40° and subject depth factor 0.35: volume was better and double images acceptable. This is a scene-specific qualitative compromise, not elimination of ghosting or a default preset for all content. No motion/transparency/performance claim is made. The [complete configuration](benchmarks/hardware/accepted-lit48-profile.json) and [reproduction](benchmarks/hardware/README.md#accepted-scene-specific-40-degree-depth-compressed-setup) preserve the accepted example.

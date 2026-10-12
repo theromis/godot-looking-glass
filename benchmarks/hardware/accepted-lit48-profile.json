@@ -1,0 +1,62 @@
+{
+  "date": "2026-10-12",
+  "scope": "User-accepted static compact lit test scene only, not a universal addon/device default",
+  "reference_result": "quilt48-depth035-cone40.json",
+  "engine": "Godot 4.8 c61fc0118 native Metal",
+  "required_environment": {
+    "GODOT_MTL_SYNC_MODE": "none"
+  },
+  "sdk": "Looking Glass Bridge 2.6.3",
+  "real_views": 48,
+  "total_views": 48,
+  "grid": [
+    8,
+    6
+  ],
+  "quilt_size": [
+    4096,
+    4092
+  ],
+  "output_tile_size": [
+    512,
+    682
+  ],
+  "source_view_size": [
+    378,
+    672
+  ],
+  "projection_aspect": 0.5625,
+  "angular_view_sampling": true,
+  "vertical_fov_degrees": 35,
+  "near_clip": 0.1,
+  "far_clip": 40,
+  "reference_camera_cone_degrees": 40,
+  "focus_distance": 5.6,
+  "camera_span_reference_distance": 6,
+  "camera_rig_world_z": 6,
+  "subject_compact_layout": true,
+  "subject_depth_scale": 0.35,
+  "subject_depth_transform_plane_z": 0.4,
+  "lit": true,
+  "shadow_maps_enabled": true,
+  "device_calibration_modified": false,
+  "cli_arguments": [
+    "--large",
+    "--views=48",
+    "--real-views=48",
+    "--lit",
+    "--view-cone=40",
+    "--focus=5.6",
+    "--display-aspect",
+    "--angular-sampling",
+    "--compact-objects",
+    "--depth-scale=0.35"
+  ],
+  "limitations": [
+    "Qualitative scene-specific acceptance only",
+    "Residual double images remain acceptable rather than eliminated",
+    "Depth scale alters demo mesh geometry/normals; not a generic addon depthiness parameter",
+    "No motion/transparency validation with this configuration",
+    "No measured end-to-end FPS or consumer lifetime guarantee"
+  ]
+}
