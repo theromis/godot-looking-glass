@@ -1,0 +1,23 @@
+{
+  "date": "2026-10-12",
+  "engine": "Godot 4.8 c61fc0118 native Metal",
+  "sdk": "2.6.3",
+  "real_views": 36,
+  "total_views": 66,
+  "transparent_panel": false,
+  "poses": 8,
+  "duration_seconds": 20,
+  "requested_pose_cadence_hz": 5,
+  "quilt_size": [
+    704,
+    684
+  ],
+  "api_success": true,
+  "exit_code": 0,
+  "user_observation": "Pending",
+  "purpose": "Check whether denser anchors reduce opaque-scene angular discontinuity",
+  "limitations": [
+    "Finite prerecorded clip",
+    "No measured optical/angular error"
+  ]
+}

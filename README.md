@@ -211,3 +211,7 @@ A same-format 66-real reference was compared against 12/24/36 real-camera budget
 ### Physical angular continuity limitation
 
 The subsequent moving-box/alpha-panel comparison exposed a limitation: when the user rotated the monitor, the 24-real → 66 synthesized clip jumped between angular views, while the 66-real baseline transitioned smoothly. The earlier static 24-anchor image was reported approximately normal, but it does not validate angular continuity. Do not treat 24 anchors as a generally accepted display preset. Sparse source coverage and single-layer depth for transparency are hypotheses, not isolated causes. The next controlled checks should compare synthesized and all-real quilts without the alpha panel, then vary source budgets. See [repeated physical observations](benchmarks/hardware/transparency-repeat.json).
+
+### Opaque physical budget controls
+
+Removing the alpha panel did not eliminate user-observed angular jumps at 24 real cameras. The subsequent 48-real → 66-view opaque clip was reported smooth when rotating the monitor; the 36-camera assessment remains pending. Forty-eight is a visually accepted candidate for this scene, not a universal preset or a measured performance result. The minimum acceptable budget and cause of sparse-view discontinuities remain unresolved. See [hardware controls](benchmarks/hardware/README.md#opaque-angular-continuity-controls).

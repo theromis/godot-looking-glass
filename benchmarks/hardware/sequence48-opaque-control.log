@@ -1,0 +1,6 @@
+Godot Engine v4.8.dev.custom_build.c61fc0118 (2026-10-11 16:37:54 UTC) - https://godotengine.org
+Metal 4.0 - Forward+ - Using Device #0: Apple - Apple M4 (Apple9)
+Showing 8 immutable Godot poses for 20 seconds; real_views=48 transparency=false; orange box moves and rotates; no CPU quilt readback
+2026-10-12 07:54:50 [Error] 0x500 GL_INVALID_ENUM - invalid enumerant | prog=0 | activeTex=0 | boundTex2D=0 @ [SDK source location redacted]
+PASS real Bridge sequence API: eight immutable GPU-only quilt copies, bounded playback and release; no continuous-streaming claim
+process_exit=0
