@@ -24,7 +24,7 @@
     "fixture": true,
     "hardware": true
   },
-  "user_observation": "Pending",
+  "user_observation": "Rear sphere still shows stronger double images than the other spheres",
   "display_duration_seconds_requested": 20,
   "device_calibration_modified": false,
   "limitations": [
@@ -32,5 +32,7 @@
     "Rear/front positions differ in depth and screen location",
     "Same albedo does not guarantee equal displayed luminance under lighting",
     "No synthesized views or optical measurement"
-  ]
+  ],
+  "assessment": "Rear-object predominance persists with identical neutral albedos and shadow maps disabled; neither red color nor shadow maps alone explains the observation. Depth and screen position remain confounded",
+  "observation_limits": "User did not quantify absolute ghosting strength or improvement relative to previous runs"
 }
