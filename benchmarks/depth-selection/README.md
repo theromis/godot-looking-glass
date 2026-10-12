@@ -61,10 +61,10 @@ No frame-time gain is claimed. Extra candidate renders, synchronous texture/buff
 Import the project's shaders using Godot first. From project root, with Python Pillow/NumPy for the oracle and image evaluation:
 
 ```sh
-python3 benchmarks/depth-selection/run.py --godot /absolute/path/to/godot --results-dir benchmarks/depth-selection/new-costs
+python3 benchmarks/depth-selection/run.py --godot path/to/godot --results-dir benchmarks/depth-selection/new-costs
 python3 benchmarks/depth-selection/select_depth.py benchmarks/depth-selection/new-costs --output benchmarks/depth-selection/new-depth-only.json
 python3 benchmarks/depth-selection/add_oracle.py benchmarks/depth-selection/new-costs --depth-selections benchmarks/depth-selection/new-depth-only.json --output benchmarks/depth-selection/new-selections.json
-python3 benchmarks/depth-selection/run.py --godot /absolute/path/to/godot --results-dir benchmarks/depth-selection/new-validation --selections benchmarks/depth-selection/new-selections.json
+python3 benchmarks/depth-selection/run.py --godot path/to/godot --results-dir benchmarks/depth-selection/new-validation --selections benchmarks/depth-selection/new-selections.json
 python3 benchmarks/depth-selection/evaluate.py benchmarks/depth-selection/new-validation --costs benchmarks/depth-selection/new-costs --selections benchmarks/depth-selection/new-selections.json
 python3 benchmarks/interval-placement/test_optimize.py
 ```

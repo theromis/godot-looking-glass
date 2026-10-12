@@ -1,11 +1,11 @@
 # Disocclusion correspondence rescue
 
 ```sh
-python3 benchmarks/disocclusion/run.py --godot /Users/roman/work/godot-theromis-shadow-atlas-pr/bin/godot.macos.template_release.arm64 --tile 1024 --rendered --results-dir benchmarks/disocclusion/rendered1024
+python3 benchmarks/disocclusion/run.py --godot ../godot-theromis-shadow-atlas-pr/bin/godot.macos.template_release.arm64 --tile 1024 --rendered --results-dir benchmarks/disocclusion/rendered1024
 python3 benchmarks/disocclusion/quality.py benchmarks/disocclusion/rendered1024
 ```
 
-The quality script requires Pillow/NumPy; local bundled Python: `/Users/roman/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/bin/python3`.
+The quality script requires Pillow/NumPy; local bundled Python: `../../.cache/codex-runtimes/codex-primary-runtime/dependencies/python/bin/python3`.
 
 Opt-in `--rescue`; rig `disocclusion_rescue=false` by default. Separate canonical shaders `synthesize_rescue.glsl` and `synthesize_raw_depth_rescue.glsl`; baseline unchanged. Generated variants support existing workgroup and iteration selectors.
 

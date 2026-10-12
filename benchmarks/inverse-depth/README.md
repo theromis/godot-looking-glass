@@ -11,11 +11,11 @@ Optional `--inverse-depth`, default `rig.inverse_depth_reprojection=false`, sele
 Algebraically equivalent for positive finite perspective depth, but not necessarily floating-point equivalent: coefficient/product rounding affects UVs and early-exit equality, especially at sampling boundaries. Ordinary shaders remain canonical; inverse mode is opt-in. TAA/additional-effect snapshot fallback copies raw depth, preserving interpretation.
 
 ```sh
-python3 benchmarks/inverse-depth/run.py --godot /Users/roman/work/godot-theromis-shadow-atlas-pr/bin/godot.macos.template_release.arm64 --tile 1024 --rendered --results-dir benchmarks/inverse-depth/rendered1024
+python3 benchmarks/inverse-depth/run.py --godot ../godot-theromis-shadow-atlas-pr/bin/godot.macos.template_release.arm64 --tile 1024 --rendered --results-dir benchmarks/inverse-depth/rendered1024
 python3 benchmarks/inverse-depth/quality.py benchmarks/inverse-depth/rendered1024
 ```
 
-Quality.py needs NumPy/Pillow; local bundled Python `/Users/roman/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/bin/python3`. generate_workgroups.py generates shader variants for import in Godot before running.
+Quality.py needs NumPy/Pillow; local bundled Python `../../.cache/codex-runtimes/codex-primary-runtime/dependencies/python/bin/python3`. generate_workgroups.py generates shader variants for import in Godot before running.
 
 A/B: Apple M4, Godot 4.8-dev, Vulkan/MoltenVK, 24 real → 48 output, 1024², 512 static MultiMesh boxes, foreground bars/multiple depths, four shared-atlas SpotLights. Borrowed color/raw depth, current safety policy, profiling on, 8×8, 8 iterations, rescue off. Three alternating pairs; 90 warmup + 240 observed intervals. Equal quilt markers; GPU mean includes startup, not whole-frame GPU time. First-pair PNGs compared numerically by synthesized tiles/anchors; fresh 48-real reference uses the same HDR→simple-gamma transfer.
 

@@ -54,9 +54,9 @@ The analytical GPU test uses a constant-depth plane with known zero, opposite an
 Import the project shaders first using the Godot editor. From project root (image analysis requires Python with Pillow/NumPy):
 
 ```sh
-python3 benchmarks/depth-proxy/run.py --godot /absolute/path/to/godot --results-dir benchmarks/depth-proxy/new-results --grid=64 --motion
+python3 benchmarks/depth-proxy/run.py --godot path/to/godot --results-dir benchmarks/depth-proxy/new-results --grid=64 --motion
 python3 benchmarks/depth-proxy/analyze.py benchmarks/depth-proxy/new-results
-python3 benchmarks/depth-proxy/run.py --godot /absolute/path/to/godot --results-dir benchmarks/depth-proxy/new-dense --grid=256 --motion
+python3 benchmarks/depth-proxy/run.py --godot path/to/godot --results-dir benchmarks/depth-proxy/new-dense --grid=256 --motion
 python3 benchmarks/depth-proxy/analyze.py benchmarks/depth-proxy/new-dense
 /path/to/godot --path . --rendering-driver vulkan --script res://tests/test_depth_proxy_analytic.gd
 ```

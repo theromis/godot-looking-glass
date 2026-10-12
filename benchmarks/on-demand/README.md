@@ -24,8 +24,8 @@ Accumulating TAA/FSR2, temporal GI, shader TIME and particles are untested. One 
 `tests/test_on_demand.gd` compares raw GPU quilts with continuous rendering for copy, borrowed color and borrowed color+depth. Tests cover initial output, no idle captures/compute, request coalescing, object/material/light changes, rig motion, source-buffer resize and release. Odd tile size 65×67; exact pixel equality required throughout.
 
 ```sh
-python3 tests/run_checks.py --godot /absolute/path/to/latest/godot
-python3 benchmarks/on-demand/run.py --godot /absolute/path/to/latest/godot --results-dir benchmarks/on-demand/static1024
+python3 tests/run_checks.py --godot path/to/latest/godot
+python3 benchmarks/on-demand/run.py --godot path/to/latest/godot --results-dir benchmarks/on-demand/static1024
 ```
 
 Demo: `--views=48 --real=24 --tile=1024 --borrow-depth --static --opaque --on-demand`. Animation and `--rendered-benchmark` are rejected with on-demand: idle quilt updates do not advance, so that benchmark would never finish.

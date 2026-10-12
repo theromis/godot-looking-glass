@@ -9,9 +9,9 @@ This optional diagnostic path reduces four unsigned counters per workgroup to fo
 Run only the latest local Godot build:
 
 ```sh
-python3 benchmarks/depth-reduction/run.py --godot /absolute/path/to/godot --results-dir benchmarks/depth-reduction/isolation1024 --isolate
-python3 benchmarks/depth-reduction/run.py --godot /absolute/path/to/godot --results-dir benchmarks/depth-reduction/runtime1024
-python3 tests/run_checks.py --godot /absolute/path/to/godot
+python3 benchmarks/depth-reduction/run.py --godot path/to/godot --results-dir benchmarks/depth-reduction/isolation1024 --isolate
+python3 benchmarks/depth-reduction/run.py --godot path/to/godot --results-dir benchmarks/depth-reduction/runtime1024
+python3 tests/run_checks.py --godot path/to/godot
 ```
 
 The GPU series uses three rotated repeats per mode, 30 warmup and 60 measured updates. Explicit 4-byte buffer copies establish encoder boundaries around the probe on MoltenVK; an empty scope provides calibration. These are scoped GPU measurements including encoder transitions, not isolated shader instruction timing. The runtime series uses three rotated repeats, 90 warmup and 240 measured updates, with asynchronous feedback every 16 updates. It measures CPU decoding separately from callback arrival latency. Runtime timestamp deltas without encoder isolation are not valid standalone GPU timings on this driver.

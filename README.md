@@ -2,23 +2,25 @@
 
 Standalone research addon and demo for Godot 4: off-axis cameras, GPU quilt preview, experimental GPU depth synthesis, and Bridge detection. Unity/Looking Glass code and SDK binaries are not included in the project.
 
-Executed on Godot 4.5.1, Apple M4, Vulkan Forward+ through MoltenVK. The project is at `/Users/roman/work/godot-looking-glass`; the user's engine sources at `/Users/roman/work/godot` (4.8-dev) were inspected, and an optional experimental shared positional shadow patch was added (see `engine-patches/README.md`). Physical Looking Glass output is unverified: Bridge reports 0 calibrated LKG devices. Native GPU texture submission to Bridge is not implemented yet.
+Executed on Godot 4.5.1, Apple M4, Vulkan Forward+ through MoltenVK. The project runs from the repository root (`.`); engine sources in the optional sibling checkout `../godot` (4.8-dev) were inspected, and an optional experimental shared positional shadow patch was added (see `engine-patches/README.md`). Physical Looking Glass output is unverified: Bridge reports 0 calibrated LKG devices. Native GPU texture submission to Bridge is not implemented yet.
 
 ## Running
+
+Run the commands below from the repository root. Command arguments, inventory paths and archived artifact paths are relative to that root; Markdown links are relative to their document. External engine/reference checkouts are optional sibling directories (`../godot`, `../looking-glass-reference`, `../Looking.Glass.Plugin.4.0.1-alpha-6.1`). Historical system-library paths in diagnostic logs are normalized relative to the original repository root; they are provenance, not runtime configuration. Benchmark measurements and artifact hashes are unchanged. Set the Godot executable and Python environment to your local installation; no user-specific installation path is required.
 
 Open `project.godot` in Godot 4.5+ and press F6/F5. The default is 12 real views and a quilt preview; no hardware is required. Import shaders before the first command-line run.
 
 ```sh
-GODOT_LG_BIN="/Users/roman/work/tools/Godot.app/Contents/MacOS/Godot"
-"$GODOT_LG_BIN" --headless --path /Users/roman/work/godot-looking-glass --editor --import --quit
-"$GODOT_LG_BIN" --path /Users/roman/work/godot-looking-glass --rendering-driver vulkan
+GODOT_LG_BIN=godot  # Godot on PATH, or a relative path to your chosen binary
+"$GODOT_LG_BIN" --headless --path . --editor --import --quit
+"$GODOT_LG_BIN" --path . --rendering-driver vulkan
 # 12 output views, 4 real: experimental compute
-"$GODOT_LG_BIN" --path /Users/roman/work/godot-looking-glass --rendering-driver vulkan -- --views=12 --real=4 --tile=128
+"$GODOT_LG_BIN" --path . --rendering-driver vulkan -- --views=12 --real=4 --tile=128
 # Bridge device detection, without native optical output
-"$GODOT_LG_BIN" --path /Users/roman/work/godot-looking-glass --rendering-driver vulkan -- --bridge
+"$GODOT_LG_BIN" --path . --rendering-driver vulkan -- --bridge
 ```
 
-Arguments after `--`: `--borrow-color` (experimental direct HDR color access), `--rendered-benchmark` (samples quilt updates; use --static for comparable captures), `--objects=N` (0–4096 additional identical objects), `--batch-objects` (combine them into a MultiMesh), `--no-viewport-timing` (benchmark without viewport timestamps), `--profile-passes` (detailed intervals; requires engine flag `--gpu-profile` before `--`), `--views=N` (1–48), `--real=N` (enables synthesis; endpoints are always real), `--tile=N` (square tile), `--static`, `--opaque`, `--positional-lights=N`, `--no-positional-shadows`, `--fixed-motion`, `--no-mesh-lod`, `--shared-shadows`, `--bridge`, `--calibration=/absolute/path/visual.json`, `--benchmark=res://benchmarks/run.json`, `--capture=res://benchmarks/run.png`. Without `--tile`, tiles are 192×256. CLI applies views before real; use this argument order. Before running arbitrary scenes, configure cone/FOV/focus/near/far/grid/resolution exports in `rig.gd`. Recreate the rig to change configuration at runtime.
+Arguments after `--`: `--borrow-color` (experimental direct HDR color access), `--rendered-benchmark` (samples quilt updates; use --static for comparable captures), `--objects=N` (0–4096 additional identical objects), `--batch-objects` (combine them into a MultiMesh), `--no-viewport-timing` (benchmark without viewport timestamps), `--profile-passes` (detailed intervals; requires engine flag `--gpu-profile` before `--`), `--views=N` (1–48), `--real=N` (enables synthesis; endpoints are always real), `--tile=N` (square tile), `--static`, `--opaque`, `--positional-lights=N`, `--no-positional-shadows`, `--fixed-motion`, `--no-mesh-lod`, `--shared-shadows`, `--bridge`, `--calibration=calibration/visual.json`, `--benchmark=res://benchmarks/run.json`, `--capture=res://benchmarks/run.png`. Without `--tile`, tiles are 192×256. CLI applies views before real; use this argument order. Before running arbitrary scenes, configure cone/FOV/focus/near/far/grid/resolution exports in `rig.gd`. Recreate the rig to change configuration at runtime.
 
 ## Addon integration
 
@@ -46,7 +48,7 @@ Use all-real rendering as the reference. Synthesis cannot recover hidden geometr
 ## Tests and measurements
 
 ```sh
-python3 /Users/roman/work/godot-looking-glass/tests/run_checks.py --godot /Users/roman/work/tools/Godot.app/Contents/MacOS/Godot
+python3 tests/run_checks.py --godot "$GODOT_LG_BIN"
 ```
 
 The suite checks the focal plane, FOV, near/far disparity, 1/2/12/47/48-view quilt dimensions, analytical GPU planar synthesis with both displacement signs, and a Bridge HTTP fixture on port 33335. The fixture stops automatically; the port must be available. GPU tests require the windowed Vulkan renderer. Logs contain PASS; the runner rejects errors even when Godot exits with code 0.
@@ -60,7 +62,7 @@ One opaque static scene: 48 output/48 real views took 35.817 ms/frame; 48 output
 - [performance-optimization.md](docs/performance-optimization.md): measurements, tradeoffs and benchmark campaign plan.
 - [implementation-roadmap.md](docs/implementation-roadmap.md): completed work, next steps and readiness criteria.
 
-The official archive/reference is stored separately in `/Users/roman/work/looking-glass-reference`. Do not include it in an open-source addon release. New code is MIT-licensed; external reference implementations and installed runtime libraries retain their own licenses. Research is not permission to copy proprietary source.
+The official archive/reference is stored separately in `../looking-glass-reference`. Do not include it in an open-source addon release. New code is MIT-licensed; external reference implementations and installed runtime libraries retain their own licenses. Research is not permission to copy proprietary source.
 
 After CPU optimization (3 before/after runs), compute submission takes 0.0225 rather than 0.327 ms; the reference quilt matches byte-for-byte. A significant whole-scene speedup is not established. Data: `benchmarks/optimization/summary.json`.
 

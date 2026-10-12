@@ -1,7 +1,7 @@
 {
   "base_commit": "232e6b14abf6e590b41d60f11704e42de22bff72",
   "patch_sha256": "84e549b4da19e865b1a31dc2d71fd6d5e142224062d0a50529aa59e3fd8a613a",
-  "binary": "/Users/roman/work/godot/bin/godot.macos.template_release.arm64",
+  "binary": "../godot/bin/godot.macos.template_release.arm64",
   "binary_sha256": "e3f0117c1da12d25f8ed25fe28ebae6595db1efff1960ee01360ed745e594ced",
   "successful_build_log": "benchmarks/optimization/engine-build-path.log",
   "driver": "Vulkan/MoltenVK 1.2.334",

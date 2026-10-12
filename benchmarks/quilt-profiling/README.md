@@ -7,7 +7,7 @@ Demo enables profiling for benchmarks and `--profile-passes`/`--profile-quilt`. 
 GPU/CPU arrays are bounded by `profiling_sample_limit` (default 480, range 1..4096), then overwritten as rings without pop_front or array shifts. Full-buffer order is not chronological; demo aggregates means. CPU samples start after 90 dispatches; GPU samples include startup. Disabled arrays are empty, durations null (not 0), timestamp_pairs=0.
 
 ```sh
-python3 benchmarks/quilt-profiling/run.py --godot /Users/roman/work/godot-theromis-shadow-atlas-pr/bin/godot.macos.template_release.arm64 --tile 1024 --rendered --results-dir benchmarks/quilt-profiling/rendered1024
+python3 benchmarks/quilt-profiling/run.py --godot ../godot-theromis-shadow-atlas-pr/bin/godot.macos.template_release.arm64 --tile 1024 --rendered --results-dir benchmarks/quilt-profiling/rendered1024
 python3 tests/run_checks.py --godot /path/to/godot --driver vulkan
 ```
 

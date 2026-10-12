@@ -1,6 +1,6 @@
 # Experiment: shared positional shadow atlas
 
-Patch to MIT Godot sources, base `232e6b14abf6e590b41d60f11704e42de22bff72` (4.8-dev). No Looking Glass/Unity code used. Original checkout `/Users/roman/work/godot`; separate patch for review/porting.
+Patch to MIT Godot sources, base `232e6b14abf6e590b41d60f11704e42de22bff72` (4.8-dev). No Looking Glass/Unity code used. Original checkout `../godot`; separate patch for review/porting.
 
 Added `RenderingServer.viewport_set_positional_shadow_atlas_shared_from(viewport, source)`, default off. Empty RID disables sharing. Each viewport retains its own atlas ownership; source always uses its own. Chains/cycles disallowed; removed source RID automatically falls back.
 
@@ -18,16 +18,16 @@ Sources: `RendererViewport::_draw_3d`, `servers/rendering/renderer_viewport.cpp:
 
 ## Build in this environment
 
-SCons in `/Users/roman/work/tools/godot-build-venv`; Homebrew `/opt/homebrew/lib/libMoltenVK.a` linked through SDK layout `/Users/roman/work/tools/mvk-sdk/macos-arm64/libMoltenVK.a`.
+SCons in `../tools/godot-build-venv`; Homebrew `libMoltenVK.a` linked through SDK layout `../tools/mvk-sdk/macos-arm64/libMoltenVK.a`.
 
 ```sh
-cd /Users/roman/work/godot
-/Users/roman/work/tools/godot-build-venv/bin/scons \
+(cd ../godot
+../tools/godot-build-venv/bin/scons \
   platform=macos target=template_release arch=arm64 disable_path_overrides=no \
-  vulkan_sdk_path=/Users/roman/work/tools/mvk-sdk accesskit=no metal=no \
+  vulkan_sdk_path=../tools/mvk-sdk accesskit=no metal=no \
   modules_enabled_by_default=no module_gdscript_enabled=yes \
   module_text_server_fb_enabled=yes module_freetype_enabled=yes \
-  module_godot_physics_3d_enabled=yes module_glslang_enabled=yes -j8
+  module_godot_physics_3d_enabled=yes module_glslang_enabled=yes -j8)
 ```
 
 Minimal runtime, not editor. Shaders were pre-imported with official 4.5.1. Native Metal excluded; Vulkan/MoltenVK tested.
@@ -35,10 +35,9 @@ Minimal runtime, not editor. Shaders were pre-imported with official 4.5.1. Nati
 ## Comparison
 
 ```sh
-cd /Users/roman/work/godot-looking-glass
-python3 benchmarks/engine-shadows/run.py /Users/roman/work/godot/bin/godot.macos.template_release.arm64
+python3 benchmarks/engine-shadows/run.py ../godot/bin/godot.macos.template_release.arm64
 python3 benchmarks/engine-shadows/summarize.py
-/Users/roman/work/godot/bin/godot.macos.template_release.arm64 \
+../godot/bin/godot.macos.template_release.arm64 \
   --path benchmarks/engine-shadows/project --rendering-driver vulkan \
   --script res://tests/test_shared_shadows.gd
 ```

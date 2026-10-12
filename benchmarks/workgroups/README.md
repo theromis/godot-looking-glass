@@ -1,7 +1,7 @@
 # Compute workgroups A/B/C
 
 ```sh
-python3 benchmarks/workgroups/run.py --godot /Users/roman/work/godot-theromis-shadow-atlas-pr/bin/godot.macos.template_release.arm64 --tile 1024 --rendered --results-dir benchmarks/workgroups/rendered1024
+python3 benchmarks/workgroups/run.py --godot ../godot-theromis-shadow-atlas-pr/bin/godot.macos.template_release.arm64 --tile 1024 --rendered --results-dir benchmarks/workgroups/rendered1024
 ```
 
 Compare 8×8 (64 invocations), 16×8 (128), 16×16 (256). Only local size/dispatch grid change; algorithm/capture/scene fixed. Selector `--workgroup=8x8|16x8|16x16`, export `synthesis_workgroup`. Default 8×8 until other-GPU testing. Shaders imported beforehand; compilation excluded. After canonical changes, run `python3 addons/looking_glass/shaders/generate_workgroups.py` and editor import.

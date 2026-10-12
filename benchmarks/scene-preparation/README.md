@@ -3,8 +3,8 @@
 Apple M4, patched 4.8-dev, Vulkan/MoltenVK. 512 additional static cubes, one shared BoxMesh/material, identical transforms; original moving caster and four SpotLights. Shared positional shadows enabled throughout. Native Metal, other GPUs and physical Looking Glass untested.
 
 ```sh
-python3 /Users/roman/work/godot-looking-glass/benchmarks/scene-preparation/run.py --godot /Users/roman/work/godot-theromis-shadow-atlas-pr/bin/godot.macos.template_release.arm64
-python3 /Users/roman/work/godot-looking-glass/benchmarks/scene-preparation/run.py --godot /Users/roman/work/godot-theromis-shadow-atlas-pr/bin/godot.macos.template_release.arm64 --suite synthesis
+python3 benchmarks/scene-preparation/run.py --godot ../godot-theromis-shadow-atlas-pr/bin/godot.macos.template_release.arm64
+python3 benchmarks/scene-preparation/run.py --godot ../godot-theromis-shadow-atlas-pr/bin/godot.macos.template_release.arm64 --suite synthesis
 ```
 
 Runner creates an isolated project with tighter caster culling disabled and requires experimental shared-shadow API. Import the main project first as documented in README. No concurrent GPU load. Three repeats per mode, 90 warmup + 240 samples; reruns overwrite that suite.

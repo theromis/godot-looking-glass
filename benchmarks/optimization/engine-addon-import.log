@@ -39,7 +39,7 @@ ERROR: Condition "ret != noErr" is true. Returning: ""
 [   0% ] [90m[1mloading_editor_layout[22m | Loading editor layout...[39m[0m
 [92m[ DONE ][39m [1mloading_editor_layout[22m
 [0m
-ERROR: Cannot save file '/Users/roman/Library/Application Support/Godot/editor_settings-4.5.tres'.
+ERROR: Cannot save file '../../Library/Application Support/Godot/editor_settings-4.5.tres'.
    at: save (scene/resources/resource_format_text.cpp:1715)
-ERROR: Error saving editor settings to /Users/roman/Library/Application Support/Godot/editor_settings-4.5.tres
+ERROR: Error saving editor settings to ../../Library/Application Support/Godot/editor_settings-4.5.tres
    at: save (editor/settings/editor_settings.cpp:1387)

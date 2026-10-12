@@ -1,6 +1,6 @@
-ERROR: Could not create directory: '/Users/roman/Library/Application Support/Godot/app_userdata/Looking Glass Godot Lab'.
+ERROR: Could not create directory: '../../Library/Application Support/Godot/app_userdata/Looking Glass Godot Lab'.
    at: make_dir_recursive (core/io/dir_access.cpp:178)
-ERROR: Error attempting to create data dir: /Users/roman/Library/Application Support/Godot/app_userdata/Looking Glass Godot Lab.
+ERROR: Error attempting to create data dir: ../../Library/Application Support/Godot/app_userdata/Looking Glass Godot Lab.
    at: ensure_user_data_dir (core/os/os.cpp:418)
 ERROR: Could not create directory: 'user://logs'.
    at: make_dir_recursive (core/io/dir_access.cpp:178)

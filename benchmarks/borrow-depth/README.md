@@ -3,7 +3,7 @@
 Experimental `--borrow-depth` also enables `--borrow-color`. Capture retains RenderSceneBuffersRD and source color/depth RIDs, refreshes them each callback, and never frees engine-owned textures. There is no separate capture compute pass. Synthesis converts reverse-Z to linear depth on each read; the ordinary shader and default copy path are retained.
 
 ```sh
-python3 benchmarks/borrow-depth/run.py --godot /Users/roman/work/godot-theromis-shadow-atlas-pr/bin/godot.macos.template_release.arm64 --tile 1024 --rendered --results-dir benchmarks/borrow-depth/rendered1024
+python3 benchmarks/borrow-depth/run.py --godot ../godot-theromis-shadow-atlas-pr/bin/godot.macos.template_release.arm64 --tile 1024 --rendered --results-dir benchmarks/borrow-depth/rendered1024
 ```
 
 Both modes read borrowed HDR color. `linear` copies depth into an owned R32F texture; `raw` reads source depth. Static scene: 512 MultiMesh boxes, four SpotLights, shared shadow atlas, 24 real → 48 output. Three pairs with alternating order. 90 warmup + 240 observed quilt-update intervals. Dispatch counts, timestamp samples, runtime errors and PNG SHA256 are checked.

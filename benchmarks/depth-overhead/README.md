@@ -65,9 +65,9 @@ The normal addon has no enabled depth-analysis controller and still produces its
 Import project shaders first. Run tests/benchmarks sequentially, with no concurrent GPU workload or CPU image analysis:
 
 ```sh
-python3 benchmarks/depth-overhead/run.py --godot /absolute/path/to/current-4.8 --results-dir benchmarks/depth-overhead/new-isolation --isolate
-python3 benchmarks/depth-overhead/run.py --godot /absolute/path/to/current-4.8 --results-dir benchmarks/depth-overhead/new-runtime
-python3 tests/run_checks.py --godot /absolute/path/to/current-4.8 --driver vulkan
+python3 benchmarks/depth-overhead/run.py --godot path/to/current-4.8 --results-dir benchmarks/depth-overhead/new-isolation --isolate
+python3 benchmarks/depth-overhead/run.py --godot path/to/current-4.8 --results-dir benchmarks/depth-overhead/new-runtime
+python3 tests/run_checks.py --godot path/to/current-4.8 --driver vulkan
 ```
 
 The runner rejects older engine versions, missing compute work, missing isolated timestamp samples, incorrect counter bounds, pending async callbacks and changed quilts. `isolation1024/` and `runtime1024/` retain JSON, logs, PNGs and summaries; `source-snapshot/` and `source-sha256.json` preserve measured implementation. `rendered1024/` contains the preliminary partial series that stopped at the synchronous timeout; it is not the accepted matrix. The debug stack/log and smoke results are diagnostic evidence, not substitutes for the accepted scenes.

@@ -24,7 +24,7 @@ You can install them by running `python3 misc/scripts/install_angle.py`.
 See the documentation for more information:
 	https://docs.godotengine.org/en/latest/engine_details/development/compiling/compiling_for_macos.html#compiling-with-angle-support
 Alternatively, disable this driver by compiling with `angle=no` explicitly.
-MoltenVK found at: /Users/roman/work/tools/mvk-sdk
+MoltenVK found at: ../tools/mvk-sdk
 Building for platform "macos", architecture "arm64", target "template_release".
 scons: done reading SConscript files.
 scons: Building targets ...

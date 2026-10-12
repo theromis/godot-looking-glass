@@ -23,11 +23,11 @@ Native Metal 3.2/Forward+ initialized but compute demo exceeded 60 seconds and w
 ## Reproduction
 
 ```sh
-GODOT_LG_BIN="/Users/roman/work/tools/Godot.app/Contents/MacOS/Godot"
-"$GODOT_LG_BIN" --headless --path /Users/roman/work/godot-looking-glass --editor --import --quit
-"$GODOT_LG_BIN" --path /Users/roman/work/godot-looking-glass --rendering-driver vulkan -- --views=48 --tile=128 --static --opaque --benchmark=res://benchmarks/real48.json --capture=res://benchmarks/real48.png
-"$GODOT_LG_BIN" --path /Users/roman/work/godot-looking-glass --rendering-driver vulkan -- --views=48 --real=12 --tile=128 --static --opaque --benchmark=res://benchmarks/synth48.json --capture=res://benchmarks/synth48.png
-"$GODOT_LG_BIN" --headless --path /Users/roman/work/godot-looking-glass --script res://tests/compare_quilts.gd
+GODOT_LG_BIN="../tools/Godot.app/Contents/MacOS/Godot"
+"$GODOT_LG_BIN" --headless --path . --editor --import --quit
+"$GODOT_LG_BIN" --path . --rendering-driver vulkan -- --views=48 --tile=128 --static --opaque --benchmark=res://benchmarks/real48.json --capture=res://benchmarks/real48.png
+"$GODOT_LG_BIN" --path . --rendering-driver vulkan -- --views=48 --real=12 --tile=128 --static --opaque --benchmark=res://benchmarks/synth48.json --capture=res://benchmarks/synth48.png
+"$GODOT_LG_BIN" --headless --path . --script res://tests/compare_quilts.gd
 ```
 
 Run sequentially with visible active window; PNG readback occurs after measurements. Robust claims need at least 5 shuffled repeats, matched thermal/power/resolution/shadow/GI/MSAA state and uncapped pacing/separate GPU capture. Exclude GPU warmup throughout. That full campaign has not been completed here.

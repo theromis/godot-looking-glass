@@ -18,7 +18,7 @@ Raw runs, logs, images and timestamp sample counts: `rendered1024/`. The uniform
 From project root, with the optional shared-shadow engine patch and Python Pillow/NumPy for image analysis:
 
 ```sh
-python3 benchmarks/anchor-placement/run.py --godot /absolute/path/to/godot --rendered --results-dir benchmarks/anchor-placement/new-results
+python3 benchmarks/anchor-placement/run.py --godot path/to/godot --rendered --results-dir benchmarks/anchor-placement/new-results
 python3 benchmarks/anchor-placement/quality.py benchmarks/anchor-placement/new-results --reference benchmarks/view-budget/rendered1024/reference.png
 ```
 

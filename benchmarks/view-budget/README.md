@@ -1,11 +1,11 @@
 # Real-view budget: speed and quality
 
 ```sh
-python3 benchmarks/view-budget/run.py --godot /Users/roman/work/godot-theromis-shadow-atlas-pr/bin/godot.macos.template_release.arm64 --tile 1024 --rendered --results-dir benchmarks/view-budget/rendered1024
+python3 benchmarks/view-budget/run.py --godot ../godot-theromis-shadow-atlas-pr/bin/godot.macos.template_release.arm64 --tile 1024 --rendered --results-dir benchmarks/view-budget/rendered1024
 python3 benchmarks/view-budget/quality.py benchmarks/view-budget/rendered1024
 ```
 
-Quality.py requires NumPy/Pillow; local bundled Python `/Users/roman/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/bin/python3`. Main runner uses the standard library.
+Quality.py requires NumPy/Pillow; local bundled Python `../../.cache/codex-runtimes/codex-primary-runtime/dependencies/python/bin/python3`. Main runner uses the standard library.
 
 Apple M4 / 4.8-dev / Vulkan-MoltenVK. Uniform real budgets 12/16/24/32, identical 48 outputs, 1024². Opaque static scene: 512 MultiMesh boxes, foreground bars/multiple depths, four shared-atlas SpotLights. Borrowed raw color/depth with production snapshot policy, ordinary depth math, 8 iterations, 8×8, rescue off. Viewport timestamps off, quilt profiling on. Three cyclic orders: 12/16/24/32, 16/24/32/12, 24/32/12/16; 90 warmup + 240 observed intervals. GPU quilt means include startup, not whole-frame GPU time.
 

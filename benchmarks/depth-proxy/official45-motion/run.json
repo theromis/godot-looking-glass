@@ -1,14 +1,14 @@
 {
   "command": [
-    "/Users/roman/work/tools/Godot.app/Contents/MacOS/Godot",
+    "../tools/Godot.app/Contents/MacOS/Godot",
     "--path",
-    "/Users/roman/work/godot-looking-glass",
+    ".",
     "--rendering-driver",
     "vulkan",
     "--script",
     "res://tests/test_depth_proxy.gd",
     "--",
-    "--output=/Users/roman/work/godot-looking-glass/benchmarks/depth-proxy/official45-motion",
+    "--output=benchmarks/depth-proxy/official45-motion",
     "--grid=64",
     "--continuous-motion"
   ],

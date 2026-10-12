@@ -36,9 +36,9 @@ Uniform remains the addon default. Use `--anchors=` or `custom_anchor_indices` o
 From project root, use the custom shared-shadow engine binary and Python with Pillow/NumPy for analysis. GPU stages run sequentially; do not run CPU image analysis alongside performance sampling.
 
 ```sh
-python3 benchmarks/interval-placement/capture_costs.py --godot /absolute/path/to/godot --results-dir benchmarks/interval-placement/costs1024
+python3 benchmarks/interval-placement/capture_costs.py --godot path/to/godot --results-dir benchmarks/interval-placement/costs1024
 python3 benchmarks/interval-placement/solve.py benchmarks/interval-placement/costs1024 --reference benchmarks/view-budget/rendered1024/reference.png --output benchmarks/interval-placement/selection.json
-python3 benchmarks/anchor-placement/run.py --godot /absolute/path/to/godot --rendered --selection benchmarks/interval-placement/selection.json --results-dir benchmarks/interval-placement/new-results
+python3 benchmarks/anchor-placement/run.py --godot path/to/godot --rendered --selection benchmarks/interval-placement/selection.json --results-dir benchmarks/interval-placement/new-results
 python3 benchmarks/anchor-placement/quality.py benchmarks/interval-placement/new-results --reference benchmarks/view-budget/rendered1024/reference.png
 python3 benchmarks/interval-placement/test_optimize.py
 ```

@@ -5,8 +5,8 @@ Optional addon path: `borrow_source_color=true` / demo `--borrow-color`. The com
 The addon never frees Godot-owned RIDs. Capture retains the RenderSceneBuffersRD owner and refreshes the color RID on every callback; synthesis rebuilds its uniform cache when source RIDs change. Capture release is idempotent, frees only owned resources, and stops further callbacks. Copy remains the default; borrowed mode is experimental.
 
 ```sh
-python3 /Users/roman/work/godot-looking-glass/benchmarks/borrow-color/run.py --godot /Users/roman/work/godot-theromis-shadow-atlas-pr/bin/godot.macos.template_release.arm64
-python3 /Users/roman/work/godot-looking-glass/benchmarks/borrow-color/run.py --godot /Users/roman/work/godot-theromis-shadow-atlas-pr/bin/godot.macos.template_release.arm64 --tile=1024 --rendered --results-dir=/Users/roman/work/godot-looking-glass/benchmarks/borrow-color/rendered1024
+python3 benchmarks/borrow-color/run.py --godot ../godot-theromis-shadow-atlas-pr/bin/godot.macos.template_release.arm64
+python3 benchmarks/borrow-color/run.py --godot ../godot-theromis-shadow-atlas-pr/bin/godot.macos.template_release.arm64 --tile=1024 --rendered --results-dir=benchmarks/borrow-color/rendered1024
 ```
 
 Import the new shader in the official editor before running, as described in the main README. The runner creates an isolated project with symlinked addon/demo/tests sources. A runtime with the shared-shadow patch is required. Runs are sequential, with three repeats per mode, alternating copy/borrow order; 90 warmup + 240 samples. Avoid other GPU workloads. Rerunning overwrites the corresponding results.

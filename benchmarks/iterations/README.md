@@ -1,11 +1,11 @@
 # Fixed reprojection iteration limits
 
 ```sh
-python3 benchmarks/iterations/run.py --godot /Users/roman/work/godot-theromis-shadow-atlas-pr/bin/godot.macos.template_release.arm64 --tile 1024 --rendered --results-dir benchmarks/iterations/rendered1024
+python3 benchmarks/iterations/run.py --godot ../godot-theromis-shadow-atlas-pr/bin/godot.macos.template_release.arm64 --tile 1024 --rendered --results-dir benchmarks/iterations/rendered1024
 python3 benchmarks/iterations/quality.py benchmarks/iterations/rendered1024
 ```
 
-quality.py requires NumPy/Pillow; locally used bundled Python `/Users/roman/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/bin/python3`. Benchmark runner uses the standard library.
+quality.py requires NumPy/Pillow; locally used bundled Python `../../.cache/codex-runtimes/codex-primary-runtime/dependencies/python/bin/python3`. Benchmark runner uses the standard library.
 
 Variants change only gather-loop limits 2/4/8; exact fixed-point early exit, residual threshold and hole fallback are unchanged. Canonical 8 shader retained. Selector `--iterations=2|4|8`, addon `reprojection_iterations`. Default 8; export enum/CLI accept 2/4/8, and invalid programmatic values fall back to 8. `shaders/generate_workgroups.py` generates group/iteration variants for advance Godot import.
 

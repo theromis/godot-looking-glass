@@ -3,8 +3,8 @@
 Godot RenderingDevice diagnostic profiler; no new engine patch. Scene: 48 real off-axis 128² views, 512 identical MultiMesh objects plus the original moving caster, four SpotLights, shared World3D; Apple M4, Vulkan/MoltenVK, patched 4.8-dev.
 
 ```sh
-python3 /Users/roman/work/godot-looking-glass/benchmarks/gpu-passes/run.py --godot /Users/roman/work/godot-theromis-shadow-atlas-pr/bin/godot.macos.template_release.arm64
-python3 /Users/roman/work/godot-looking-glass/benchmarks/gpu-passes/run.py --godot /Users/roman/work/godot-theromis-shadow-atlas-pr/bin/godot.macos.template_release.arm64 --suite overhead
+python3 benchmarks/gpu-passes/run.py --godot ../godot-theromis-shadow-atlas-pr/bin/godot.macos.template_release.arm64
+python3 benchmarks/gpu-passes/run.py --godot ../godot-theromis-shadow-atlas-pr/bin/godot.macos.template_release.arm64 --suite overhead
 ```
 
 Each mode runs three times, 90 warmup + 240 samples, sequentially without unrelated GPU load. Requires imported project shaders and the experimental shared-shadow runtime. Runner creates an isolated full-caster-culling project and a 4096-marker query pool. Reruns overwrite the selected suite's results.
