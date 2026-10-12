@@ -1,0 +1,1 @@
+PASS real Metal GPU copy into fixture IOSurface, exact RGBA16Float pixels, producer fence, SDK errors, exclusive session, one-shot guard, failed-teardown retry and idempotent teardown

@@ -22,7 +22,7 @@ The addon currently provides:
 
 The latest Godot regression run passed 16 checks on a custom 4.8-dev Vulkan/MoltenVK build on Apple M4. The normal addon can run without the optional engine patch. Performance results are specific to documented scenes; some optimization experiments did not improve speed or quality.
 
-**End-to-end Godot-to-display output is not implemented or validated yet.** Bridge HTTP detection is a control-plane feature, not GPU display submission. A separate one-shot Metal adapter passed real GPU/IOSurface tests against a test SDK implementation and loaded the installed SDK, but is not connected to Godot. Transparency, disocclusions and temporal stability still need work.
+**End-to-end Godot-to-display output is not implemented or validated yet.** Bridge HTTP detection is a control-plane feature, not GPU display submission. An optional diagnostic GDExtension copies a frozen Godot Metal quilt into an SDK-fixture IOSurface with exact data. The installed SDK loads, but real SDK display submission is unimplemented; 3 of 16 native Metal regressions fail, while the Vulkan suite passes. Transparency, disocclusions and temporal stability still need work.
 
 The addon code is MIT-licensed. No proprietary Unity plugin implementation or Bridge runtime binaries are included. Development uses Codex/LLM tools to generate and edit code, tests and documentation; reported measurements come from executed experiments.
 

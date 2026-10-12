@@ -1,0 +1,54 @@
+{
+  "godot_base_commit": "232e6b14abf6e590b41d60f11704e42de22bff72",
+  "godot_worktree_commit": "c61fc0118854f38d75474346a417db55e52d0ffd",
+  "engine_version": "4.8-dev",
+  "native_driver": "Metal 4.0",
+  "gpu": "Apple M4",
+  "godot_cpp_api_tag": "godot-4.5-stable",
+  "godot_cpp_commit": "e83fd0904c13356ed1d4c3d09f8bb9132bdc6b77",
+  "extension_copy_scope": {
+    "fixture_only": true,
+    "output_views": 4,
+    "real_views": 2,
+    "quilt": [
+      64,
+      64
+    ],
+    "format": "RGBA16Float",
+    "compared_half_components": 16384,
+    "exact_copy_repeats": 3,
+    "explicit_warmup_requests": 120,
+    "frozen_capture_dispatch_counters_verified": true,
+    "source_pixel_readback_before_copy": false,
+    "hardware_output_tested": false,
+    "dynamic_handoff_tested": false,
+    "consumer_fence_validated": false,
+    "performance_measured": false
+  },
+  "vulkan_regression_passed": 16,
+  "metal_regression_passed": 13,
+  "metal_regression_failed": [
+    "on-demand",
+    "capture-lifetime-test",
+    "buffer-compat"
+  ],
+  "metal_general_support_verified": false,
+  "sources_sha256": {
+    "native/bridge_metal/adapter.hpp": "81a26dc47b57a5be94b90473e325a843fb4d4d34b6e1d6166fe0853bdcfa06fa",
+    "native/bridge_metal/adapter.mm": "adb8a8b1befbcc08965691d6a965d69ab20e5fa745e4262d6a855fb0bbf476ee",
+    "native/bridge_metal/fixture.mm": "8b19aa3b8c0587b63975fc5121bd6524b67547ba66b076ad8f1d8c299296deb2",
+    "native/bridge_metal/test.mm": "f52e69a0c934d364a8b177297f1987f0ef07995e4c86792ff13985bec93066d2",
+    "native/bridge_metal/build.py": "a5a0a63581ed223c16c83e9bb25a62234df78ff072a736335a9d27518509f710",
+    "native/bridge_metal/bindings-profile.json": "9fff0d318c205198021a4bae838adefcbd0aa3c3a2d3b9044fce63d2fbcc350a",
+    "native/bridge_metal/build_extension.py": "9a2c0e483a4d65131b2900941a967d0f0548aca13f02cdc69b8c98c8a65beaeb",
+    "native/bridge_metal/godot_diagnostic.mm": "363358c3f808d57be3eff13fcbbbac57267bb3945591e91dc6919471d7ca9f38",
+    "tests/test_native_metal.gd": "7418988afb05db78ce41e9358c5fc4bfccbb0c082f28021a0641a5491408081a",
+    "tests/test_on_demand.gd": "a8598bb5834a18c326407744f259323fc077bb7f4646411016290517214d7198"
+  },
+  "artifacts_sha256": {
+    "native/bridge_metal/build/liblooking-glass-diagnostic.dylib": "78c919f894c387d89aa39cc2ed921e0f31dadcd1c1c14a94b6815d69ad39a04c",
+    "native/bridge_metal/build/fixture.dylib": "1f49f5126085782725b5d6a593f0d6efdf1878dbb201594ea74ed457a7da2188",
+    "../godot-theromis-shadow-atlas-pr/bin/godot.macos.template_release.arm64.native-metal": "00b5a1fa801ba45fca3cebb291decdbe3a2a269a9b8f43e19f2d76cb072b9adf",
+    "../godot-theromis-shadow-atlas-pr/bin/godot.macos.template_release.arm64": "e3f0117c1da12d25f8ed25fe28ebae6595db1efff1960ee01360ed745e594ced"
+  }
+}

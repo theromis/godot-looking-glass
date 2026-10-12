@@ -1,6 +1,6 @@
 # Experimental Metal-to-Bridge boundary
 
-Own MIT-licensed Objective-C++ code, separate from the Godot addon. This is a **one-shot native diagnostic**, not a GDExtension or working Godot display output. It accepts an actual `id<MTLTexture>` and its committed producer `id<MTLCommandBuffer>`, copies the quilt on GPU into an SDK-created texture, then calls the documented Metal quilt function. Do not pass Vulkan handles to this interface.
+Own MIT-licensed Objective-C++ code, separate from the Godot addon. The adapter is a **one-shot native diagnostic**; an optional test-fixture-only GDExtension is described below. This is not working physical Godot display output. It accepts an actual `id<MTLTexture>` and its committed producer `id<MTLCommandBuffer>`, copies the quilt on GPU into an SDK-created texture, then calls the documented Metal quilt function. Do not pass Vulkan handles to this interface.
 
 ## Build and run
 
@@ -37,8 +37,31 @@ Logs and provenance: [native-bridge results](../../benchmarks/native-bridge/READ
 
 ## Godot integration still required
 
-The selected Godot 4.8-dev runtime is Vulkan/MoltenVK-only. Its texture handle is not a native Metal handle. The inspected SDK header exposes Metal APIs but no direct Vulkan image submission. A MoltenVK texture accessor alone would not establish when Godot's producer commands have been submitted/completed or when Bridge has finished consuming the texture.
+The original Godot 4.8-dev runtime is Vulkan/MoltenVK-only; a separate native Metal build of the same engine generation has now been tested below. Its texture handle is not a native Metal handle. The inspected SDK header exposes Metal APIs but no direct Vulkan image submission. A MoltenVK texture accessor alone would not establish when Godot's producer commands have been submitted/completed or when Bridge has finished consuming the texture.
 
 Next: provide a tested native Metal Godot runtime/GDExtension and render-thread handle access with a real producer completion contract, or design a separately validated Vulkan/Metal interop path. Then verify calibrated hardware, SDK formats, color transfer, session/window threading, consumer completion and bounded output slots before adding streaming to the addon.
 
 Source evidence: external `bridge.h:108–118` (version query), `:373–380` (Metal APIs); Godot `drivers/metal/rendering_device_driver_metal.cpp:2545–2568` (device/queue/texture handles), base `232e6b14abf6e590b41d60f11704e42de22bff72`. No proprietary implementation source was copied.
+
+## Optional Godot diagnostic GDExtension (executed)
+
+The component now includes `LookingGlassMetalDiagnostic.copy_static_quilt()`, a **test-fixture-only** GDExtension. It resolves Godot's native Metal device, queue and texture handles on the rendering thread, commits a sentinel on the same queue and feeds the frozen texture to the adapter. It refuses Vulkan and libraries without the fixture exports before native texture submission. Readback is explicitly limited to 16 MiB and exists only to compare test output; no production streaming API is provided.
+
+```sh
+# External MIT bindings, pinned revision e83fd0904c13356ed1d4c3d09f8bb9132bdc6b77.
+git clone --depth 1 --branch godot-4.5-stable https://github.com/godotengine/godot-cpp.git ../godot-looking-glass-deps/godot-cpp
+(cd ../godot-looking-glass-deps/godot-cpp
+scons platform=macos target=template_release arch=arm64 build_profile=../../godot-looking-glass/native/bridge_metal/bindings-profile.json -j4)
+python3 native/bridge_metal/build.py --sdk-headers ../looking-glass-reference/bridge-sdk-samples/BridgeRuntime
+python3 native/bridge_metal/build_extension.py --godot-cpp ../godot-looking-glass-deps/godot-cpp --sdk-headers ../looking-glass-reference/bridge-sdk-samples/BridgeRuntime
+GODOT_METAL_BIN=../godot-theromis-shadow-atlas-pr/bin/godot.macos.template_release.arm64.native-metal
+"$GODOT_METAL_BIN" --path . --rendering-driver metal --script res://tests/test_native_metal.gd
+```
+
+The 4.5 tag specifies the binding API, not another tested engine version. All engine executions in this step used 4.8-dev. Build configuration/library files are generated under the ignored build directory, so ordinary addon clones do not load a missing optional extension.
+
+`test_native_metal.gd` renders four output views from two source cameras, explicitly requests 120 warmup updates with short waits, then stops requesting updates and finishes additional Godot frames. Capture and dispatch counters must remain fixed before copying. The same-queue sentinel fences **already committed** work: it cannot flush unsubmitted RenderingDevice lists. The test performs no source pixel readback before native copying. Afterwards, all 16,384 half-float components of the 64×64 quilt must match the fixture output and the image must contain visible RGB data. Three final repeats passed. This is not validation of arbitrary frame_post_draw consumption, dynamic textures or real SDK consumer fences.
+
+The new 4.8-dev native Metal runtime successfully executes compute, but only **13/16** addon regression checks passed. Failures: on-demand continuous/cached equivalence, capture/workgroup equivalence after resize, and borrowed-buffer policy equivalence. An explicit settled-startup refresh did not guarantee equality. The Vulkan 4.8-dev suite still passes all **16**. Native Metal is therefore experimental, not a general support claim. Initial empty/cold-start copy probes are retained as rejected attempts; their cause is not established. The 120-update warmup is a test setup, not an automatically implemented production warmup guarantee.
+
+Next remains a real calibrated SDK window, validated output format/transfer/orientation, threading and consumer completion before streaming. The Godot driver-resource access and fixture GPU-copy portion is now executed rather than only proposed.

@@ -17,7 +17,7 @@ Checked items are implemented or completed experiments, with their limits record
 
 ### In progress: prototypes and research
 
-- [ ] **Native Bridge output:** a standalone Metal adapter passes real GPU/IOSurface fixture tests and loads the installed SDK; Godot handle/fence integration and physical-display output remain unimplemented. See [native boundary](native/bridge_metal/README.md).
+- [ ] **Native Bridge output:** an optional GDExtension now copies a frozen Godot 4.8 Metal quilt into a real IOSurface SDK fixture with exact data; real SDK display output and streaming remain unimplemented. See [native boundary](native/bridge_metal/README.md).
 - [ ] **Synthesis quality:** the inverse-warp MVP and bounded rescue exist; robust visibility, disocclusion handling and motion/transparency quality remain unfinished.
 - [ ] **Adaptive view selection:** fixed budgets and offline placement are evaluated; depth-only selectors worsened quality, so a reliable runtime controller is still missing.
 - [ ] **Shared-shadow production readiness:** the optional patch is tested; atlas overflow, coverage/subdivision changes, changing worlds/masks and broader upstream validation remain pending.
@@ -86,7 +86,7 @@ The all-real quilt uses GPU Canvas draws. Compute uses CompositorEffect and the 
 | Adaptive anchors / temporal motion vectors / depth-aware hole fill | Architecture and roadmap; not implemented |
 | Shared positional shadows (optional engine patch) | Executed on 4.8-dev; Omni/Spot, safe fallback; requirements in engine-patches |
 | Engine multiview backend | 4.8-dev sources inspected; not implemented |
-| Native Metal demo | Initialized, then failed to finish; support unverified |
+| Native Metal | 4.8 static GDExtension copy passed; 3/16 Metal image-equivalence regressions fail, so general support remains unverified |
 
 Use all-real rendering as the reference. Synthesis cannot recover hidden geometry; transparent surfaces are absent from opaque depth, so RGB/depth mismatch causes errors. Compute preview uses simple gamma rather than complete Godot tone mapping. The native backend must apply optical calibration separately.
 

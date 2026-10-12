@@ -132,3 +132,8 @@ Optional `update_on_demand` renders source views and assembles the compute quilt
 ## Native Metal boundary prototype
 
 A standalone Objective-C++ Metal boundary now dynamically loads Bridge, verifies SDK symbols/version and performs a one-shot GPU copy into an SDK-created texture before submission. Real Metal/IOSurface fixture tests and installed SDK 2.6.3 probing passed on Apple M4, including failure/retry and ownership checks. This is not a Godot GDExtension: the current 4.8 runtime is Vulkan-only, no real SDK draw/hardware output was executed, and consumer completion/streaming remain unverified. Blocking producer/copy waits are a correctness baseline; no speedup is claimed. See [component and next integration steps](../native/bridge_metal/README.md) and [executed scope](../benchmarks/native-bridge/README.md).
+
+
+## Executed Godot native Metal diagnostic
+
+A new 4.8-dev native Metal runtime and optional test-fixture-only GDExtension now execute Godot quilt → Metal blit → SDK-fixture IOSurface copying. Three final 64×64 repeats matched every half-float component after explicit 120-update warmup and a verified frozen interval. Vulkan handles are rejected before native access. The same-queue sentinel requires already committed producer work; no streaming or real SDK display output is validated. Full native Metal QA passed 13/16, failing on-demand, resize/capture equivalence and borrowed-buffer policy; a settled refresh did not guarantee equality. Vulkan 4.8 still passes all 16. All failures are retained, and general native Metal support remains experimental. See [Godot diagnostic contract](../native/bridge_metal/README.md) and [results](../benchmarks/native-bridge/README.md).

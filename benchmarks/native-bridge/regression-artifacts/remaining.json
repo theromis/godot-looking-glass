@@ -1,0 +1,22 @@
+[
+  {
+    "name": "capture-lifetime-test",
+    "passed": false
+  },
+  {
+    "name": "custom-anchor-lifetime",
+    "passed": true
+  },
+  {
+    "name": "buffer-compat",
+    "passed": false
+  },
+  {
+    "name": "profiling",
+    "passed": true
+  },
+  {
+    "name": "bridge-fixture",
+    "passed": true
+  }
+]

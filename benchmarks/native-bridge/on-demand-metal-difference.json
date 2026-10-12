@@ -1,0 +1,18 @@
+{
+  "size": [
+    260,
+    134
+  ],
+  "format": "RGBA16Float",
+  "components": 139360,
+  "changed_components": 837,
+  "max_absolute_component_delta": 0.55181884765625,
+  "mean_absolute_component_delta": 0.0013824427733197808,
+  "exact": false,
+  "startup_refresh_did_not_guarantee_equality": true,
+  "cause": "Not established",
+  "sha256": {
+    "on-demand-continuous.bin": "9b9dbd239efbe5c5bbb8f1683410c81859e5761358a896a62b94993aba91c1f8",
+    "on-demand-cached.bin": "1f7ab3501016e292685428e2d5f03d8e440c1e5b75232e037adf1b9677810399"
+  }
+}

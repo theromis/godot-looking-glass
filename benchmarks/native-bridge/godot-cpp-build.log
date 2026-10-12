@@ -1,0 +1,40 @@
+scons: Reading SConscript files ...
+gcc: warning: confstr() failed with code 5: couldn't get path of DARWIN_USER_TEMP_DIR; using ../../../../tmp instead
+xcrun: warning: confstr() failed with code 5: couldn't get path of DARWIN_USER_TEMP_DIR; using ../../../../tmp instead
+g++: warning: confstr() failed with code 5: couldn't get path of DARWIN_USER_TEMP_DIR; using ../../../../tmp instead
+xcrun: warning: confstr() failed with code 5: couldn't get path of DARWIN_USER_TEMP_DIR; using ../../../../tmp instead
+gcc: warning: confstr() failed with code 5: couldn't get path of DARWIN_USER_TEMP_DIR; using ../../../../tmp instead
+xcrun: warning: confstr() failed with code 5: couldn't get path of DARWIN_USER_TEMP_DIR; using ../../../../tmp instead
+g++: warning: confstr() failed with code 5: couldn't get path of DARWIN_USER_TEMP_DIR; using ../../../../tmp instead
+xcrun: warning: confstr() failed with code 5: couldn't get path of DARWIN_USER_TEMP_DIR; using ../../../../tmp instead
+gcc: warning: confstr() failed with code 5: couldn't get path of DARWIN_USER_TEMP_DIR; using ../../../../tmp instead
+xcrun: warning: confstr() failed with code 5: couldn't get path of DARWIN_USER_TEMP_DIR; using ../../../../tmp instead
+g++: warning: confstr() failed with code 5: couldn't get path of DARWIN_USER_TEMP_DIR; using ../../../../tmp instead
+xcrun: warning: confstr() failed with code 5: couldn't get path of DARWIN_USER_TEMP_DIR; using ../../../../tmp instead
+g++: warning: confstr() failed with code 5: couldn't get path of DARWIN_USER_TEMP_DIR; using ../../../../tmp instead
+xcrun: warning: confstr() failed with code 5: couldn't get path of DARWIN_USER_TEMP_DIR; using ../../../../tmp instead
+gcc: warning: confstr() failed with code 5: couldn't get path of DARWIN_USER_TEMP_DIR; using ../../../../tmp instead
+xcrun: warning: confstr() failed with code 5: couldn't get path of DARWIN_USER_TEMP_DIR; using ../../../../tmp instead
+g++: warning: confstr() failed with code 5: couldn't get path of DARWIN_USER_TEMP_DIR; using ../../../../tmp instead
+xcrun: warning: confstr() failed with code 5: couldn't get path of DARWIN_USER_TEMP_DIR; using ../../../../tmp instead
+Building for architecture arm64 on platform macos
+scons: done reading SConscript files.
+scons: Building targets ...
+Generating gen/include/godot_cpp/core/ext_wrappers.gen.inc ...
+Built-in type config: float_64
+Compiling src/core/memory.cpp ...
+clang++: warning: confstr() failed with code 5: couldn't get path of DARWIN_USER_TEMP_DIR; using ../../../../tmp instead
+Compiling gen/src/classes/rendering_device.cpp ...
+Compiling gen/src/variant/packed_color_array.cpp ...
+Compiling src/core/print_string.cpp ...
+clang++: warning: confstr() failed with code 5: couldn't get path of DARWIN_USER_TEMP_DIR; using ../../../../tmp instead
+clang++: warning: confstr() failed with code 5: couldn't get path of DARWIN_USER_TEMP_DIR; using ../../../../tmp instead
+clang++: warning: confstr() failed with code 5: couldn't get path of DARWIN_USER_TEMP_DIR; using ../../../../tmp instead
+Compiling gen/src/variant/dictionary.cpp ...
+clang++: warning: confstr() failed with code 5: couldn't get path of DARWIN_USER_TEMP_DIR; using ../../../../tmp instead
+src/core/print_string.cpp:33:10: fatal error: 'godot_cpp/classes/os.hpp' file not found
+   33 | #include <godot_cpp/classes/os.hpp>
+      |          ^~~~~~~~~~~~~~~~~~~~~~~~~~
+1 error generated.
+scons: *** [src/core/print_string.macos.template_release.arm64.o] Error 1
+scons: building terminated because of errors.
