@@ -31,7 +31,7 @@
       "real_views": 66,
       "api_success": true,
       "exit_code": 0,
-      "user_observation": "User: looks approximately correct",
+      "user_observation": "User explicitly confirmed: now looks correct",
       "log": "godot-real-static-all-real.log"
     }
   ],
