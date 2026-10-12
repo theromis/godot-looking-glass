@@ -15,9 +15,9 @@
   ],
   "comparison": "quilt48-depth035-cone54.json",
   "changed_parameter": "Only rear/front sphere albedo colors swapped: rear blue, front red; green unchanged",
-  "execution_passed": false,
-  "process_exit": null,
-  "timed_out": true,
+  "execution_passed": true,
+  "process_exit": 0,
+  "timed_out": false,
   "first_attempt": "Timed out at 110 seconds; killed by subprocess wrapper",
   "user_observation": "Pending",
   "display_duration_seconds_requested": 20,
@@ -25,5 +25,12 @@
   "limitations": [
     "Color swap also changes luminance and contrast; cannot independently establish a channel defect",
     "All 48 views real, no synthesis"
-  ]
+  ],
+  "diagnostic_retry_sampled": true,
+  "diagnostic_retry_passed": false,
+  "fixed_retry_passed": true,
+  "root_cause": "Conditional untyped array assigned to Array[Color] aborted the deferred GDScript function in release template; SceneTree event loop remained active",
+  "fix": "Choose the original color-array index instead of assigning a conditional typed array",
+  "fixture_passed": true,
+  "minimal_headless_reproduction": "Stops after before-assignment marker and times out without SDK/GPU"
 }

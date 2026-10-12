@@ -4,11 +4,13 @@ signal render_result(value: Variant)
 func receive(value: Variant) -> void:
     render_result.emit(value)
 func _initialize() -> void:
+    if "--diagnostic-stages" in OS.get_cmdline_user_args(): printerr("DIRECT STAGE initialize")
     run.call_deferred()
 func fail(message: String) -> void:
     print("FAIL direct Bridge target: ",message)
     quit(1)
 func run() -> void:
+    if "--diagnostic-stages" in OS.get_cmdline_user_args(): printerr("DIRECT STAGE run")
     RenderingServer.set_render_loop_enabled(false)
     var lit: bool="--lit" in OS.get_cmdline_user_args()
     var scene := Node3D.new()
@@ -28,18 +30,19 @@ func run() -> void:
     scene.add_child(box)
     subjects.append(box)
     var swap_depth_colors: bool="--swap-depth-colors" in OS.get_cmdline_user_args()
-    var sphere_colors: Array[Color]=[Color.BLUE,Color.GREEN,Color.RED] if swap_depth_colors else [Color.RED,Color.GREEN,Color.BLUE]
     for i in range(3):
         var sphere := MeshInstance3D.new()
         sphere.mesh=SphereMesh.new()
         sphere.position=Vector3((i-1)*0.75,0.55,(i-1)*0.8)
         var sphere_material := StandardMaterial3D.new()
         sphere_material.shading_mode=BaseMaterial3D.SHADING_MODE_PER_PIXEL if lit else BaseMaterial3D.SHADING_MODE_UNSHADED
-        sphere_material.albedo_color=sphere_colors[i]
+        var color_index: int=2-i if swap_depth_colors else i
+        sphere_material.albedo_color=[Color.RED,Color.GREEN,Color.BLUE][color_index]
         sphere.material_override=sphere_material
         scene.add_child(sphere)
         subjects.append(sphere)
     var compact: bool="--compact-objects" in OS.get_cmdline_user_args()
+    if "--diagnostic-stages" in OS.get_cmdline_user_args(): printerr("DIRECT STAGE subjects")
     if compact:
         # Preserve Z centers/extents; shrink screen-plane geometry and shift X.
         box.scale=Vector3(0.55,0.55,1.0)
@@ -96,6 +99,7 @@ func run() -> void:
     if fixture:
         OS.set_environment("LG_FIXTURE_ACCEPT_QUILT","1")
     var opened: Dictionary=diagnostic.begin_sequence(runtime,display.to_int(),cols,rows,aspect)
+    if "--diagnostic-stages" in OS.get_cmdline_user_args(): printerr("DIRECT STAGE session opened")
     if not opened.get("ok",false):
         fail(str(opened.get("error","Open failed")))
         return
@@ -105,6 +109,7 @@ func run() -> void:
         return
     RenderingServer.call_on_render_thread(func(): receive.call_deferred(diagnostic.import_direct_target()))
     var imported: RID=await render_result
+    if "--diagnostic-stages" in OS.get_cmdline_user_args(): printerr("DIRECT STAGE imported")
     if not imported.is_valid():
         fail("Native import failed")
         return
@@ -162,6 +167,7 @@ func run() -> void:
     if "--projection-grid" in OS.get_cmdline_user_args():
         populate_projection_grid(scene,6.0-focus)
     scene.add_child(rig)
+    if "--diagnostic-stages" in OS.get_cmdline_user_args(): printerr("DIRECT STAGE rig ready")
     if compact:
         var margin: float=subject_bounds_margin(rig,subjects)
         print("SUBJECT BOUNDS minimum_source_pixel_margin=",margin)
@@ -172,6 +178,7 @@ func run() -> void:
     # frame_post_draw has been committed by RenderingDevice::swap_buffers.
     # Explicit refreshes warm renderer pipelines; not a production warmup policy.
     for i in range(120):
+        if "--diagnostic-stages" in OS.get_cmdline_user_args() and i%30==0: printerr("DIRECT STAGE warmup ",i)
         rig.request_update()
         await process_frame
         RenderingServer.force_draw(false,1.0/60.0)
