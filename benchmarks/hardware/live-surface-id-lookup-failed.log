@@ -1,0 +1,7 @@
+FAIL surface publish
+2026-10-12 13:11:55 [Error] 0x500 GL_INVALID_ENUM - invalid enumerant | prog=0 | activeTex=0 | boundTex2D=0 @ [SDK source location redacted]
+persistent_updates=0 exact_gpu_pixels=-1 observed_context_stable=1 observed_gl_finishes=0 sdk_calls_ok=0 release=1 shutdown=1
+consumer_completion_contract_verified=false experimental_reuse=true
+gpu_surface_input=1 diagnostic_readback=1 checksums_match=1
+live_godot_input=1 last_sequence=0
+SURFACE import lookup_or_dimensions_failed lookup_ok=0

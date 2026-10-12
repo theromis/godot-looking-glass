@@ -1,0 +1,29 @@
+{
+  "execution_passed": true,
+  "producer_exit": 0,
+  "worker_exit": 0,
+  "transport": "IOSurface GPU sharing; 32-byte control mailbox with copy acknowledgment",
+  "quilt_size": [
+    4092,
+    4092
+  ],
+  "producer_frames_requested": 8,
+  "worker_duration_seconds": 20,
+  "diagnostic_readback": false,
+  "gpu_only_frame_transport": true,
+  "user_observation": "Pending",
+  "consumer_completion_contract_verified": false,
+  "production_ready": false,
+  "received_sequences": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8
+  ],
+  "mean_get_image_elapsed_ms": 0.0,
+  "mean_surface_publish_elapsed_ms": 2.677875
+}

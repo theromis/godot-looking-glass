@@ -1,6 +1,7 @@
 // Optional frozen-quilt diagnostic. Real SDK output is an explicit bounded call.
 #include "adapter.hpp"
 #include "shared_frame.hpp"
+#include "surface_publisher.hpp"
 #include <fcntl.h>
 #include <unistd.h>
 #include <sys/stat.h>
@@ -24,6 +25,10 @@ class LookingGlassMetalDiagnostic : public RefCounted {
     RID direct_import;
 protected:
     static void _bind_methods() {
+        ClassDB::bind_method(D_METHOD("open_surface_publisher","name","width","height"), &LookingGlassMetalDiagnostic::open_surface_publisher);
+        ClassDB::bind_method(D_METHOD("surface_ready"), &LookingGlassMetalDiagnostic::surface_ready);
+        ClassDB::bind_method(D_METHOD("publish_surface","sequence","quilt","verify"), &LookingGlassMetalDiagnostic::publish_surface);
+        ClassDB::bind_method(D_METHOD("close_surface_publisher"), &LookingGlassMetalDiagnostic::close_surface_publisher);
         ClassDB::bind_method(D_METHOD("open_shared_frame","name","width","height"), &LookingGlassMetalDiagnostic::open_shared_frame);
         ClassDB::bind_method(D_METHOD("write_shared_frame","sequence","pixels"), &LookingGlassMetalDiagnostic::write_shared_frame);
         ClassDB::bind_method(D_METHOD("close_shared_frame"), &LookingGlassMetalDiagnostic::close_shared_frame);
@@ -47,6 +52,24 @@ protected:
         ClassDB::bind_method(D_METHOD("wait_for_native_producer"), &LookingGlassMetalDiagnostic::wait_for_native_producer);
     }
 public:
+    SurfacePublisher surface_publisher;
+    bool open_surface_publisher(String name,int64_t width,int64_t height) {
+        auto *server=RenderingServer::get_singleton();
+        if(![NSThread isMainThread] || server->get_current_rendering_driver_name()!="metal") return false;
+        auto *rd=server->get_rendering_device();
+        auto device=(__bridge id<MTLDevice>)(void *)(uintptr_t)rd->get_driver_resource(RenderingDevice::DRIVER_RESOURCE_LOGICAL_DEVICE,RID(),0);
+        return surface_publisher.open(name.utf8().get_data(),width,height,device);
+    }
+    bool surface_ready() { return surface_publisher.ready(); }
+    bool publish_surface(int64_t sequence,RID quilt,bool verify) {
+        if(![NSThread isMainThread] || sequence<=0 || sequence>UINT32_MAX) return false;
+        auto *rd=RenderingServer::get_singleton()->get_rendering_device();
+        if(!rd || !rd->texture_is_valid(quilt)) return false;
+        auto queue=(__bridge id<MTLCommandQueue>)(void *)(uintptr_t)rd->get_driver_resource(RenderingDevice::DRIVER_RESOURCE_COMMAND_QUEUE,RID(),0);
+        auto source=(__bridge id<MTLTexture>)(void *)(uintptr_t)rd->get_driver_resource(RenderingDevice::DRIVER_RESOURCE_TEXTURE,quilt,0);
+        return surface_publisher.publish(sequence,source,queue,verify);
+    }
+    void close_surface_publisher() { surface_publisher.close(); }
     SharedFrame shared_frame;
     bool open_shared_frame(String name,int64_t width,int64_t height) {
         return [NSThread isMainThread] && shared_frame.open(name.utf8().get_data(),width,height,false);

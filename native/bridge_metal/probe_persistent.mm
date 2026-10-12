@@ -2,6 +2,7 @@
 // SDK consumer-completion contract; do not reuse this as production streaming.
 #include <bridge.h>
 #include "shared_frame.hpp"
+#include "surface_publisher.hpp"
 #import <Metal/Metal.h>
 #import <OpenGL/OpenGL.h>
 #import <OpenGL/gl3.h>
@@ -15,20 +16,30 @@
 #include <cerrno>
 #define LOAD(name) auto name##_fn=reinterpret_cast<decltype(&name)>(dlsym(library,#name)); if(!name##_fn) return 2
 int main(int argc,char **argv) { @autoreleasepool {
-    if((argc!=4 && argc!=5 && argc!=6) || std::string(argv[3])!="--experimental-reuse") return 2;
-    bool large=argc==6 && std::string(argv[5])=="--large";
-    if(argc==6 && !large) return 2;
+    if((argc<4 || argc>7) || std::string(argv[3])!="--experimental-reuse") return 2;
+    bool large=false, verify_surface=false;
+    for(int arg=5;arg<argc;++arg) {
+        if(std::string(argv[arg])=="--large") large=true;
+        else if(std::string(argv[arg])=="--verify") verify_surface=true;
+        else return 2;
+    }
     const unsigned width=large?4092:704,height=large?4092:684;
     const size_t pitch=(width*4+255)&~size_t(255);
     bool pipe_input=argc>=5 && std::string(argv[4])=="--live-stdin";
+    bool surface_input=argc>=5 && std::string(argv[4]).rfind("--live-surface=",0)==0;
+    SurfaceMailbox surface_mailbox;
+    SurfacePortReceiver surface_receiver;
+    if(surface_input && !surface_mailbox.open(std::string(argv[4]).substr(15),width,height,true)) return 2;
+    if(surface_input && !surface_receiver.open(std::string(argv[4]).substr(15))) return 2;
+    if(surface_input) std::cout<<"SURFACE ready"<<std::endl;
     bool shared_input=argc>=5 && std::string(argv[4]).rfind("--live-shm=",0)==0;
     SharedFrame mailbox;
     if(shared_input && !mailbox.open(std::string(argv[4]).substr(11),width,height,true)) return 2;
     if(shared_input) std::cout<<"SHM ready"<<std::endl;
-    bool live_input=shared_input || pipe_input || (argc>=5 && std::string(argv[4]).rfind("--live-directory=",0)==0);
+    bool live_input=surface_input || shared_input || pipe_input || (argc>=5 && std::string(argv[4]).rfind("--live-directory=",0)==0);
     std::vector<unsigned char> pipe_bytes;
     if(pipe_input) fcntl(STDIN_FILENO,F_SETFL,fcntl(STDIN_FILENO,F_GETFL)|O_NONBLOCK);
-    std::string live_path=live_input && !pipe_input && !shared_input?std::string(argv[4]).substr(17)+"/latest.bin":"";
+    std::string live_path=live_input && !pipe_input && !shared_input && !surface_input?std::string(argv[4]).substr(17)+"/latest.bin":"";
     bool frame_input=argc>=5 && !live_input;
     unsigned last_sequence=0;
     std::vector<std::vector<unsigned char>> frames;
@@ -68,6 +79,9 @@ int main(int argc,char **argv) { @autoreleasepool {
         ok=ok && uploads[i];
     }
     auto pump=reinterpret_cast<void(*)()>(dlsym(library,"SDL_PumpEvents"));
+    IOSurfaceRef imported_surface=nullptr;
+    id<MTLTexture> imported_texture=nil;
+    uint32_t imported_id=0;
     CGLContextObj observed=nullptr;
     unsigned updates=0,finishes=0;
     bool stable_context=true,exact=true;
@@ -77,9 +91,25 @@ int main(int argc,char **argv) { @autoreleasepool {
         int frame=int(-[started timeIntervalSinceNow]*2.0);
         if(frame!=previous) {
             std::vector<unsigned char> incoming;
-            unsigned sequence=0;
+            unsigned sequence=0, surface_id=0, expected_checksum=0;
             if(live_input) {
-                if(shared_input) {
+                if(surface_input) {
+                    if(!surface_mailbox.latest(last_sequence,surface_id,expected_checksum,sequence)) ok=false;
+                    IOSurfaceRef received=nullptr;
+                    if(!surface_receiver.receive(received)) { std::cerr<<"SURFACE port receive_failed"<<std::endl; ok=false; break; }
+                    if(received) {
+                        imported_texture=nil;
+                        if(imported_surface) CFRelease(imported_surface);
+                        imported_surface=received;
+                        if(IOSurfaceGetWidth(imported_surface)!=width || IOSurfaceGetHeight(imported_surface)!=height) { ok=false; break; }
+                        auto shared_descriptor=[MTLTextureDescriptor texture2DDescriptorWithPixelFormat:MTLPixelFormatRGBA8Unorm width:width height:height mipmapped:NO];
+                        shared_descriptor.storageMode=MTLStorageModeShared; shared_descriptor.usage=MTLTextureUsageShaderRead;
+                        imported_texture=[device newTextureWithDescriptor:shared_descriptor iosurface:imported_surface plane:0];
+                        if(!imported_texture) { std::cerr<<"SURFACE import Metal_texture_failed"<<std::endl; ok=false; break; }
+                        imported_id=IOSurfaceGetID(imported_surface);
+                    }
+                    if(sequence && (!imported_texture || surface_id!=imported_id)) { std::cerr<<"SURFACE import descriptor_mismatch"<<std::endl; ok=false; break; }
+                } else if(shared_input) {
                     if(!mailbox.latest(last_sequence,incoming,sequence)) ok=false;
                 } else if(pipe_input) {
                     const size_t packet_size=16+width*height*4;
@@ -130,7 +160,11 @@ int main(int argc,char **argv) { @autoreleasepool {
             const float blue[]={0.2f,0.4f,0.6f,1};
             const float red[]={230.0f/255,26.0f/255,26.0f/255,1};
             auto command=[queue commandBuffer];
-            if(frame_input || live_input) {
+            if(surface_input) {
+                auto blit=[command blitCommandEncoder];
+                [blit copyFromTexture:imported_texture sourceSlice:0 sourceLevel:0 sourceOrigin:MTLOriginMake(0,0,0) sourceSize:MTLSizeMake(width,height,1) toTexture:texture destinationSlice:0 destinationLevel:0 destinationOrigin:MTLOriginMake(0,0,0)];
+                [blit endEncoding];
+            } else if(frame_input || live_input) {
                 if(live_input) {
                     uploads[0]=[device newBufferWithLength:pitch*height options:MTLResourceStorageModeShared];
                     if(!uploads[0]) { ok=false; break; }
@@ -148,12 +182,16 @@ int main(int argc,char **argv) { @autoreleasepool {
             }
             [command commit]; [command waitUntilCompleted];
             ok=command.status==MTLCommandBufferStatusCompleted;
+            if(!surface_input || verify_surface) {
             // Explicit diagnostic readback proves both written patterns.
             std::vector<unsigned char> pixels(width*height*4);
             [texture getBytes:pixels.data() bytesPerRow:width*4 fromRegion:MTLRegionMake2D(0,0,width,height) mipmapLevel:0];
             const unsigned char b[]={51,102,153,255},r[]={230,26,26,255};
-            for(size_t i=0;i<pixels.size();++i) if(pixels[i]!=(live_input?incoming[i]:(frame_input?frames[frame%2][i]:(frame%2?r[i%4]:b[i%4])))) exact=false;
+            if(surface_input) { exact=exact && surface_checksum(pixels)==expected_checksum; }
+            else for(size_t i=0;i<pixels.size();++i) if(pixels[i]!=(live_input?incoming[i]:(frame_input?frames[frame%2][i]:(frame%2?r[i%4]:b[i%4])))) exact=false;
+            }
             ok=ok && exact;
+            if(surface_input && ok) ok=surface_mailbox.acknowledge(sequence);
             if(ok) ok=draw_interop_quilt_texture_metal_fn(window,native,11,6,0.5625,1);
             CGLContextObj current=CGLGetCurrentContext();
             if(!observed) observed=current;
@@ -166,10 +204,13 @@ int main(int argc,char **argv) { @autoreleasepool {
         [[NSRunLoop currentRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:0.02]];
     }
     if(CGLGetCurrentContext()) glFinish();
+    imported_texture=nil;
+    if(imported_surface) CFRelease(imported_surface);
     bool released=!native || release_metal_texture_fn(window,native);
     bool stopped=uninitialize_bridge_fn();
-    std::cout<<"persistent_updates="<<updates<<" exact_gpu_pixels="<<exact<<" observed_context_stable="<<stable_context<<" observed_gl_finishes="<<finishes<<" sdk_calls_ok="<<ok<<" release="<<released<<" shutdown="<<stopped<<std::endl;
+    std::cout<<"persistent_updates="<<updates<<" exact_gpu_pixels="<<(surface_input?-1:int(exact))<<" observed_context_stable="<<stable_context<<" observed_gl_finishes="<<finishes<<" sdk_calls_ok="<<ok<<" release="<<released<<" shutdown="<<stopped<<std::endl;
     std::cout<<"consumer_completion_contract_verified=false experimental_reuse=true"<<std::endl;
+    std::cout<<"gpu_surface_input="<<surface_input<<" diagnostic_readback="<<(surface_input?verify_surface:true)<<" checksums_match="<<(surface_input && verify_surface?int(exact):-1)<<std::endl;
     std::cout<<"live_godot_input="<<live_input<<" last_sequence="<<last_sequence<<std::endl;
     std::cout<<"godot_frame_input="<<frame_input<<" prerecorded="<<frame_input<<std::endl;
     if(stopped) dlclose(library);

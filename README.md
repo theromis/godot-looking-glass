@@ -282,3 +282,7 @@ All eight new 4092×4092 Godot quilts reached the isolated Metal worker, with ex
 ### Shared-memory 4K transport checkpoint
 
 The isolated worker can use a semaphore-protected one-frame CPU mailbox. The 4K run published eight new Godot quilts and presented five latest-frame updates with exact pixel checks and clean teardown. Average publication elapsed time was 20.786 ms versus 1494.582 ms for the preceding pipe run; readback remained 12.057 ms. These are single-run stage timings, not total FPS or display latency. Cross-process coherence/payload/cleanup tests passed. Physical observation remains pending in the run record. See [protocol, limitations and RotatingCube comparison](docs/live-shared-memory.md).
+
+### Private IOSurface GPU transport checkpoint
+
+The isolated native Metal path can pass 4K quilts through a private IOSurface Mach-port right and a 32-byte copy-ack control mailbox. All eight frames passed the diagnostic checksum run; all eight also passed without producer/worker pixel readback. Final mean producer GPU-copy/publication elapsed time was 2.195 ms, excluding rendering, prior-ack wait, worker copy/draw and display latency. Two GPU copies remain; this is not zero-copy or a full FPS result. Copy-ack and Mach endpoint lifecycle tests passed. Physical observation remains pending; SDK consumer synchronization and modern IPC packaging remain experimental. See [protocol and measurements](docs/live-iosurface-transport.md).

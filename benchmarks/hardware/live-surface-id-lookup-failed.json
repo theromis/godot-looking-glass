@@ -1,0 +1,19 @@
+{
+  "execution_passed": false,
+  "producer_exit": 1,
+  "worker_exit": 1,
+  "transport": "IOSurface GPU sharing; 32-byte control mailbox with copy acknowledgment",
+  "quilt_size": [
+    4092,
+    4092
+  ],
+  "producer_frames_requested": 8,
+  "worker_duration_seconds": 20,
+  "diagnostic_readback": true,
+  "gpu_only_frame_transport": false,
+  "user_observation": "Pending",
+  "consumer_completion_contract_verified": false,
+  "production_ready": false,
+  "received_sequences": [],
+  "failure_reason": "Private IOSurface numeric-ID lookup failed across processes"
+}
