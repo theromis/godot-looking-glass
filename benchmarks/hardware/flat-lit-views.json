@@ -1,0 +1,40 @@
+{
+  "date": "2026-10-12",
+  "engine": "Godot 4.8 c61fc0118 native Metal",
+  "sdk": "2.6.3",
+  "configuration": {
+    "real_views": 66,
+    "quilt_size": [
+      4092,
+      4092
+    ],
+    "source_view_size": [
+      378,
+      672
+    ],
+    "angular_view_sampling": true,
+    "lit": true,
+    "shadow_maps_enabled": false,
+    "virtual_camera_cone_degrees": 20,
+    "focus_distance": 5.6
+  },
+  "capture_only": true,
+  "sdk_draw_submitted": false,
+  "diagnostic_cpu_readback": true,
+  "exit_code": 0,
+  "quilt_sha256": "5e9412aa087469c72e7a9b7a134560fcbd96f4a9f0ba7ba465b6e7b61d1ad8bb",
+  "inspected_view_indices": [
+    32
+  ],
+  "extracted_view_indices": [
+    0,
+    32,
+    65
+  ],
+  "inspection": "No obvious duplicated geometry in the visually inspected center tile; outer red and blue spheres partly clipped by tile bounds",
+  "limitations": [
+    "Visual inspection of one view, not exhaustive or quantitative evidence",
+    "Does not exclude optical view crosstalk, cross-view differences or SDK presentation issues",
+    "Diagnostic-only CPU readback; not a production path"
+  ]
+}

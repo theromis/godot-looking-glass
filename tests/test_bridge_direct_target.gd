@@ -43,7 +43,7 @@ func run() -> void:
         sun.rotation_degrees=Vector3(-45,-35,0)
         sun.light_color=Color(1.0,0.9,0.8)
         sun.light_energy=1.2
-        sun.shadow_enabled=true
+        sun.shadow_enabled="--no-shadows" not in OS.get_cmdline_user_args()
         sun.light_angular_distance=2.0
         sun.shadow_blur=1.0
         sun.directional_shadow_max_distance=15.0
@@ -69,10 +69,17 @@ func run() -> void:
         fail("Diagnostic extension not loaded")
         return
     var diagnostic=ClassDB.instantiate("LookingGlassMetalDiagnostic")
-    var cols: int=2 if fixture else 11
+    var requested_views: int=66
+    for argument in OS.get_cmdline_user_args():
+        if argument.begins_with("--views="):
+            requested_views=int(argument.trim_prefix("--views="))
+    if requested_views not in [48,66]:
+        fail("Diagnostic supports 48 (8x6) or 66 (11x6) output views")
+        return
+    var cols: int=2 if fixture else (8 if requested_views==48 else 11)
     var rows: int=2 if fixture else 6
     var large: bool="--large" in OS.get_cmdline_user_args()
-    var tile := Vector2i(32,32) if fixture else (Vector2i(372,682) if large else Vector2i(64,114))
+    var tile := Vector2i(32,32) if fixture else ((Vector2i(512,682) if requested_views==48 else Vector2i(372,682)) if large else Vector2i(64,114))
     var aspect: float=1.0 if fixture else 0.5625
     if fixture:
         OS.set_environment("LG_FIXTURE_ACCEPT_QUILT","1")
@@ -161,11 +168,24 @@ func run() -> void:
             fail("Source capture dimensions differ from configured camera size")
             return
     print("Showing direct imported SDK quilt: real_views=",rig.real_views," total_views=",rig.total_views," tile=",tile," lit=",lit," virtual_cone=",virtual_cone," focus=",focus," angular_sampling=",rig.angular_view_sampling," camera_span_reference=6; no intermediate quilt blit")
-    var report: Dictionary=diagnostic.submit_direct_target(0.0 if fixture else 20.0)
+    var capture_only: bool="--capture-only" in OS.get_cmdline_user_args()
+    var capture_directory: String=""
+    for argument in OS.get_cmdline_user_args():
+        if argument.begins_with("--capture-dir="):
+            capture_directory=argument.trim_prefix("--capture-dir=")
+    if not capture_directory.is_empty():
+        if not capture_directory.begins_with("res://") or DirAccess.make_dir_recursive_absolute(capture_directory)!=OK:
+            fail("Capture directory must be a writable project resource path")
+            return
+        var captured: Image=rig.quilt_texture.get_image() # Explicit diagnostic CPU readback.
+        if captured==null or captured.save_png(capture_directory+"/quilt.png")!=OK:
+            fail("Diagnostic quilt save failed")
+            return
+    var report: Dictionary={"ok":true} if capture_only else diagnostic.submit_direct_target(0.0 if fixture else 20.0)
     if not report.get("ok",false):
         fail(str(report.get("error","Direct submission failed")))
         return
-    if fixture:
+    if fixture and not capture_only:
         var image: Image=rig.quilt_texture.get_image() # Diagnostic-only readback.
         var bytes: PackedByteArray=diagnostic.read_fixture_output(runtime)
         if image == null or bytes.is_empty() or image.get_data()!=bytes:
@@ -189,7 +209,7 @@ func run() -> void:
         fail(str(closed.get("error","Close failed")))
         return
     if fixture: OS.unset_environment("LG_FIXTURE_ACCEPT_QUILT")
-    print("PASS direct Bridge target: Godot compute writes imported SDK RGBA8 texture, no quilt blit, clean teardown; fixture="+str(fixture)+"")
+    print("PASS direct Bridge target: Godot compute writes imported SDK RGBA8 texture, no quilt blit, clean teardown; fixture="+str(fixture)+" capture_only="+str(capture_only))
     quit()
 
 func populate_projection_grid(scene: Node3D, plane_z: float) -> void:

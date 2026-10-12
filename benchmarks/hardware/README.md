@@ -120,3 +120,9 @@ See [angular observation](angular-sampling-lit66.json), [aspect observation](dis
 ## User-requested 54-degree cone with corrected source aspect
 
 The lit 4092², 66-real, display-aspect scene was repeated at convergence 5.6 and cone parameter 54° on 2026-10-12. Original linear eye spacing and span reference 6.0 were retained. The user reported noticeably stronger double images than the previous 20° setting. Thus 54° is not preferred for this scene; it is not an accepted optical-quality preset. Device calibration was unchanged. The parameter sets the baseline relative to distance 6.0, not the exact subtended angle at convergence 5.6. See [settings and observation](lit66-focus56-cone54-aspect.json).
+
+## Dark-ghost controls and 48-view quilt
+
+Combined angular sampling + display aspect produced almost no reported change, with a dark ghost near the rear sphere. Disabling only shadow maps left the artifact almost unchanged. Switching to a user-requested 48-total-view, 8×6 quilt (4096×4092, all views real) also left it almost unchanged. Source resolution was retained, while output tile width/resampling changed with grid. None of these observations identifies a definitive cause or establishes a numerical crosstalk measurement.
+
+An opt-in no-presentation flat capture found no obvious duplicated geometry in center view 32; some sphere silhouettes are clipped at the view bounds. Only one view was visually inspected. A smaller fixture regression passed source-dimension and exact-pixel checks with the new CLI options. See [combined observation](combined-angular-aspect-lit66.json), [shadow control](combined-lit66-no-shadows.json), [48-view comparison](quilt48-lit.json), [flat-capture hash/limits](flat-lit-views.json), and [reproduction](../../native/bridge_metal/README.md#combined-controls-shadows-and-output-view-count).

@@ -1,0 +1,44 @@
+{
+  "date": "2026-10-12",
+  "engine": "Godot 4.8 c61fc0118 native Metal",
+  "sdk": "2.6.3",
+  "environment": {
+    "GODOT_MTL_SYNC_MODE": "none"
+  },
+  "real_views": 48,
+  "total_views": 48,
+  "grid": [
+    8,
+    6
+  ],
+  "quilt_size": [
+    4096,
+    4092
+  ],
+  "output_tile_size": [
+    512,
+    682
+  ],
+  "source_view_size": [
+    378,
+    672
+  ],
+  "angular_view_sampling": true,
+  "lit": true,
+  "shadow_maps_enabled": true,
+  "virtual_camera_cone_degrees": 20,
+  "focus_distance": 5.6,
+  "camera_span_reference_distance": 6,
+  "device_calibration_unchanged": true,
+  "duration_seconds": 20,
+  "api_success": true,
+  "exit_code": 0,
+  "user_observation": "User reported dark double image almost unchanged compared with 66 views",
+  "purpose": "User-requested 48-view 8x6 quilt to compare physical double images against 66-view output",
+  "limitations": [
+    "Source resolution retained, output tile width/resampling changes with grid",
+    "No measured optical crosstalk or performance",
+    "All views real; not the previous 48-anchor-to-66-view experiment"
+  ],
+  "assessment": "48-view quilt did not noticeably reduce the reported dark ghost"
+}

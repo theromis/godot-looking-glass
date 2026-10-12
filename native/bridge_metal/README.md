@@ -218,3 +218,25 @@ GODOT_MTL_SYNC_MODE=none "$GODOT" --path . --rendering-driver metal --script tes
 ```
 
 The source/aspect fixture used 36×64 camera views and 32² output tiles; its optical aspect is not a hardware calibration test. See [angular result](../../benchmarks/hardware/angular-sampling-lit66.json), [aspect result](../../benchmarks/hardware/display-aspect-lit66.json), and [original reference audit](../../docs/projection-and-quilt-audit.md).
+
+## Combined controls, shadows and output view count
+
+The combined angular+display-aspect 66-real test retained dark ghosting near a rear sphere; the user reported almost no change relative to the aspect-only test. `--no-shadows` disables directional shadow maps while preserving per-pixel material shading and lights. Its physical result was reported almost unchanged. This does not identify the artifact as a shadow-map defect or exclude optical crosstalk.
+
+The diagnostic now accepts `--views=48` (8×6) or `--views=66` (11×6). The former is a **48-total-view quilt**, distinct from earlier tests with 48 real anchors reconstructed into 66 output views. At large resolution it uses 512×682 output tiles and a 4096×4092 texture; device-aspect source views remain 378×672. The user-requested all-real 48-view test retained almost the same dark double image. Changing output view count did not eliminate the report; no crosstalk mechanism was quantitatively measured.
+
+```sh
+GODOT_MTL_SYNC_MODE=none "$GODOT" --path . --rendering-driver metal --script tests/test_bridge_direct_target.gd -- --large --views=48 --real-views=48 --lit --view-cone=20 --focus=5.6 --display-aspect --angular-sampling
+```
+
+Fixture mode retains its bounded 2×2 geometry regardless of the `--views` selection. It passed with the new parser and lit/aspect/angular options, checking actual source dimensions and exact nonempty RGBA8 output. It is not a physical 48-view test.
+
+## Explicit flat-image capture diagnostic
+
+`--capture-dir=res://...` saves a frozen quilt via a diagnostic CPU readback. `--capture-only` skips SDK draw/presentation entirely, then releases the imported RID and SDK allocation normally. This readback is opt-in and is not a production output path.
+
+```sh
+GODOT_MTL_SYNC_MODE=none "$GODOT" --path . --rendering-driver metal --script tests/test_bridge_direct_target.gd -- --large --real-views=66 --lit --view-cone=20 --focus=5.6 --display-aspect --angular-sampling --no-shadows --capture-only --capture-dir=res://benchmarks/hardware/flat-lit-views
+```
+
+The saved quilt passed capture/teardown. Visual inspection of center view 32 found no obvious duplicated geometry, but outer sphere silhouettes are partly clipped at the view bounds. This is a limited inspection, not an exhaustive image analysis or proof of optical crosstalk. PNGs stay local/ignored; [capture metadata and hash](../../benchmarks/hardware/flat-lit-views.json) preserve the observation. Other records: [combined](../../benchmarks/hardware/combined-angular-aspect-lit66.json), [no shadow maps](../../benchmarks/hardware/combined-lit66-no-shadows.json), [48-view quilt](../../benchmarks/hardware/quilt48-lit.json).
