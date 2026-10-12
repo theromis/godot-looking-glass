@@ -1,6 +1,6 @@
 # Community announcement draft
 
-Suggested venue: [Godot Forum — Resources / Plugins](https://forum.godotengine.org/c/resources/plugins/21). Publish after the repository is public; the link below is currently not accessible to other users. This file is a draft, not evidence that an announcement has been posted.
+Suggested venue: [Godot Forum — Resources / Plugins](https://forum.godotengine.org/c/resources/plugins/21). The repository is public; the link below is accessible without authentication. This file is a draft, not evidence that an announcement has been posted.
 
 ## Title
 
