@@ -51,7 +51,7 @@ bool MetalAdapter::open(id<MTLDevice> device, unsigned long index) {
     return true;
 }
 bool MetalAdapter::submit_once(id<MTLTexture> source, id<MTLCommandBuffer> producer, unsigned long columns, unsigned long rows, float aspect, float zoom) {
-    if (!initialized_ || submitted_ || !source || !producer) return fail("One-shot submission requires open session, texture and producer command buffer");
+    if (!initialized_ || submitted_ || output_ || !source || !producer) return fail("One-shot submission requires open session without an existing target, texture and producer command buffer");
     if (source.device != device_ || producer.commandQueue.device != device_) return fail("Metal device mismatch");
     if (!columns || !rows || source.width%columns || source.height%rows || !std::isfinite(aspect) || aspect<=0 || !std::isfinite(zoom) || zoom<=0) return fail("Invalid quilt geometry");
     if (source.textureType != MTLTextureType2D || source.sampleCount != 1 || source.arrayLength != 1 || (source.pixelFormat != MTLPixelFormatRGBA16Float && source.pixelFormat != MTLPixelFormatRGBA8Unorm)) return fail("Expected single-sample 2D RGBA16Float or RGBA8Unorm quilt");
@@ -85,6 +85,7 @@ bool MetalAdapter::append_immutable(id<MTLTexture> source, id<MTLCommandBuffer> 
     uint64_t bytes=static_cast<uint64_t>(source.width)*source.height*4;
     if (previous_outputs_.count+(output_?1:0)>=16 || bytes>128*1024*1024 || sequence_bytes_>128*1024*1024-bytes) return fail("Immutable sequence budget exceeded (16 frames / 128 MiB texture payload)");
     if (output_) {
+        if (!submitted_) return fail("Cannot archive an unsubmitted direct target");
         if (!sdk_owns_output_) return fail("Cannot extend a released sequence");
         if (!previous_outputs_) previous_outputs_=[NSMutableArray new];
         [previous_outputs_ addObject:output_];
@@ -93,6 +94,27 @@ bool MetalAdapter::append_immutable(id<MTLTexture> source, id<MTLCommandBuffer> 
     submitted_=false;
     if (!submit_once(source,producer,columns,rows,aspect)) return false;
     sequence_bytes_+=bytes;
+    return true;
+}
+bool MetalAdapter::prepare_direct_rgba8(unsigned long width, unsigned long height) {
+    if (!initialized_ || output_ || submitted_ || !width || !height || width>8192 || height>8192 || width*height>128*1024*1024/4) return fail("Direct target requires open unused session and bounded RGBA8 dimensions");
+    auto descriptor=[MTLTextureDescriptor texture2DDescriptorWithPixelFormat:MTLPixelFormatRGBA8Unorm width:width height:height mipmapped:NO];
+    descriptor.storageMode=MTLStorageModeShared;
+    descriptor.usage=MTLTextureUsageShaderRead|MTLTextureUsageShaderWrite;
+    void *native=nullptr;
+    if (!create_(window_,(__bridge void *)descriptor,&native) || !native) return fail("Direct SDK target allocation failed");
+    output_=(__bridge id<MTLTexture>)native;
+    sdk_owns_output_=true;
+    if (output_.device!=device_ || output_.pixelFormat!=MTLPixelFormatRGBA8Unorm || output_.width!=width || output_.height!=height) return fail("Direct SDK target descriptor mismatch");
+    return true;
+}
+bool MetalAdapter::submit_direct(id<MTLCommandBuffer> producer, unsigned long columns, unsigned long rows, float aspect) {
+    if (!initialized_ || !output_ || submitted_ || !producer || producer.commandQueue.device!=device_ || !columns || !rows || output_.width%columns || output_.height%rows || !std::isfinite(aspect) || aspect<=0) return fail("Invalid direct producer/geometry or already submitted target");
+    if (producer.status==MTLCommandBufferStatusNotEnqueued || producer.status==MTLCommandBufferStatusEnqueued) return fail("Direct producer must be committed");
+    [producer waitUntilCompleted];
+    if (producer.status!=MTLCommandBufferStatusCompleted) return fail("Direct producer failed");
+    submitted_=true;
+    if (!draw_(window_,(__bridge void *)output_,columns,rows,aspect,1)) return fail("Direct target draw failed");
     return true;
 }
 bool MetalAdapter::show_immutable(unsigned long columns, unsigned long rows, float aspect, double seconds) {

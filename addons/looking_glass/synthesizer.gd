@@ -36,9 +36,12 @@ var iterations: int = 8
 var disocclusion_rescue: bool = false
 var inverse_depth: bool = false
 var rgba8: bool = false
+var external_target: RID
+var owns_quilt: bool = true
 
 func configure(rig: Node3D) -> void:
     rgba8 = rig.quilt_rgba8
+    external_target = rig.external_quilt_target
     profiling_enabled = rig.profile_synthesis
     profiling_sample_limit = clampi(rig.profiling_sample_limit, 1, 4096)
     workgroup = [Vector2i(8, 8), Vector2i(16, 8), Vector2i(16, 16)][clampi(rig.synthesis_workgroup, 0, 2)]
@@ -102,7 +105,15 @@ func _initialize() -> void:
     f.height = size.y * ceili(float(count) / columns)
     f.format = RenderingDevice.DATA_FORMAT_R8G8B8A8_UNORM if rgba8 else RenderingDevice.DATA_FORMAT_R16G16B16A16_SFLOAT
     f.usage_bits = RenderingDevice.TEXTURE_USAGE_STORAGE_BIT | RenderingDevice.TEXTURE_USAGE_SAMPLING_BIT | RenderingDevice.TEXTURE_USAGE_CAN_COPY_FROM_BIT | RenderingDevice.TEXTURE_USAGE_CAN_COPY_TO_BIT
-    quilt = rd.texture_create(f, RDTextureView.new())
+    if external_target.is_valid():
+        var external_format := rd.texture_get_format(external_target)
+        if not rgba8 or external_format == null or external_format.format != f.format or external_format.width != f.width or external_format.height != f.height or (external_format.usage_bits & RenderingDevice.TEXTURE_USAGE_STORAGE_BIT) == 0:
+            push_error("External quilt requires matching RGBA8 dimensions and storage usage")
+            return
+        quilt = external_target
+        owns_quilt = false
+    else:
+        quilt = rd.texture_create(f, RDTextureView.new())
     rd.texture_clear(quilt, Color.BLACK, 0, 1, 0, 1)
     output.texture_rd_rid = quilt
 
@@ -155,7 +166,10 @@ func release() -> void:
     output.texture_rd_rid = RID()
     for capture in captures:
         capture.release()
-    for rid in [quilt, pipeline, shader, sampler]:
+    var owned: Array[RID] = [pipeline, shader, sampler]
+    if owns_quilt:
+        owned.append(quilt)
+    for rid in owned:
         if rid.is_valid():
             rd.free_rid(rid)
 

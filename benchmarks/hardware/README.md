@@ -62,3 +62,7 @@ The optional native extension copied a frozen Godot 4.8 RGBA8 quilt into a real 
 ## Immutable clip playback
 
 An eight-pose Godot clip was copied on GPU into eight distinct SDK RGBA8 textures and played for 20 seconds. The API path and teardown returned success. Hardware animation observation is pending. This diagnostic retains all frame textures unchanged until teardown; no output slot is reused. See [results](godot-real-sequence.json) and [instructions and memory bound](../../native/bridge_metal/README.md#bounded-immutable-animation-diagnostic). It does not establish safe continuous streaming or a measured render FPS.
+
+## Direct imported target
+
+On 2026-10-12, Godot compute wrote directly into an imported real Bridge RGBA8 IOSurface. The native path allocates no intermediate output quilt and performs no output blit. The 66-real-camera physical API test returned success and shut down cleanly; visual confirmation is pending. A separate fixture run verified exact RGBA8 pixels and nonempty content. This is a frozen-frame experiment, not continuous streaming or a measured speedup. See [evidence](godot-direct-target.json) and [setup](../../native/bridge_metal/README.md#direct-imported-sdk-target-frozen-frame-experiment).

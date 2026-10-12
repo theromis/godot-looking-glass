@@ -120,3 +120,20 @@ GODOT_MTL_SYNC_MODE=none "$GODOT" --path . --rendering-driver metal --script tes
 ```
 
 Standalone adapter tests verified 16 changing RGBA8 GPU copies exactly against the fixture, rejected the seventeenth frame, and tested failed-release retry. The Godot fixture test also verifies exact RGBA8 output with `-- --rgba8`. The public native reference and external `BridgeRuntime/bridge.h:378` do not provide an explicit Metal consumer completion fence. This absence does not prove the SDK is asynchronous or unsafe; it means this project has not established a texture-reuse contract. A production streaming path still needs that contract or independently validated synchronization.
+
+## Direct imported SDK target: frozen-frame experiment
+
+Godot 4.8 exposes `RenderingDevice.texture_create_from_extension()`. In the inspected engine source, `servers/rendering/rendering_device.cpp:1917` builds the RD wrapper and `drivers/metal/rendering_device_driver_metal.cpp:433` imports the native texture; its matching-format branch retains the Metal object. The adapter creates a shared, shader-readable/shader-writable SDK RGBA8 IOSurface on the main thread. The extension imports it on the render thread. The rig's optional `external_quilt_target` directs the existing RGBA8 synthesis compute dispatches to this allocation. The rig borrows the RID and does not free it.
+
+`tests/test_bridge_direct_target.gd` warms and freezes the rig, flushes subsequent producer frames, and submits that same SDK texture. This removes the previous intermediate quilt allocation and GPU blit from the output boundary. Source capture textures, normal Godot rendering work and CPU producer waits remain. It is not a claim that the complete rendering pipeline has zero copies or that frame time improves. Real consumer-completion semantics are still unresolved. Submitted output remains unchanged for the 20-second show.
+
+Teardown order is explicit: stop/free the rig and callbacks, release the imported RD RID on the render thread, then release SDK texture ownership and uninitialize on the main thread. `close_sequence()` rejects a still-imported RID. Callers must preserve the frozen producer and external target lifetime throughout this diagnostic; no arbitrary live-frame API is promised.
+
+```sh
+# Own fixture: exact pixels and nonempty-image checks, no physical output.
+GODOT_MTL_SYNC_MODE=none "$GODOT" --path . --rendering-driver metal --script tests/test_bridge_direct_target.gd -- --fixture
+# Real SDK: set external BRIDGE_LIBRARY and explicit BRIDGE_DISPLAY_INDEX first.
+GODOT_MTL_SYNC_MODE=none "$GODOT" --path . --rendering-driver metal --script tests/test_bridge_direct_target.gd
+```
+
+The fixture uses four real 32² views. The physical test uses 66 real 64×114 views, a 704×684 quilt and no CPU pixel readback. Pixel readback is performed only in fixture validation. This path requires native Metal; Vulkan/MoltenVK native image handles are not imported as Metal pointers. See [recorded outcomes](../../benchmarks/hardware/godot-direct-target.json).

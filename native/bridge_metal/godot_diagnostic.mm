@@ -16,6 +16,7 @@ class LookingGlassMetalDiagnostic : public RefCounted {
     std::unique_ptr<looking_glass::MetalAdapter> sequence;
     int64_t sequence_columns=0, sequence_rows=0;
     double sequence_aspect=0;
+    RID direct_import;
 protected:
     static void _bind_methods() {
         ClassDB::bind_method(D_METHOD("copy_static_quilt", "quilt", "fixture", "columns", "rows", "aspect"), &LookingGlassMetalDiagnostic::copy_static_quilt);
@@ -24,8 +25,68 @@ protected:
         ClassDB::bind_method(D_METHOD("capture_sequence_frame", "quilt"), &LookingGlassMetalDiagnostic::capture_sequence_frame);
         ClassDB::bind_method(D_METHOD("play_sequence", "seconds"), &LookingGlassMetalDiagnostic::play_sequence);
         ClassDB::bind_method(D_METHOD("close_sequence"), &LookingGlassMetalDiagnostic::close_sequence);
+        ClassDB::bind_method(D_METHOD("prepare_direct_target", "width", "height"), &LookingGlassMetalDiagnostic::prepare_direct_target);
+        ClassDB::bind_method(D_METHOD("import_direct_target"), &LookingGlassMetalDiagnostic::import_direct_target);
+        ClassDB::bind_method(D_METHOD("submit_direct_target", "seconds"), &LookingGlassMetalDiagnostic::submit_direct_target);
+        ClassDB::bind_method(D_METHOD("release_direct_import"), &LookingGlassMetalDiagnostic::release_direct_import);
+        ClassDB::bind_method(D_METHOD("read_fixture_output", "fixture"), &LookingGlassMetalDiagnostic::read_fixture_output);
     }
 public:
+    PackedByteArray read_fixture_output(String path) {
+        // Explicit fixture-only diagnostic readback, never a real output path.
+        PackedByteArray bytes;
+        String absolute=ProjectSettings::get_singleton()->globalize_path(path);
+        void *library=dlopen(absolute.utf8().get_data(),RTLD_NOW|RTLD_LOCAL);
+        if (!library) return bytes;
+        auto size=reinterpret_cast<unsigned long(*)()>(dlsym(library,"fixture_output_size"));
+        auto read=reinterpret_cast<bool(*)(void*,unsigned long)>(dlsym(library,"fixture_copy_output"));
+        if (size && read) {
+            unsigned long count=size();
+            if (count && count<=16*1024*1024) {
+                bytes.resize(count);
+                if (!read(bytes.ptrw(),count)) bytes.clear();
+            }
+        }
+        dlclose(library);
+        return bytes;
+    }
+    Dictionary prepare_direct_target(int64_t width, int64_t height) {
+        Dictionary result;
+        bool ok=sequence && [NSThread isMainThread] && width>0 && height>0 && sequence->prepare_direct_rgba8(width,height);
+        result["ok"]=ok;
+        if (!ok) result["error"]=sequence?String(sequence->error().c_str()):String("Main-thread open session required");
+        return result;
+    }
+    RID import_direct_target() {
+        // Call on the Godot render thread, after main-thread SDK allocation.
+        if (!sequence || direct_import.is_valid() || !sequence->direct_texture()) return RID();
+        auto *server=RenderingServer::get_singleton();
+        if (server->get_current_rendering_driver_name()!="metal") return RID();
+        auto *rd=server->get_rendering_device();
+        id<MTLTexture> target=sequence->direct_texture();
+        auto usage=RenderingDevice::TEXTURE_USAGE_STORAGE_BIT|RenderingDevice::TEXTURE_USAGE_SAMPLING_BIT|RenderingDevice::TEXTURE_USAGE_CAN_COPY_FROM_BIT|RenderingDevice::TEXTURE_USAGE_CAN_COPY_TO_BIT;
+        direct_import=rd->texture_create_from_extension(RenderingDevice::TEXTURE_TYPE_2D,RenderingDevice::DATA_FORMAT_R8G8B8A8_UNORM,RenderingDevice::TEXTURE_SAMPLES_1,usage,(uint64_t)(__bridge void *)target,target.width,target.height,1,1,1);
+        return direct_import;
+    }
+    Dictionary submit_direct_target(double seconds) {
+        Dictionary result;
+        if (!sequence || !direct_import.is_valid() || ![NSThread isMainThread]) { result["error"]="Imported frozen target and main thread required"; return result; }
+        auto *rd=RenderingServer::get_singleton()->get_rendering_device();
+        id<MTLCommandQueue> queue=(__bridge id<MTLCommandQueue>)(void *)(uintptr_t)rd->get_driver_resource(RenderingDevice::DRIVER_RESOURCE_COMMAND_QUEUE,RID(),0);
+        auto fence=[queue commandBuffer]; [fence commit];
+        bool ok=sequence->submit_direct(fence,sequence_columns,sequence_rows,sequence_aspect);
+        // Zero duration is fixture-only pixel validation, not a physical show.
+        if (ok && seconds>0) ok=sequence->show_immutable(sequence_columns,sequence_rows,sequence_aspect,seconds);
+        result["ok"]=ok; if (!ok) result["error"]=String(sequence->error().c_str());
+        return result;
+    }
+    void release_direct_import() {
+        // Render-thread call after all rig callbacks and producer work stopped.
+        if (direct_import.is_valid()) {
+            RenderingServer::get_singleton()->get_rendering_device()->free_rid(direct_import);
+            direct_import=RID();
+        }
+    }
     Dictionary begin_sequence(String path, int64_t index, int64_t columns, int64_t rows, double aspect) {
         Dictionary result;
         auto *server=RenderingServer::get_singleton();
@@ -62,6 +123,7 @@ public:
     }
     Dictionary close_sequence() {
         Dictionary result;
+        if (direct_import.is_valid()) { result["error"]="Release imported RID on render thread before SDK close"; return result; }
         if (![NSThread isMainThread]) { result["error"]="Main thread required"; return result; }
         bool ok=!sequence || sequence->close();
         if (!ok) result["error"]=String(sequence->error().c_str());

@@ -1,0 +1,35 @@
+{
+  "date": "2026-10-12",
+  "engine": "4.8.dev.custom_build.c61fc0118",
+  "driver": "native Metal",
+  "environment": {
+    "GODOT_MTL_SYNC_MODE": "none"
+  },
+  "sdk": "2.6.3",
+  "hardware": "Apple M4 / connected Looking Glass",
+  "quilt_size": [
+    704,
+    684
+  ],
+  "real_views": 66,
+  "format": "RGBA8Unorm",
+  "native_texture_import": "RenderingDevice.texture_create_from_extension",
+  "intermediate_quilt_blit": false,
+  "cpu_pixel_readback_in_hardware_path": false,
+  "api_success": true,
+  "exit_code": 0,
+  "user_observation": "Pending",
+  "log": "godot-direct-target.log",
+  "checks": [
+    "Direct Godot fixture target: exact RGBA8 bytes and nonempty output PASS",
+    "Standalone direct compute target exact bytes, size/duplicate guards and teardown PASS",
+    "Existing RGBA16Float and immutable RGBA8 sequence adapter regressions PASS"
+  ],
+  "limitations": [
+    "Frozen output only; no live texture reuse",
+    "No measured frame-time or latency improvement",
+    "Low-resolution diagnostic, not default device quilt",
+    "SDK initialization GL_INVALID_ENUM persists",
+    "Optical visual confirmation pending"
+  ]
+}

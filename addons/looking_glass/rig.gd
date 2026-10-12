@@ -25,6 +25,9 @@ var _render_required_capture_counts: Array[int] = []
 ## Compute output only. Clamps existing gamma-encoded output to normalized RGBA8.
 ## Set before ready; this does not apply HDR tonemapping or another gamma curve.
 @export var quilt_rgba8: bool = false
+## Optional externally owned RGBA8 storage texture. Owner must keep it alive
+## until the rig is released; set before ready. Native diagnostic use only.
+var external_quilt_target: RID
 @export var shared_positional_shadows: bool = false
 @export var measure_render_time: bool = false
 @export var profile_synthesis: bool = false

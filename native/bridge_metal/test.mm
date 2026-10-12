@@ -101,6 +101,34 @@ int main(int argc,char **argv) { @autoreleasepool {
         CHECK(count(2)==16 && count(3)==16 && count(4)==17 && count(5)==1);
     }
     unsetenv("LG_FIXTURE_ACCEPT_QUILT");
+    reset();
+    setenv("LG_FIXTURE_ACCEPT_QUILT","1",1);
+    {
+        MetalAdapter direct;
+        CHECK(direct.load(argv[1])); CHECK(direct.open(device,7));
+        CHECK(!direct.prepare_direct_rgba8(0,4));
+        CHECK(direct.prepare_direct_rgba8(8,4));
+        CHECK(!direct.prepare_direct_rgba8(8,4));
+        CHECK(!direct.submit_once(source,producer,2,2,1));
+        CHECK(!direct.append_immutable(rgba,producer,2,2,1));
+        NSError *error=nil;
+        auto library=[device newLibraryWithSource:@"#include <metal_stdlib>\nusing namespace metal;\nkernel void fill(texture2d<float,access::write> t [[texture(0)]],uint2 p [[thread_position_in_grid]]) { t.write(float4(0.2,0.4,0.6,1),p); }" options:nil error:&error]; CHECK(library);
+        auto pipeline=[device newComputePipelineStateWithFunction:[library newFunctionWithName:@"fill"] error:&error]; CHECK(pipeline);
+        auto command=[queue commandBuffer];
+        auto compute=[command computeCommandEncoder];
+        [compute setComputePipelineState:pipeline]; [compute setTexture:direct.direct_texture() atIndex:0];
+        [compute dispatchThreads:MTLSizeMake(8,4,1) threadsPerThreadgroup:MTLSizeMake(8,4,1)];
+        [compute endEncoding]; [command commit];
+        CHECK(direct.submit_direct(command,2,2,1));
+        CHECK(!direct.submit_direct(command,2,2,1));
+        unsigned char copied[128]; CHECK(read(copied,sizeof(copied)));
+        const unsigned char expected[4]={51,102,153,255};
+        for (int i=0;i<128;++i) CHECK(copied[i]==expected[i%4]);
+        CHECK(direct.close()); CHECK(direct.close());
+        for (unsigned i=0;i<6;++i) CHECK(count(i)==1);
+    }
+    unsetenv("LG_FIXTURE_ACCEPT_QUILT");
+    std::cout << "PASS direct SDK compute target: exact RGBA8 bytes, invalid-size and duplicate guards, one submission and idempotent teardown\n";
     std::cout << "PASS immutable RGBA8 sequence: 16 distinct GPU copies exact, frame-budget rejection, failed-release retry, no output overwrite\n";
     dlclose(fixture);
     std::cout << "PASS real Metal GPU copy into fixture IOSurface, exact RGBA16Float pixels, producer fence, SDK errors, exclusive session, one-shot guard, failed-teardown retry and idempotent teardown\n";
