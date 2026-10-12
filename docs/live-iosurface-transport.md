@@ -35,3 +35,7 @@ See [diagnostic record](../benchmarks/hardware/live-surface-4k-verify.json), [GP
 ## Remaining limitations
 
 The temporary standalone rendezvous uses deprecated `bootstrap_register`; modern XPC packaging and hardened peer authorization are still future work. Current support is the tested unsandboxed macOS desktop native Metal setup, with fixed small/4K quilt presets. Vulkan/MoltenVK import, indefinite operation, full-rate animation and scene-quality/transparency validation are not covered. No SDK source or runtime is vendored.
+
+## Hardware-confirmed repeat
+
+On 2026-10-12, the 20-second 4092×4092 repeat delivered all eight sequences without producer/worker pixel readback, completed SDK release/shutdown, and the user confirmed that it works on the physical display. Mean producer publication/copy-wait elapsed time was 2.361 ms with the exclusions above. See the [repeat record](../benchmarks/hardware/live-surface-4k-gpu-repeat.json). This confirms the bounded visual update test; continuous full-rate operation and the SDK consumer-completion contract remain unverified.
