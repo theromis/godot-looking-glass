@@ -3,12 +3,19 @@ const Rig=preload("res://addons/looking_glass/rig.gd")
 func _initialize() -> void: run.call_deferred()
 func run() -> void:
     RenderingServer.set_render_loop_enabled(false)
+    var check_before_draw: bool="--check-before-draw" in OS.get_cmdline_user_args()
+    var first_draw_us: int=0
+    var later_draw_us: int=0
     var adaptive_flush: bool="--adaptive-flush" in OS.get_cmdline_user_args()
     var validate_flush: bool="--validate-flush" in OS.get_cmdline_user_args()
     var flush_count: int=0
     var validation_count: int=0
     var uncapped: bool="--uncapped" in OS.get_cmdline_user_args()
     var large: bool="--large" in OS.get_cmdline_user_args()
+    if check_before_draw and not (adaptive_flush and validate_flush):
+        printerr("FAIL pre-draw shortcut requires explicit validation negative control")
+        quit(1)
+        return
     var dimensions: Vector2i=Vector2i(4092,4092) if large else Vector2i(704,684)
     var frame_count: int=8 if large else 24
     var duration_seconds: float=0
@@ -83,9 +90,13 @@ func run() -> void:
             var stage_started: int=Time.get_ticks_usec()
             await process_frame
             process_wait_us+=Time.get_ticks_usec()-stage_started
+            if check_before_draw and adaptive_flush and i>0 and rig.completed_revision==rig.requested_revision: break
             stage_started=Time.get_ticks_usec()
             RenderingServer.force_draw(false,1.0/60.0)
-            force_draw_us+=Time.get_ticks_usec()-stage_started
+            var draw_elapsed: int=Time.get_ticks_usec()-stage_started
+            force_draw_us+=draw_elapsed
+            if i==0: first_draw_us+=draw_elapsed
+            else: later_draw_us+=draw_elapsed
             stage_started=Time.get_ticks_usec()
             RenderingServer.force_sync()
             force_sync_us+=Time.get_ticks_usec()-stage_started
@@ -97,16 +108,27 @@ func run() -> void:
             quit(1)
             return
         if validate_flush:
-            # Diagnostic CPU readback only: compare early completion with a fresh
-            # eight-flush capture of the identical frozen scene/material state.
-            var candidate: Image=rig.quilt_texture.get_image()
+            # Copy first using the normal native path, then read its IOSurface.
+            # Reference readback cannot flush missing work into the candidate.
+            if pipe_writer==null or surface_name.is_empty():
+                printerr("FAIL validation requires IOSurface transport")
+                quit(1)
+                return
+            var copy_deadline: int=Time.get_ticks_msec()+2000
+            while not pipe_writer.surface_ready() and Time.get_ticks_msec()<copy_deadline:
+                await create_timer(0.005).timeout
+            if not pipe_writer.publish_surface(frame+1,rig.synthesizer.quilt,false):
+                printerr("FAIL validation source GPU copy")
+                quit(1)
+                return
+            var candidate: PackedByteArray=pipe_writer.read_surface_pixels()
             rig.request_update()
             for i in range(8):
                 await process_frame
                 RenderingServer.force_draw(false,1.0/60.0)
                 RenderingServer.force_sync()
             var reference: Image=rig.quilt_texture.get_image()
-            if candidate==null or reference==null or candidate.get_data()!=reference.get_data():
+            if candidate.is_empty() or reference==null or candidate!=reference.get_data():
                 printerr("FAIL adaptive flush reference mismatch frame=",frame)
                 quit(1)
                 return
@@ -118,7 +140,7 @@ func run() -> void:
                 await create_timer(0.005).timeout
             ack_us+=Time.get_ticks_usec()-ack_started
             var started: int=Time.get_ticks_usec()
-            if not pipe_writer.publish_surface(frame+1,rig.synthesizer.quilt,verify_surface):
+            if not validate_flush and not pipe_writer.publish_surface(frame+1,rig.synthesizer.quilt,verify_surface):
                 printerr("FAIL surface publish")
                 quit(1)
                 return
@@ -171,6 +193,7 @@ func run() -> void:
         pipe_writer.close_shared_frame()
     scene.queue_free()
     for i in range(4): await process_frame
+    print("PRODUCER mean_first_draw_ms=",float(first_draw_us)/(1000.0*frame_count)," mean_later_draw_ms=",float(later_draw_us)/(1000.0*frame_count))
     print("PRODUCER mean_process_wait_ms=",float(process_wait_us)/(1000.0*frame_count)," mean_force_draw_ms=",float(force_draw_us)/(1000.0*frame_count)," mean_force_sync_ms=",float(force_sync_us)/(1000.0*frame_count))
     print("PRODUCER adaptive_flush=",adaptive_flush," mean_flush_count=",float(flush_count)/frame_count," exact_reference_frames=",validation_count)
     print("PRODUCER mean_revision_flush_ms=",float(render_us)/(1000.0*frame_count)," mean_ack_wait_ms=",float(ack_us)/(1000.0*frame_count))

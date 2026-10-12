@@ -28,6 +28,7 @@ protected:
         ClassDB::bind_method(D_METHOD("open_surface_publisher","name","width","height"), &LookingGlassMetalDiagnostic::open_surface_publisher);
         ClassDB::bind_method(D_METHOD("surface_ready"), &LookingGlassMetalDiagnostic::surface_ready);
         ClassDB::bind_method(D_METHOD("publish_surface","sequence","quilt","verify"), &LookingGlassMetalDiagnostic::publish_surface);
+        ClassDB::bind_method(D_METHOD("read_surface_pixels"), &LookingGlassMetalDiagnostic::read_surface_pixels);
         ClassDB::bind_method(D_METHOD("close_surface_publisher"), &LookingGlassMetalDiagnostic::close_surface_publisher);
         ClassDB::bind_method(D_METHOD("open_shared_frame","name","width","height"), &LookingGlassMetalDiagnostic::open_shared_frame);
         ClassDB::bind_method(D_METHOD("write_shared_frame","sequence","pixels"), &LookingGlassMetalDiagnostic::write_shared_frame);
@@ -68,6 +69,14 @@ public:
         auto queue=(__bridge id<MTLCommandQueue>)(void *)(uintptr_t)rd->get_driver_resource(RenderingDevice::DRIVER_RESOURCE_COMMAND_QUEUE,RID(),0);
         auto source=(__bridge id<MTLTexture>)(void *)(uintptr_t)rd->get_driver_resource(RenderingDevice::DRIVER_RESOURCE_TEXTURE,quilt,0);
         return surface_publisher.publish(sequence,source,queue,verify);
+    }
+    PackedByteArray read_surface_pixels() {
+        PackedByteArray result;
+        if(![NSThread isMainThread]) return result;
+        auto pixels=surface_publisher.read_pixels();
+        result.resize(pixels.size());
+        if(!pixels.empty()) std::memcpy(result.ptrw(),pixels.data(),pixels.size());
+        return result;
     }
     void close_surface_publisher() { surface_publisher.close(); }
     SharedFrame shared_frame;

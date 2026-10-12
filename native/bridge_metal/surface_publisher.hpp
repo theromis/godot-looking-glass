@@ -42,6 +42,13 @@ public:
         }
         return mailbox_.publish(sequence,IOSurfaceGetID(surface_),checksum);
     }
+    // Diagnostic snapshot only, after publish has waited for the source GPU copy.
+    std::vector<unsigned char> read_pixels() {
+        if(!texture_) return {};
+        std::vector<unsigned char> pixels(static_cast<size_t>(width_)*height_*4);
+        [texture_ getBytes:pixels.data() bytesPerRow:width_*4 fromRegion:MTLRegionMake2D(0,0,width_,height_) mipmapLevel:0];
+        return pixels;
+    }
     void close() {
         texture_=nil;
         if(surface_) { CFRelease(surface_); surface_=nullptr; }
