@@ -1,0 +1,42 @@
+{
+  "date": "2026-10-11",
+  "platform": "Apple M4 / macOS",
+  "sdk": "Looking Glass Bridge 2.6.3",
+  "mode": "offscreen",
+  "source_size": [
+    704,
+    384
+  ],
+  "source_format": "RGBA8Unorm",
+  "source_usage": [
+    "shader_read",
+    "shader_write"
+  ],
+  "producer": "Metal compute shader writes constant RGBA (0.2, 0.4, 0.6, 1.0)",
+  "expected_rgba_bytes": [
+    51,
+    102,
+    153,
+    255
+  ],
+  "verified_components": 1081344,
+  "all_source_components_exact": true,
+  "draw_returned_true": true,
+  "output_descriptor": {
+    "size": [
+      1440,
+      2560
+    ],
+    "format": "RGBA8Unorm"
+  },
+  "release": true,
+  "shutdown": true,
+  "exit_code": 0,
+  "probe_sha256": "41af46992aef0686ae7f65711efe2035f5555d2b81a27fb61a652fe4b25c6cc5",
+  "limitations": [
+    "Diagnostic CPU source readback only; no production readback requirement.",
+    "SDK output pixels and physical appearance not checked in this run.",
+    "No Godot integration, animated lifetime validation or performance measurement.",
+    "SDK initialization still logs GL_INVALID_ENUM."
+  ]
+}

@@ -6,17 +6,20 @@
 #include <vector>
 #define RESOLVE(name) auto name##_fn=reinterpret_cast<decltype(&name)>(dlsym(library,#name)); if(!name##_fn) return 2
 int main(int argc,char **argv) { @autoreleasepool {
-    if(argc<2 || argc>4) return 2;
+    if(argc<2 || argc>5) return 2;
     bool onscreen=false;
     bool allocation_only=false;
+    bool compute_write=false;
     MTLPixelFormat format=MTLPixelFormatRGBA16Float;
     for(int i=2;i<argc;++i) {
         if(std::string(argv[i])=="--rgba8") format=MTLPixelFormatRGBA8Unorm;
         else if(std::string(argv[i])=="--onscreen") onscreen=true;
         else if(std::string(argv[i])=="--allocation-only") allocation_only=true;
+        else if(std::string(argv[i])=="--compute-write") compute_write=true;
         else return 2;
     }
     if(onscreen && allocation_only) return 2;
+    if(compute_write && (allocation_only || format!=MTLPixelFormatRGBA8Unorm)) return 2;
     void *library=dlopen(argv[1],RTLD_NOW|RTLD_LOCAL); if(!library) return 2;
     RESOLVE(initialize_bridge); RESOLVE(uninitialize_bridge); RESOLVE(get_displays);
     RESOLVE(get_default_quilt_settings_for_display); RESOLVE(get_viewcone_for_display);
@@ -45,19 +48,45 @@ int main(int argc,char **argv) { @autoreleasepool {
     if(ok) {
         auto desc=[MTLTextureDescriptor texture2DDescriptorWithPixelFormat:format width:columns*64 height:rows*64 mipmapped:NO];
         desc.storageMode=MTLStorageModeShared; desc.usage=allocation_only?MTLTextureUsageShaderRead:MTLTextureUsageShaderRead|MTLTextureUsageRenderTarget;
+        if(compute_write) desc.usage=MTLTextureUsageShaderRead|MTLTextureUsageShaderWrite;
         ok=create_metal_texture_with_iosurface_fn(window,(__bridge void *)desc,&native) && native;
         if(ok) texture=(__bridge id<MTLTexture>)native;
     }
     std::cout<<"sdk_texture="<<ok<<" requested_format="<<format<<std::endl;
     if(ok && !allocation_only) {
         auto queue=[device newCommandQueue]; auto command=[queue commandBuffer];
+        if(compute_write) {
+            NSError *error=nil;
+            NSString *source=@"#include <metal_stdlib>\nusing namespace metal;\nkernel void fill(texture2d<float, access::write> out [[texture(0)]], uint2 p [[thread_position_in_grid]]) { if(p.x<out.get_width() && p.y<out.get_height()) out.write(float4(0.2,0.4,0.6,1.0),p); }";
+            auto shader=[device newLibraryWithSource:source options:nil error:&error];
+            auto pipeline=shader?[device newComputePipelineStateWithFunction:[shader newFunctionWithName:@"fill"] error:&error]:nil;
+            if(!pipeline) {
+                std::cout<<"compute_pipeline=false"<<std::endl;
+                release_metal_texture_fn(window,native); uninitialize_bridge_fn(); return 1;
+            }
+            auto compute=[command computeCommandEncoder];
+            [compute setComputePipelineState:pipeline]; [compute setTexture:texture atIndex:0];
+            [compute dispatchThreads:MTLSizeMake(texture.width,texture.height,1) threadsPerThreadgroup:MTLSizeMake(8,8,1)];
+            [compute endEncoding];
+        } else {
         auto pass=[MTLRenderPassDescriptor renderPassDescriptor];
         pass.colorAttachments[0].texture=texture;
         pass.colorAttachments[0].loadAction=MTLLoadActionClear;
         pass.colorAttachments[0].storeAction=MTLStoreActionStore;
         pass.colorAttachments[0].clearColor=MTLClearColorMake(0.2,0.4,0.6,1);
         auto encoder=[command renderCommandEncoderWithDescriptor:pass]; [encoder endEncoding];
+        }
         [command commit]; [command waitUntilCompleted];
+        if(compute_write) {
+            // Diagnostic-only CPU readback; not part of a production output path.
+            std::vector<unsigned char> pixels(texture.width*texture.height*4);
+            [texture getBytes:pixels.data() bytesPerRow:texture.width*4 fromRegion:MTLRegionMake2D(0,0,texture.width,texture.height) mipmapLevel:0];
+            bool exact=command.status==MTLCommandBufferStatusCompleted;
+            const unsigned char expected[4]={51,102,153,255};
+            for(size_t i=0;i<pixels.size();++i) if(pixels[i]!=expected[i%4]) exact=false;
+            std::cout<<"compute_write_rgba8_exact="<<exact<<" components="<<pixels.size()<<std::endl;
+            if(!exact) { release_metal_texture_fn(window,native); uninitialize_bridge_fn(); return 1; }
+        }
         ok=command.status==MTLCommandBufferStatusCompleted && draw_interop_quilt_texture_metal_fn(window,native,columns,rows,aspect,1);
         std::cout<<"gpu_producer_and_draw="<<ok<<std::endl;
         if(!onscreen) {

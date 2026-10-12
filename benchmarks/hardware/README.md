@@ -38,6 +38,7 @@ Build our own probes using externally installed SDK headers:
 ```sh
 python3 native/bridge_metal/build.py --sdk-headers "$BRIDGE_HEADERS"
 native/bridge_metal/build/probe-hardware "$BRIDGE_LIBRARY" --rgba8
+native/bridge_metal/build/probe-hardware "$BRIDGE_LIBRARY" --rgba8 --compute-write
 native/bridge_metal/build/probe-hardware "$BRIDGE_LIBRARY" --rgba8 --onscreen
 native/bridge_metal/build/probe-hardware "$BRIDGE_LIBRARY" --allocation-only
 ```
@@ -45,3 +46,11 @@ native/bridge_metal/build/probe-hardware "$BRIDGE_LIBRARY" --allocation-only
 Set `BRIDGE_HEADERS` and `BRIDGE_LIBRARY` to your external SDK header directory and runtime library. The default format is RGBA16Float; `--rgba8` selects RGBA8Unorm. `--allocation-only` uses shader-read-only usage and makes no draw attempt. `--onscreen` opens a temporary output window on the first SDK-listed calibrated display. Device choice must become explicit before multi-display use. Keep probes in bounded subprocesses (40 seconds was used), and do not run another native adapter session concurrently. The SDL event pump is dynamically resolved from the SDK's dependency; its availability is not assumed for other platforms/runtimes.
 
 Headers, SDK libraries, compiled probes, raw device serials and local calibration files are not vendored. Next steps are GPU conversion of Godot's preview quilt to RGBA8, support for the device's 66-view preset (the addon currently caps views at 48), actual Godot-to-display validation, optical view-order checks and a verified animated consumer lifetime contract. No FPS or latency result is claimed.
+
+## Direct compute output checkpoint
+
+The real SDK accepted an IOSurface-backed RGBA8Unorm texture with shader-read and shader-write usage. A Metal compute shader wrote a constant color directly to that texture. After producer completion, a diagnostic-only CPU readback verified every one of its 1,081,344 byte components against RGBA (51, 102, 153, 255). Quilt submission, resource release and SDK shutdown returned true; the process exited zero. See [structured evidence](compute-write-rgba8.json).
+
+This establishes that a separate float-to-RGBA8 conversion pass is not intrinsically required by this SDK/device combination: a future native quilt compositor can write RGBA8 directly. It does not establish that Godot can import this texture through its public RenderingDevice API, or that the existing RGBA16Float synthesizer can already target it. A native compute compositor or a supported texture import path still needs implementation and validation. The constant-color probe performs no HDR tonemapping, synthesis or color-space validation, and provides no speedup measurement. SDK offscreen output pixels were not read back; physical visibility was not checked in this run.
+
+`--compute-write` requires `--rgba8`, is incompatible with `--allocation-only`, and requests shader-read/shader-write usage instead of render-target usage. The diagnostic CPU readback belongs only to this test; it is not a proposed production frame path.
