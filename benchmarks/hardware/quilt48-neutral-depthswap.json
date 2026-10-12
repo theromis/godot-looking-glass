@@ -1,0 +1,35 @@
+{
+  "date": "2026-10-12",
+  "cli_arguments": [
+    "--large",
+    "--views=48",
+    "--real-views=48",
+    "--lit",
+    "--view-cone=54",
+    "--focus=5.6",
+    "--display-aspect",
+    "--angular-sampling",
+    "--compact-objects",
+    "--depth-scale=0.35",
+    "--neutral-spheres",
+    "--no-shadows",
+    "--diagnostic-stages",
+    "--swap-sphere-depths"
+  ],
+  "comparison": "quilt48-depth035-cone54-neutral.json",
+  "changed_parameter": "Only sphere Z centers swapped before existing depth compression; X/Y, geometry, materials, lighting and cameras unchanged",
+  "left_sphere_world_z": 0.54,
+  "middle_sphere_world_z": 0.26,
+  "right_sphere_world_z": -0.02,
+  "checks": {
+    "fixture": true,
+    "hardware": true
+  },
+  "user_observation": "Pending",
+  "display_duration_seconds_requested": 20,
+  "limitations": [
+    "Qualitative comparison, not an optical measurement",
+    "Position swap changes projection and occlusion relationships",
+    "All 48 views real; no synthesis"
+  ]
+}

@@ -31,10 +31,13 @@ func run() -> void:
     subjects.append(box)
     var swap_depth_colors: bool="--swap-depth-colors" in OS.get_cmdline_user_args()
     var neutral_spheres: bool="--neutral-spheres" in OS.get_cmdline_user_args()
+    var swap_sphere_depths: bool="--swap-sphere-depths" in OS.get_cmdline_user_args()
     for i in range(3):
         var sphere := MeshInstance3D.new()
         sphere.mesh=SphereMesh.new()
         sphere.position=Vector3((i-1)*0.75,0.55,(i-1)*0.8)
+        if swap_sphere_depths:
+            sphere.position.z=-sphere.position.z
         var sphere_material := StandardMaterial3D.new()
         sphere_material.shading_mode=BaseMaterial3D.SHADING_MODE_PER_PIXEL if lit else BaseMaterial3D.SHADING_MODE_UNSHADED
         var color_index: int=2-i if swap_depth_colors else i
