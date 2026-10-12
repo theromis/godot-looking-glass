@@ -1,6 +1,6 @@
 Analysis of sampling godot.macos.template_release.arm64 (pid 55697) every 10 milliseconds
 Process:         godot.macos.template_release.arm64 [55697]
-Path:            /Users/USER/*/godot.macos.template_release.arm64
+Path:            ../../../../Users/USER/*/godot.macos.template_release.arm64
 Load Address:    0x102d84000
 Identifier:      godot.macos.template_release.arm64
 Version:         0
@@ -212,7 +212,7 @@ Sort by top of stack, same collapsed (when >= 5):
         __semwait_signal  (in libsystem_kernel.dylib)        71
 
 Binary Images:
-       0x102d84000 -        0x105002dd3 +godot.macos.template_release.arm64 (0) <7B9C6975-6DB3-3349-B65D-EAB9B51D0A93> /Users/*/godot.macos.template_release.arm64
+       0x102d84000 -        0x105002dd3 +godot.macos.template_release.arm64 (0) <7B9C6975-6DB3-3349-B65D-EAB9B51D0A93> ../../../../Users/*/godot.macos.template_release.arm64
        0x109f64000 -        0x109f6c43b  com.apple.iokit.IOHIDLib (2.0.0 - 2.0.0) <F3E9DCC5-2E8C-3E7A-BCAF-6491A77BF5CD> ../../../../System/Library/Extensions/IOHIDFamily.kext/Contents/PlugIns/IOHIDLib.plugin/Contents/MacOS/IOHIDLib
        0x109f84000 -        0x109f8c03f  libobjc-trampolines.dylib (973.1) <9EF9E491-F3D3-322C-918A-559D3B858D9A> ../../../../usr/lib/libobjc-trampolines.dylib
        0x121894000 -        0x1219d9bcf  com.apple.audio.units.Components (1.14 - 1.14) <C6E682F4-92B6-318F-877C-640AB5E1E026> ../../../../System/Library/Components/CoreAudio.component/Contents/MacOS/CoreAudio
