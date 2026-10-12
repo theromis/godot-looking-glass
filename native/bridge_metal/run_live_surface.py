@@ -80,7 +80,7 @@ try:
         for key in ('worker_update_span_seconds','worker_update_rate_hz','worker_mean_finish_ms','worker_mean_copy_wait_ms','worker_mean_new_frame_draw_ms'):
             measured=re.search(key+r'=([\d.]+)',wout)
             if measured: result[key]=float(measured[1])
-        for key in ('mean_revision_flush_ms','mean_ack_wait_ms','mean_flush_count','exact_reference_frames'):
+        for key in ('mean_revision_flush_ms','mean_ack_wait_ms','mean_flush_count','exact_reference_frames','mean_process_wait_ms','mean_force_draw_ms','mean_force_sync_ms'):
             measured=re.search(key+r'=([\d.]+)',pout)
             if measured: result[key]=float(measured[1])
         produced=re.search(r'PASS live Godot producer frames=(\d+)',pout)

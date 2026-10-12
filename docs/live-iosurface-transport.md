@@ -88,3 +88,20 @@ The test covers this simple opaque scene on the tested native Metal build, not a
 The 60-second worker run received all 1,272 frames in order, used two flushes per revision, and submitted new SDK frames at 28.265 Hz. The user confirmed correct visible animation. Producer revision preparation averaged 30.074 ms, previous-copy acknowledgment wait 0.799 ms, and copy/publication 4.506 ms. Worker copy/wait averaged 3.693 ms and its new-frame SDK call 12.695 ms. No pixel readback was enabled; cleanup passed. See [full results](../benchmarks/hardware/live-surface-4k-gpu-duration-60-uncapped-adaptive.json).
 
 This did not establish a material throughput improvement: the earlier eight-flush 60-second run reached 27.560 Hz and its elapsed-time 30-second repeat reached 28.744 Hz. Run durations and animation differ, and repeated matched trials were not performed. Removing six flushes reduces explicit work, but preparation still includes main-loop/process-frame waits; the timings do not isolate GPU rendering. Next investigate those waits and presentation pacing before claiming a benefit or changing addon defaults.
+
+## Main-loop wait breakdown (2026-10-12)
+
+The instrumented adaptive 4K run submitted all 582 frames in order at 29.107 new SDK frames/s during approximately 20 seconds of animation, then held its final frame to the 35-second worker deadline. Both processes and SDK cleanup passed. No diagnostic readback was used. Physical observation remains pending for this separate run; the preceding adaptive hardware run was user-confirmed.
+
+| Producer CPU wall time per revision (two flushes) | Mean ms |
+| --- | ---: |
+| Awaiting process-frame signals | 0.211 |
+| force_draw calls | 27.641 |
+| force_sync calls | 0.001 |
+| Total revision preparation | 27.885 |
+| Previous source-copy acknowledgment wait | 2.337 |
+| Copy/publication | 4.162 |
+
+The project's VSync mode is already disabled (`project.godot`, `display/window/vsync/vsync_mode=0`), so no redundant VSync-off trial was performed. Earlier speculation that main-loop waits dominated the approximately 30 ms preparation is contradicted by this breakdown: almost all measured preparation time is inside `force_draw`. That call includes rendering and any internal waits; CPU/GPU contributions are not isolated here. In the tested engine source, `servers/rendering/rendering_server.cpp:3589–3590` binds force_sync/draw to sync/draw; `servers/rendering/rendering_server_default.cpp:439–459` flushes/synchronizes the render command queue and invokes/enqueues `_draw`. The files refer to external Godot revision `c61fc0118854f38d75474346a417db55e52d0ffd`; no engine patch was made.
+
+The producer renders 66 actual camera views at 372×682, with a 4092×4092 quilt. The next experiments should split the first/second draw costs or vary actual camera count while checking synthesized output quality, rather than treating process-frame sleep or VSync as the established bottleneck. See the [breakdown record](../benchmarks/hardware/live-surface-4k-gpu-duration-35-uncapped-adaptive.json).

@@ -64,6 +64,9 @@ func run() -> void:
     var readback_us: int=0
     var pipe_us: int=0
     var render_us: int=0
+    var process_wait_us: int=0
+    var force_draw_us: int=0
+    var force_sync_us: int=0
     var ack_us: int=0
     var animation_started: int=Time.get_ticks_msec()
     var produced: int=0
@@ -77,9 +80,15 @@ func run() -> void:
         var render_started: int=Time.get_ticks_usec()
         rig.request_update()
         for i in range(8):
+            var stage_started: int=Time.get_ticks_usec()
             await process_frame
+            process_wait_us+=Time.get_ticks_usec()-stage_started
+            stage_started=Time.get_ticks_usec()
             RenderingServer.force_draw(false,1.0/60.0)
+            force_draw_us+=Time.get_ticks_usec()-stage_started
+            stage_started=Time.get_ticks_usec()
             RenderingServer.force_sync()
+            force_sync_us+=Time.get_ticks_usec()-stage_started
             flush_count+=1
             if adaptive_flush and rig.completed_revision==rig.requested_revision: break
         render_us+=Time.get_ticks_usec()-render_started
@@ -162,6 +171,7 @@ func run() -> void:
         pipe_writer.close_shared_frame()
     scene.queue_free()
     for i in range(4): await process_frame
+    print("PRODUCER mean_process_wait_ms=",float(process_wait_us)/(1000.0*frame_count)," mean_force_draw_ms=",float(force_draw_us)/(1000.0*frame_count)," mean_force_sync_ms=",float(force_sync_us)/(1000.0*frame_count))
     print("PRODUCER adaptive_flush=",adaptive_flush," mean_flush_count=",float(flush_count)/frame_count," exact_reference_frames=",validation_count)
     print("PRODUCER mean_revision_flush_ms=",float(render_us)/(1000.0*frame_count)," mean_ack_wait_ms=",float(ack_us)/(1000.0*frame_count))
     print("SURFACE producer gpu_only=",not surface_name.is_empty() and not (verify_surface or validate_flush)," diagnostic_readback=",(verify_surface or validate_flush) if not surface_name.is_empty() else true)
