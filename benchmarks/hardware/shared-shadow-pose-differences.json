@@ -1,0 +1,72 @@
+{
+  "date": "2026-10-12",
+  "poses": [
+    {
+      "pose": 0,
+      "different_pixels": 51,
+      "different_fraction": 3.0457827733392958e-06,
+      "max_rgb_difference_8bit": 2,
+      "mean_absolute_rgb_difference_8bit": 1.6124732329443332e-06,
+      "different_alpha_pixels": 0
+    },
+    {
+      "pose": 1,
+      "different_pixels": 0,
+      "different_fraction": 0.0,
+      "max_rgb_difference_8bit": 0,
+      "mean_absolute_rgb_difference_8bit": 0.0,
+      "different_alpha_pixels": 0
+    },
+    {
+      "pose": 2,
+      "different_pixels": 0,
+      "different_fraction": 0.0,
+      "max_rgb_difference_8bit": 0,
+      "mean_absolute_rgb_difference_8bit": 0.0,
+      "different_alpha_pixels": 0
+    },
+    {
+      "pose": 3,
+      "different_pixels": 0,
+      "different_fraction": 0.0,
+      "max_rgb_difference_8bit": 0,
+      "mean_absolute_rgb_difference_8bit": 0.0,
+      "different_alpha_pixels": 0
+    },
+    {
+      "pose": 4,
+      "different_pixels": 0,
+      "different_fraction": 0.0,
+      "max_rgb_difference_8bit": 0,
+      "mean_absolute_rgb_difference_8bit": 0.0,
+      "different_alpha_pixels": 0
+    },
+    {
+      "pose": 5,
+      "different_pixels": 0,
+      "different_fraction": 0.0,
+      "max_rgb_difference_8bit": 0,
+      "mean_absolute_rgb_difference_8bit": 0.0,
+      "different_alpha_pixels": 0
+    },
+    {
+      "pose": 6,
+      "different_pixels": 0,
+      "different_fraction": 0.0,
+      "max_rgb_difference_8bit": 0,
+      "mean_absolute_rgb_difference_8bit": 0.0,
+      "different_alpha_pixels": 0
+    },
+    {
+      "pose": 7,
+      "different_pixels": 0,
+      "different_fraction": 0.0,
+      "max_rgb_difference_8bit": 0,
+      "mean_absolute_rgb_difference_8bit": 0.0,
+      "different_alpha_pixels": 0
+    }
+  ],
+  "scope": "Copied shared-atlas IOSurface vs independent-atlas eight-flush references, same frozen pose, 24\u219266, full caster culling, LOD=0. Not a performance benchmark.",
+  "max_different_pixels": 51,
+  "max_rgb_difference_8bit": 2
+}

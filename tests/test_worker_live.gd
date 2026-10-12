@@ -3,6 +3,9 @@ const Rig=preload("res://addons/looking_glass/rig.gd")
 func _initialize() -> void: run.call_deferred()
 func run() -> void:
     RenderingServer.set_render_loop_enabled(false)
+    var warm_shadow_atlases: bool="--warm-shadow-atlases" in OS.get_cmdline_user_args()
+    var collect_shadow_diffs: bool="--collect-shadow-diffs" in OS.get_cmdline_user_args()
+    var mismatch_count: int=0
     var shared_shadows: bool="--shared-shadows" in OS.get_cmdline_user_args()
     if shared_shadows and not RenderingServer.has_method("viewport_set_positional_shadow_atlas_shared_from"):
         printerr("FAIL shared shadow engine API unavailable")
@@ -88,6 +91,14 @@ func run() -> void:
     scene.add_child(rig)
     if not ProjectSettings.get_setting("rendering/lights_and_shadows/tighter_shadow_caster_culling",true):
         for view in rig.views: view.mesh_lod_threshold=0.0
+    if warm_shadow_atlases:
+        for enabled in [false,true]:
+            _set_shadow_links(rig,enabled)
+            rig.request_update()
+            for i in range(8):
+                await process_frame
+                RenderingServer.force_draw(false,1.0/60.0)
+                RenderingServer.force_sync()
     var readback_us: int=0
     var pipe_us: int=0
     var render_us: int=0
@@ -159,20 +170,26 @@ func run() -> void:
                 RenderingServer.force_draw(false,1.0/60.0)
                 RenderingServer.force_sync()
             var reference: Image=rig.quilt_texture.get_image()
-            if candidate.is_empty() or reference==null or candidate!=reference.get_data():
+            var reference_matches: bool=not candidate.is_empty() and reference!=null and candidate==reference.get_data()
+            if not reference_matches:
                 if shared_shadows:
                     Image.create_from_data(dimensions.x,dimensions.y,false,Image.FORMAT_RGBA8,candidate).save_png("res://benchmarks/hardware/shared-shadow-candidate.png")
                     reference.save_png("res://benchmarks/hardware/shared-shadow-reference.png")
+                mismatch_count+=1
                 printerr("FAIL adaptive flush reference mismatch frame=",frame)
-                quit(1)
-                return
+                if not collect_shadow_diffs:
+                    quit(1)
+                    return
+            if collect_shadow_diffs:
+                Image.create_from_data(dimensions.x,dimensions.y,false,Image.FORMAT_RGBA8,candidate).save_png("res://benchmarks/hardware/shared-shadow-candidate-%d.png"%frame)
+                reference.save_png("res://benchmarks/hardware/shared-shadow-reference-%d.png"%frame)
             if capture_compose:
                 RenderingServer.call_on_render_thread(_set_capture_notifications.bind(rig,true))
                 RenderingServer.force_sync()
             if shared_shadows:
                 _set_shadow_links(rig,true)
                 RenderingServer.force_sync()
-            validation_count+=1
+            if reference_matches: validation_count+=1
         if not surface_name.is_empty():
             var ack_started: int=Time.get_ticks_usec()
             var deadline: int=Time.get_ticks_msec()+2000
@@ -233,6 +250,7 @@ func run() -> void:
         pipe_writer.close_shared_frame()
     scene.queue_free()
     for i in range(4): await process_frame
+    print("PRODUCER comparison_mismatches=",mismatch_count)
     print("PRODUCER mean_shadow_draw_calls=",float(shadow_draw_calls)/frame_count)
     print("PRODUCER mean_first_draw_ms=",float(first_draw_us)/(1000.0*frame_count)," mean_later_draw_ms=",float(later_draw_us)/(1000.0*frame_count))
     print("PRODUCER mean_process_wait_ms=",float(process_wait_us)/(1000.0*frame_count)," mean_force_draw_ms=",float(force_draw_us)/(1000.0*frame_count)," mean_force_sync_ms=",float(force_sync_us)/(1000.0*frame_count))

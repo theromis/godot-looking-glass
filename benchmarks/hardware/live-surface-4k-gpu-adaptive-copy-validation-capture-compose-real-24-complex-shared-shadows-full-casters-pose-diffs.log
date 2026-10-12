@@ -1,0 +1,25 @@
+PRODUCER animation_elapsed_seconds=13.605
+PRODUCER comparison_mismatches=1
+PRODUCER mean_shadow_draw_calls=13.25
+PRODUCER mean_first_draw_ms=2.708625 mean_later_draw_ms=0.0
+PRODUCER mean_process_wait_ms=4.05775 mean_force_draw_ms=2.708625 mean_force_sync_ms=0.000125
+PRODUCER adaptive_flush=true mean_flush_count=1.0 exact_reference_frames=8
+PRODUCER mean_revision_flush_ms=6.787375 mean_ack_wait_ms=0.006625
+SURFACE producer gpu_only=false diagnostic_readback=true
+PASS live Godot producer frames=8 mean_readback_ms=0.0 mean_pipe_write_ms=0.00025
+FAIL adaptive flush reference mismatch frame=0
+live_sequence=1
+2026-10-12 15:58:31 [Error] 0x500 GL_INVALID_ENUM - invalid enumerant | prog=0 | activeTex=0 | boundTex2D=0 @ [SDK source location redacted]
+live_sequence=2
+live_sequence=3
+live_sequence=4
+live_sequence=5
+live_sequence=6
+live_sequence=7
+live_sequence=8
+worker_mean_finish_ms=0.000595286 worker_mean_copy_wait_ms=3.95499 worker_mean_new_frame_draw_ms=5.12376
+worker_update_span_seconds=12.0075 worker_update_rate_hz=0.58297
+persistent_updates=8 exact_gpu_pixels=-1 observed_context_stable=1 observed_gl_finishes=7 sdk_calls_ok=1 release=1 shutdown=1
+consumer_completion_contract_verified=false experimental_reuse=true
+gpu_surface_input=1 diagnostic_readback=0 checksums_match=-1
+live_godot_input=1 last_sequence=8
