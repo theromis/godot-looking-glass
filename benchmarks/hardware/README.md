@@ -116,3 +116,7 @@ On 2026-10-12 the 4092², 66-real diagnostic displayed a grid on the convergence
 Two separate lit all-real controls ran at 4092², reference cone 20° and convergence 5.6. With official-style angular spacing, the user reported a good cube but slight doubling elsewhere. With original linear spacing and a 9:16 source projection (378×672 rendered into 372×682 tiles), the user reported it seemed better. No complete removal of double images or precise relative gain was confirmed. The aspect control also changes source pixel dimensions/resampling, so it does not isolate aspect alone. Both SDK sessions passed. Geometry tests and a combined-option synthesized fixture test passed. No default has been changed and no performance claim is made.
 
 See [angular observation](angular-sampling-lit66.json), [aspect observation](display-aspect-lit66.json), and [options/method](../../native/bridge_metal/README.md#official-style-camera-controls).
+
+## User-requested 54-degree cone with corrected source aspect
+
+The lit 4092², 66-real, display-aspect scene was repeated at convergence 5.6 and cone parameter 54° on 2026-10-12. Original linear eye spacing and span reference 6.0 were retained. The user reported noticeably stronger double images than the previous 20° setting. Thus 54° is not preferred for this scene; it is not an accepted optical-quality preset. Device calibration was unchanged. The parameter sets the baseline relative to distance 6.0, not the exact subtended angle at convergence 5.6. See [settings and observation](lit66-focus56-cone54-aspect.json).

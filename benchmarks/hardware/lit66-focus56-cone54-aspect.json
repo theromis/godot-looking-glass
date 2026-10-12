@@ -1,0 +1,35 @@
+{
+  "date": "2026-10-12",
+  "engine": "Godot 4.8 c61fc0118 native Metal",
+  "sdk": "2.6.3",
+  "environment": {
+    "GODOT_MTL_SYNC_MODE": "none"
+  },
+  "real_views": 66,
+  "quilt_size": [
+    4092,
+    4092
+  ],
+  "source_view_size": [
+    378,
+    672
+  ],
+  "projection_aspect": 0.5625,
+  "angular_view_sampling": false,
+  "lit": true,
+  "virtual_camera_cone_degrees": 54,
+  "focus_distance": 5.6,
+  "camera_span_reference_distance": 6,
+  "device_calibration_unchanged": true,
+  "duration_seconds": 20,
+  "api_success": true,
+  "exit_code": 0,
+  "user_observation": "User confirmed noticeably stronger double images compared with prior 20-degree cone",
+  "purpose": "User-requested 54-degree cone at convergence 5.6 with previous display-aspect correction retained",
+  "limitations": [
+    "Cone parameter specifies baseline relative to reference distance 6, not exact angle at convergence 5.6",
+    "No measured optical error or performance",
+    "No synthesis involved"
+  ],
+  "assessment": "54-degree reference-cone setting not preferred for this lit scene at convergence 5.6"
+}
