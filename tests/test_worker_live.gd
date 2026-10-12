@@ -3,6 +3,16 @@ const Rig=preload("res://addons/looking_glass/rig.gd")
 func _initialize() -> void: run.call_deferred()
 func run() -> void:
     RenderingServer.set_render_loop_enabled(false)
+    var shared_shadows: bool="--shared-shadows" in OS.get_cmdline_user_args()
+    if shared_shadows and not RenderingServer.has_method("viewport_set_positional_shadow_atlas_shared_from"):
+        printerr("FAIL shared shadow engine API unavailable")
+        quit(1)
+        return
+    if shared_shadows and ProjectSettings.get_setting("rendering/lights_and_shadows/tighter_shadow_caster_culling",true):
+        printerr("FAIL shared shadows require full shadow caster project setting")
+        quit(1)
+        return
+    var shadow_draw_calls: int=0
     var complex_scene: bool="--complex-scene" in OS.get_cmdline_user_args()
     var capture_compose: bool="--capture-compose" in OS.get_cmdline_user_args()
     var check_before_draw: bool=capture_compose or "--check-before-draw" in OS.get_cmdline_user_args()
@@ -65,6 +75,7 @@ func run() -> void:
     var rig:=Rig.new()
     rig.total_views=66
     rig.real_views=real_views
+    rig.shared_positional_shadows=shared_shadows
     rig.columns=11
     rig.tile_size=Vector2i(372,682) if large else Vector2i(64,114)
     rig.synthesis=true
@@ -75,6 +86,8 @@ func run() -> void:
     rig.focus_distance=6
     rig.view_cone_degrees=30
     scene.add_child(rig)
+    if not ProjectSettings.get_setting("rendering/lights_and_shadows/tighter_shadow_caster_culling",true):
+        for view in rig.views: view.mesh_lod_threshold=0.0
     var readback_us: int=0
     var pipe_us: int=0
     var render_us: int=0
@@ -117,6 +130,8 @@ func run() -> void:
             printerr("FAIL live producer revision")
             quit(1)
             return
+        for view in rig.views:
+            shadow_draw_calls+=RenderingServer.viewport_get_render_info(view.get_viewport_rid(),RenderingServer.VIEWPORT_RENDER_INFO_TYPE_SHADOW,RenderingServer.VIEWPORT_RENDER_INFO_DRAW_CALLS_IN_FRAME)
         if validate_flush:
             # Copy first using the normal native path, then read its IOSurface.
             # Reference readback cannot flush missing work into the candidate.
@@ -132,6 +147,9 @@ func run() -> void:
                 quit(1)
                 return
             var candidate: PackedByteArray=pipe_writer.read_surface_pixels()
+            if shared_shadows:
+                _set_shadow_links(rig,false)
+                RenderingServer.force_sync()
             if capture_compose:
                 RenderingServer.call_on_render_thread(_set_capture_notifications.bind(rig,false))
                 RenderingServer.force_sync()
@@ -142,11 +160,17 @@ func run() -> void:
                 RenderingServer.force_sync()
             var reference: Image=rig.quilt_texture.get_image()
             if candidate.is_empty() or reference==null or candidate!=reference.get_data():
+                if shared_shadows:
+                    Image.create_from_data(dimensions.x,dimensions.y,false,Image.FORMAT_RGBA8,candidate).save_png("res://benchmarks/hardware/shared-shadow-candidate.png")
+                    reference.save_png("res://benchmarks/hardware/shared-shadow-reference.png")
                 printerr("FAIL adaptive flush reference mismatch frame=",frame)
                 quit(1)
                 return
             if capture_compose:
                 RenderingServer.call_on_render_thread(_set_capture_notifications.bind(rig,true))
+                RenderingServer.force_sync()
+            if shared_shadows:
+                _set_shadow_links(rig,true)
                 RenderingServer.force_sync()
             validation_count+=1
         if not surface_name.is_empty():
@@ -209,6 +233,7 @@ func run() -> void:
         pipe_writer.close_shared_frame()
     scene.queue_free()
     for i in range(4): await process_frame
+    print("PRODUCER mean_shadow_draw_calls=",float(shadow_draw_calls)/frame_count)
     print("PRODUCER mean_first_draw_ms=",float(first_draw_us)/(1000.0*frame_count)," mean_later_draw_ms=",float(later_draw_us)/(1000.0*frame_count))
     print("PRODUCER mean_process_wait_ms=",float(process_wait_us)/(1000.0*frame_count)," mean_force_draw_ms=",float(force_draw_us)/(1000.0*frame_count)," mean_force_sync_ms=",float(force_sync_us)/(1000.0*frame_count))
     print("PRODUCER adaptive_flush=",adaptive_flush," mean_flush_count=",float(flush_count)/frame_count," exact_reference_frames=",validation_count)
@@ -221,3 +246,7 @@ func _set_capture_notifications(rig: Node3D, enabled: bool) -> void:
     # Validation reference uses the original post-draw composition schedule.
     for capture in rig.captures:
         capture.capture_completed=rig._dispatch_requested if enabled else Callable()
+
+func _set_shadow_links(rig: Node3D, enabled: bool) -> void:
+    for i in range(1,rig.views.size()):
+        RenderingServer.call("viewport_set_positional_shadow_atlas_shared_from",rig.views[i].get_viewport_rid(),rig.views[0].get_viewport_rid() if enabled else RID())

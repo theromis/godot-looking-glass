@@ -349,3 +349,7 @@ The actual Godot depth-reprojection shader now has a frozen-source comparison: t
 In a sequential 24-real-camera → 66-view native Metal fixture, SDK update submission throughput was 30.109 Hz with shadows/alpha panel enabled, 52.486 Hz without shadow maps, 30.080 Hz without the alpha panel, and 53.369 Hz without either. Every produced frame was received and teardown passed. These are one-run-per-mode scene-specific measurements, not physical panel FPS or isolated GPU timings. Lighting stays enabled when shadows are disabled; the alpha test hides the mesh.
 
 The shadow atlas is the next optimization candidate. These controls do not establish that transparency has zero cost, or that shared atlases will improve this scene without a new test. See [method and result matrix](live-iosurface-transport.md#shadow-and-alpha-panel-cost-controls-2026-10-12).
+
+## Live shared-atlas follow-up
+
+With full caster culling and LOD=0 on both sides, the live 24→66 4K moving OmniLight fixture measured 30.028 new SDK submissions/s and 282.987 mean shadow draw calls with independent atlases, versus 50.125 Hz and 11.801 with the existing experimental shared-atlas API. The user confirmed correct-looking shadows. Strict byte equivalence failed: the quantitatively examined first pose differed at 51 pixels, maximum 2/255. This remains opt-in and requires the experimental engine build. See [method, limits and results](live-iosurface-transport.md#experimental-shared-positional-shadow-atlas).

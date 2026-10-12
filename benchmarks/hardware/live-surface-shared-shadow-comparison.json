@@ -1,0 +1,14 @@
+{
+  "date": "2026-10-12",
+  "shared_record": "live-surface-4k-gpu-duration-30-uncapped-adaptive-capture-compose-real-24-shared-atlas-speed-complex-shared-shadows-full-casters.json",
+  "independent_record": "live-surface-4k-gpu-duration-30-uncapped-adaptive-capture-compose-real-24-independent-atlas-control-complex-full-casters.json",
+  "shared_sdk_submission_hz": 50.1249,
+  "independent_sdk_submission_hz": 30.0284,
+  "submission_rate_ratio": 1.6692497768778887,
+  "shared_mean_shadow_draw_calls": 11.8005540166205,
+  "independent_mean_shadow_draw_calls": 282.986666666667,
+  "byte_exact_equivalence": false,
+  "first_pose_difference_record": "shared-shadow-image-difference.json",
+  "user_observation": "User confirmed correct-looking shared-atlas shadows without flicker or new artifacts.",
+  "scope": "Single sequential native Metal trials, 24\u219266, 4092\u00b2, same lit moving scene, full caster culling and LOD=0 for both. Requires experimental c61fc0118 engine API. Consumer synchronization remains experimental."
+}

@@ -1,0 +1,9 @@
+FAIL adaptive flush reference mismatch frame=0
+2026-10-12 15:48:52 [Error] 0x500 GL_INVALID_ENUM - invalid enumerant | prog=0 | activeTex=0 | boundTex2D=0 @ [SDK source location redacted]
+live_sequence=1
+worker_mean_finish_ms=0 worker_mean_copy_wait_ms=10.6335 worker_mean_new_frame_draw_ms=13.6623
+worker_update_span_seconds=0 worker_update_rate_hz=0
+persistent_updates=1 exact_gpu_pixels=-1 observed_context_stable=1 observed_gl_finishes=0 sdk_calls_ok=1 release=1 shutdown=1
+consumer_completion_contract_verified=false experimental_reuse=true
+gpu_surface_input=1 diagnostic_readback=0 checksums_match=-1
+live_godot_input=1 last_sequence=1

@@ -1,0 +1,134 @@
+{
+  "execution_passed": false,
+  "producer_exit": 1,
+  "worker_exit": 1,
+  "transport": "IOSurface GPU sharing; 32-byte control mailbox with copy acknowledgment",
+  "quilt_size": [
+    4092,
+    4092
+  ],
+  "producer_frames_requested": 8,
+  "worker_duration_seconds": 20,
+  "shared_positional_shadows_requested": true,
+  "shadows_enabled": true,
+  "alpha_panel_enabled": true,
+  "scene": "lit occlusion and alpha panel",
+  "run_label": "",
+  "real_views": 24,
+  "total_views": 66,
+  "capture_compose": true,
+  "check_before_draw": true,
+  "adaptive_flush": true,
+  "validation_pixel_readback": true,
+  "uncapped": false,
+  "diagnostic_readback": false,
+  "gpu_only_frame_transport": false,
+  "user_observation": "Pending",
+  "consumer_completion_contract_verified": false,
+  "production_ready": false,
+  "rss_samples": [
+    {
+      "elapsed_seconds": 0.0,
+      "producer_rss_kib": 176,
+      "worker_rss_kib": 7776
+    },
+    {
+      "elapsed_seconds": 1.008,
+      "producer_rss_kib": 466352,
+      "worker_rss_kib": 140032
+    },
+    {
+      "elapsed_seconds": 2.019,
+      "worker_rss_kib": 140592
+    },
+    {
+      "elapsed_seconds": 3.042,
+      "worker_rss_kib": 140592
+    },
+    {
+      "elapsed_seconds": 4.06,
+      "worker_rss_kib": 140592
+    },
+    {
+      "elapsed_seconds": 5.082,
+      "worker_rss_kib": 140592
+    },
+    {
+      "elapsed_seconds": 6.1,
+      "worker_rss_kib": 140640
+    },
+    {
+      "elapsed_seconds": 7.121,
+      "worker_rss_kib": 140656
+    },
+    {
+      "elapsed_seconds": 8.142,
+      "worker_rss_kib": 140656
+    },
+    {
+      "elapsed_seconds": 9.161,
+      "worker_rss_kib": 140656
+    },
+    {
+      "elapsed_seconds": 10.179,
+      "worker_rss_kib": 140656
+    },
+    {
+      "elapsed_seconds": 11.199,
+      "worker_rss_kib": 140656
+    },
+    {
+      "elapsed_seconds": 12.216,
+      "worker_rss_kib": 140656
+    },
+    {
+      "elapsed_seconds": 13.233,
+      "worker_rss_kib": 140656
+    },
+    {
+      "elapsed_seconds": 14.252,
+      "worker_rss_kib": 140704
+    },
+    {
+      "elapsed_seconds": 15.272,
+      "worker_rss_kib": 140704
+    },
+    {
+      "elapsed_seconds": 16.291,
+      "worker_rss_kib": 140704
+    },
+    {
+      "elapsed_seconds": 17.308,
+      "worker_rss_kib": 140704
+    },
+    {
+      "elapsed_seconds": 18.326,
+      "worker_rss_kib": 140704
+    },
+    {
+      "elapsed_seconds": 19.346,
+      "worker_rss_kib": 140720
+    },
+    {
+      "elapsed_seconds": 20.366,
+      "worker_rss_kib": 140720
+    }
+  ],
+  "rss_scope": "Process resident memory sampled with ps; not GPU allocations or a leak proof.",
+  "received_sequences": [
+    1
+  ],
+  "worker_update_span_seconds": 0.0,
+  "worker_update_rate_hz": 0.0,
+  "worker_mean_finish_ms": 0.0,
+  "worker_mean_copy_wait_ms": 10.6335,
+  "worker_mean_new_frame_draw_ms": 13.6623,
+  "all_frames_received_in_order": false,
+  "sdk_cleanup_passed": true,
+  "worker_updates_completed": 1,
+  "rate_scope": "Worker SDK update submissions, not measured physical display FPS; Optional pacing; revisions flushed synchronously; stage means overlap across processes and must not be summed as frame latency.",
+  "mean_surface_publish_elapsed_ms": null,
+  "validation_scope": "Normal native GPU publication occurs before any quilt readback; copied IOSurface bytes compared to a fresh eight-flush reference. Publication timing is not measured in this mode.",
+  "date": "2026-10-12",
+  "comparison_scope": "Strict byte comparison failed; do not interpret as exact equivalence."
+}

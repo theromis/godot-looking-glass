@@ -1,0 +1,11 @@
+{
+  "different_pixels": 51,
+  "total_pixels": 16744464,
+  "different_pixel_fraction": 3.0457827733392958e-06,
+  "mean_absolute_rgb_difference_8bit": 1.6124732329443332e-06,
+  "max_rgb_difference_8bit": 2,
+  "date": "2026-10-12",
+  "scope": "First frozen pose only; actual copied shared-atlas IOSurface compared to independent-atlas eight-flush reference under full caster culling and LOD=0. No byte-exact equivalence established.",
+  "candidate_image": "shared-shadow-candidate.png (ignored local diagnostic)",
+  "reference_image": "shared-shadow-reference.png (ignored local diagnostic)"
+}

@@ -180,3 +180,22 @@ Each sequential run kept the worker alive for 30 seconds and animated for approx
 Disabling shadow maps produced the dominant throughput difference in this scene. Removing the alpha panel did not produce a detectable gain with shadows enabled; the small no-shadow difference is not statistically established. These results do not mean transparency is free in other scenes. Native copy/publication includes waiting for scene GPU work; its time cannot be interpreted as pure blit cost.
 
 The next candidate is the existing opt-in shared positional shadow atlas with this moving OmniLight scene. That requires separate correctness and throughput comparisons and does not follow automatically from earlier shadow benchmarks. See [matrix and per-run records](../benchmarks/hardware/live-surface-scene-cost-comparison.json).
+
+## Experimental shared positional shadow atlas
+
+`--shared-shadows --full-shadow-casters` enables the existing rig/engine prototype. The launcher requires the API and the producer refuses the mode if tighter caster culling remains enabled. Full-caster tests create an owned temporary project outside the repository with links to project resources and a copied configuration setting `rendering/lights_and_shadows/tighter_shadow_caster_culling=false`; the root project and user overrides are untouched. The launcher cleans up that temporary project. Both shared and independent full-caster controls disable mesh LOD for the viewports.
+
+The tested external engine is revision `c61fc0118854f38d75474346a417db55e52d0ffd`. `servers/rendering/renderer_viewport.cpp:335–350` selects the source atlas only with compatible scenario, LOD, size/format and camera conditions. `servers/rendering/renderer_scene_cull.cpp:157–161` requires the full visibility mask and full caster mode; `:4550` reads the tighter-culling setting. This is not a stock Godot API; ordinary builds are rejected for this test rather than silently benchmarked as if sharing worked. No new engine patch was made.
+
+The initial test without full caster culling did not establish sharing and failed comparison. After configuring the required mode, the first frozen pose still failed strict byte comparison. An actual IOSurface-versus-independent-atlas reference image comparison found 51 differing pixels out of 16,744,464, maximum RGB difference 2/255, mean absolute RGB difference 0.000001612 in 8-bit levels. Only this first pose was quantitatively compared; exact equivalence across the animation is not established. Cropped local images appeared visually alike. The cause of the tiny difference is unresolved. Image diagnostics are ignored local PNGs; numerical results are tracked in [difference record](../benchmarks/hardware/shared-shadow-image-difference.json).
+
+| Full-caster, LOD=0 mode | Frames received | New SDK submissions/s | Mean shadow draw calls/revision |
+| --- | ---: | ---: | ---: |
+| Independent atlases | 450 | 30.028 | 282.987 |
+| Shared atlas | 722 | 50.125 | 11.801 |
+
+All frames arrived in order and SDK cleanup passed in these GPU-only runs. The user confirmed correct-looking shared shadows without flicker or new motion artifacts. The approximately 1.67× submission-rate ratio and roughly 24× reduction in shadow draw calls apply to one trial per mode of this moving OmniLight fixture; they are not universal gains or measured display FPS. Draw-call counts sum viewport shadow statistics after each requested revision. The normal shadow-sharing default remains false.
+
+See [paired measurements](../benchmarks/hardware/live-surface-shared-shadow-comparison.json) and [strict failed full-caster comparison](../benchmarks/hardware/live-surface-4k-gpu-adaptive-copy-validation-capture-compose-real-24-complex-shared-shadows-full-casters.json). Remaining work includes quantifying more poses, explaining residual differences, atlas overflow/coverage/subdivision compatibility and broader scenes. The hardware speed run is an experimental quality/performance result, not a passed byte-exact regression.
+
+The final system-temporary-project smoke test delivered all eight frames with the shared API active and completed cleanup. Its approximately 2 Hz intentionally paced producer is not a throughput result. See [staging smoke record](../benchmarks/hardware/live-surface-4k-gpu-adaptive-capture-compose-real-24-staging-cleanup-smoke-complex-shared-shadows-full-casters.json).
