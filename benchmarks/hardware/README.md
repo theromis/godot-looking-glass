@@ -148,3 +148,7 @@ The reproducible configuration is saved in [accepted scene profile](accepted-lit
 ```sh
 GODOT_MTL_SYNC_MODE=none "$GODOT" --path . --rendering-driver metal --script tests/test_bridge_direct_target.gd -- --large --views=48 --real-views=48 --lit --view-cone=40 --focus=5.6 --display-aspect --angular-sampling --compact-objects --depth-scale=0.35
 ```
+
+## 54-degree control at 35-percent geometry depth
+
+The same compact lit 48-real-view setup was shown at reference cone 54 degrees, with focus 5.6 and depth factor 0.35 unchanged. The successful repeat completed presentation and teardown; minimum source-camera subject margin was 29.966 pixels. The user reported very strong double images on the rear red sphere, slight spreading elsewhere, and an overall tolerable image. At 40 degrees, the user clarified that the rear red sphere doubles most strongly while other objects look normal. The 40-degree profile remains the preferred recorded compromise. These qualitative observations do not isolate depth, color/contrast, or optical crosstalk as the cause. See [54-degree result](quilt48-depth035-cone54.json).

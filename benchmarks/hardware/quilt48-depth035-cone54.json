@@ -1,0 +1,30 @@
+{
+  "date": "2026-10-12",
+  "cli_arguments": [
+    "--large",
+    "--views=48",
+    "--real-views=48",
+    "--lit",
+    "--view-cone=54",
+    "--focus=5.6",
+    "--display-aspect",
+    "--angular-sampling",
+    "--compact-objects",
+    "--depth-scale=0.35"
+  ],
+  "comparison": "quilt48-depth035-cone40.json",
+  "changed_parameter": "reference camera cone 40 to 54 degrees",
+  "execution_passed": true,
+  "user_observation": "Very strong double images on the rear red sphere; other objects spread slightly; overall tolerable",
+  "display_duration_seconds": 20,
+  "device_calibration_modified": false,
+  "process_exit": 0,
+  "minimum_source_pixel_margin": 29.9657173156738,
+  "assessment": "Severe residual rear-object ghosting; 40-degree profile remains the preferred recorded compromise; no isolated cause established",
+  "execution_note": "Initial attempt exited without PASS; repeat completed presentation and clean teardown with PASS",
+  "limitations": [
+    "Qualitative user observation, no numerical optical measurement",
+    "All 48 views real; no synthesized views",
+    "Known SDK initialization GL_INVALID_ENUM persists"
+  ]
+}

@@ -58,5 +58,6 @@
     "Depth scale alters demo mesh geometry/normals; not a generic addon depthiness parameter",
     "No motion/transparency validation with this configuration",
     "No measured end-to-end FPS or consumer lifetime guarantee"
-  ]
+  ],
+  "user_observation_clarification": "Rear red sphere retains the most visible double image; other objects look normal"
 }

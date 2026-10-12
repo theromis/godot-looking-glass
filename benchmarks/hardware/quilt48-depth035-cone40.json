@@ -37,5 +37,6 @@
     "No measured optical error or performance",
     "No synthesis involved"
   ],
-  "assessment": "User-accepted scene-specific volume/ghosting compromise; not complete ghosting elimination"
+  "assessment": "User-accepted scene-specific volume/ghosting compromise; not complete ghosting elimination",
+  "user_observation_clarification": "Rear red sphere doubles most strongly; other objects look normal"
 }
