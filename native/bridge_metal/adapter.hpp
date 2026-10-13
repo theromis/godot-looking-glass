@@ -21,7 +21,7 @@ public:
     bool append_immutable(id<MTLTexture> source, id<MTLCommandBuffer> producer,
         unsigned long columns, unsigned long rows, float aspect);
     bool prepare_direct_rgba8(unsigned long width, unsigned long height);
-    bool submit_direct(id<MTLCommandBuffer> producer, unsigned long columns, unsigned long rows, float aspect);
+    bool submit_direct(id<MTLCommandBuffer> producer, unsigned long columns, unsigned long rows, float aspect, bool experimental_reuse = false);
     id<MTLTexture> direct_texture() const { return output_; }
     const std::string &error() const { return error_; }
     const std::string &version() const { return version_; }

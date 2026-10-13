@@ -53,6 +53,7 @@ protected:
         ClassDB::bind_method(D_METHOD("prepare_direct_target", "width", "height"), &LookingGlassMetalDiagnostic::prepare_direct_target);
         ClassDB::bind_method(D_METHOD("import_direct_target"), &LookingGlassMetalDiagnostic::import_direct_target);
         ClassDB::bind_method(D_METHOD("submit_direct_target", "seconds"), &LookingGlassMetalDiagnostic::submit_direct_target);
+        ClassDB::bind_method(D_METHOD("update_direct_target_experimental"), &LookingGlassMetalDiagnostic::update_direct_target_experimental);
         ClassDB::bind_method(D_METHOD("release_direct_import"), &LookingGlassMetalDiagnostic::release_direct_import);
         ClassDB::bind_method(D_METHOD("read_fixture_output", "fixture"), &LookingGlassMetalDiagnostic::read_fixture_output);
         ClassDB::bind_method(D_METHOD("wait_for_native_producer"), &LookingGlassMetalDiagnostic::wait_for_native_producer);
@@ -202,6 +203,22 @@ public:
         // Zero duration is fixture-only pixel validation, not a physical show.
         if (ok && seconds>0) ok=sequence->show_immutable(sequence_columns,sequence_rows,sequence_aspect,seconds);
         result["ok"]=ok; if (!ok) result["error"]=String(sequence->error().c_str());
+        return result;
+    }
+    Dictionary update_direct_target_experimental() {
+        Dictionary result;
+        if (!sequence || !direct_import.is_valid() || ![NSThread isMainThread]) {
+            result["error"]="Main thread and imported persistent target required"; return result;
+        }
+        auto *rd=RenderingServer::get_singleton()->get_rendering_device();
+        auto queue=(__bridge id<MTLCommandQueue>)(void *)(uintptr_t)rd->get_driver_resource(RenderingDevice::DRIVER_RESOURCE_COMMAND_QUEUE,RID(),0);
+        if (!queue) { result["error"]="Producer queue unavailable"; return result; }
+        auto fence=[queue commandBuffer]; [fence commit];
+        // Experimental overwrite, not an SDK consumer-completion guarantee.
+        bool ok=sequence->submit_direct(fence,sequence_columns,sequence_rows,sequence_aspect,true);
+        if (ok) ok=sequence->pump_latest_immutable(sequence_columns,sequence_rows,sequence_aspect);
+        result["ok"]=ok;
+        if (!ok) result["error"]=String(sequence->error().c_str());
         return result;
     }
     void release_direct_import() {

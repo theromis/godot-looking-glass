@@ -1,0 +1,25 @@
+{
+  "date": "2026-10-12",
+  "engine": "Godot 4.8-dev c61fc0118 native Metal",
+  "platform": "Apple M4",
+  "bridge_version": "2.6.3",
+  "dimensions": [
+    4092,
+    4092
+  ],
+  "real_views": 24,
+  "output_views": 66,
+  "updates": 40,
+  "worker": false,
+  "producer_blit": false,
+  "adapter_blit": false,
+  "hardware_pixel_readback": false,
+  "exit_code": 0,
+  "lifecycle_protocol_passed": true,
+  "sdk_startup_diagnostic": "GL_INVALID_ENUM emitted; significance unresolved",
+  "error_free_sdk_run": false,
+  "user_visual_confirmation": "Visible motion and color changes",
+  "consumer_completion_contract_verified": false,
+  "throughput_benchmark": false,
+  "production_ready": false
+}

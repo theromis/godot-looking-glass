@@ -108,8 +108,8 @@ bool MetalAdapter::prepare_direct_rgba8(unsigned long width, unsigned long heigh
     if (output_.device!=device_ || output_.pixelFormat!=MTLPixelFormatRGBA8Unorm || output_.width!=width || output_.height!=height) return fail("Direct SDK target descriptor mismatch");
     return true;
 }
-bool MetalAdapter::submit_direct(id<MTLCommandBuffer> producer, unsigned long columns, unsigned long rows, float aspect) {
-    if (!initialized_ || !output_ || submitted_ || !producer || producer.commandQueue.device!=device_ || !columns || !rows || output_.width%columns || output_.height%rows || !std::isfinite(aspect) || aspect<=0) return fail("Invalid direct producer/geometry or already submitted target");
+bool MetalAdapter::submit_direct(id<MTLCommandBuffer> producer, unsigned long columns, unsigned long rows, float aspect, bool experimental_reuse) {
+    if (!initialized_ || !output_ || (submitted_ && !experimental_reuse) || !producer || producer.commandQueue.device!=device_ || !columns || !rows || output_.width%columns || output_.height%rows || !std::isfinite(aspect) || aspect<=0) return fail("Invalid direct producer/geometry or already submitted target");
     if (producer.status==MTLCommandBufferStatusNotEnqueued || producer.status==MTLCommandBufferStatusEnqueued) return fail("Direct producer must be committed");
     [producer waitUntilCompleted];
     if (producer.status!=MTLCommandBufferStatusCompleted) return fail("Direct producer failed");

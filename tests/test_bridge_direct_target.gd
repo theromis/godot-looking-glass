@@ -241,7 +241,8 @@ func run() -> void:
         if captured==null or captured.save_png(capture_directory+"/quilt.png")!=OK:
             fail("Diagnostic quilt save failed")
             return
-    var report: Dictionary={"ok":true} if capture_only else diagnostic.submit_direct_target(0.0 if fixture else 20.0)
+    var live_direct: bool="--live-direct" in OS.get_cmdline_user_args()
+    var report: Dictionary={"ok":true} if capture_only else diagnostic.submit_direct_target(0.0 if fixture or live_direct else 20.0)
     if not report.get("ok",false):
         fail(str(report.get("error","Direct submission failed")))
         return
@@ -257,6 +258,35 @@ func run() -> void:
         if not visible:
             fail("Empty quilt cannot establish direct output")
             return
+    if live_direct:
+        var updated: int=0
+        var distinct_frames: Dictionary={}
+        var colors: Array[Color]=[Color(0.95,0.35,0.05),Color(0.05,0.8,0.95)]
+        for frame in range(8 if fixture else 40):
+            material.albedo_color=colors[frame%2]
+            box.rotation.y=frame*0.12
+            rig.request_update()
+            await process_frame
+            # Commit capture and any frame_post_draw synthesis before fencing.
+            for draw in range(2):
+                RenderingServer.force_draw(false,1.0/60.0)
+                RenderingServer.force_sync()
+            var update: Dictionary=diagnostic.update_direct_target_experimental()
+            if not update.get("ok",false):
+                fail(str(update.get("error","Live direct update failed")))
+                return
+            if fixture:
+                var frame_image: Image=rig.quilt_texture.get_image()
+                if frame_image!=null: distinct_frames[hash(frame_image.get_data())]=true
+                if frame_image==null or frame_image.get_data()!=diagnostic.read_fixture_output(runtime):
+                    fail("Updated direct fixture pixels differ")
+                    return
+            updated+=1
+            await create_timer(0.5).timeout
+        if fixture and distinct_frames.size()<2:
+            fail("Direct texture did not change across updates")
+            return
+        print("LIVE DIRECT updates=",updated," worker=false producer_blit=false adapter_blit=false")
     scene.queue_free()
     for i in range(4): await process_frame
     RenderingServer.call_on_render_thread(func():
