@@ -93,3 +93,7 @@ The demo also passed four fresh-rig Start/Stop cycles, including expired rig/pub
 ## Capture ownership during camera motion
 
 Managed output temporarily disables `Rig.auto_update_on_transform`, while retaining camera transform updates and explicit scheduled captures. It restores the caller's policy after stop. This prevents camera-following rigs from launching additional source captures while the output waits for copy acknowledgment. The transform-ownership test and a 119-frame managed lifecycle/restart test passed. See [TPS measurements and limits](tps-performance-profiles.md).
+
+## Optional capture pacing
+
+`max_capture_hz=0` preserves natural source-copy acknowledgment pacing. A positive value limits new capture starts without blocking the process loop; late captures do not create catch-up bursts, and the deadline resets at each start. The TPS experiment improved average desktop FPS only by reducing content updates and did not eliminate slow capture frames, so the default remains zero. See [measurements and tradeoffs](tps-capture-pacing.md).

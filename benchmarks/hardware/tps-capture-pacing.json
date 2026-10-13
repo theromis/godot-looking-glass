@@ -1,0 +1,129 @@
+{
+  "date": "2026-10-12",
+  "engine": "Godot 4.8 c61fc0118 native Metal editor",
+  "hardware": "Apple M4",
+  "scope": "Same fast preset, fixed first player spawn and yaw animation, 4s warmup, 8s measurement per rate; one run per rate; process wall frame times; submission rate is not panel FPS",
+  "runs": [
+    {
+      "capture_hz_limit": 0.0,
+      "exit_code": 0,
+      "measurements": {
+        "capture_hz_limit": 0.0,
+        "engine_frame_hz": 25.6488090361501,
+        "engine_frames": 206,
+        "feature_passed": true,
+        "frame_mean_ms": 38.9881650485437,
+        "frame_p95_ms": 61.4,
+        "profile": "fast",
+        "sdk_cleanup": true,
+        "seconds": 8.031562,
+        "submission_hz": 10.707755228684,
+        "submitted": 86,
+        "total_received": 129,
+        "total_submitted": 129
+      },
+      "errors": [
+        "ERROR: 1 RID allocations of type 'N10RendererRD15MaterialStorage6ShaderE' were leaked at exit.",
+        "ERROR: 1 shaders of type ParticlesShaderRD were never freed"
+      ],
+      "full_test_passed": false
+    },
+    {
+      "capture_hz_limit": 15,
+      "exit_code": 0,
+      "measurements": {
+        "capture_hz_limit": 15.0,
+        "engine_frame_hz": 26.7023329978073,
+        "engine_frames": 214,
+        "feature_passed": true,
+        "frame_mean_ms": 37.4499112149533,
+        "frame_p95_ms": 59.64,
+        "profile": "fast",
+        "sdk_cleanup": true,
+        "seconds": 8.014281,
+        "submission_hz": 10.9803986159208,
+        "submitted": 88,
+        "total_received": 130,
+        "total_submitted": 130
+      },
+      "errors": [
+        "ERROR: 1 RID allocations of type 'N10RendererRD15MaterialStorage6ShaderE' were leaked at exit.",
+        "ERROR: 1 shaders of type ParticlesShaderRD were never freed"
+      ],
+      "full_test_passed": false
+    },
+    {
+      "capture_hz_limit": 10,
+      "exit_code": 0,
+      "measurements": {
+        "capture_hz_limit": 10.0,
+        "engine_frame_hz": 27.6144202252512,
+        "engine_frames": 221,
+        "feature_passed": true,
+        "frame_mean_ms": 36.212963800905,
+        "frame_p95_ms": 61.008,
+        "profile": "fast",
+        "sdk_cleanup": true,
+        "seconds": 8.003065,
+        "submission_hz": 9.12150532327302,
+        "submitted": 73,
+        "total_received": 109,
+        "total_submitted": 109
+      },
+      "errors": [
+        "ERROR: 1 RID allocations of type 'N10RendererRD15MaterialStorage6ShaderE' were leaked at exit.",
+        "ERROR: 1 shaders of type ParticlesShaderRD were never freed"
+      ],
+      "full_test_passed": false
+    },
+    {
+      "capture_hz_limit": 5,
+      "exit_code": 0,
+      "measurements": {
+        "capture_hz_limit": 5.0,
+        "engine_frame_hz": 33.0927635117441,
+        "engine_frames": 265,
+        "feature_passed": true,
+        "frame_mean_ms": 30.2180867924528,
+        "frame_p95_ms": 61.847,
+        "profile": "fast",
+        "sdk_cleanup": true,
+        "seconds": 8.007793,
+        "submission_hz": 4.74537740923123,
+        "submitted": 38,
+        "total_received": 57,
+        "total_submitted": 57
+      },
+      "errors": [
+        "ERROR: 1 RID allocations of type 'N10RendererRD15MaterialStorage6ShaderE' were leaked at exit.",
+        "ERROR: 1 shaders of type ParticlesShaderRD were never freed"
+      ],
+      "full_test_passed": false
+    }
+  ],
+  "initial_control": {
+    "capture_hz_limit": 0,
+    "exit_code": 1,
+    "measurements": {
+      "capture_hz_limit": 0.0,
+      "engine_frame_hz": 26.4719331328958,
+      "engine_frames": 212,
+      "feature_passed": false,
+      "frame_mean_ms": 37.775858490566,
+      "frame_p95_ms": 60.4,
+      "profile": "fast",
+      "sdk_cleanup": true,
+      "seconds": 8.008482,
+      "submission_hz": 10.8634819932167,
+      "submitted": 87,
+      "total_received": 130,
+      "total_submitted": 130
+    },
+    "errors": [
+      "ERROR: 1 RID allocations of type 'N10RendererRD15MaterialStorage6ShaderE' were leaked at exit.",
+      "ERROR: 1 shaders of type ParticlesShaderRD were never freed"
+    ],
+    "full_test_passed": false
+  },
+  "verification_note": "Initial uncapped run compared rig/camera before frame processing and falsely failed pose equality; repeated control verifies after frame_post_draw. Timing windows are unchanged. All caps delivered every submitted frame; known particle-shader shutdown errors persist."
+}

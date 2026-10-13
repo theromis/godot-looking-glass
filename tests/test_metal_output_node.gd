@@ -39,6 +39,8 @@ func run() -> void:
     rig.compose_in_capture_callback=true
     scene.add_child(rig)
     output=Output.new()
+    for argument in OS.get_cmdline_user_args():
+        if argument.begins_with("--capture-hz="): output.max_capture_hz=clampf(argument.trim_prefix("--capture-hz=").to_float(),0,60)
     scene.add_child(output)
     output.failed.connect(func(reason: String): error_seen=true; printerr("FAIL output node ",reason))
     output.stopped.connect(func(_graceful: bool): done=true)
@@ -52,6 +54,8 @@ func run() -> void:
     var deadline: int=Time.get_ticks_msec()+5000
     while not done and Time.get_ticks_msec()<deadline: await process_frame
     var passed: bool=ownership_passed and rig.auto_update_on_transform and done and not error_seen and output.sdk_cleanup_passed and output.submitted_frames>5 and output.received_frames==output.submitted_frames
+    if output.max_capture_hz>0:
+        passed=passed and output.submitted_frames<=ceili(show_seconds*output.max_capture_hz)+1
     print("OUTPUT submitted=",output.submitted_frames," received=",output.received_frames," cleanup=",output.sdk_cleanup_passed)
     done=false
     if output.start_output(rig):

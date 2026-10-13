@@ -1,7 +1,7 @@
 {
   "date": "2026-10-12",
   "package": "looking-glass-godot-0.1.0-experimental-macos-arm64.zip",
-  "sha256": "3382f01d4416a3cc03f3e448898bbaa02460892f74443b637ab00c19b8e9f55b",
+  "sha256": "d53a91d76b254ebd5594b379e2c111118fcd838c48336e3e1985f7e741212aa0",
   "checks": [
     {
       "stage": "archive manifest, contents and permissions",
@@ -39,6 +39,6 @@
   "production_ready": false,
   "engine": "Godot 4.8 c61fc0118 editor native Metal",
   "hardware": "Apple M4",
-  "archive_bytes": 514668,
+  "archive_bytes": 514827,
   "identical_input_archive_reproducibility_verified": true
 }

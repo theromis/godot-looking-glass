@@ -9,6 +9,8 @@ signal stopped(graceful: bool)
 ## -1 selects the first display currently reported by Bridge.
 @export var display_index: int=-1
 @export_range(20,600) var duration_seconds: int=60
+## Zero leaves capture pacing to source-copy acknowledgment. No catch-up bursts.
+@export_range(0,60,1) var max_capture_hz: float=0.0
 var submitted_frames: int=0
 var received_frames: int=0
 var sdk_cleanup_passed: bool=false
@@ -21,6 +23,7 @@ var _name: String=""
 var _state: String="idle"
 var _deadline: int=0
 var _revision: int=0
+var _next_capture_usec: int=0
 var _publisher_open: bool=false
 var _sdk_ready: bool=false
 var _ipc_ready: bool=false
@@ -117,6 +120,7 @@ func start_output(rig: Node3D) -> bool:
     worker_exit_code=-1
     worker_status=""
     _revision=0
+    _next_capture_usec=0
     _stdout=""
     _stop_sent=false
     _sdk_ready=false
@@ -200,9 +204,11 @@ func _process(_delta: float) -> void:
             return
         submitted_frames+=1
         _revision=0
-    if _revision==0 and _publisher.surface_ready():
+    if _revision==0 and _publisher.surface_ready() and Time.get_ticks_usec()>=_next_capture_usec:
         _rig.request_update()
         _revision=_rig.requested_revision
+        var rate: float=clampf(max_capture_hz,0.0,60.0) if is_finite(max_capture_hz) else 0.0
+        _next_capture_usec=Time.get_ticks_usec()+ceili(1000000.0/rate) if rate>0 else 0
 
 func _finish(graceful: bool) -> void:
     _process_info.clear()

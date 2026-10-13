@@ -18,6 +18,7 @@ const PROFILES={
     "fast":{"views":8,"size":Vector2i(192,341),"iterations":4,"atlas":0,"effects":false,"auto_requests":false},
 }
 var profile_name: String="fast"
+var max_capture_hz: float=0.0
 var real_views: int=8
 var cone_degrees: float=10.0
 var focus_distance: float=2.4
@@ -44,6 +45,7 @@ func start_output() -> bool:
     if output.is_output_active() or closing: return false
     source_camera=get_viewport().get_camera_3d()
     if source_camera==null: status.text="Looking Glass: no active camera"; return false
+    output.max_capture_hz=max_capture_hz
     output.bridge_library=OS.get_environment("BRIDGE_LIBRARY")
     var devices: Array[Dictionary]=output.discover_displays()
     if devices.is_empty(): status.text="Looking Glass: set BRIDGE_LIBRARY and check device connection"; return false

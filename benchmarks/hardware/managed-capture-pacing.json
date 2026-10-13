@@ -1,0 +1,16 @@
+{
+  "date": "2026-10-12",
+  "engine": "Godot 4.8 c61fc0118 editor native Metal",
+  "capture_hz_limit": 5,
+  "show_seconds": 6,
+  "submitted": 28,
+  "received": 28,
+  "upper_submission_bound": 31,
+  "sdk_cleanup_passed": true,
+  "policy_restoration_passed": true,
+  "restart_immediate_stop_passed": true,
+  "exit_code": 0,
+  "passed": true,
+  "user_visual_confirmation": "Not collected",
+  "sdk_consumer_completion_verified": false
+}
