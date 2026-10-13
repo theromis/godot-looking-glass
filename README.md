@@ -20,7 +20,7 @@ Checked items are implemented or completed experiments, with their limits record
 - [x] Add an interactive Metal output demo with device selection, Start/Stop, graceful window shutdown and a hardware-free desktop preview (`demo/metal_output.tscn`).
 - [x] Validate five managed Start/Stop cycles and a two-minute 4K run: 2331/2331 sustained frames, clean SDK teardown, bounded observed RSS growth.
 - [x] Validate four fresh-rig demo cycles with GPU texture/resource release and an active-close notification with clean worker/SDK shutdown.
-- [x] Demonstrate live Godot → persistent Bridge Metal texture without worker or explicit quilt blits; 40 physical updates confirmed. Production synchronization and throughput remain pending. [Experiment](docs/direct-bridge-live.md).
+- [x] Demonstrate live Godot → persistent Bridge Metal texture without worker or explicit quilt blits; 40 physical updates confirmed, followed by 6640 updates over two minutes (55.33 calls/s) with stable user-confirmed output. Production synchronization and TPS comparison remain pending. [Experiment](docs/direct-bridge-live.md).
 - [x] Verify native direct-to-IOSurface compute writes and ACK backpressure; managed Godot integration and cadence comparison remain pending. [Experiment](docs/direct-surface-output.md).
 - [x] Prepare installable experimental macOS-arm64 and preview-only ZIP packages; verify editor import/plugin, preview and 110/110-frame native output in isolated projects.
 - [x] Fix managed capture ownership during camera motion and measure TPS quality profiles: 4.29 → 25.86 Godot frame Hz in the tested fast preset, with reduced view resolution/effects.

@@ -6,13 +6,19 @@ The SDK creates its IOSurface-backed texture once. `import_direct_target()` impo
 
 The fixture test checks every updated quilt byte against the SDK fixture and requires at least two distinct frame hashes. The first fixture run checked 40 updates; the strengthened regression uses 8. Physical output uses 4092×4092, 24 source views → 66 output views, 20-degree cone, focus 5.6, and an unshaded cube/spheres scene. Two explicit Godot draws commit capture and frame-post-draw synthesis before submission. This is conservative diagnostic scheduling, not a production frame loop.
 
+## Sustained uncapped diagnostic
+
+`--direct-uncapped --direct-duration=120` removes the half-second test delay and runs for two minutes after warmup. The script reports update count, elapsed wall time and p95 time between successful direct-update calls. This counts quilt submission calls, not presentation-fence-confirmed panel frames. Two forced draws, CPU producer waits and the synthetic scene remain part of the protocol. The duration is bounded to 5–180 seconds.
+
+The run completed 6640 updates in 120.008243 seconds: 55.33 update calls/s, p95 update interval 33.247 ms. Imported-RID release and SDK teardown succeeded; process exit was 0 with no Godot script/render errors. The SDK startup GL_INVALID_ENUM diagnostic was still present. The user confirmed stable visible updates during the two-minute 4K test. See [the sustained record](../benchmarks/hardware/direct-bridge-sustained.json) for measured counters and completion status. This is not a controlled comparison against the TPS worker measurements.
+
 ## Limits
 
-The experiment explicitly permits overwriting a previously submitted target. It does not establish an SDK consumer-completion guarantee. Producer completion only establishes that Godot finished writing; Bridge's successful draw return may not establish that all SDK reads finished. The 0.5-second delay is test pacing, not a correctness fence. Long-running reuse, resize, unexpected close, scene changes and uncapped performance remain untested. The selected TPS worker path remains unchanged.
+The experiment explicitly permits overwriting a previously submitted target. It does not establish an SDK consumer-completion guarantee. Producer completion only establishes that Godot finished writing; Bridge's successful draw return may not establish that all SDK reads finished. The 0.5-second delay is test pacing, not a correctness fence. A two-minute uncapped test is recorded below; indefinite reuse, resize, unexpected close and scene changes remain untested. The selected TPS worker path remains unchanged.
 
 The hardware run emitted an SDK `GL_INVALID_ENUM` diagnostic during startup, then delivered the expected updates and completed teardown. Its source and significance are unresolved. Do not describe this as a completely error-free SDK run or a production-ready path.
 
-No throughput benchmark was performed. The test intentionally updates around twice a second plus rendering overhead. Removing two explicit copies does not prove higher cadence than the measured private-quilt overlap baseline.
+The initial test intentionally updated around twice a second plus rendering overhead. The later uncapped run measures this diagnostic loop only. Removing two explicit copies does not prove higher cadence than the measured private-quilt overlap baseline.
 
 ## Run
 

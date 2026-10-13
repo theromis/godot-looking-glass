@@ -1,0 +1,30 @@
+{
+  "date": "2026-10-12",
+  "engine": "Godot 4.8-dev c61fc0118 native Metal",
+  "platform": "Apple M4",
+  "bridge_version": "2.6.3",
+  "dimensions": [
+    4092,
+    4092
+  ],
+  "real_views": 24,
+  "output_views": 66,
+  "scene": "Unshaded cube and spheres; animated rotation and orange/cyan cube color",
+  "duration_seconds": 120.008243,
+  "successful_update_calls": 6640,
+  "update_calls_per_second": 55.3295326555193,
+  "p95_update_interval_ms": 33.247,
+  "worker": false,
+  "producer_blit": false,
+  "adapter_blit": false,
+  "pixel_readback": false,
+  "exit_code": 0,
+  "lifecycle_passed": true,
+  "godot_errors": false,
+  "sdk_startup_diagnostic": "GL_INVALID_ENUM",
+  "user_visual_confirmation": "Updates stable without freezes or image damage",
+  "panel_presentation_fps_measured": false,
+  "consumer_completion_contract_verified": false,
+  "comparability": "Not comparable to TPS worker runs: different scene and scheduler",
+  "production_ready": false
+}

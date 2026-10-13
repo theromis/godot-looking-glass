@@ -262,9 +262,18 @@ func run() -> void:
         var updated: int=0
         var distinct_frames: Dictionary={}
         var colors: Array[Color]=[Color(0.95,0.35,0.05),Color(0.05,0.8,0.95)]
-        for frame in range(8 if fixture else 40):
+        var uncapped: bool="--direct-uncapped" in OS.get_cmdline_user_args()
+        var duration: float=60.0
+        for argument in OS.get_cmdline_user_args():
+            if argument.begins_with("--direct-duration="): duration=clampf(argument.trim_prefix("--direct-duration=").to_float(),5.0,180.0)
+        var started_usec: int=Time.get_ticks_usec()
+        var intervals: Array[float]=[]
+        var last_update: int=started_usec
+        var frame: int=0
+        while (Time.get_ticks_usec()-started_usec<duration*1000000 if uncapped else frame<(8 if fixture else 40)):
             material.albedo_color=colors[frame%2]
-            box.rotation.y=frame*0.12
+            box.rotation.y=(Time.get_ticks_usec()-started_usec)*0.0000012 if uncapped else frame*0.12
+            if uncapped: material.albedo_color=colors[int((Time.get_ticks_usec()-started_usec)/500000)%2]
             rig.request_update()
             await process_frame
             # Commit capture and any frame_post_draw synthesis before fencing.
@@ -282,10 +291,17 @@ func run() -> void:
                     fail("Updated direct fixture pixels differ")
                     return
             updated+=1
-            await create_timer(0.5).timeout
+            var now: int=Time.get_ticks_usec()
+            intervals.append((now-last_update)/1000.0)
+            last_update=now
+            frame+=1
+            if not uncapped: await create_timer(0.5).timeout
         if fixture and distinct_frames.size()<2:
             fail("Direct texture did not change across updates")
             return
+        intervals.sort()
+        var elapsed: float=(Time.get_ticks_usec()-started_usec)/1000000.0
+        print("DIRECT METRICS elapsed_s=",elapsed," updates_hz=",updated/elapsed," p95_ms=",intervals[mini(intervals.size()-1,int(intervals.size()*0.95))])
         print("LIVE DIRECT updates=",updated," worker=false producer_blit=false adapter_blit=false")
     scene.queue_free()
     for i in range(4): await process_frame
