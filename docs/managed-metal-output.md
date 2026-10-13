@@ -2,7 +2,7 @@
 
 `addons/looking_glass/metal_output.gd` runs the isolated worker directly from a Godot scene. It uses the normal engine render loop, requests new on-demand quilt revisions, copies completed output into private IOSurface transport, and waits for source-copy acknowledgment before reuse. No manual force_draw, diagnostic readback, Python supervisor or pixel files are needed for this path.
 
-This is a bounded macOS native Metal prototype, not production-qualified Bridge synchronization. Current worker presets are fixed 66-view 11×6, 704×684 or 4092×4092, with aspect 0.5625. Other devices/grids, automatic calibration and Vulkan/MoltenVK are not supported by this component yet. It requires separately built native artifacts and an external Bridge runtime; no SDK runtime is included.
+This is a bounded macOS native Metal prototype, not production-qualified Bridge synchronization. Current worker presets are fixed 66-view 11×6, 704×684 or 4092×4092, with presentation aspect queried from the selected device. Other grids and Vulkan/MoltenVK are not supported by this component yet. Full calibration remains internal to Bridge. It requires separately built native artifacts and an external Bridge runtime; no SDK runtime is included.
 
 ## Setup and API
 
@@ -16,7 +16,7 @@ func start_display(rig: Node3D) -> void:
     add_child(output)
     # Set externally; an empty value falls back to BRIDGE_LIBRARY.
     output.bridge_library = OS.get_environment("BRIDGE_LIBRARY")
-    output.display_index = 1 # Select the actual target device.
+    output.display_index = -1 # Automatically select the first available device.
     output.duration_seconds = 60 # Bounded 20–600 second worker lifetime.
     output.failed.connect(func(reason): push_warning(reason))
     output.stopped.connect(func(graceful): print("Display stopped: ", graceful))
@@ -54,4 +54,14 @@ These are functional lifecycle tests, not throughput benchmarks or indefinite-op
 
 After the user-confirmed 391-frame repeat, later attempts found no devices in a separate SDK enumeration probe, while the Bridge application process remained running. Unguarded calls to `instance_window_metal` for index 1 crashed with SIGSEGV/null access; the local crash reports identify that SDK function as the top frame. Deferring IOSurface creation did not prevent this failure. No specific physical cause of the enumeration loss is established.
 
-The worker now rejects missing/invalid indices before SDK window creation and reports a sanitized device-unavailable status. `tests/test_metal_output_unavailable.gd` deliberately selects an invalid index and verified a controlled worker exit code 1, a failure signal, an inactive node and no SIGSEGV. Final positive hardware revalidation is blocked by the current zero-device SDK state; earlier visible normal/early-stop successes remain recorded separately. This does not establish hot-unplug safety during an active SDK call or automatic reconnect support.
+The worker now rejects missing/invalid indices before SDK window creation and reports a sanitized device-unavailable status. `tests/test_metal_output_unavailable.gd` deliberately selects an invalid index and verified a controlled worker exit code 1, a failure signal, an inactive node and no SIGSEGV. The zero-device state blocked that earlier verification. On October 12, a later enumeration returned one device again; the updated worker passed a 99-frame normal-loop test and restart/immediate-stop with clean SDK teardown. This latest test has no new user visual confirmation; earlier visible successes remain recorded separately. This does not establish hot-unplug safety during an active SDK call or automatic reconnect support.
+
+## Device settings discovery
+
+`output.discover_displays()` returns only numeric index, quilt width/height, columns/rows, display aspect and nominal view cone. It initializes the SDK in a separate process without creating a display window; call it during setup, since this explicit query blocks. SDK diagnostics are captured and discarded rather than exposed to application logs. There is no query timeout or automatic reconnect in this API yet.
+
+Before adding a rig to the tree, call `output.configure_rig_for_display(rig, device)`. It accepts the currently supported 4092×4092 11×6 preset, configures RGBA8/on-demand/capture composition and camera source dimensions using the reported display aspect. Real-view count and focus remain application choices. Nominal cone application is opt-in via the third argument, because wider cones increased optical ghosting in earlier tests. Replacing an existing rig is required to change its resources.
+
+The worker independently enumerates devices at startup, selects the first available index when configured as -1, validates the 11×6 grid and queries presentation aspect. This does not imply safe hot-unplug during SDK calls or support for arbitrary presets. Small quilts remain a diagnostic override.
+
+Executed on October 12 with Godot 4.8 native Metal: discovery returned index 1, 4092×4092, 11×6, aspect 0.5625, cone 54; `test_metal_discovery.gd` passed configuration checks; invalid-device lifecycle passed; `test_metal_output_node.gd --show-seconds=6` submitted/received 99 frames, passed cleanup and restart/immediate-stop. These are functional tests, not new throughput or optical measurements.

@@ -6,7 +6,8 @@ signal stopped(graceful: bool)
 @export_file var worker_path: String="res://native/bridge_metal/build/probe-persistent"
 @export_file var extension_path: String="res://native/bridge_metal/build/looking_glass_diagnostic.gdextension"
 @export var bridge_library: String=""
-@export var display_index: int=1
+## -1 selects the first display currently reported by Bridge.
+@export var display_index: int=-1
 @export_range(20,600) var duration_seconds: int=60
 var submitted_frames: int=0
 var received_frames: int=0
@@ -25,6 +26,41 @@ var _sdk_ready: bool=false
 var _ipc_ready: bool=false
 var _stdout: String=""
 var _stop_sent: bool=false
+
+## Explicit startup query; blocks while SDK initializes. Do not call every frame.
+## Only allowlisted numeric settings leave the SDK process.
+func discover_displays() -> Array[Dictionary]:
+    var devices: Array[Dictionary]=[]
+    if _state!="idle": return devices
+    var runtime: String=bridge_library if not bridge_library.is_empty() else OS.get_environment("BRIDGE_LIBRARY")
+    if runtime.is_empty() or not FileAccess.file_exists(runtime) or not FileAccess.file_exists(worker_path): return devices
+    var output: Array=[]
+    var code: int=OS.execute(ProjectSettings.globalize_path(worker_path),PackedStringArray([runtime,"--list-displays"]),output,false)
+    if code!=0: return devices
+    for line in str(output[0]).split("\n"):
+        if not line.begins_with("LG_DEVICE "): continue
+        var fields:=line.strip_edges().split(" ",false)
+        if fields.size()!=8: continue
+        devices.append({"index":fields[1].to_int(),"width":fields[2].to_int(),"height":fields[3].to_int(),"columns":fields[4].to_int(),"rows":fields[5].to_int(),"aspect":fields[6].to_float(),"view_cone":fields[7].to_float()})
+    return devices
+
+## Configure before adding the rig to the scene tree. Optical comfort may
+## require a smaller cone than the device's nominal cone.
+func configure_rig_for_display(rig: Node3D, device: Dictionary, use_nominal_cone: bool=false) -> bool:
+    if rig.is_inside_tree() or device.get("width",0)!=4092 or device.get("height",0)!=4092 or device.get("columns",0)!=11 or device.get("rows",0)!=6: return false
+    var aspect: float=device.get("aspect",0.0)
+    if not is_finite(aspect) or aspect<=0: return false
+    display_index=device.index
+    rig.total_views=66
+    rig.columns=11
+    rig.tile_size=Vector2i(372,682)
+    rig.source_view_size=Vector2i(maxi(1,roundi(682*aspect)),682)
+    rig.synthesis=true
+    rig.quilt_rgba8=true
+    rig.update_on_demand=true
+    rig.compose_in_capture_callback=true
+    if use_nominal_cone: rig.view_cone_degrees=clampf(device.view_cone,1.0,80.0)
+    return true
 
 func start_output(rig: Node3D) -> bool:
     if _state!="idle": return false
@@ -101,6 +137,7 @@ func _drain() -> void:
     var count: int=mini(errors.get_length(),65536)
     if count>0:
         var diagnostic: String=errors.get_buffer(count).get_string_from_utf8()
+        if "DISPLAY unsupported preset" in diagnostic: worker_status="Display quilt preset is not supported by this worker"
         if "DISPLAY unavailable" in diagnostic: worker_status="Display not detected by Bridge"
         if "METAL device unavailable" in diagnostic: worker_status="Metal device unavailable"
         if "SURFACE port" in diagnostic: worker_status="IPC endpoint setup failed"

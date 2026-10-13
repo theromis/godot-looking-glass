@@ -19,6 +19,26 @@
 #include <cerrno>
 #define LOAD(name) auto name##_fn=reinterpret_cast<decltype(&name)>(dlsym(library,#name)); if(!name##_fn) return 2
 int main(int argc,char **argv) { @autoreleasepool {
+    if(argc==3 && std::string(argv[2])=="--list-displays") {
+        void *library=dlopen(argv[1],RTLD_NOW|RTLD_LOCAL); if(!library) return 2;
+        LOAD(initialize_bridge); LOAD(uninitialize_bridge); LOAD(get_displays);
+        LOAD(get_default_quilt_settings_for_display); LOAD(get_viewcone_for_display);
+        if(!initialize_bridge_fn("Godot display discovery")) return 1;
+        int count=0;
+        bool ok=get_displays_fn(&count,nullptr) && count>=0 && count<=32;
+        std::vector<unsigned long> indices(32);
+        if(ok && count>0) ok=get_displays_fn(&count,indices.data()) && count>=0 && count<=32;
+        if(ok) for(int i=0;i<count;++i) {
+            float aspect=0,cone=0; int w=0,h=0,c=0,r=0;
+            bool valid=get_default_quilt_settings_for_display_fn(indices[i],&aspect,&w,&h,&c,&r) && get_viewcone_for_display_fn(indices[i],&cone);
+            if(valid && w>0 && h>0 && c>0 && r>0 && std::isfinite(aspect) && aspect>0 && std::isfinite(cone) && cone>0)
+                std::cout<<"LG_DEVICE "<<indices[i]<<" "<<w<<" "<<h<<" "<<c<<" "<<r<<" "<<aspect<<" "<<cone<<std::endl;
+            else ok=false;
+        }
+        std::cout<<"LG_DISCOVERY "<<(ok?count:-1)<<std::endl;
+        bool closed=uninitialize_bridge_fn(); if(closed) dlclose(library);
+        return ok && closed?0:1;
+    }
     if((argc<4 || argc>10) || std::string(argv[3])!="--experimental-reuse") return 2;
     bool large=false, verify_surface=false, uncapped=false, control_stdin=false;
     double duration=20.0;
@@ -62,6 +82,7 @@ int main(int argc,char **argv) { @autoreleasepool {
     }
     void *library=dlopen(argv[1],RTLD_NOW|RTLD_LOCAL); if(!library) return 2;
     LOAD(get_displays);
+    LOAD(get_default_quilt_settings_for_display);
     LOAD(initialize_bridge); LOAD(uninitialize_bridge); LOAD(instance_window_metal);
     LOAD(create_metal_texture_with_iosurface); LOAD(release_metal_texture);
     LOAD(draw_interop_quilt_texture_metal); LOAD(show_window);
@@ -69,11 +90,17 @@ int main(int argc,char **argv) { @autoreleasepool {
     int count=0;
     bool listed=get_displays_fn(&count,nullptr);
     std::vector<unsigned long> displays(count>0 && count<=32?32:0);
-    unsigned long requested=std::stoul(argv[2]);
+    unsigned long requested=std::string(argv[2])=="-1"?0:std::stoul(argv[2]);
     bool available=listed && !displays.empty() && get_displays_fn(&count,displays.data()) && count>0 && count<=32;
-    if(available) displays.resize(count);
+    if(available) { displays.resize(count); if(std::string(argv[2])=="-1") requested=displays.front(); }
     if(!available || std::find(displays.begin(),displays.end(),requested)==displays.end()) {
         std::cerr<<"DISPLAY unavailable"<<std::endl;
+        if(uninitialize_bridge_fn()) dlclose(library);
+        return 1;
+    }
+    float display_aspect=0; int preset_width=0,preset_height=0,preset_columns=0,preset_rows=0;
+    if(!get_default_quilt_settings_for_display_fn(requested,&display_aspect,&preset_width,&preset_height,&preset_columns,&preset_rows) || !std::isfinite(display_aspect) || display_aspect<=0 || preset_columns!=11 || preset_rows!=6) {
+        std::cerr<<"DISPLAY unsupported preset"<<std::endl;
         if(uninitialize_bridge_fn()) dlclose(library);
         return 1;
     }
@@ -84,7 +111,7 @@ int main(int argc,char **argv) { @autoreleasepool {
         return 1;
     }
     WINDOW_HANDLE window=0;
-    bool ok=instance_window_metal_fn((__bridge void *)device,&window,std::stoul(argv[2]));
+    bool ok=instance_window_metal_fn((__bridge void *)device,&window,requested);
     if(ok) ok=show_window_fn(window,true);
     void *native=nullptr;
     auto descriptor=[MTLTextureDescriptor texture2DDescriptorWithPixelFormat:MTLPixelFormatRGBA8Unorm width:width height:height mipmapped:NO];
@@ -182,7 +209,7 @@ int main(int argc,char **argv) { @autoreleasepool {
                 if(!sequence) {
                     if(pipe_input && !pipe_bytes.empty()) { usleep(100); continue; }
                     if(pump) pump();
-                    if(updates) draw_interop_quilt_texture_metal_fn(window,native,11,6,0.5625,1);
+                    if(updates) draw_interop_quilt_texture_metal_fn(window,native,11,6,display_aspect,1);
                     [[NSRunLoop currentRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:(uncapped?0.001:0.02)]];
                     continue;
                 }
@@ -235,7 +262,7 @@ int main(int argc,char **argv) { @autoreleasepool {
             ok=ok && exact;
             if(surface_input && ok) ok=surface_mailbox.acknowledge(sequence);
             auto draw_started=clock_now();
-            if(ok) ok=draw_interop_quilt_texture_metal_fn(window,native,11,6,0.5625,1);
+            if(ok) ok=draw_interop_quilt_texture_metal_fn(window,native,11,6,display_aspect,1);
             draw_ms+=elapsed_ms(draw_started);
             CGLContextObj current=CGLGetCurrentContext();
             if(!observed) observed=current;
@@ -245,7 +272,7 @@ int main(int argc,char **argv) { @autoreleasepool {
             if(live_input) { last_sequence=sequence; std::cout<<"live_sequence="<<sequence<<std::endl; }
         }
         if(pump) pump();
-        if(ok && updates) ok=draw_interop_quilt_texture_metal_fn(window,native,11,6,0.5625,1);
+        if(ok && updates) ok=draw_interop_quilt_texture_metal_fn(window,native,11,6,display_aspect,1);
         [[NSRunLoop currentRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:(uncapped?0.001:0.02)]];
         } // Per-iteration autorelease pool.
     }
