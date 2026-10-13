@@ -1,0 +1,35 @@
+{
+  "date": "2026-10-12",
+  "cone_degrees": 30,
+  "focus_distance": 2.4,
+  "measurements": {
+    "async_copy": false,
+    "capture_hz_limit": 0.0,
+    "copy_call_mean_ms": 29.3554605009634,
+    "copy_completion_wall_mean_ms": 29.3554605009634,
+    "copy_poll_mean_ms": 0.0,
+    "desktop_3d": false,
+    "engine_frame_hz": 25.9022155926746,
+    "engine_frames": 519,
+    "feature_passed": true,
+    "frame_mean_ms": 38.6067360308285,
+    "frame_p95_ms": 50.424,
+    "output_mode": "direct",
+    "overlap": false,
+    "profile": "fast",
+    "sdk_cleanup": true,
+    "seconds": 20.036896,
+    "submission_gap_p95_ms": 50.041,
+    "submission_hz": 25.9022155926746,
+    "submitted": 519,
+    "total_received": 627,
+    "total_submitted": 627
+  },
+  "errors": [
+    "ERROR: 1 shaders of type ParticlesShaderRD were never freed",
+    "ERROR: 1 RID allocations of type 'N10RendererRD15MaterialStorage6ShaderE' were leaked at exit."
+  ],
+  "exit_code": 0,
+  "full_test_passed": false,
+  "user_visual_confirmation": "Pending"
+}
