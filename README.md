@@ -16,6 +16,7 @@ Checked items are implemented or completed experiments, with their limits record
 - [x] Detect a 1440×2560 Looking Glass and display a user-confirmed solid color through real Bridge RGBA8/Metal interop; record the 66-view preset and format limitations.
 - [x] Add cached GPU bindings, borrowed color/depth with tested snapshot fallback, optional profiling and resource-lifetime checks.
 - [x] Execute the shared positional-shadow-atlas engine experiment and document scene-specific gains and compatibility restrictions.
+- [x] Add an experimental managed Metal output node: normal render loop, owned worker/IPC lifecycle, explicit stop and immediate-stop restart tests passed.
 - [x] Add and execute a lit moving-occlusion/alpha-panel transport fixture: 24→66 hardware output was user-confirmed, and eight actual IOSurface copies matched the old schedule.
 - [x] Add opt-in composition after the last source capture, allowing one draw; copied IOSurface bytes matched eight original-schedule reference frames and hardware animation was confirmed.
 - [x] Reduce depth-diagnostic feedback on GPU and support explicit on-demand quilt updates for static scenes.
@@ -316,3 +317,7 @@ Optional shared-shadow warmup now needs only one shared-mode draw in the tested 
 The optimized lit 24→66 4K path sustained 49.429 new SDK submissions/s over approximately 105 seconds of animation inside a 120-second worker run. All 5,189 frames arrived, the user confirmed stable output, and cleanup passed. Producer RSS stayed near 261 MiB; worker RSS grew about 8.56 MiB after warmup, so indefinite memory stability is not established. See [sustained run](docs/live-iosurface-transport.md#sustained-optimized-lit-test-2026-10-12).
 
 A per-iteration autorelease pool reduced worker RSS growth in the two-minute repeat from 8.563 MiB to 0.438 MiB after warmup. All 5,037 frames arrived at 47.977 new SDK submissions/s and the user confirmed stable output. Remaining cache/allocator growth and indefinite stability are not proven. See [temporary-object lifetime](docs/live-iosurface-transport.md#worker-temporary-object-lifetime).
+
+An experimental [managed Metal output node](docs/managed-metal-output.md) now streams quilts directly from a Godot scene using the normal render loop. The repeated hardware test submitted/received all 391 frames with user-confirmed cube rotation and clean SDK teardown; restart/immediate-stop also passed. It remains bounded, native-Metal-only and requires external native builds/Bridge runtime.
+
+The managed worker now validates its requested display index before SDK window creation and reports unavailable devices safely. The negative lifecycle test passed; final positive revalidation is blocked by a later SDK zero-device state while Bridge remains running. Earlier user-confirmed 391-frame playback and normal/early-stop cleanup are preserved as separate results. See [availability finding](docs/managed-metal-output.md#unavailable-device-finding-and-final-verification-limit).

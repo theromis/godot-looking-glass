@@ -1,0 +1,40 @@
+{
+  "date": "2026-10-12",
+  "platform": "Apple M4, Godot 4.8 c61fc0118, native Metal Forward+",
+  "normal_render_loop": true,
+  "manual_force_draw": false,
+  "pixel_readback": false,
+  "first_run": {
+    "submitted": 191,
+    "received": 191,
+    "sdk_cleanup_passed": true
+  },
+  "repeat": {
+    "requested_show_seconds": 20,
+    "submitted": 391,
+    "received": 391,
+    "sdk_cleanup_passed": true,
+    "user_observation": "User confirmed a visible rotating orange cube."
+  },
+  "immediate_stop_after_restart": {
+    "sdk_cleanup_passed": true
+  },
+  "exit_code": 0,
+  "test": "tests/test_metal_output_node.gd",
+  "production_ready": false,
+  "sdk_consumer_completion_verified": false,
+  "positive_run_scope": "Positive normal/early-stop tests preceded the missing-display guard; final positive revalidation blocked by later SDK zero-device enumeration.",
+  "unavailable_device_test": {
+    "test": "tests/test_metal_output_unavailable.gd",
+    "worker_exit_code": 1,
+    "error_handled": true,
+    "test_exit_code": 0
+  },
+  "late_hardware_blocker": {
+    "sdk_devices": 0,
+    "bridge_application_running": true,
+    "unguarded_sdk_crash_function": "instance_window_metal",
+    "signal": "SIGSEGV",
+    "physical_cause_known": false
+  }
+}

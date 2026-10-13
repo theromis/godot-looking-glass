@@ -23,8 +23,11 @@ class LookingGlassMetalDiagnostic : public RefCounted {
     int64_t sequence_columns=0, sequence_rows=0;
     double sequence_aspect=0;
     RID direct_import;
+    std::string owned_surface_name;
 protected:
     static void _bind_methods() {
+        ClassDB::bind_method(D_METHOD("reserve_surface_name"), &LookingGlassMetalDiagnostic::reserve_surface_name);
+        ClassDB::bind_method(D_METHOD("cleanup_owned_surface_transport"), &LookingGlassMetalDiagnostic::cleanup_owned_surface_transport);
         ClassDB::bind_method(D_METHOD("open_surface_publisher","name","width","height"), &LookingGlassMetalDiagnostic::open_surface_publisher);
         ClassDB::bind_method(D_METHOD("surface_ready"), &LookingGlassMetalDiagnostic::surface_ready);
         ClassDB::bind_method(D_METHOD("publish_surface","sequence","quilt","verify"), &LookingGlassMetalDiagnostic::publish_surface);
@@ -61,6 +64,22 @@ public:
         auto device=(__bridge id<MTLDevice>)(void *)(uintptr_t)rd->get_driver_resource(RenderingDevice::DRIVER_RESOURCE_LOGICAL_DEVICE,RID(),0);
         return surface_publisher.open(name.utf8().get_data(),width,height,device);
     }
+    String reserve_surface_name() {
+        if(!owned_surface_name.empty()) return String();
+        unsigned char bytes[6]; arc4random_buf(bytes,sizeof(bytes));
+        const char *hex="0123456789abcdef";
+        owned_surface_name="/lg";
+        for(auto byte:bytes) { owned_surface_name+=hex[byte>>4]; owned_surface_name+=hex[byte&15]; }
+        return String(owned_surface_name.c_str());
+    }
+    void cleanup_owned_surface_transport() {
+        close_surface_publisher();
+        if(!owned_surface_name.empty()) {
+            shm_unlink(owned_surface_name.c_str());
+            sem_unlink((owned_surface_name+"_s").c_str());
+            owned_surface_name.clear();
+        }
+    }
     bool surface_ready() { return surface_publisher.ready(); }
     bool publish_surface(int64_t sequence,RID quilt,bool verify) {
         if(![NSThread isMainThread] || sequence<=0 || sequence>UINT32_MAX) return false;
@@ -88,7 +107,7 @@ public:
     }
     void close_shared_frame() { shared_frame.close(); }
     int frame_pipe=-1;
-    ~LookingGlassMetalDiagnostic() { close_frame_pipe(); }
+    ~LookingGlassMetalDiagnostic() { cleanup_owned_surface_transport(); close_frame_pipe(); }
     bool open_frame_pipe(String path) {
         if (frame_pipe>=0 || ![NSThread isMainThread]) return false;
         struct stat info;

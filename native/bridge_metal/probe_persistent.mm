@@ -1,5 +1,6 @@
 #include <cmath>
 #include <chrono>
+#include <algorithm>
 // Explicit bounded experiment. Current GL-context completion is not a public
 // SDK consumer-completion contract; do not reuse this as production streaming.
 #include <bridge.h>
@@ -18,13 +19,14 @@
 #include <cerrno>
 #define LOAD(name) auto name##_fn=reinterpret_cast<decltype(&name)>(dlsym(library,#name)); if(!name##_fn) return 2
 int main(int argc,char **argv) { @autoreleasepool {
-    if((argc<4 || argc>9) || std::string(argv[3])!="--experimental-reuse") return 2;
-    bool large=false, verify_surface=false, uncapped=false;
+    if((argc<4 || argc>10) || std::string(argv[3])!="--experimental-reuse") return 2;
+    bool large=false, verify_surface=false, uncapped=false, control_stdin=false;
     double duration=20.0;
     for(int arg=5;arg<argc;++arg) {
         if(std::string(argv[arg])=="--large") large=true;
         else if(std::string(argv[arg])=="--verify") verify_surface=true;
         else if(std::string(argv[arg])=="--uncapped") uncapped=true;
+        else if(std::string(argv[arg])=="--control-stdin") control_stdin=true;
         else if(std::string(argv[arg]).rfind("--duration=",0)==0) { duration=std::stod(std::string(argv[arg]).substr(11)); if(!std::isfinite(duration) || duration<20 || duration>600) return 2; }
         else return 2;
     }
@@ -59,11 +61,28 @@ int main(int argc,char **argv) { @autoreleasepool {
         }
     }
     void *library=dlopen(argv[1],RTLD_NOW|RTLD_LOCAL); if(!library) return 2;
+    LOAD(get_displays);
     LOAD(initialize_bridge); LOAD(uninitialize_bridge); LOAD(instance_window_metal);
     LOAD(create_metal_texture_with_iosurface); LOAD(release_metal_texture);
     LOAD(draw_interop_quilt_texture_metal); LOAD(show_window);
     if(!initialize_bridge_fn("Bounded persistent Metal input experiment")) return 1;
+    int count=0;
+    bool listed=get_displays_fn(&count,nullptr);
+    std::vector<unsigned long> displays(count>0 && count<=32?32:0);
+    unsigned long requested=std::stoul(argv[2]);
+    bool available=listed && !displays.empty() && get_displays_fn(&count,displays.data()) && count>0 && count<=32;
+    if(available) displays.resize(count);
+    if(!available || std::find(displays.begin(),displays.end(),requested)==displays.end()) {
+        std::cerr<<"DISPLAY unavailable"<<std::endl;
+        if(uninitialize_bridge_fn()) dlclose(library);
+        return 1;
+    }
     auto device=MTLCreateSystemDefaultDevice(); auto queue=[device newCommandQueue];
+    if(!device || !queue) {
+        std::cerr<<"METAL device unavailable"<<std::endl;
+        if(uninitialize_bridge_fn()) dlclose(library);
+        return 1;
+    }
     WINDOW_HANDLE window=0;
     bool ok=instance_window_metal_fn((__bridge void *)device,&window,std::stoul(argv[2]));
     if(ok) ok=show_window_fn(window,true);
@@ -90,6 +109,8 @@ int main(int argc,char **argv) { @autoreleasepool {
     CGLContextObj observed=nullptr;
     unsigned updates=0,finishes=0;
     bool stable_context=true,exact=true;
+    if(control_stdin) fcntl(STDIN_FILENO,F_SETFL,fcntl(STDIN_FILENO,F_GETFL)|O_NONBLOCK);
+    if(surface_input && ok) std::cout<<"SURFACE sdk_ready"<<std::endl;
     NSDate *started=[NSDate date];
     int previous=-1;
     double first_update=-1,last_update=0;
@@ -100,6 +121,12 @@ int main(int argc,char **argv) { @autoreleasepool {
         // Drain temporary Cocoa/Metal objects while persistent textures remain
         // strongly owned outside the iteration. This includes continue paths.
         @autoreleasepool {
+        if(control_stdin) {
+            char bytes[32]; ssize_t count=read(STDIN_FILENO,bytes,sizeof(bytes));
+            if(count==0) break;
+            if(count>0 && std::memchr(bytes,'q',count)) break;
+            if(count<0 && errno!=EAGAIN && errno!=EWOULDBLOCK && errno!=EINTR) { ok=false; break; }
+        }
         int frame=int(-[started timeIntervalSinceNow]*2.0);
         if(uncapped || frame!=previous) {
             std::vector<unsigned char> incoming;
@@ -235,5 +262,5 @@ int main(int argc,char **argv) { @autoreleasepool {
     std::cout<<"live_godot_input="<<live_input<<" last_sequence="<<last_sequence<<std::endl;
     std::cout<<"godot_frame_input="<<frame_input<<" prerecorded="<<frame_input<<std::endl;
     if(stopped) dlclose(library);
-    return ok && exact && released && stopped && updates>1?0:1;
+    return ok && exact && released && stopped && (updates>1 || control_stdin)?0:1;
 } }
