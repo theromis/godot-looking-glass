@@ -43,6 +43,7 @@ func run() -> void:
     output.failed.connect(func(reason: String): error_seen=true; printerr("FAIL output node ",reason))
     output.stopped.connect(func(_graceful: bool): done=true)
     if not output.start_output(rig): quit(1); return
+    var ownership_passed: bool=not rig.auto_update_on_transform
     var show_seconds: float=10
     for argument in OS.get_cmdline_user_args():
         if argument.begins_with("--show-seconds="): show_seconds=clampf(argument.trim_prefix("--show-seconds=").to_float(),2,40)
@@ -50,7 +51,7 @@ func run() -> void:
     output.stop_output()
     var deadline: int=Time.get_ticks_msec()+5000
     while not done and Time.get_ticks_msec()<deadline: await process_frame
-    var passed: bool=done and not error_seen and output.sdk_cleanup_passed and output.submitted_frames>5 and output.received_frames==output.submitted_frames
+    var passed: bool=ownership_passed and rig.auto_update_on_transform and done and not error_seen and output.sdk_cleanup_passed and output.submitted_frames>5 and output.received_frames==output.submitted_frames
     print("OUTPUT submitted=",output.submitted_frames," received=",output.received_frames," cleanup=",output.sdk_cleanup_passed)
     done=false
     if output.start_output(rig):

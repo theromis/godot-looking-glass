@@ -89,3 +89,7 @@ Executed on October 12: `--preview-smoke` passed without Bridge; the captured UI
 Five Start/Stop sessions followed by a 120-second session passed on the managed node: all 2331 frames of the sustained session were received, every worker exited 0 and SDK cleanup passed. Steady process RSS increased 464 KiB for Godot and 304 KiB for the worker. See [method, limitations and full measurements](managed-metal-stress.md).
 
 The demo also passed four fresh-rig Start/Stop cycles, including expired rig/publisher references, invalidated quilt texture RIDs and exited worker processes. An injected active window-close notification passed with 68/68 frames and clean SDK teardown. See [test scope and records](managed-metal-stress.md#rig-recreation-and-active-close--october-12-2026).
+
+## Capture ownership during camera motion
+
+Managed output temporarily disables `Rig.auto_update_on_transform`, while retaining camera transform updates and explicit scheduled captures. It restores the caller's policy after stop. This prevents camera-following rigs from launching additional source captures while the output waits for copy acknowledgment. The transform-ownership test and a 119-frame managed lifecycle/restart test passed. See [TPS measurements and limits](tps-performance-profiles.md).

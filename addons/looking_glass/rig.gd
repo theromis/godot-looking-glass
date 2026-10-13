@@ -24,6 +24,9 @@ var camera_span_reference_distance: float = 0.0
 ## Set before ready. Scene/material/light changes require request_update().
 ## Supported for compute synthesis; camera rig motion requests updates automatically.
 @export var update_on_demand: bool = false
+## Disable when an external output scheduler owns capture requests.
+## Camera transforms still follow the rig; call request_update() explicitly.
+@export var auto_update_on_transform: bool = true
 ## Opt-in: record quilt dispatch after the last capture, before frame submission.
 @export var compose_in_capture_callback: bool = false
 var requested_revision: int = 0
@@ -238,5 +241,5 @@ func _process(_delta: float) -> void:
     last_rig_transform = current_transform
     for i in range(cameras.size()):
         cameras[i].global_transform = current_transform * camera_offsets[i]
-    if update_on_demand:
+    if update_on_demand and auto_update_on_transform:
         request_update()

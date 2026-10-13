@@ -20,7 +20,8 @@ Checked items are implemented or completed experiments, with their limits record
 - [x] Add an interactive Metal output demo with device selection, Start/Stop, graceful window shutdown and a hardware-free desktop preview (`demo/metal_output.tscn`).
 - [x] Validate five managed Start/Stop cycles and a two-minute 4K run: 2331/2331 sustained frames, clean SDK teardown, bounded observed RSS growth.
 - [x] Validate four fresh-rig demo cycles with GPU texture/resource release and an active-close notification with clean worker/SDK shutdown.
-- [x] Prepare installable experimental macOS-arm64 and preview-only ZIP packages; verify editor import/plugin, preview and 102/102-frame native output in isolated projects.
+- [x] Prepare installable experimental macOS-arm64 and preview-only ZIP packages; verify editor import/plugin, preview and 114/114-frame native output in isolated projects.
+- [x] Fix managed capture ownership during camera motion and measure TPS quality profiles: 4.29 → 25.86 Godot frame Hz in the tested fast preset, with reduced view resolution/effects.
 - [x] Add and execute a lit moving-occlusion/alpha-panel transport fixture: 24→66 hardware output was user-confirmed, and eight actual IOSurface copies matched the old schedule.
 - [x] Add opt-in composition after the last source capture, allowing one draw; copied IOSurface bytes matched eight original-schedule reference frames and hardware animation was confirmed.
 - [x] Reduce depth-diagnostic feedback on GPU and support explicit on-demand quilt updates for static scenes.
@@ -202,7 +203,7 @@ GPU reduction of the optional depth diagnostic now returns 768 bytes instead of 
 
 ## Static quilt updates on demand
 
-Optional `update_on_demand` renders source views and assembles the compute quilt only when `request_update()` is called. Rig motion requests updates automatically; the application explicitly reports object, light, material and environment changes. On current Godot 4.8-dev / Apple M4, three pairs of the static 24→48 scene with 1024² tiles reduced process/presentation interval from 47.408±0.296 to 16.535±0.121 ms. After warmup, the cached quilt matches the continuous reference bit-for-bit. Idle performs no repeated source captures or compute dispatches; the window keeps presenting the cached texture. This saves static-scene work rather than accelerating new animated views. The first large-scene frame differed in 76 RGBA components by at most 1/255, so the benchmark explicitly refreshes the quilt before measured idle. The startup difference has no established cause; no automatic warmup is implemented. Mode is off by default and does not modify the engine fork. See [API, limitations and measurements](benchmarks/on-demand/README.md).
+Optional `update_on_demand` renders source views and assembles the compute quilt only when `request_update()` is called. Rig motion requests updates automatically by default; `auto_update_on_transform=false` delegates requests to an external scheduler. The application explicitly reports object, light, material and environment changes. On current Godot 4.8-dev / Apple M4, three pairs of the static 24→48 scene with 1024² tiles reduced process/presentation interval from 47.408±0.296 to 16.535±0.121 ms. After warmup, the cached quilt matches the continuous reference bit-for-bit. Idle performs no repeated source captures or compute dispatches; the window keeps presenting the cached texture. This saves static-scene work rather than accelerating new animated views. The first large-scene frame differed in 76 RGBA components by at most 1/255, so the benchmark explicitly refreshes the quilt before measured idle. The startup difference has no established cause; no automatic warmup is implemented. Mode is off by default and does not modify the engine fork. See [API, limitations and measurements](benchmarks/on-demand/README.md).
 
 ### Direct RGBA8 compute quilts
 
@@ -333,3 +334,7 @@ Open [demo/metal_output.tscn](demo/metal_output.tscn) with Godot 4.8 native Meta
 ### Installable experimental packages
 
 Version `0.1.0-experimental` can be packaged as a self-contained `addons/looking_glass/` directory with the demo under `examples/`. The macOS-arm64 variant includes our native worker/GDExtension and the godot-cpp license; the preview-only variant contains no binaries. Bridge SDK headers and runtime are excluded. See [installation and packaging](docs/addon-installation.md) and [isolated-project validation](docs/addon-package-validation.md). Generated ZIP files are local artifacts under `dist/`; they are not committed to Git.
+
+### TPS integration and performance
+
+An own [camera-following TPS adapter](examples/tps/game_output.gd) provides F4 output and Shift+F4 quality profiles. The measured fast preset improved the tested scene from 4.29 to 25.86 Godot frame Hz while reducing source views/resolution/effects; SDK submission rate was 10.24 Hz. See [measurements, controls and unresolved particle-shader shutdown errors](docs/tps-performance-profiles.md).

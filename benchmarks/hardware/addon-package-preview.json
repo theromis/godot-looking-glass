@@ -1,7 +1,7 @@
 {
   "date": "2026-10-12",
   "package": "looking-glass-godot-0.1.0-experimental-preview.zip",
-  "sha256": "dad267f8799d406d517449588944a1674b710d81b6bcfa31e97ad15acda86b88",
+  "sha256": "57d886a6f4adc2087d8d8213f0081e9295102ec4b0789c1df1c223da59de916d",
   "checks": [
     {
       "stage": "archive manifest, contents and permissions",
@@ -28,8 +28,8 @@
   "editor_plugin_enabled": true,
   "user_visual_confirmation": "Not collected for this run.",
   "production_ready": false,
-  "engine": "Godot 4.8 c61fc0118 editor, native Metal Forward+",
+  "engine": "Godot 4.8 c61fc0118 editor native Metal",
   "hardware": "Apple M4",
-  "archive_bytes": 105082,
-  "identical_input_archive_reproducibility_verified": false
+  "archive_bytes": 105215,
+  "identical_input_archive_reproducibility_verified": true
 }

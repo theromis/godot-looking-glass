@@ -1,0 +1,31 @@
+{
+  "date": "2026-10-12",
+  "engine": "Godot 4.8 c61fc0118 native Metal editor",
+  "hardware": "Apple M4",
+  "scope": "4s warmup, 8s measurement; game GI settings preserved; in-memory windowed/bilinear/vsync-off; camera yaw animated; fixed first player spawn; RNG seeded after setup; single run per mode; physical panel FPS not measured",
+  "runs": [
+    {
+      "profile": "desktop",
+      "exit_code": 0,
+      "measurements": {
+        "engine_frame_hz": 50.5229436538193,
+        "engine_frames": 405,
+        "feature_passed": true,
+        "frame_mean_ms": 19.792987654321,
+        "frame_p95_ms": 20.497,
+        "profile": "desktop",
+        "sdk_cleanup": false,
+        "seconds": 8.01616,
+        "submission_hz": 0.0,
+        "submitted": 0,
+        "total_received": 0,
+        "total_submitted": 0
+      },
+      "errors": [
+        "ERROR: 1 RID allocations of type 'N10RendererRD15MaterialStorage6ShaderE' were leaked at exit.",
+        "ERROR: 1 shaders of type ParticlesShaderRD were never freed"
+      ],
+      "full_test_passed": false
+    }
+  ]
+}

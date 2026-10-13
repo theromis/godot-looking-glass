@@ -26,6 +26,7 @@ var _sdk_ready: bool=false
 var _ipc_ready: bool=false
 var _stdout: String=""
 var _stop_sent: bool=false
+var _saved_auto_update_on_transform: bool=true
 
 ## Source checkouts retain the external native build directory as a fallback.
 func _resolved_worker_path() -> String:
@@ -105,6 +106,9 @@ func start_output(rig: Node3D) -> bool:
         failed.emit("Worker launch failed")
         return false
     _rig=rig
+    if rig.get("auto_update_on_transform")!=null:
+        _saved_auto_update_on_transform=rig.auto_update_on_transform
+        rig.auto_update_on_transform=false
     _state="starting"
     _deadline=Time.get_ticks_msec()+10000
     submitted_frames=0
@@ -204,6 +208,8 @@ func _finish(graceful: bool) -> void:
     _process_info.clear()
     _publisher.cleanup_owned_surface_transport()
     _publisher=null
+    if is_instance_valid(_rig) and _rig.get("auto_update_on_transform")!=null:
+        _rig.auto_update_on_transform=_saved_auto_update_on_transform
     _rig=null
     _state="idle"
     stopped.emit(graceful)
