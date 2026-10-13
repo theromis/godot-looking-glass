@@ -20,3 +20,7 @@ benchmarks/native-bridge/equivalence*-local/
 
 /benchmarks/hardware/live-transport/
 /worker-frames/
+
+# Generated installable packages and isolated package checks.
+/dist/
+/addons/looking_glass/native/

@@ -3,8 +3,8 @@ extends Node
 signal started
 signal failed(reason: String)
 signal stopped(graceful: bool)
-@export_file var worker_path: String="res://native/bridge_metal/build/probe-persistent"
-@export_file var extension_path: String="res://native/bridge_metal/build/looking_glass_diagnostic.gdextension"
+@export_file var worker_path: String="res://addons/looking_glass/native/probe-persistent"
+@export_file var extension_path: String="res://addons/looking_glass/native/looking_glass_diagnostic.gdextension"
 @export var bridge_library: String=""
 ## -1 selects the first display currently reported by Bridge.
 @export var display_index: int=-1
@@ -27,15 +27,26 @@ var _ipc_ready: bool=false
 var _stdout: String=""
 var _stop_sent: bool=false
 
-## Explicit startup query; blocks while SDK initializes. Do not call every frame.
+## Source checkouts retain the external native build directory as a fallback.
+func _resolved_worker_path() -> String:
+    if worker_path=="res://addons/looking_glass/native/probe-persistent" and not FileAccess.file_exists(worker_path):
+        return "res://native/bridge_metal/build/probe-persistent"
+    return worker_path
+
+func _resolved_extension_path() -> String:
+    if extension_path=="res://addons/looking_glass/native/looking_glass_diagnostic.gdextension" and not FileAccess.file_exists(extension_path):
+        return "res://native/bridge_metal/build/looking_glass_diagnostic.gdextension"
+    return extension_path
+
+## Explicit setup query; blocks while SDK initializes. Do not call every frame.
 ## Only allowlisted numeric settings leave the SDK process.
 func discover_displays() -> Array[Dictionary]:
     var devices: Array[Dictionary]=[]
     if _state!="idle": return devices
     var runtime: String=bridge_library if not bridge_library.is_empty() else OS.get_environment("BRIDGE_LIBRARY")
-    if runtime.is_empty() or not FileAccess.file_exists(runtime) or not FileAccess.file_exists(worker_path): return devices
+    if runtime.is_empty() or not FileAccess.file_exists(runtime) or not FileAccess.file_exists(_resolved_worker_path()): return devices
     var output: Array=[]
-    var code: int=OS.execute(ProjectSettings.globalize_path(worker_path),PackedStringArray([runtime,"--list-displays"]),output,false)
+    var code: int=OS.execute(ProjectSettings.globalize_path(_resolved_worker_path()),PackedStringArray([runtime,"--list-displays"]),output,false)
     if code!=0: return devices
     for line in str(output[0]).split("\n"):
         if not line.begins_with("LG_DEVICE "): continue
@@ -75,11 +86,11 @@ func start_output(rig: Node3D) -> bool:
         failed.emit("Worker currently supports only the 66-view 11x6 small/4K presets")
         return false
     var runtime: String=bridge_library if not bridge_library.is_empty() else OS.get_environment("BRIDGE_LIBRARY")
-    if runtime.is_empty() or not FileAccess.file_exists(runtime) or not FileAccess.file_exists(worker_path):
+    if runtime.is_empty() or not FileAccess.file_exists(runtime) or not FileAccess.file_exists(_resolved_worker_path()):
         failed.emit("Configure a built worker and external Bridge library")
         return false
     if not ClassDB.class_exists("LookingGlassMetalDiagnostic"):
-        GDExtensionManager.load_extension(extension_path)
+        GDExtensionManager.load_extension(_resolved_extension_path())
     if not ClassDB.class_exists("LookingGlassMetalDiagnostic"):
         failed.emit("Build the native diagnostic extension first")
         return false
@@ -87,7 +98,7 @@ func start_output(rig: Node3D) -> bool:
     _name=_publisher.reserve_surface_name()
     var arguments:=PackedStringArray([runtime,str(display_index),"--experimental-reuse","--live-surface="+_name,"--uncapped","--duration="+str(duration_seconds),"--control-stdin"])
     if dimensions==Vector2i(4092,4092): arguments.append("--large")
-    _process_info=OS.execute_with_pipe(ProjectSettings.globalize_path(worker_path),arguments,false)
+    _process_info=OS.execute_with_pipe(ProjectSettings.globalize_path(_resolved_worker_path()),arguments,false)
     if _process_info.is_empty():
         _publisher.cleanup_owned_surface_transport()
         _publisher=null

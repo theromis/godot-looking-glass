@@ -4,7 +4,7 @@ p=argparse.ArgumentParser();p.add_argument('--godot-cpp',type=pathlib.Path,requi
 root=pathlib.Path(__file__).resolve().parent;out=root/'build';out.mkdir(exist_ok=True)
 libs=list((a.godot_cpp/'bin').glob('libgodot-cpp.macos.template_release.arm64.a'))
 if len(libs)!=1:raise SystemExit('Build godot-cpp for macos/template_release/arm64 first')
-cmd=['clang++','-std=c++17','-fobjc-arc','-dynamiclib','-Wall','-Wextra','-Wno-unused-parameter','-I'+str(a.sdk_headers),'-I'+str(a.godot_cpp/'include'),'-I'+str(a.godot_cpp/'gen/include'),'-I'+str(a.godot_cpp/'gdextension'),str(root/'adapter.mm'),str(root/'godot_diagnostic.mm'),str(libs[0]),'-framework','Metal','-framework','Foundation','-framework','IOSurface','-o',str(out/'liblooking-glass-diagnostic.dylib')]
+cmd=['clang++','-std=c++17','-fobjc-arc','-dynamiclib','-Wl,-install_name,@rpath/liblooking-glass-diagnostic.dylib','-ffile-prefix-map='+str(root.parent.parent)+'=.','-Wall','-Wextra','-Wno-unused-parameter','-I'+str(a.sdk_headers),'-I'+str(a.godot_cpp/'include'),'-I'+str(a.godot_cpp/'gen/include'),'-I'+str(a.godot_cpp/'gdextension'),str(root/'adapter.mm'),str(root/'godot_diagnostic.mm'),str(libs[0]),'-framework','Metal','-framework','Foundation','-framework','IOSurface','-o',str(out/'liblooking-glass-diagnostic.dylib')]
 subprocess.run(cmd,check=True)
 (out/'looking_glass_diagnostic.gdextension').write_text('''[configuration]
 entry_symbol = "looking_glass_diagnostic_init"

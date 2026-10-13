@@ -20,6 +20,7 @@ Checked items are implemented or completed experiments, with their limits record
 - [x] Add an interactive Metal output demo with device selection, Start/Stop, graceful window shutdown and a hardware-free desktop preview (`demo/metal_output.tscn`).
 - [x] Validate five managed Start/Stop cycles and a two-minute 4K run: 2331/2331 sustained frames, clean SDK teardown, bounded observed RSS growth.
 - [x] Validate four fresh-rig demo cycles with GPU texture/resource release and an active-close notification with clean worker/SDK shutdown.
+- [x] Prepare installable experimental macOS-arm64 and preview-only ZIP packages; verify editor import/plugin, preview and 102/102-frame native output in isolated projects.
 - [x] Add and execute a lit moving-occlusion/alpha-panel transport fixture: 24→66 hardware output was user-confirmed, and eight actual IOSurface copies matched the old schedule.
 - [x] Add opt-in composition after the last source capture, allowing one draw; copied IOSurface bytes matched eight original-schedule reference frames and hardware animation was confirmed.
 - [x] Reduce depth-diagnostic feedback on GPU and support explicit on-demand quilt updates for static scenes.
@@ -328,3 +329,7 @@ The managed worker now validates its requested display index before SDK window c
 ### Interactive Metal output demo
 
 Open [demo/metal_output.tscn](demo/metal_output.tscn) with Godot 4.8 native Metal. The animated desktop preview works without Bridge. To display the scene on hardware, configure the external library, discover/select a device, then use Start/Stop. Native builds are required. See [setup, controls and executed checks](docs/managed-metal-output.md#interactive-demo).
+
+### Installable experimental packages
+
+Version `0.1.0-experimental` can be packaged as a self-contained `addons/looking_glass/` directory with the demo under `examples/`. The macOS-arm64 variant includes our native worker/GDExtension and the godot-cpp license; the preview-only variant contains no binaries. Bridge SDK headers and runtime are excluded. See [installation and packaging](docs/addon-installation.md) and [isolated-project validation](docs/addon-package-validation.md). Generated ZIP files are local artifacts under `dist/`; they are not committed to Git.
