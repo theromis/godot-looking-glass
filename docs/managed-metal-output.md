@@ -83,3 +83,7 @@ Set `GODOT_BINARY` and `BRIDGE_LIBRARY` externally. The library can also be ente
 Controls are locked while output runs. Errors leave the desktop preview available. There is no automatic reconnect or hot-unplug guarantee. Submitted/worker-copy counters are not physical panel FPS. This preview is a conventional center camera, not an optical simulation of the display.
 
 Executed on October 12: `--preview-smoke` passed without Bridge; the captured UI image was inspected for layout; `--output-smoke` performed discovery, configured a real-device rig, submitted/received 109 frames and passed SDK cleanup. No new user visual confirmation was collected for this demo run. Test commands append the selected flag after `--` in the command above.
+
+## Repeated lifecycle and sustained validation
+
+Five Start/Stop sessions followed by a 120-second session passed on the managed node: all 2331 frames of the sustained session were received, every worker exited 0 and SDK cleanup passed. Steady process RSS increased 464 KiB for Godot and 304 KiB for the worker. See [method, limitations and full measurements](managed-metal-stress.md).

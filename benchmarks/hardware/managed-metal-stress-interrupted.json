@@ -1,0 +1,198 @@
+{
+  "date": "2026-10-12",
+  "exit_code": -15,
+  "timed_out": false,
+  "passed": null,
+  "protocol": [],
+  "rss_samples": [
+    {
+      "seconds": 0.002,
+      "godot_rss_kib": 352
+    },
+    {
+      "seconds": 1.054,
+      "godot_rss_kib": 256640,
+      "worker_rss_kib": 140240
+    },
+    {
+      "seconds": 2.13,
+      "godot_rss_kib": 257088,
+      "worker_rss_kib": 140368
+    },
+    {
+      "seconds": 3.198,
+      "godot_rss_kib": 257088,
+      "worker_rss_kib": 140368
+    },
+    {
+      "seconds": 4.266,
+      "godot_rss_kib": 257008,
+      "worker_rss_kib": 140400
+    },
+    {
+      "seconds": 5.34,
+      "godot_rss_kib": 256848
+    },
+    {
+      "seconds": 6.418,
+      "godot_rss_kib": 257216,
+      "worker_rss_kib": 139696
+    },
+    {
+      "seconds": 7.482,
+      "godot_rss_kib": 257216,
+      "worker_rss_kib": 140288
+    },
+    {
+      "seconds": 8.562,
+      "godot_rss_kib": 257200,
+      "worker_rss_kib": 140320
+    },
+    {
+      "seconds": 9.633,
+      "godot_rss_kib": 257216,
+      "worker_rss_kib": 140352
+    },
+    {
+      "seconds": 10.7,
+      "godot_rss_kib": 257152
+    },
+    {
+      "seconds": 11.777,
+      "godot_rss_kib": 257152,
+      "worker_rss_kib": 74800
+    },
+    {
+      "seconds": 12.82,
+      "godot_rss_kib": 257200,
+      "worker_rss_kib": 140480
+    },
+    {
+      "seconds": 13.883,
+      "godot_rss_kib": 257200,
+      "worker_rss_kib": 140528
+    },
+    {
+      "seconds": 14.952,
+      "godot_rss_kib": 257216,
+      "worker_rss_kib": 140528
+    },
+    {
+      "seconds": 16.025,
+      "godot_rss_kib": 257232,
+      "worker_rss_kib": 140528
+    },
+    {
+      "seconds": 17.103,
+      "godot_rss_kib": 257232
+    },
+    {
+      "seconds": 18.185,
+      "godot_rss_kib": 257216,
+      "worker_rss_kib": 140224
+    },
+    {
+      "seconds": 19.259,
+      "godot_rss_kib": 257216,
+      "worker_rss_kib": 140320
+    },
+    {
+      "seconds": 20.316,
+      "godot_rss_kib": 257216,
+      "worker_rss_kib": 140336
+    },
+    {
+      "seconds": 21.39,
+      "godot_rss_kib": 257216,
+      "worker_rss_kib": 140304
+    },
+    {
+      "seconds": 22.471,
+      "godot_rss_kib": 257200
+    },
+    {
+      "seconds": 23.538,
+      "godot_rss_kib": 257216,
+      "worker_rss_kib": 140192
+    },
+    {
+      "seconds": 24.608,
+      "godot_rss_kib": 257216,
+      "worker_rss_kib": 140352
+    },
+    {
+      "seconds": 25.675,
+      "godot_rss_kib": 257216,
+      "worker_rss_kib": 140352
+    },
+    {
+      "seconds": 26.742,
+      "godot_rss_kib": 257216,
+      "worker_rss_kib": 140384
+    },
+    {
+      "seconds": 27.817,
+      "godot_rss_kib": 257200
+    },
+    {
+      "seconds": 28.892,
+      "godot_rss_kib": 257232,
+      "worker_rss_kib": 139664
+    },
+    {
+      "seconds": 29.949,
+      "godot_rss_kib": 257232,
+      "worker_rss_kib": 140256
+    },
+    {
+      "seconds": 31.02,
+      "godot_rss_kib": 257232,
+      "worker_rss_kib": 140304
+    },
+    {
+      "seconds": 32.093,
+      "godot_rss_kib": 257232,
+      "worker_rss_kib": 140352
+    },
+    {
+      "seconds": 33.166,
+      "godot_rss_kib": 257312,
+      "worker_rss_kib": 140368
+    },
+    {
+      "seconds": 34.241,
+      "godot_rss_kib": 257312,
+      "worker_rss_kib": 140416
+    },
+    {
+      "seconds": 35.306,
+      "godot_rss_kib": 257312,
+      "worker_rss_kib": 140432
+    },
+    {
+      "seconds": 36.374,
+      "godot_rss_kib": 257312,
+      "worker_rss_kib": 140448
+    },
+    {
+      "seconds": 37.448,
+      "godot_rss_kib": 257312,
+      "worker_rss_kib": 140464
+    },
+    {
+      "seconds": 38.541,
+      "godot_rss_kib": 257312,
+      "worker_rss_kib": 140464
+    },
+    {
+      "seconds": 39.61,
+      "godot_rss_kib": 257312,
+      "worker_rss_kib": 140496
+    }
+  ],
+  "rss_scope": "Process resident memory; excludes separate GPU accounting and does not prove leak-free operation.",
+  "user_visual_confirmation": "Not collected for this run.",
+  "sdk_consumer_completion_verified": false,
+  "production_ready": false,
+  "interruption_reason": "Operator stopped the initial run because buffered release stdout obscured progress. No functional failure established."
+}
