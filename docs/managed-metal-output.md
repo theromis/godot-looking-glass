@@ -65,3 +65,21 @@ Before adding a rig to the tree, call `output.configure_rig_for_display(rig, dev
 The worker independently enumerates devices at startup, selects the first available index when configured as -1, validates the 11×6 grid and queries presentation aspect. This does not imply safe hot-unplug during SDK calls or support for arbitrary presets. Small quilts remain a diagnostic override.
 
 Executed on October 12 with Godot 4.8 native Metal: discovery returned index 1, 4092×4092, 11×6, aspect 0.5625, cone 54; `test_metal_discovery.gd` passed configuration checks; invalid-device lifecycle passed; `test_metal_output_node.gd --show-seconds=6` submitted/received 99 frames, passed cleanup and restart/immediate-stop. These are functional tests, not new throughput or optical measurements.
+
+## Interactive demo
+
+Open `demo/metal_output.tscn` in Godot 4.8 with native Metal, or run:
+
+```sh
+GODOT_MTL_SYNC_MODE=none "$GODOT_BINARY" --path . --rendering-driver metal res://demo/metal_output.tscn
+```
+
+Set `GODOT_BINARY` and `BRIDGE_LIBRARY` externally. The library can also be entered in the demo UI. Native worker/extension builds are still required for physical output, but the desktop preview needs neither Bridge nor a connected display.
+
+1. Click **Discover displays**. This explicit SDK startup query may briefly block the UI.
+2. Select a supported device and click **Start (60 seconds)**. The demo creates a fresh 24-source/66-view 4K rig using the queried aspect, with focus 6 and a conservative 30-degree cone.
+3. Click **Stop** to release output resources while retaining the animated desktop preview. Closing the window also requests worker shutdown before exiting.
+
+Controls are locked while output runs. Errors leave the desktop preview available. There is no automatic reconnect or hot-unplug guarantee. Submitted/worker-copy counters are not physical panel FPS. This preview is a conventional center camera, not an optical simulation of the display.
+
+Executed on October 12: `--preview-smoke` passed without Bridge; the captured UI image was inspected for layout; `--output-smoke` performed discovery, configured a real-device rig, submitted/received 109 frames and passed SDK cleanup. No new user visual confirmation was collected for this demo run. Test commands append the selected flag after `--` in the command above.

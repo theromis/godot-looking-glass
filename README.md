@@ -17,6 +17,7 @@ Checked items are implemented or completed experiments, with their limits record
 - [x] Add cached GPU bindings, borrowed color/depth with tested snapshot fallback, optional profiling and resource-lifetime checks.
 - [x] Execute the shared positional-shadow-atlas engine experiment and document scene-specific gains and compatibility restrictions.
 - [x] Add an experimental managed Metal output node: normal render loop, owned worker/IPC lifecycle, explicit stop and immediate-stop restart tests passed.
+- [x] Add an interactive Metal output demo with device selection, Start/Stop, graceful window shutdown and a hardware-free desktop preview (`demo/metal_output.tscn`).
 - [x] Add and execute a lit moving-occlusion/alpha-panel transport fixture: 24→66 hardware output was user-confirmed, and eight actual IOSurface copies matched the old schedule.
 - [x] Add opt-in composition after the last source capture, allowing one draw; copied IOSurface bytes matched eight original-schedule reference frames and hardware animation was confirmed.
 - [x] Reduce depth-diagnostic feedback on GPU and support explicit on-demand quilt updates for static scenes.
@@ -321,3 +322,7 @@ A per-iteration autorelease pool reduced worker RSS growth in the two-minute rep
 An experimental [managed Metal output node](docs/managed-metal-output.md) now streams quilts directly from a Godot scene using the normal render loop. The repeated hardware test submitted/received all 391 frames with user-confirmed cube rotation and clean SDK teardown; restart/immediate-stop also passed. It remains bounded, native-Metal-only and requires external native builds/Bridge runtime.
 
 The managed worker now validates its requested display index before SDK window creation and reports unavailable devices safely. The negative lifecycle test passed. After the temporary SDK zero-device state, discovery and a new 99-frame output/restart test passed on October 12. Automatic first-device selection, SDK presentation aspect and an explicit preset discovery/configuration API are now available. Earlier user-confirmed 391-frame playback and normal/early-stop cleanup are preserved as separate results. See [availability finding](docs/managed-metal-output.md#unavailable-device-finding-and-final-verification-limit).
+
+### Interactive Metal output demo
+
+Open [demo/metal_output.tscn](demo/metal_output.tscn) with Godot 4.8 native Metal. The animated desktop preview works without Bridge. To display the scene on hardware, configure the external library, discover/select a device, then use Start/Stop. Native builds are required. See [setup, controls and executed checks](docs/managed-metal-output.md#interactive-demo).
