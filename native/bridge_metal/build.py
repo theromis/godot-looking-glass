@@ -15,3 +15,5 @@ subprocess.run(['clang++','-std=c++17','-Wall','-Wextra',str(root/'test_surface_
 subprocess.run(['clang++','-std=c++17','-fobjc-arc','-Wno-deprecated-declarations',str(root/'test_surface_port.mm'),'-framework','Foundation','-framework','IOSurface','-o',str(a.output/'test-surface-port')],check=True)
 
 subprocess.run(common+['-Wno-deprecated-declarations',str(root/'test_surface_async.mm'),'-o',str(a.output/'test-surface-async')],check=True)
+
+subprocess.run(common+[str(root/'test_surface_direct.mm'),'-o',str(a.output/'test-surface-direct')],check=True)

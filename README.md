@@ -20,6 +20,7 @@ Checked items are implemented or completed experiments, with their limits record
 - [x] Add an interactive Metal output demo with device selection, Start/Stop, graceful window shutdown and a hardware-free desktop preview (`demo/metal_output.tscn`).
 - [x] Validate five managed Start/Stop cycles and a two-minute 4K run: 2331/2331 sustained frames, clean SDK teardown, bounded observed RSS growth.
 - [x] Validate four fresh-rig demo cycles with GPU texture/resource release and an active-close notification with clean worker/SDK shutdown.
+- [x] Verify native direct-to-IOSurface compute writes and ACK backpressure; managed Godot integration and cadence comparison remain pending. [Experiment](docs/direct-surface-output.md).
 - [x] Prepare installable experimental macOS-arm64 and preview-only ZIP packages; verify editor import/plugin, preview and 110/110-frame native output in isolated projects.
 - [x] Fix managed capture ownership during camera motion and measure TPS quality profiles: 4.29 → 25.86 Godot frame Hz in the tested fast preset, with reduced view resolution/effects.
 - [x] Evaluate optional capture-rate limits in TPS; retain uncapped default because 5 Hz improved average game FPS but not slow-frame latency and reduced display updates.

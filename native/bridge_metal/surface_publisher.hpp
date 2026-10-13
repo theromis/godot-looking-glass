@@ -45,6 +45,19 @@ public:
         }
         return mailbox_.publish(sequence,IOSurfaceGetID(surface_),checksum);
     }
+    // Experimental direct producer target. The caller must not write again until
+    // ready() after worker ACK, and must release imports before close().
+    id<MTLTexture> direct_texture() const { return texture_; }
+    bool publish_rendered(uint32_t sequence,id<MTLCommandQueue> queue,bool verify) {
+        if(!sequence || !ready() || !queue || queue.device!=texture_.device) return false;
+        // Fence previously committed producer work on the same queue; no blit.
+        auto fence=[queue commandBuffer];
+        if(!fence) return false;
+        [fence commit]; [fence waitUntilCompleted];
+        if(fence.status!=MTLCommandBufferStatusCompleted) return false;
+        uint32_t checksum=verify?surface_checksum(read_pixels()):0;
+        return mailbox_.publish(sequence,IOSurfaceGetID(surface_),checksum);
+    }
     // Main-thread polling: do not publish a sequence before GPU completion.
     bool begin_publish(uint32_t sequence,id<MTLTexture> source,id<MTLCommandQueue> queue) {
         if(!sequence || !ready() || !source || !queue || source.device!=texture_.device || queue.device!=source.device || source.width!=width_ || source.height!=height_ || source.pixelFormat!=MTLPixelFormatRGBA8Unorm || source.textureType!=MTLTextureType2D || source.sampleCount!=1 || source.arrayLength!=1) return false;
