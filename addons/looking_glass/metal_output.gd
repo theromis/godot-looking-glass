@@ -11,6 +11,18 @@ signal stopped(graceful: bool)
 @export_range(20,600) var duration_seconds: int=60
 ## Zero leaves capture pacing to source-copy acknowledgment. No catch-up bursts.
 @export_range(0,60,1) var max_capture_hz: float=0.0
+## Experimental: poll GPU completion instead of blocking during publication.
+@export var async_gpu_copy: bool=false
+## Prepare the private next quilt while the worker copies the shared source.
+@export var overlap_capture: bool=false
+var submission_intervals_usec: Array[int]=[]
+var _last_submission_usec: int=0
+var copy_call_usec: int=0
+var copy_poll_usec: int=0
+var copy_latency_usec: int=0
+var copy_completions: int=0
+var _copy_pending: bool=false
+var _copy_started_usec: int=0
 var submitted_frames: int=0
 var received_frames: int=0
 var sdk_cleanup_passed: bool=false
@@ -99,6 +111,10 @@ func start_output(rig: Node3D) -> bool:
         failed.emit("Build the native diagnostic extension first")
         return false
     _publisher=ClassDB.instantiate("LookingGlassMetalDiagnostic")
+    if async_gpu_copy and (not _publisher.has_method("begin_surface_publish") or not _publisher.has_method("poll_surface_publish")):
+        _publisher=null
+        failed.emit("Rebuild the native extension for asynchronous publication")
+        return false
     _name=_publisher.reserve_surface_name()
     var arguments:=PackedStringArray([runtime,str(display_index),"--experimental-reuse","--live-surface="+_name,"--uncapped","--duration="+str(duration_seconds),"--control-stdin"])
     if dimensions==Vector2i(4092,4092): arguments.append("--large")
@@ -120,6 +136,13 @@ func start_output(rig: Node3D) -> bool:
     worker_exit_code=-1
     worker_status=""
     _revision=0
+    _copy_pending=false
+    submission_intervals_usec.clear()
+    _last_submission_usec=0
+    copy_call_usec=0
+    copy_poll_usec=0
+    copy_latency_usec=0
+    copy_completions=0
     _next_capture_usec=0
     _stdout=""
     _stop_sent=false
@@ -171,10 +194,24 @@ func _process(_delta: float) -> void:
     if not OS.is_process_running(_process_info.pid):
         _drain()
         worker_exit_code=OS.get_process_exit_code(_process_info.pid)
-        var graceful: bool=sdk_cleanup_passed and received_frames==submitted_frames
+        var graceful: bool=not _copy_pending and sdk_cleanup_passed and received_frames==submitted_frames
         if not graceful: failed.emit("Worker exited: code=%d publisher=%s sdk=%s status=%s"%[worker_exit_code,_publisher_open,_sdk_ready,worker_status])
         _finish(graceful)
         return
+    if _copy_pending:
+        var poll_started: int=Time.get_ticks_usec()
+        var result: int=_publisher.poll_surface_publish()
+        copy_poll_usec+=Time.get_ticks_usec()-poll_started
+        if result<0:
+            _copy_pending=false
+            failed.emit("Asynchronous GPU copy failed")
+            stop_output()
+        elif result>0:
+            _copy_pending=false
+            copy_latency_usec+=Time.get_ticks_usec()-_copy_started_usec
+            copy_completions+=1
+            _record_submission()
+            _revision=0
     if _state=="stopping" and not _stop_sent and (not _publisher_open or _publisher.surface_ready()):
         _process_info.stdio.store_buffer("q".to_utf8_buffer())
         _stop_sent=true
@@ -197,18 +234,38 @@ func _process(_delta: float) -> void:
         failed.emit("Output rig was removed")
         stop_output()
         return
-    if _revision>0 and _rig.completed_revision>=_revision and _publisher.surface_ready():
-        if not _publisher.publish_surface(submitted_frames+1,_rig.synthesizer.quilt,false):
+    if not _copy_pending and _revision>0 and _rig.completed_revision>=_revision and _publisher.surface_ready():
+        var call_started: int=Time.get_ticks_usec()
+        var accepted: bool
+        if async_gpu_copy:
+            accepted=_publisher.begin_surface_publish(submitted_frames+1,_rig.synthesizer.quilt)
+            _copy_pending=accepted
+            _copy_started_usec=call_started
+        else:
+            accepted=_publisher.publish_surface(submitted_frames+1,_rig.synthesizer.quilt,false)
+        var duration: int=Time.get_ticks_usec()-call_started
+        copy_call_usec+=duration
+        if not accepted:
             failed.emit("GPU publication failed")
             stop_output()
             return
-        submitted_frames+=1
-        _revision=0
-    if _revision==0 and _publisher.surface_ready() and Time.get_ticks_usec()>=_next_capture_usec:
+        if not async_gpu_copy:
+            copy_latency_usec+=duration
+            copy_completions+=1
+            _record_submission()
+            _revision=0
+    if not _copy_pending and _revision==0 and (overlap_capture or _publisher.surface_ready()) and Time.get_ticks_usec()>=_next_capture_usec:
         _rig.request_update()
         _revision=_rig.requested_revision
         var rate: float=clampf(max_capture_hz,0.0,60.0) if is_finite(max_capture_hz) else 0.0
         _next_capture_usec=Time.get_ticks_usec()+ceili(1000000.0/rate) if rate>0 else 0
+
+func _record_submission() -> void:
+    var now: int=Time.get_ticks_usec()
+    if _last_submission_usec>0 and submission_intervals_usec.size()<10000:
+        submission_intervals_usec.append(now-_last_submission_usec)
+    _last_submission_usec=now
+    submitted_frames+=1
 
 func _finish(graceful: bool) -> void:
     _process_info.clear()

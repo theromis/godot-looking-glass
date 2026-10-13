@@ -97,3 +97,7 @@ Managed output temporarily disables `Rig.auto_update_on_transform`, while retain
 ## Optional capture pacing
 
 `max_capture_hz=0` preserves natural source-copy acknowledgment pacing. A positive value limits new capture starts without blocking the process loop; late captures do not create catch-up bursts, and the deadline resets at each start. The TPS experiment improved average desktop FPS only by reducing content updates and did not eliminate slow capture frames, so the default remains zero. See [measurements and tradeoffs](tps-capture-pacing.md).
+
+## Optional pipeline and async copy
+
+`overlap_capture` prepares the next private quilt after source GPU copy completion while the worker reads the shared staging surface; staging publication still requires worker ACK. `async_gpu_copy` polls producer GPU completion instead of blocking, retaining resources until completion and publishing metadata afterward. Both are opt-in in the generic node. For TPS, blocking copy with overlap and suppressed desktop 3D measured better content cadence than asynchronous copy. See [ownership, tests and physical feedback](tps-display-priority.md).

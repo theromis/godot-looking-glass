@@ -13,3 +13,5 @@ subprocess.run(common+['-Wno-deprecated-declarations',str(root/'probe_persistent
 subprocess.run(['clang++','-std=c++17','-Wall','-Wextra',str(root/'test_shared_frame.cpp'),'-o',str(a.output/'test-shared-frame')],check=True)
 subprocess.run(['clang++','-std=c++17','-Wall','-Wextra',str(root/'test_surface_mailbox.cpp'),'-o',str(a.output/'test-surface-mailbox')],check=True)
 subprocess.run(['clang++','-std=c++17','-fobjc-arc','-Wno-deprecated-declarations',str(root/'test_surface_port.mm'),'-framework','Foundation','-framework','IOSurface','-o',str(a.output/'test-surface-port')],check=True)
+
+subprocess.run(common+['-Wno-deprecated-declarations',str(root/'test_surface_async.mm'),'-o',str(a.output/'test-surface-async')],check=True)

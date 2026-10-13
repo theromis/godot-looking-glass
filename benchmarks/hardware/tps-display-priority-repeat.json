@@ -1,0 +1,34 @@
+{
+  "date": "2026-10-12",
+  "engine": "Godot 4.8 c61fc0118 native Metal",
+  "mode": "sync-display-overlap 20s repeat",
+  "exit_code": 0,
+  "measurements": {
+    "async_copy": false,
+    "capture_hz_limit": 0.0,
+    "copy_call_mean_ms": 16.6108618968386,
+    "copy_completion_wall_mean_ms": 16.6108618968386,
+    "copy_poll_mean_ms": 0.0,
+    "desktop_3d": false,
+    "engine_frame_hz": 40.6078267415376,
+    "engine_frames": 813,
+    "feature_passed": true,
+    "frame_mean_ms": 24.6257945879459,
+    "frame_p95_ms": 37.854,
+    "overlap": true,
+    "profile": "fast",
+    "sdk_cleanup": true,
+    "seconds": 20.020771,
+    "submission_gap_p95_ms": 42.518,
+    "submission_hz": 30.0188239503863,
+    "submitted": 601,
+    "total_received": 713,
+    "total_submitted": 713
+  },
+  "errors": [
+    "ERROR: 1 RID allocations of type 'N10RendererRD15MaterialStorage6ShaderE' were leaked at exit.",
+    "ERROR: 1 shaders of type ParticlesShaderRD were never freed"
+  ],
+  "user_visual_confirmation": "User confirmed noticeably smoother Looking Glass motion without new artifacts.",
+  "full_test_passed": false
+}

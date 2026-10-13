@@ -20,9 +20,10 @@ Checked items are implemented or completed experiments, with their limits record
 - [x] Add an interactive Metal output demo with device selection, Start/Stop, graceful window shutdown and a hardware-free desktop preview (`demo/metal_output.tscn`).
 - [x] Validate five managed Start/Stop cycles and a two-minute 4K run: 2331/2331 sustained frames, clean SDK teardown, bounded observed RSS growth.
 - [x] Validate four fresh-rig demo cycles with GPU texture/resource release and an active-close notification with clean worker/SDK shutdown.
-- [x] Prepare installable experimental macOS-arm64 and preview-only ZIP packages; verify editor import/plugin, preview and 114/114-frame native output in isolated projects.
+- [x] Prepare installable experimental macOS-arm64 and preview-only ZIP packages; verify editor import/plugin, preview and 110/110-frame native output in isolated projects.
 - [x] Fix managed capture ownership during camera motion and measure TPS quality profiles: 4.29 → 25.86 Godot frame Hz in the tested fast preset, with reduced view resolution/effects.
 - [x] Evaluate optional capture-rate limits in TPS; retain uncapped default because 5 Hz improved average game FPS but not slow-frame latency and reduced display updates.
+- [x] Prioritize TPS Looking Glass delivery: suppress desktop 3D and overlap private preparation, reaching 27–30 quilt submissions/s with user-confirmed smoother motion; async copy remains optional after a slower cadence result.
 - [x] Add and execute a lit moving-occlusion/alpha-panel transport fixture: 24→66 hardware output was user-confirmed, and eight actual IOSurface copies matched the old schedule.
 - [x] Add opt-in composition after the last source capture, allowing one draw; copied IOSurface bytes matched eight original-schedule reference frames and hardware animation was confirmed.
 - [x] Reduce depth-diagnostic feedback on GPU and support explicit on-demand quilt updates for static scenes.

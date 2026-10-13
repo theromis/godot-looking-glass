@@ -18,6 +18,11 @@ const PROFILES={
     "fast":{"views":8,"size":Vector2i(192,341),"iterations":4,"atlas":0,"effects":false,"auto_requests":false},
 }
 var profile_name: String="fast"
+var async_gpu_copy: bool=false
+var overlap_capture: bool=true
+var render_desktop_3d: bool=false
+var _saved_desktop_disable_3d: bool=false
+var _desktop_overridden: bool=false
 var max_capture_hz: float=0.0
 var real_views: int=8
 var cone_degrees: float=10.0
@@ -45,6 +50,8 @@ func start_output() -> bool:
     if output.is_output_active() or closing: return false
     source_camera=get_viewport().get_camera_3d()
     if source_camera==null: status.text="Looking Glass: no active camera"; return false
+    output.overlap_capture=overlap_capture
+    output.async_gpu_copy=async_gpu_copy
     output.max_capture_hz=max_capture_hz
     output.bridge_library=OS.get_environment("BRIDGE_LIBRARY")
     var devices: Array[Dictionary]=output.discover_displays()
@@ -93,6 +100,10 @@ func start_output() -> bool:
     if not output.start_output(rig):
         rig.queue_free(); rig=null
         return false
+    if not render_desktop_3d:
+        _saved_desktop_disable_3d=get_viewport().disable_3d
+        _desktop_overridden=true
+        get_viewport().disable_3d=true
     # Benchmark-only legacy mode intentionally bypasses scheduler ownership.
     if profile_name=="original": rig.auto_update_on_transform=true
     return true
@@ -101,6 +112,9 @@ func stop_output() -> void:
     output.stop_output()
 
 func _stopped(graceful: bool) -> void:
+    if _desktop_overridden:
+        get_viewport().disable_3d=_saved_desktop_disable_3d
+        _desktop_overridden=false
     last_cleanup=graceful and output.sdk_cleanup_passed
     last_submitted=output.submitted_frames
     last_received=output.received_frames

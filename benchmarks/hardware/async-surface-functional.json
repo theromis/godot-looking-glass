@@ -1,0 +1,27 @@
+{
+  "date": "2026-10-12",
+  "native_test": "test-surface-async",
+  "native_passed": true,
+  "byte_comparisons": 3,
+  "dimensions": [
+    704,
+    684
+  ],
+  "checks": [
+    "GPU completion before mailbox publication",
+    "No second publication while in flight",
+    "Source object retained after caller releases it",
+    "No staging reuse before worker ACK",
+    "Close waits for in-flight copy"
+  ],
+  "managed_test": {
+    "async": true,
+    "submitted": 87,
+    "received": 87,
+    "sdk_cleanup": true,
+    "restart_immediate_stop": true,
+    "exit_code": 0
+  },
+  "timing_scope": "CPU call and poll wall time; not isolated GPU transfer time",
+  "production_ready": false
+}
