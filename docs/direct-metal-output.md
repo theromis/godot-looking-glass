@@ -35,3 +35,9 @@ No demonstrated throughput improvement: averages are about 28.85 vs 28.51 calls/
 A 20-second direct TPS repeat produced 561 measured updates (28.01 calls/s), p95 gap 50.015 ms, 671 total successful calls including warmup and clean SDK teardown. The user confirmed correct image updates without freezes or new artifacts. Known particle-shader exit errors remained. [Repeat record](../benchmarks/hardware/tps-direct-repeat.json).
 
 Both experimental ZIPs were rebuilt and verified in clean projects. Native package import, preview and existing worker demo passed (114/114 frames); preview-only import and preview passed. This does not add production guarantees to the direct component.
+
+## Cone and real-view diagnostic
+
+The user found the character more volumetric at 30 degrees, but the background blurred. A 66-real-view control at the same 30-degree cone, focus 2.4 and 192×341 source size did not visibly improve background sharpness. It completed 87 measured updates over 20.02 seconds (4.35 calls/s); output lifecycle passed, while the known particle-shader shutdown errors remained. This weakens intermediate-view synthesis as the dominant explanation in this test, but does not isolate display crosstalk from source resolution, focus or scene effects. The normal eight-view/10-degree setup remains unchanged. [Control record](../benchmarks/hardware/tps-cone30-real66.json).
+
+For this diagnostic, append `--cone=30 --all-real` to the TPS benchmark command. These are run-only overrides; they do not modify the persistent profile table.

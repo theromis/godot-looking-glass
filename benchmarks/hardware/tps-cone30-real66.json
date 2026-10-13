@@ -1,0 +1,50 @@
+{
+  "date": "2026-10-12",
+  "measurements": {
+    "async_copy": false,
+    "capture_hz_limit": 0.0,
+    "cone_degrees": 30.0,
+    "copy_call_mean_ms": 167.838632183908,
+    "copy_completion_wall_mean_ms": 167.838632183908,
+    "copy_poll_mean_ms": 0.0,
+    "desktop_3d": false,
+    "engine_frame_hz": 4.34508180190842,
+    "engine_frames": 87,
+    "feature_passed": true,
+    "frame_mean_ms": 230.145264367816,
+    "frame_p95_ms": 270.664,
+    "output_mode": "direct",
+    "overlap": false,
+    "profile": "fast",
+    "real_views": 66,
+    "sdk_cleanup": true,
+    "seconds": 20.022638,
+    "submission_gap_p95_ms": 269.766,
+    "submission_hz": 4.34508180190842,
+    "submitted": 87,
+    "total_received": 106,
+    "total_submitted": 106
+  },
+  "focus_distance": 2.4,
+  "source_view_size": [
+    192,
+    341
+  ],
+  "output_dimensions": [
+    4092,
+    4092
+  ],
+  "intermediate_view_synthesis": false,
+  "exit_code": 0,
+  "errors": [
+    "ERROR: 1 shaders of type ParticlesShaderRD were never freed",
+    "ERROR: 1 RID allocations of type 'N10RendererRD15MaterialStorage6ShaderE' were leaked at exit."
+  ],
+  "full_test_passed": false,
+  "user_visual_confirmation": "Background remains blurred approximately the same as the eight-anchor 30-degree test",
+  "interpretation": "No visible improvement from removing intermediate-view synthesis at this source resolution. Optical depth spread, focus, source resolution or scene effects remain possible contributors; no unique root cause established.",
+  "default_unchanged": {
+    "cone_degrees": 10,
+    "real_views": 8
+  }
+}

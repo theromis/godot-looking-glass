@@ -27,6 +27,7 @@ var _saved_desktop_disable_3d: bool=false
 var _desktop_overridden: bool=false
 var max_capture_hz: float=0.0
 var real_views: int=8
+var real_view_override: int=0
 var cone_degrees: float=10.0
 var focus_distance: float=2.4
 func _ready() -> void:
@@ -69,7 +70,7 @@ func start_output() -> bool:
     if devices.is_empty(): status.text="Looking Glass: set BRIDGE_LIBRARY and check device connection"; return false
     rig=Rig.new()
     var profile: Dictionary=PROFILES[profile_name]
-    real_views=profile.views
+    real_views=real_view_override if real_view_override>0 else profile.views
     rig.real_views=real_views
     rig.focus_distance=focus_distance
     rig.view_cone_degrees=cone_degrees
