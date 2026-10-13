@@ -27,7 +27,7 @@ var _saved_desktop_disable_3d: bool=false
 var _desktop_overridden: bool=false
 var max_capture_hz: float=0.0
 var real_views: int=8
-var cone_degrees: float=30.0
+var cone_degrees: float=10.0
 var focus_distance: float=2.4
 func _ready() -> void:
     process_priority=100

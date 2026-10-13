@@ -31,5 +31,7 @@
   ],
   "exit_code": 0,
   "full_test_passed": false,
-  "user_visual_confirmation": "Pending"
+  "user_visual_confirmation": "Doubling or angular jumps interfere with viewing",
+  "quality_accepted": false,
+  "default_cone_restored_degrees": 10
 }
