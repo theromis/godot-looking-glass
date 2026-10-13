@@ -1,5 +1,6 @@
 extends SceneTree
 const Rig=preload("res://addons/looking_glass/rig.gd")
+const DirectOutput=preload("res://addons/looking_glass/direct_metal_output.gd")
 const Output=preload("res://addons/looking_glass/metal_output.gd")
 var box: MeshInstance3D
 var output: Node
@@ -38,7 +39,7 @@ func run() -> void:
     rig.update_on_demand=true
     rig.compose_in_capture_callback=true
     scene.add_child(rig)
-    output=Output.new()
+    output=DirectOutput.new() if "--direct-output" in OS.get_cmdline_user_args() else Output.new()
     output.async_gpu_copy="--async-copy" in OS.get_cmdline_user_args()
     output.overlap_capture="--overlap" in OS.get_cmdline_user_args()
     for argument in OS.get_cmdline_user_args():
@@ -46,6 +47,7 @@ func run() -> void:
     scene.add_child(output)
     output.failed.connect(func(reason: String): error_seen=true; printerr("FAIL output node ",reason))
     output.stopped.connect(func(_graceful: bool): done=true)
+    if "--direct-output" in OS.get_cmdline_user_args(): output.display_index=1
     if not output.start_output(rig): quit(1); return
     var ownership_passed: bool=not rig.auto_update_on_transform
     var show_seconds: float=10

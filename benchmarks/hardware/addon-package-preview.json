@@ -1,7 +1,7 @@
 {
   "date": "2026-10-12",
   "package": "looking-glass-godot-0.1.0-experimental-preview.zip",
-  "sha256": "f804bb9ca06404c014bdffd72bd329b756d4c7ce8d41b643a0a08fd94c31988c",
+  "sha256": "9eb69ecc3541677937b57e9b34cd9e67afcae2cb092df6aa5f06d16c8f6162f2",
   "checks": [
     {
       "stage": "archive manifest, contents and permissions",

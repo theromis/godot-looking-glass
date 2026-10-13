@@ -1,7 +1,9 @@
 extends Node
 ## Optional output follows the current gameplay/menu camera without replacing it.
 const Rig=preload("res://addons/looking_glass/rig.gd")
+const DirectOutput=preload("res://addons/looking_glass/direct_metal_output.gd")
 const Output=preload("res://addons/looking_glass/metal_output.gd")
+var output_mode: String="worker"
 var output: Node
 var rig: Node3D
 var source_camera: Camera3D
@@ -30,7 +32,7 @@ var focus_distance: float=2.4
 func _ready() -> void:
     process_priority=100
     get_tree().auto_accept_quit=false
-    output=Output.new()
+    output=DirectOutput.new() if output_mode=="direct" else Output.new()
     output.process_priority=300
     output.duration_seconds=60
     add_child(output)
@@ -48,6 +50,15 @@ func _ready() -> void:
 
 func start_output() -> bool:
     if output.is_output_active() or closing: return false
+    if (output_mode=="direct")!=(output.get_script()==DirectOutput):
+        output.free()
+        output=DirectOutput.new() if output_mode=="direct" else Output.new()
+        output.process_priority=300
+        output.duration_seconds=60
+        add_child(output)
+        output.started.connect(func(): status.text="Looking Glass active (%s/%s)"%[output_mode,profile_name])
+        output.failed.connect(func(reason: String): error_seen=true; status.text="Looking Glass: "+reason)
+        output.stopped.connect(_stopped)
     source_camera=get_viewport().get_camera_3d()
     if source_camera==null: status.text="Looking Glass: no active camera"; return false
     output.overlap_capture=overlap_capture
@@ -105,7 +116,7 @@ func start_output() -> bool:
         _desktop_overridden=true
         get_viewport().disable_3d=true
     # Benchmark-only legacy mode intentionally bypasses scheduler ownership.
-    if profile_name=="original": rig.auto_update_on_transform=true
+    if profile_name=="original" and output_mode=="worker": rig.auto_update_on_transform=true
     return true
 
 func stop_output() -> void:

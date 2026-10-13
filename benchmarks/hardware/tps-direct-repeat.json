@@ -1,0 +1,34 @@
+{
+  "date": "2026-10-12",
+  "measurements": {
+    "async_copy": false,
+    "capture_hz_limit": 0.0,
+    "copy_call_mean_ms": 26.9711568627451,
+    "copy_completion_wall_mean_ms": 26.9711568627451,
+    "copy_poll_mean_ms": 0.0,
+    "desktop_3d": false,
+    "engine_frame_hz": 28.0060263377458,
+    "engine_frames": 561,
+    "feature_passed": true,
+    "frame_mean_ms": 35.7066007130125,
+    "frame_p95_ms": 50.27,
+    "output_mode": "direct",
+    "overlap": false,
+    "profile": "fast",
+    "sdk_cleanup": true,
+    "seconds": 20.031403,
+    "submission_gap_p95_ms": 50.015,
+    "submission_hz": 28.0060263377458,
+    "submitted": 561,
+    "total_received": 671,
+    "total_submitted": 671
+  },
+  "exit_code": 0,
+  "errors": [
+    "ERROR: 1 shaders of type ParticlesShaderRD were never freed",
+    "ERROR: 1 RID allocations of type 'N10RendererRD15MaterialStorage6ShaderE' were leaked at exit."
+  ],
+  "full_test_passed": false,
+  "user_visual_confirmation": "Updates correct, without freezes or new artifacts",
+  "received_counter_semantics": "Successful SDK update calls; not panel frames or worker ACKs"
+}

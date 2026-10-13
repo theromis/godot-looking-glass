@@ -13,6 +13,7 @@ func run() -> void:
         if argument.begins_with("--profile="): profile=argument.trim_prefix("--profile=")
         if argument.begins_with("--seconds="): sample_seconds=clampf(argument.trim_prefix("--seconds=").to_float(),4,40)
         if argument.begins_with("--capture-hz="): capture_hz=argument.trim_prefix("--capture-hz=").to_float()
+    controller.output_mode="direct" if "--direct-output" in OS.get_cmdline_user_args() else "worker"
     controller.overlap_capture="--overlap" in OS.get_cmdline_user_args()
     controller.render_desktop_3d=not "--no-desktop-3d" in OS.get_cmdline_user_args()
     controller.async_gpu_copy="--async-copy" in OS.get_cmdline_user_args()
@@ -72,7 +73,7 @@ func run() -> void:
     while controller.output.is_output_active() and Time.get_ticks_msec()<deadline: await process_frame
     var valid: bool=transform_matches and not controller.error_seen and (profile=="desktop" or (controller.last_cleanup and controller.last_submitted==controller.last_received and submitted>0))
     valid=valid and (not root.disable_3d)
-    printerr("BENCH ",JSON.stringify({"desktop_3d":controller.render_desktop_3d,"overlap":controller.overlap_capture,"submission_gap_p95_ms":gap_p95_ms,"async_copy":controller.async_gpu_copy,"copy_call_mean_ms":call_mean_ms,"copy_poll_mean_ms":poll_mean_ms,"copy_completion_wall_mean_ms":latency_mean_ms,"profile":profile,"capture_hz_limit":capture_hz,"engine_frames":samples.size(),"seconds":elapsed,"frame_mean_ms":mean,"frame_p95_ms":p95,"engine_frame_hz":samples.size()/elapsed,"submitted":submitted,"submission_hz":submitted/elapsed,"total_submitted":controller.last_submitted,"total_received":controller.last_received,"sdk_cleanup":controller.last_cleanup,"feature_passed":valid}))
+    printerr("BENCH ",JSON.stringify({"output_mode":controller.output_mode,"desktop_3d":controller.render_desktop_3d,"overlap":controller.overlap_capture,"submission_gap_p95_ms":gap_p95_ms,"async_copy":controller.async_gpu_copy,"copy_call_mean_ms":call_mean_ms,"copy_poll_mean_ms":poll_mean_ms,"copy_completion_wall_mean_ms":latency_mean_ms,"profile":profile,"capture_hz_limit":capture_hz,"engine_frames":samples.size(),"seconds":elapsed,"frame_mean_ms":mean,"frame_p95_ms":p95,"engine_frame_hz":samples.size()/elapsed,"submitted":submitted,"submission_hz":submitted/elapsed,"total_submitted":controller.last_submitted,"total_received":controller.last_received,"sdk_cleanup":controller.last_cleanup,"feature_passed":valid}))
     level.queue_free()
     for frame in range(60): await process_frame
     printerr("PASS TPS profile benchmark" if valid else "FAIL TPS profile benchmark")

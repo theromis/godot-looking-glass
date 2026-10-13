@@ -8,7 +8,7 @@ Two archives were built using `tools/package_addon.py`. The macOS-arm64 variant 
 
 | Archive | Editor import/plugin | No-hardware preview | Physical output lifecycle |
 | --- | --- | --- | --- |
-| macOS arm64 | Passed | Passed | 110/110 frames; clean SDK teardown, exit 0 |
+| macOS arm64 | Passed | Passed | 114/114 frames; clean SDK teardown, exit 0 |
 | Preview only | Passed | Passed, no Bridge environment | Not applicable |
 
 All executed stages exited 0 without Godot script/runtime errors. A second native archive generation from identical inputs produced the same SHA256. ZIP timestamps and file permissions are normalized. This does not imply reproducible native compilation across toolchains.
@@ -21,4 +21,4 @@ Records: [native ZIP](../benchmarks/hardware/addon-package-native.json), [previe
 
 No new physical visual confirmation was collected. This is an experimental installable package, not a production synchronization guarantee. Hot-unplug, unsupported quilt grids, Windows/Linux hardware output, notarization and exported application bundling remain unqualified.
 
-After capture-ownership changes, both packages were rebuilt and isolated-project checks repeated. The latest native run received 110/110 frames with clean SDK teardown; preview-only import and preview also passed. Records contain the updated archive hashes.
+After capture-ownership changes, both packages were rebuilt and isolated-project checks repeated. The latest native run received 114/114 frames with clean SDK teardown; preview-only import and preview also passed. Records contain the updated archive hashes.

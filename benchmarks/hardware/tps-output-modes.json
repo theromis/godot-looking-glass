@@ -1,0 +1,136 @@
+{
+  "date": "2026-10-12",
+  "engine": "Godot 4.8 c61fc0118 native Metal editor",
+  "hardware": "Apple M4",
+  "scope": "Fast preset, fixed spawn and yaw; 4s warmup, 8s sample, two runs per output path. Direct received counts successful API calls, not ACKs. Publication rate and gap are stream proxies, not physical presentation measurements. Call latency is wall time including GPU work queued earlier and SDK work. Direct path has no copy; field names are retained for common instrumentation.",
+  "runs": [
+    {
+      "mode": "worker-1",
+      "exit_code": 0,
+      "measurements": {
+        "async_copy": false,
+        "capture_hz_limit": 0.0,
+        "copy_call_mean_ms": 22.8057455357143,
+        "copy_completion_wall_mean_ms": 22.8057455357143,
+        "copy_poll_mean_ms": 0.0,
+        "desktop_3d": false,
+        "engine_frame_hz": 31.6035096134628,
+        "engine_frames": 253,
+        "feature_passed": true,
+        "frame_mean_ms": 31.6420553359684,
+        "frame_p95_ms": 41.212,
+        "output_mode": "worker",
+        "overlap": true,
+        "profile": "fast",
+        "sdk_cleanup": true,
+        "seconds": 8.00544,
+        "submission_gap_p95_ms": 42.083,
+        "submission_hz": 27.9809729384019,
+        "submitted": 224,
+        "total_received": 327,
+        "total_submitted": 327
+      },
+      "errors": [
+        "ERROR: 1 RID allocations of type 'N10RendererRD15MaterialStorage6ShaderE' were leaked at exit.",
+        "ERROR: 1 shaders of type ParticlesShaderRD were never freed"
+      ],
+      "full_test_passed": false
+    },
+    {
+      "mode": "direct-1",
+      "exit_code": 0,
+      "measurements": {
+        "async_copy": false,
+        "capture_hz_limit": 0.0,
+        "copy_call_mean_ms": 27.2008318181818,
+        "copy_completion_wall_mean_ms": 27.2008318181818,
+        "copy_poll_mean_ms": 0.0,
+        "desktop_3d": false,
+        "engine_frame_hz": 27.4004404994453,
+        "engine_frames": 220,
+        "feature_passed": true,
+        "frame_mean_ms": 36.4957636363636,
+        "frame_p95_ms": 50.413,
+        "output_mode": "direct",
+        "overlap": false,
+        "profile": "fast",
+        "sdk_cleanup": true,
+        "seconds": 8.029068,
+        "submission_gap_p95_ms": 50.014,
+        "submission_hz": 27.4004404994453,
+        "submitted": 220,
+        "total_received": 311,
+        "total_submitted": 311
+      },
+      "errors": [
+        "ERROR: 1 RID allocations of type 'N10RendererRD15MaterialStorage6ShaderE' were leaked at exit.",
+        "ERROR: 1 shaders of type ParticlesShaderRD were never freed"
+      ],
+      "full_test_passed": false
+    },
+    {
+      "mode": "worker-2",
+      "exit_code": 0,
+      "measurements": {
+        "async_copy": false,
+        "capture_hz_limit": 0.0,
+        "copy_call_mean_ms": 16.1926260504202,
+        "copy_completion_wall_mean_ms": 16.1926260504202,
+        "copy_poll_mean_ms": 0.0,
+        "desktop_3d": false,
+        "engine_frame_hz": 42.0916634025852,
+        "engine_frames": 337,
+        "feature_passed": true,
+        "frame_mean_ms": 23.7576735905044,
+        "frame_p95_ms": 35.31,
+        "output_mode": "worker",
+        "overlap": true,
+        "profile": "fast",
+        "sdk_cleanup": true,
+        "seconds": 8.006336,
+        "submission_gap_p95_ms": 37.263,
+        "submission_hz": 29.7264566463361,
+        "submitted": 238,
+        "total_received": 343,
+        "total_submitted": 343
+      },
+      "errors": [
+        "ERROR: 1 RID allocations of type 'N10RendererRD15MaterialStorage6ShaderE' were leaked at exit.",
+        "ERROR: 1 shaders of type ParticlesShaderRD were never freed"
+      ],
+      "full_test_passed": false
+    },
+    {
+      "mode": "direct-2",
+      "exit_code": 0,
+      "measurements": {
+        "async_copy": false,
+        "capture_hz_limit": 0.0,
+        "copy_call_mean_ms": 25.2339621848739,
+        "copy_completion_wall_mean_ms": 25.2339621848739,
+        "copy_poll_mean_ms": 0.0,
+        "desktop_3d": false,
+        "engine_frame_hz": 29.6255357180645,
+        "engine_frames": 238,
+        "feature_passed": true,
+        "frame_mean_ms": 33.7546638655462,
+        "frame_p95_ms": 37.714,
+        "output_mode": "direct",
+        "overlap": false,
+        "profile": "fast",
+        "sdk_cleanup": true,
+        "seconds": 8.03361,
+        "submission_gap_p95_ms": 33.587,
+        "submission_hz": 29.6255357180645,
+        "submitted": 238,
+        "total_received": 351,
+        "total_submitted": 351
+      },
+      "errors": [
+        "ERROR: 1 RID allocations of type 'N10RendererRD15MaterialStorage6ShaderE' were leaked at exit.",
+        "ERROR: 1 shaders of type ParticlesShaderRD were never freed"
+      ],
+      "full_test_passed": false
+    }
+  ]
+}

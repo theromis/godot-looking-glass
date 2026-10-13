@@ -1,7 +1,7 @@
 {
   "date": "2026-10-12",
   "package": "looking-glass-godot-0.1.0-experimental-macos-arm64.zip",
-  "sha256": "fd39ae3a3a40c9c413af72f596285e3e1225feb76b648da2eab3b8801b448093",
+  "sha256": "c5987e6f0e84a44f236c560a12d1315c174ee6874f95f5cb65dcb1ae1294d78c",
   "checks": [
     {
       "stage": "archive manifest, contents and permissions",
@@ -26,7 +26,7 @@
       "exit_code": 0,
       "passed": true,
       "protocol": [
-        "DEMO submitted=110 received=110",
+        "DEMO submitted=114 received=114",
         "PASS Metal demo output"
       ]
     }

@@ -1,0 +1,15 @@
+{
+  "date": "2026-10-12",
+  "test": "test_metal_output_node.gd --direct-output --show-seconds=6",
+  "updates": 196,
+  "successful_sdk_update_calls": 196,
+  "stop_cleanup": true,
+  "rig_update_policy_restored": true,
+  "restart_immediate_stop_cleanup": true,
+  "exit_code": 0,
+  "godot_script_render_errors": false,
+  "producer_blit": false,
+  "adapter_blit": false,
+  "worker": false,
+  "sdk_consumer_completion_verified": false
+}
