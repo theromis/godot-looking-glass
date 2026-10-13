@@ -1,0 +1,130 @@
+{
+  "date": "2026-10-12",
+  "test": "tests/test_metal_demo_recreate.gd",
+  "exit_code": 0,
+  "timed_out": false,
+  "passed": true,
+  "protocol": [
+    "RECREATE cycle=1 submitted=71 received=71 resources_released=true valid=true",
+    "RECREATE cycle=2 submitted=74 received=74 resources_released=true valid=true",
+    "RECREATE cycle=3 submitted=74 received=74 resources_released=true valid=true",
+    "RECREATE cycle=4 submitted=80 received=80 resources_released=true valid=true",
+    "PASS demo rig recreation"
+  ],
+  "rss_samples": [
+    {
+      "seconds": 0.001,
+      "godot_rss_kib": 208
+    },
+    {
+      "seconds": 1.045,
+      "godot_rss_kib": 213008
+    },
+    {
+      "seconds": 2.119,
+      "godot_rss_kib": 274912,
+      "worker_rss_kib": 62288
+    },
+    {
+      "seconds": 3.171,
+      "godot_rss_kib": 276864,
+      "worker_rss_kib": 140416
+    },
+    {
+      "seconds": 4.239,
+      "godot_rss_kib": 277088,
+      "worker_rss_kib": 140416
+    },
+    {
+      "seconds": 5.304,
+      "godot_rss_kib": 276800,
+      "worker_rss_kib": 140448
+    },
+    {
+      "seconds": 6.372,
+      "godot_rss_kib": 276800,
+      "worker_rss_kib": 140416
+    },
+    {
+      "seconds": 7.449,
+      "godot_rss_kib": 277616,
+      "worker_rss_kib": 140128
+    },
+    {
+      "seconds": 8.516,
+      "godot_rss_kib": 277632,
+      "worker_rss_kib": 140352
+    },
+    {
+      "seconds": 9.582,
+      "godot_rss_kib": 277648,
+      "worker_rss_kib": 140384
+    },
+    {
+      "seconds": 10.648,
+      "godot_rss_kib": 277712,
+      "worker_rss_kib": 140384
+    },
+    {
+      "seconds": 11.716,
+      "godot_rss_kib": 277728,
+      "worker_rss_kib": 135104
+    },
+    {
+      "seconds": 12.761,
+      "godot_rss_kib": 277648,
+      "worker_rss_kib": 140304
+    },
+    {
+      "seconds": 13.826,
+      "godot_rss_kib": 277648,
+      "worker_rss_kib": 140336
+    },
+    {
+      "seconds": 14.891,
+      "godot_rss_kib": 277648,
+      "worker_rss_kib": 140352
+    },
+    {
+      "seconds": 15.951,
+      "godot_rss_kib": 277664,
+      "worker_rss_kib": 140336
+    },
+    {
+      "seconds": 17.025,
+      "godot_rss_kib": 278368,
+      "worker_rss_kib": 140000
+    },
+    {
+      "seconds": 18.09,
+      "godot_rss_kib": 278384,
+      "worker_rss_kib": 140208
+    },
+    {
+      "seconds": 19.158,
+      "godot_rss_kib": 278384,
+      "worker_rss_kib": 140352
+    },
+    {
+      "seconds": 20.227,
+      "godot_rss_kib": 278400,
+      "worker_rss_kib": 140368
+    }
+  ],
+  "rss_scope": "Process resident memory; excludes separate GPU accounting and does not prove leak-free operation.",
+  "user_visual_confirmation": "Not collected for this run.",
+  "sdk_consumer_completion_verified": false,
+  "production_ready": false,
+  "configuration": {
+    "engine": "Godot 4.8 c61fc0118 native Metal Forward+",
+    "hardware": "Apple M4",
+    "quilt": [
+      4092,
+      4092
+    ],
+    "real_views": 24,
+    "total_views": 66,
+    "uses_demo_code": true
+  },
+  "verification_scope": "Four fresh rigs; weak-reference release, quilt RID invalidation, worker PID exit and SDK teardown."
+}

@@ -1,0 +1,62 @@
+{
+  "date": "2026-10-12",
+  "test": "tests/test_metal_demo_close.gd",
+  "exit_code": 0,
+  "timed_out": false,
+  "passed": true,
+  "protocol": [
+    "CLOSE submitted=68 received=68 cleanup=true valid=true",
+    "PASS demo active close notification"
+  ],
+  "rss_samples": [
+    {
+      "seconds": 0.001,
+      "godot_rss_kib": 240
+    },
+    {
+      "seconds": 1.045,
+      "godot_rss_kib": 213040
+    },
+    {
+      "seconds": 2.119,
+      "godot_rss_kib": 274112,
+      "worker_rss_kib": 86048
+    },
+    {
+      "seconds": 3.161,
+      "godot_rss_kib": 276000,
+      "worker_rss_kib": 140224
+    },
+    {
+      "seconds": 4.226,
+      "godot_rss_kib": 276240,
+      "worker_rss_kib": 140384
+    },
+    {
+      "seconds": 5.296,
+      "godot_rss_kib": 276416,
+      "worker_rss_kib": 140416
+    },
+    {
+      "seconds": 6.365,
+      "godot_rss_kib": 276416,
+      "worker_rss_kib": 140400
+    }
+  ],
+  "rss_scope": "Process resident memory; excludes separate GPU accounting and does not prove leak-free operation.",
+  "user_visual_confirmation": "Not collected for this run.",
+  "sdk_consumer_completion_verified": false,
+  "production_ready": false,
+  "configuration": {
+    "engine": "Godot 4.8 c61fc0118 native Metal Forward+",
+    "hardware": "Apple M4",
+    "quilt": [
+      4092,
+      4092
+    ],
+    "real_views": 24,
+    "total_views": 66,
+    "uses_demo_code": true
+  },
+  "verification_scope": "Programmatic WM_CLOSE_REQUEST notification to the demo handler during active streaming; not an OS-level button click."
+}
