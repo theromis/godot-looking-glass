@@ -3,7 +3,7 @@ extends Node
 const Rig=preload("res://addons/looking_glass/rig.gd")
 const DirectOutput=preload("res://addons/looking_glass/direct_metal_output.gd")
 const Output=preload("res://addons/looking_glass/metal_output.gd")
-var output_mode: String="worker"
+var output_mode: String="direct"
 var output: Node
 var rig: Node3D
 var source_camera: Camera3D
